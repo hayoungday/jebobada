@@ -15,7 +15,8 @@ jwt = JWTManager(app)
 
 #전역선언X 요청이 올때마다 새로 선언
 #커넥션을 계속해서 refresh 해주는 방식으로 변경
-conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+# conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+conn =pymongo.MongoClient('218.146.20.51',27017)
 db = conn.jb_db
 collection = db.user
 
@@ -128,4 +129,7 @@ def oauth():
     
 
 
-app.run(debug=True)
+# app.run(debug=True)
+
+if __name__=='__main__':
+ app.run(host='0.0.0.0', port=80, debug=True)
