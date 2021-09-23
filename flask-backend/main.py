@@ -2,6 +2,8 @@ from weakref import ProxyTypes
 from flask import Flask, render_template,request, redirect, jsonify, make_response
 import pymongo
 import requests
+# import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 
 app = Flask("__main__")
@@ -11,42 +13,52 @@ app.config['JWT_COOKIE_SECURE']=False
 app.config['JWT_COOKIE_CSRF_PROTECT']=True
 app.config['JWT_ACCESS_TOKEN_EXPIRES']=30
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
+app.config['BCRYPT_LEVEL']=10
+
 jwt = JWTManager(app)
+# Bcrypt = bcrypt(app)
 
 #전역선언X 요청이 올때마다 새로 선언
 #커넥션을 계속해서 refresh 해주는 방식으로 변경
-# conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-conn =pymongo.MongoClient('218.146.20.51',27017)
-db = conn.jb_db
-collection = db.user
 
-collection2 = db.kakao
 
+
+# @app.before_request
+# def before_request():
+#     conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    # conn =pymongo.MongoClient('218.146.20.51',27017)
+    
+
+# @app.teardown_request
+# def teardown_request():
+#     conn.close()
 
 @app.route("/")
 def my_index():
     return render_template("index.html",tocken="Hello Flask+React")
 
 @app.route("/signup",methods=['GET','POST'])
-def signup(): 
-    db = conn.get_database('jb_db')
-    collection = db.get_collection('user')
-    
+def signup():
+    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
+    conn =pymongo.MongoClient('218.146.20.51',27017)
+
+    db = conn.jb_db
+    collection = db.user
+
     if request.method == 'GET':
         return render_template("index.html")
     else:
         data=request.get_json()
-        username = data['user_name']
         userid = data['user_id']
-        password = data['user_pwd']
+        password = generate_password_hash(data['user_pwd'])
         # re_password = data['user_pwd2']
 
         print(data)
 
-        userinfo={'user_id':userid, 'user_name':username, 'user_pwd':password}
+        userinfo={'social':'false', 'user_nickname':userid, 'user_pwd':password}
         
         # if not (userid and username and password and re_password):    
-        if not (userid and username and password):
+        if not (userid and password):
             return jsonify({'result':'input_all'})
         # elif password != re_password:
         #     return jsonify({'result':'check_pwd'})
@@ -64,6 +76,11 @@ def check_id():
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
+    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    conn =pymongo.MongoClient('218.146.20.51',27017)
+
+    db = conn.jb_db
+    collection = db.user
     # code = request.args.get('code')
     param = request.get_json()
     print(param)
@@ -111,8 +128,8 @@ def oauth():
                 nickname = res2['properties']['nickname']
                 print(id)
                 print(nickname)
-                userinfo={'user_id':id, 'user_nickname':nickname}
-                collection2.insert_one(userinfo)
+                userinfo={'social':'kakao','user_id':id, 'user_nickname':nickname}
+                collection.insert_one(userinfo)
 
                 resp = make_response(render_template("index.html"))
                 access_tk = create_access_token(identity=id)
@@ -126,10 +143,15 @@ def oauth():
     else:
         return render_template("index.html")
     
-    
+@app.route('/remove')
+def token_remove():
+    resp=jsonify({'result':True})
+    unset_jwt_cookies(resp)
+    resp.delete_cookie('logined')
+    return resp
 
 
-# app.run(debug=True)
+app.run(debug=True)
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=80, debug=True)
