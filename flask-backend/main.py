@@ -39,8 +39,8 @@ def my_index():
 
 @app.route("/signup",methods=['GET','POST'])
 def signup():
-    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
+    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
+    conn =pymongo.MongoClient('218.146.20.51',27017)
 
     db = conn.jb_db
     collection = db.user
@@ -76,8 +76,8 @@ def check_id():
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
-    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
+    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    conn =pymongo.MongoClient('218.146.20.51',27017)
 
     db = conn.jb_db
     collection = db.user
@@ -152,8 +152,8 @@ def token_remove():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
+    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    conn =pymongo.MongoClient('218.146.20.51',27017)
 
     db = conn.jb_db
     collection = db.user
