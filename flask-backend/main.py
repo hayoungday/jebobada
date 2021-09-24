@@ -39,8 +39,8 @@ def my_index():
 
 @app.route("/signup",methods=['GET','POST'])
 def signup():
-    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
-    conn =pymongo.MongoClient('218.146.20.51',27017)
+    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
+    # conn =pymongo.MongoClient('218.146.20.51',27017)
 
     db = conn.jb_db
     collection = db.user
@@ -55,7 +55,7 @@ def signup():
 
         print(data)
 
-        userinfo={'social':'false', 'user_nickname':userid, 'user_pwd':password}
+        userinfo={'social':'local', 'user_nickname':userid, 'user_pwd':password}
         
         # if not (userid and username and password and re_password):    
         if not (userid and password):
@@ -76,8 +76,8 @@ def check_id():
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
-    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    conn =pymongo.MongoClient('218.146.20.51',27017)
+    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    # conn =pymongo.MongoClient('218.146.20.51',27017)
 
     db = conn.jb_db
     collection = db.user
@@ -150,8 +150,33 @@ def token_remove():
     resp.delete_cookie('logined')
     return resp
 
+@app.route('/login',methods=['GET','POST'])
+def login():
+    conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
+    # conn =pymongo.MongoClient('218.146.20.51',27017)
 
-# app.run(debug=True)
+    db = conn.jb_db
+    collection = db.user
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+    data = request.get_json()
+    if(data):
+        user_id = data['user_id']
+        user_pwd =  generate_password_hash(data['user_pwd'])
+
+        user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
+                
+        if user is None:
+            return jsonify({'login':False})
+        else:
+            resp = make_response(render_template("index.html"))
+            access_tk = create_access_token(identity=user_id)
+            refresh_tk = create_refresh_token(identity=user_id)
+            resp.set_cookie("logined", "true")
+            set_access_cookies(resp,access_tk)
+            set_refresh_cookies(resp,refresh_tk)
+            return resp   
+
+app.run(debug=True)
+
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=80, debug=True)

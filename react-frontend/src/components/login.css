@@ -1,0 +1,74 @@
+#content { padding-top: 130px; }
+@media (min-width: 100px) and (max-width: 1024px) { #content { padding-top: 50px; } }
+
+.content-primary { position: relative; padding: 45px 30px 90px 30px; margin: 0 auto 60px; width: 1140px; background-color: #fff; *zoom: 1; }
+.content-primary:after { content: ""; display: block; clear: both; }
+@media (min-width: 100px) and (max-width: 1024px) { .content-primary { margin-bottom: 0; padding: 14px 10px 45px; width: auto; } }
+
+.content-top { position: relative; margin-bottom: 45px; *zoom: 1; }
+.content-top:after { content: ""; display: block; clear: both; }
+.content-top .crumb { position: absolute; top: 18px; right: 0; }
+.content-top h2 { float: left; font-size: 30px; line-height: 40px; }
+.content-top .summary { float: left; padding-top: 18px; padding-left: 18px; color: #666; font-size: 14px; line-height: 1.5em; }
+@media (min-width: 100px) and (max-width: 1024px) { .content-top { margin-bottom: 15px; }
+  .content-top .crumb { position: static; padding-left: 12px; }
+  .content-top h2 { padding-left: 12px; font-size: 20px; line-height: 1.5em; }
+  .content-top .summary { display: none; } }
+
+.login-box .greeting { margin-bottom: 10px; text-align: center; }
+.login-box .greeting .wrap { display: inline-block; padding: 36px 0 36px 160px; font-size: 18px; line-height: 1.5em; background: rgb(255, 196, 0) center no-repeat; }
+.login-box .greeting .wrap .em { font-size: 22px; }
+.login-box .login { position: relative; margin: 0 auto; padding: 40px 65px 25px; width: 600px; background-color: #eeeeee; *zoom: 1; }
+.login-box .login:after { content: ""; display: block; clear: both; }
+.login-box .login .fieldset { float: left; width: 350px; border-bottom: none; }
+.login-box .login .field { border-top: none; }
+.login-box .login .field + .field { margin-top: 20px; }
+.login-box .login .label { padding: 0; width: 85px; }
+.login-box .login .insert { padding: 0; }
+.login-box .login .id-save { float: left; padding-top: 15px; padding-left: 85px; }
+.login-box .login .btn { position: absolute; top: 40px; right: 65px; padding: 0; width: 100px; height: 82px; line-height: 82px; }
+.login-box .other { margin: 20px auto 0; width: 470px; }
+.login-box .other .row { margin-bottom: 10px; *zoom: 1; }
+.login-box .other .row:after { content: ""; display: block; clear: both; }
+.login-box .other .row .btn { padding: 0; float: right; width: 160px; }
+@media (min-width: 100px) and (max-width: 1024px) { .login-box .greeting { border-top: 1px #02223e solid; }
+.login-box .greeting .wrap { padding: 20px 0; font-size: 16px; background: none; }
+.login-box .greeting .wrap .em { font-size: inherit; }
+.login-box .login { padding: 20px 30px; width: auto; }
+.login-box .login .fieldset { float: none; width: auto; }
+.login-box .login .field { margin-top: 0; }
+.login-box .login .field + .field { margin-top: 12px; }
+.login-box .login .field .label { display: none; }
+.login-box .login .id-save { float: none; padding-top: 12px; padding-left: 0; }
+.login-box .login .btn { position: static; display: block; margin: 20px auto 0; width: 90px; height: 30px; line-height: 29px; }
+.login-box .other { margin-top: 25px; width: auto; }
+.login-box .other .row { text-align: center; }
+.login-box .other .row .btn { float: none; color: #ffc803; text-decoration: underline; border: none; } }
+
+.fieldset { border-bottom: 1px #eeeeee solid; }
+.fieldset .field { border-top: 1px #e2e2e2 solid; background-color: #eeeeee; *zoom: 1; }
+.fieldset .field:after { content: ""; display: block; clear: both; }
+.fieldset .field .label { float: left; display: block;  width: 100px; font-size: 14px; font-weight: bold; color: #666; }
+.fieldset .field .label label { display: inline-block; padding-top: 5px; }
+.fieldset .field .insert { float: none; display: block;  font-size: 0.92857rem; background-color: #fff; overflow: hidden; color: #666; }
+.fieldset .field .insert input[type="text"], .fieldset .field .insert input[type="password"] { width: 100%; font-size: 1rem; }
+.fieldset .field .insert textarea { padding: 10px 15px; width: 100%; height: 100px; border: 1px #e2e2e2 solid; resize: none; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+.fieldset .field .insert .row + .row { margin-top: 5px; }
+.fieldset .field .insert .row .comment { margin: 0; }
+@media (min-width: 100px) and (max-width: 1024px) { .fieldset { border-bottom: none; }
+.fieldset .field { margin-top: 18px; border-top: none; background-color: transparent; }
+.fieldset .field .label { float: none; padding: 0; color: #333; font-size: 15px; line-height: 1.5em; }
+.fieldset .field .label label { padding-top: 0; }
+.fieldset .field .insert { padding: 5px 0 0; } }
+
+.select-wrap { padding-left: 2px; *zoom: 1; }
+.select-wrap:after { content: ""; display: block; clear: both; }
+.select-wrap span.asset { display: inline-block; }
+.ie7 .select-wrap span.asset { display: inline; }
+.select-wrap div.asset { float: left; }
+.select-wrap .asset { height: 22px; line-height: 22px; }
+.select-wrap .asset + .asset { margin-left: 20px; }
+.select-wrap .asset label { vertical-align: middle; line-height: 18px; }
+
+.btn.slightly { color: #595f6a; border: 1px solid #595f6a; background-color: #fff; }
+.btn.weighty { color: #ffffff; border: none; background-color: #000; }
