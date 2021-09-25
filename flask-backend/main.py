@@ -41,8 +41,7 @@ def my_index():
 def signup():
     # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
     # conn =pymongo.MongoClient('218.146.20.51',27017)
-    conn =pymongo.MongoClient('218.146.20.51:27017',username='AdminGoldory',password='king3680!')
-
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
     db = conn.jb_db
     collection = db.user
 
@@ -60,27 +59,32 @@ def signup():
         
         # if not (userid and username and password and re_password):    
         if not (userid and password):
+            print("input all")
             return jsonify({'result':'input_all'})
         # elif password != re_password:
         #     return jsonify({'result':'check_pwd'})
         else:
-            collection.insert_one(userinfo)
+            print("db insert")
+            try:
+                collection.insert_one(userinfo)
+            except Exception as e:
+                print(e)
+            
             return jsonify({'result':'success','msg':'register'})
         
 
-@app.route("/signup/check",methods=['GET'])
-def check_id():
-    userid = request.form.get('userid')
-    checking = db.user.find_one({'userid':userid})
-    if checking is not None:
-        return jsonify({'result':'fail','msg':'already existed'})
+# @app.route("/signup/check",methods=['GET'])
+# def check_id():
+#     userid = request.form.get('userid')
+#     checking = db.user.find_one({'userid':userid})
+#     if checking is not None:
+#         return jsonify({'result':'fail','msg':'already existed'})
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
     # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
     # conn =pymongo.MongoClient('218.146.20.51',27017)
-    conn =pymongo.MongoClient('218.146.20.51:27017',username='AdminGoldory',password='king3680!')
-
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
 
     db = conn.jb_db
     collection = db.user
@@ -156,8 +160,7 @@ def token_remove():
 @app.route('/login',methods=['GET','POST'])
 def login():
     # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    conn =pymongo.MongoClient('218.146.20.51:27017',username='AdminGoldory',password='king3680!')
-
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
     db = conn.jb_db
     collection = db.user
 
