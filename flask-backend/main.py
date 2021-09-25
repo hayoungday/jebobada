@@ -39,9 +39,11 @@ def my_index():
 
 @app.route("/signup",methods=['GET','POST'])
 def signup():
-    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ 
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017') #환경변수 ㄱ 
     # conn =pymongo.MongoClient('218.146.20.51',27017)
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    
+    
     db = conn.jb_db
     collection = db.user
 
@@ -82,9 +84,8 @@ def signup():
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
-    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017')    # conn =pymongo.MongoClient('218.146.20.51',27017)
+    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
 
     db = conn.jb_db
     collection = db.user
@@ -159,8 +160,8 @@ def token_remove():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    # conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017')
+    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
     db = conn.jb_db
     collection = db.user
 
@@ -182,7 +183,7 @@ def login():
             set_refresh_cookies(resp,refresh_tk)
             return resp   
 
-# app.run(debug=True)
+app.run(debug=True)
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=80, debug=True)
