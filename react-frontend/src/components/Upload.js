@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Header from './Header';
+import axios from 'axios';
 
 
 class Upload extends Component { 
+
     state = { 
         boards: [ 
             { 
@@ -19,7 +21,23 @@ class Upload extends Component {
             } 
         ] 
     } 
-    
+
+    loadItem = async() => {
+        axios.get("/getuser")
+        .then(res => {
+            console.log(res)
+            console.log(res.data)
+            // console.log(res.data[0])
+            console.log(res.data[0].filename)
+            console.log(typeof res.data)
+            // console.log(res[1].filename)
+        })
+    }
+
+    componentDidMount(){
+        this.loadItem();
+    }
+
     render() { 
         const { boards } = this.state; 
         const list = boards.map(function(row){ 
@@ -30,7 +48,7 @@ class Upload extends Component {
             <div>
                 <Header/>
                 <h1>This is Upload page</h1>
-                <form action = "/Upload" method = "POST" enctype = "multipart/form-data">
+                <form action = "/upload" method = "POST" enctype = "multipart/form-data">
                     <input type = "file" name = "file" />
                     {/* <label className="input-file-button" for="input-file">
                         파일 업로드

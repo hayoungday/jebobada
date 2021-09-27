@@ -3,7 +3,8 @@ import Header from './Header';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
-function Signup () {
+
+const Signup = ({history}) => {
     const [userid, setId] = useState("")
     const [userpassword, setPassword] = useState("")
     const [userpassword2, setPassword2] = useState("")
@@ -35,6 +36,7 @@ function Signup () {
 
             if (res.data.result == 'success'){
                 alert('회원가입 완료');
+                history.push('/login')
             } else {
                 alert("회원가입 실패");
 

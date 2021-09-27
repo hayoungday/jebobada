@@ -16,18 +16,19 @@ function LoginButton() {
   
   function LogoutButton() {
 
-    axios.get("/remove")
-    .then(res => {
-        console.log(res)
-    })
+    // axios.get("/logout")
+    // .then(res => {
+    //     console.log(res)
+    // })
 
     return (
-        <Link class="nav-link" to="/">Logout</Link>
+        <Link class="nav-link" to="/logout">Logout</Link>
     );
   }
 
 const Header = () => {
     let button;
+    // cookies.get('logined')
     if (cookies.get('logined')){
         button = <LogoutButton/>
     }else{

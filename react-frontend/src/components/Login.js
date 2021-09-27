@@ -9,7 +9,8 @@ import axios from 'axios';
 import { Cookies } from "react-cookie"
 
 
-const LoginForm = ({history}) => {
+
+const Login = ({history}) => {
 
     const cookies = new Cookies()
 
@@ -38,6 +39,7 @@ const LoginForm = ({history}) => {
         .post("/login",body)
         .then(res =>{
             if (cookies.get('logined')){
+                alert("hi")
                 history.push('/')
             } else {
                 alert("아이디 및 비밀번호를 다시 확인해주세요")
@@ -116,4 +118,4 @@ const KaKaoBtn = styled(KaKaoLogin)`
   }
 `;
 
-export default LoginForm;
+export default Login;

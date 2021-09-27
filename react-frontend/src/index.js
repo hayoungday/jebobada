@@ -12,6 +12,7 @@ import Faq from './components/Faq';
 import Login from './components/Login';
 import Signup from './components/signup';
 import Oauth from './components/oauth';
+import Logout from './components/Logout'
 
 ReactDOM.render(
     // <App />,
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/oauth" component={Oauth}/>
+        <Route path="/logout" component={Logout}/>
       </Route>
      </Router>, 
   document.getElementById('root')

@@ -8,10 +8,16 @@ from datetime import datetime
 import hashlib
 # import bcrypt
 import config
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
+from bson import json_util
+from mongoengine_jsonencoder import MongoEngineJSONEncoder
 
 app = Flask("__main__")
+
+json_encoder = MongoEngineJSONEncoder()
+
 app.config['JWT_SECRET_KEY']=config.secret_key
 app.config['JWT_TOKEN_LOCATION']=['cookies']
 app.config['JWT_COOKIE_SECURE']=False
@@ -20,7 +26,21 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES']=30
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
 app.config['BCRYPT_LEVEL']=10
 
+
 jwt = JWTManager(app)
+
+filename=''
+hashed_filename=''
+cur_user = ''
+
+# class JSONEncoder(json.JSONEncoder):
+#     def default(self, o):
+#         if isinstance(o, ObjectId):
+#             return str(o)
+#         return json.JSONEncoder.default(self, o)
+
+
+
 # Bcrypt = bcrypt(app)
 
 #전역선언X 요청이 올때마다 새로 선언
@@ -150,7 +170,7 @@ def oauth():
     else:
         return render_template("index.html")
     
-@app.route('/remove')
+@app.route('/logout')
 def token_remove():
     resp=jsonify({'result':True})
     unset_jwt_cookies(resp)
@@ -182,7 +202,67 @@ def login():
             set_refresh_cookies(resp,refresh_tk)
             return resp   
 
+@app.route('/getuser',methods=['GET','POST'])
+@jwt_required()
+def getuser():
+    conn =pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    global cur_user
+    cur_user = get_jwt_identity()
+    print(type(cur_user))
+    print(cur_user)
+    # {'user_nickname':cur_user}
+    user = list(collection.find({'user_id':cur_user}))
+    # json_encoder.encode(user)
+    # list = []
+    # for u in user:
+    #     list.append(u)
+    # user['_id'] =str(user['_id'])
+
+    return json.dumps(user,default=json_util.default)
+
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file'] 
+        current_time = str(datetime.now())
+        name=f.filename
+        hashed_name=hashlib.sha256((current_time+name).encode('utf-8')).hexdigest()
+        global filename
+        filename=name
+        global hashed_filename
+        hashed_filename=hashed_name
+        s3=boto3.client(
+            's3',
+            aws_access_key_id="AKIA3EDWU7TFZ5GQEEC5", #--> 승구's aws
+            aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
+        )
+        s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+        url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+        #--> 접근 가능한 s3에 올라가는 파일 경로
+        clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+        #--> s3 파일을 읽어 API로 넘겨주는 과정
+        return render_template("index.html")
+    
+
+@app.route('/Receive',methods=['POST'])
+def receive():
+    conn =pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data=request.get_json()
+    insert_data={}
+    insert_data['filename']=filename
+    insert_data['hashed_filename']=hashed_filename
+    insert_data['segments']=data['segments']
+    insert_data['text']=data['text']
+    insert_data['user_id']=cur_user
+    collection.insert_one(insert_data)
+    return 'ok'
+
+
 # app.run(debug=True)
 
 if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+ app.run(host='0.0.0.0', port=5000, debug=True)
