@@ -1,6 +1,7 @@
 import pymongo
+import config
 
-conn =pymongo.MongoClient('127.0.0.1',27017)
+conn =pymongo.MongoClient(config.mongodb)
 db = conn.stt
 test = db.test
 

@@ -7,15 +7,12 @@ import clovaspeechAPI
 from datetime import datetime
 import hashlib
 # import bcrypt
+import config
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 
 app = Flask("__main__")
-
-filename=''
-hashed_filename=''
-
-app.config['JWT_SECRET_KEY']="BLABLA"
+app.config['JWT_SECRET_KEY']=config.secret_key
 app.config['JWT_TOKEN_LOCATION']=['cookies']
 app.config['JWT_COOKIE_SECURE']=False
 app.config['JWT_COOKIE_CSRF_PROTECT']=True
@@ -47,12 +44,7 @@ def my_index():
 
 @app.route("/signup",methods=['GET','POST'])
 def signup():
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017')
-    #환경변수 ㄱ
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
-    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
-    
-    
+    conn =pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
     collection = db.user
 
@@ -93,9 +85,7 @@ def signup():
 
 @app.route("/oauth",methods=['GET','POST'])
 def oauth():
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017')    # conn =pymongo.MongoClient('218.146.20.51',27017)
-    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
-
+    conn =pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
     collection = db.user
     # code = request.args.get('code')
@@ -169,7 +159,7 @@ def token_remove():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@127.0.0.1:27017')
+    conn =pymongo.MongoClient(config.mongodb)
     # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
     db = conn.jb_db
     collection = db.user
@@ -192,7 +182,7 @@ def login():
             set_refresh_cookies(resp,refresh_tk)
             return resp   
 
-# app.run(debug=True)
+app.run(debug=True)
 
 @app.route('/Upload', methods = ['GET', 'POST'])
 def upload_file():
@@ -220,7 +210,7 @@ def upload_file():
 
 @app.route('/Receive',methods=['POST'])
 def receive():
-    conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    conn =pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
     collection = db.stt
     data=request.get_json()
@@ -232,6 +222,7 @@ def receive():
     insert_data['user_id']="user_id"
     collection.insert_one(insert_data)
     return 'ok'
+
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=80, debug=True)
