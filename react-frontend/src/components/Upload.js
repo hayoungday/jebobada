@@ -6,9 +6,15 @@ const Upload = () => {
     return(
         <div>
             <Header/>
-            <h1>증거 업로드 페이지</h1>
+            <h1>This is Upload page</h1>
+            <form action = "http://localhost:80/Upload" method = "POST" enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+                {/* <label className="input-file-button" for="input-file">
+                    파일 업로드
+                </label> */}
+                <input type = "submit" />
+            </form>
         </div>
     )
 }
-
 export default Upload;
