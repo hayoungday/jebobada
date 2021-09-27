@@ -182,8 +182,6 @@ def login():
             set_refresh_cookies(resp,refresh_tk)
             return resp   
 
-app.run(debug=True)
-
 @app.route('/Upload', methods = ['GET', 'POST'])
 def upload_file():
     
