@@ -30,7 +30,7 @@ class Upload extends Component {
             <div>
                 <Header/>
                 <h1>This is Upload page</h1>
-                <form action = "http://localhost:80/Upload" method = "POST" enctype = "multipart/form-data">
+                <form action = "/upload" method = "POST" enctype = "multipart/form-data">
                     <input type = "file" name = "file" />
                     {/* <label className="input-file-button" for="input-file">
                         파일 업로드
