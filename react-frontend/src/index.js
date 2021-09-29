@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Signup from './components/signup';
 import Oauth from './components/oauth';
 import Logout from './components/Logout'
+import PostView from './components/PostView'
 
 ReactDOM.render(
     // <App />,
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route path="/signup" component={Signup}/>
         <Route path="/oauth" component={Oauth}/>
         <Route path="/logout" component={Logout}/>
+        <Route path="/PostView/:no" component={PostView}/>
       </Route>
      </Router>, 
   document.getElementById('root')

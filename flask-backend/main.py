@@ -13,6 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 from mongoengine_jsonencoder import MongoEngineJSONEncoder
+import time, os
 
 app = Flask("__main__")
 
@@ -22,7 +23,7 @@ app.config['JWT_SECRET_KEY']=config.secret_key
 app.config['JWT_TOKEN_LOCATION']=['cookies']
 app.config['JWT_COOKIE_SECURE']=False
 app.config['JWT_COOKIE_CSRF_PROTECT']=True
-app.config['JWT_ACCESS_TOKEN_EXPIRES']=30
+app.config['JWT_ACCESS_TOKEN_EXPIRES']=30000
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
 app.config['BCRYPT_LEVEL']=10
 
@@ -212,19 +213,21 @@ def getuser():
     cur_user = get_jwt_identity()
     print(type(cur_user))
     print(cur_user)
-    # {'user_nickname':cur_user}
     user = list(collection.find({'user_id':cur_user}))
-    # json_encoder.encode(user)
-    # list = []
-    # for u in user:
-    #     list.append(u)
-    # user['_id'] =str(user['_id'])
-
     return json.dumps(user,default=json_util.default)
 
 @app.route('/upload', methods = ['GET', 'POST'])
-def upload():
+def uploads():
+    import time
     if request.method == 'POST':
+        #<------ 업로드한 파일 row 생성 과정 ------>#
+        conn =pymongo.MongoClient(config.mongodb)
+        db = conn.jb_db
+        now=time.localtime()
+        collection = db.stt
+        audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
+        image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
+        
         f = request.files['file'] 
         current_time = str(datetime.now())
         name=f.filename
@@ -233,16 +236,34 @@ def upload():
         filename=name
         global hashed_filename
         hashed_filename=hashed_name
+        insert_data={}
+        fileName,fileExt=os.path.splitext(filename)
+        if(fileExt in audio):
+            insert_data['filetype']='녹음 파일'
+        insert_data['filename']=filename
+        insert_data['state']='변환중'
+        insert_data['hashed_filename']=hashed_filename
+        insert_data['segments']=''
+        insert_data['text']=''
+        insert_data['user_id']=cur_user
+        insert_data['index']=collection.find({'user_id':cur_user}).count()+1
+        time="%04d %02d %02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        insert_data['uploaded_time']=str(time)
+        collection.insert_one(insert_data)
+        
         s3=boto3.client(
             's3',
             aws_access_key_id="AKIA3EDWU7TFZ5GQEEC5", #--> 승구's aws
             aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
         )
         s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+        #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
         url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
         #--> 접근 가능한 s3에 올라가는 파일 경로
         clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
         #--> s3 파일을 읽어 API로 넘겨주는 과정
+        return render_template("index.html")
+    else:
         return render_template("index.html")
     
 
@@ -250,16 +271,14 @@ def upload():
 def receive():
     conn =pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
-    collection = db.stt
-    data=request.get_json()
-    insert_data={}
-    insert_data['filename']=filename
-    insert_data['hashed_filename']=hashed_filename
-    insert_data['segments']=data['segments']
-    insert_data['text']=data['text']
-    insert_data['user_id']=cur_user
-    collection.insert_one(insert_data)
-    return 'ok'
+    collection = db.stt    
+    data=request.get_json()    
+    o_query={'user_id':cur_user,'hashed_filename':hashed_filename}  
+    collection.update(o_query,{"$set":{'segments':data['segments']}})
+    collection.update(o_query,{"$set":{'text':data['text']}})
+    collection.update(o_query,{"$set":{'state':"변환완료"}})
+    #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
+    return render_template("index.html")
 
 
 # app.run(debug=True)
