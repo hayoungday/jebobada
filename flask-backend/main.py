@@ -12,12 +12,9 @@ import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
-from mongoengine_jsonencoder import MongoEngineJSONEncoder
 import time, os
 
 app = Flask("__main__")
-
-json_encoder = MongoEngineJSONEncoder()
 
 app.config['JWT_SECRET_KEY']=config.secret_key
 app.config['JWT_TOKEN_LOCATION']=['cookies']
@@ -240,6 +237,8 @@ def uploads():
         fileName,fileExt=os.path.splitext(filename)
         if(fileExt in audio):
             insert_data['filetype']='녹음 파일'
+        elif fileExt in image:
+            insert_data['filetype']='사진 파일'
         insert_data['filename']=filename
         insert_data['state']='변환중'
         insert_data['hashed_filename']=hashed_filename
@@ -269,19 +268,36 @@ def uploads():
 
 @app.route('/Receive',methods=['POST'])
 def receive():
-    conn =pymongo.MongoClient(config.mongodb)
+    import time
+    conn =pymongo.MongoClient(config.mongodb)    
     db = conn.jb_db
     collection = db.stt    
-    data=request.get_json()    
-    o_query={'user_id':cur_user,'hashed_filename':hashed_filename}  
-    collection.update(o_query,{"$set":{'segments':data['segments']}})
+    data=request.get_json()
+    o_segments=data['segments']    
+    o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
+    segments=[]
+    tmp={}
+    tmp['speaker']=o_segments[0]['speaker']['name']
+    tmp['stt']=o_segments[0]['text']
+    segments.append(tmp)
+    t=0
+    for i in range(len(o_segments)-1):
+        if(o_segments[i]['speaker']['name']==o_segments[i+1]['speaker']['name']):
+            segments[t]['stt']+=o_segments[i+1]['text']        
+        else:
+            t=t+1
+            speaker_data={}
+            speaker_data['speaker']=o_segments[i+1]['speaker']['name']
+            speaker_data['stt']=o_segments[i+1]['text']
+            segments.append(speaker_data)    
+    collection.update(o_query,{"$set":{'segments':segments}})
     collection.update(o_query,{"$set":{'text':data['text']}})
     collection.update(o_query,{"$set":{'state':"변환완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
     return render_template("index.html")
 
+if __name__=='__main__':
+ app.run(host='0.0.0.0', port=5000, debug=True)
 
 # app.run(debug=True)
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=5000, debug=True)

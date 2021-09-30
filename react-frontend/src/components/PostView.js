@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ViewFile from './ViewFile';
 class PostView extends Component {
     state={
-        data:""
+        data:"",
     }
     componentDidMount(){
         this.timer = setInterval(this.progress,20)
@@ -28,12 +28,11 @@ class PostView extends Component {
         
         return (
             <div>
-                <Header/>
-                
-                {/*<h1>{params.no}</h1>*/}
+                <Header/>                                
                 {this.state.data?this.state.data.map((c,i)=>{
                     if(c.index==params.no){
-                        return(<ViewFile text={c.text} name={c.filename}/>)
+                        console.log(c.segments)                                                                                           
+                        return(<ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename}/>)
                     }
                     return null;
                 }):

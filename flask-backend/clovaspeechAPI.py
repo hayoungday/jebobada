@@ -11,8 +11,8 @@ class ClovaSpeechClient:
             'url': url,
             'language': 'ko-KR',
             'completion': completion,
-            # 'callback': 'http://14.138.175.117:5500/Receive',
-            'callback': 'http://218.146.20.51:20080/Receive',
+            
+            'callback': 'http://14.138.175.117:5500/Receive',
             #--> 서버 주소 넣어야 함
             'userdata': userdata,
             'wordAlignment': wordAlignment,
@@ -26,6 +26,7 @@ class ClovaSpeechClient:
             'Content-Type': 'application/json;UTF-8',
             'X-CLOVASPEECH-API-KEY': self.secret
         }
-        return requests.post(headers=headers,
+        requests.post(headers=headers,
                              url=self.invoke_url + '/recognizer/url',
                              data=json.dumps(request_body).encode('UTF-8'))
+        return 'ok'
