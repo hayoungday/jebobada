@@ -12,7 +12,7 @@ class ClovaSpeechClient:
             'language': 'ko-KR',
             'completion': completion,
             
-            'callback': 'http://14.138.175.117:5500/Receive',
+            'callback': 'http://14.138.175.117:5000/Receive',
             #--> 서버 주소 넣어야 함
             'userdata': userdata,
             'wordAlignment': wordAlignment,

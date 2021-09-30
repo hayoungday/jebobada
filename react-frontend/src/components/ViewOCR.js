@@ -6,7 +6,7 @@ class ViewOCR extends Component {
         return (
             <div>
                 <br></br>
-                <img src={url} />
+                <img class='image_contents_design' src={url} />
             </div>
         );
     }

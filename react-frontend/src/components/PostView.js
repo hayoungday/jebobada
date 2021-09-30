@@ -4,6 +4,8 @@ import axios from "axios";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ViewFile from './ViewFile';
 import ViewOCR from './ViewOCR'
+import Meta from './Meta';
+import './PostView.css';
 class PostView extends Component {
     state={
         data:"",
@@ -29,7 +31,12 @@ class PostView extends Component {
         
         return (
             <div>
-                <Header/>                                
+                <Header/>
+                <div class="flex-container">
+                    <div class="flex-child magenta">
+                        <Meta/>                    
+                    </div>
+                    <div class="flex-child green">                                
                 {this.state.data?this.state.data.map((c,i)=>{
                     if(c.index==params.no & c.filetype == "녹음 파일"){
                         console.log(c.segments)                                                                                           
@@ -43,6 +50,8 @@ class PostView extends Component {
                 }):
                 <h1></h1>   
             }
+            </div>
+            </div>
 
             </div>
         );

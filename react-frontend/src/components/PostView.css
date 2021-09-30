@@ -1,0 +1,27 @@
+    
+.component_design{    
+    background: white;
+    width: 95%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63); /* 그림자 */
+    margin: 100px auto;
+    height: auto;    
+}
+.audio_contents_design{
+    margin: 15px;
+}
+.image_contents_design{
+    margin-left: 100px auto;
+}
+.flex-container {
+    display: flex;
+    height: auto;
+    margin:5px,5px,5px,5px;
+}
+
+.flex-child {
+    flex: 1;    
+}  
+
+.flex-child:first-child {
+    flex: 1;
+} 
