@@ -1,15 +1,16 @@
 from weakref import ProxyTypes
+from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template,request, redirect, jsonify, make_response
 import pymongo
 import requests
 import boto3
-import clovaspeechAPI
+import clovaspeechAPI, googleOCR
 from datetime import datetime
 import hashlib
 # import bcrypt
 import config
 import json
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 import time, os
@@ -222,6 +223,12 @@ def uploads():
         db = conn.jb_db
         now=time.localtime()
         collection = db.stt
+        s3=boto3.client(
+            's3',
+            aws_access_key_id="AKIA3EDWU7TFZ5GQEEC5", #--> 승구's aws
+            aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
+        )
+
         audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         
@@ -235,12 +242,29 @@ def uploads():
         hashed_filename=hashed_name
         insert_data={}
         fileName,fileExt=os.path.splitext(filename)
+        url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+
         if(fileExt in audio):
-            insert_data['filetype']='녹음 파일'
-        elif fileExt in image:
+            insert_data['filetype']='녹음 파일'    
+            insert_data['state']='변환중'
+            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
+            url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+            #--> 접근 가능한 s3에 올라가는 파일 경로
+            clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+            #--> s3 파일을 읽어 API로 넘겨주는 과정
+
+        elif (fileExt in image):
+            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            ocr = googleOCR.googleOCR()
+            ocrJson = ocr.getOCRjson(url)
+            fullscript=ocr.getFullScriptFromJson(ocrJson)
+            print(fullscript)
+            insert_data['fullscript'] = fullscript
             insert_data['filetype']='사진 파일'
+            insert_data['state']='변환완료'
+
         insert_data['filename']=filename
-        insert_data['state']='변환중'
         insert_data['hashed_filename']=hashed_filename
         insert_data['segments']=''
         insert_data['text']=''
@@ -249,19 +273,9 @@ def uploads():
         time="%04d %02d %02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         insert_data['uploaded_time']=str(time)
         collection.insert_one(insert_data)
-        
-        s3=boto3.client(
-            's3',
-            aws_access_key_id="AKIA3EDWU7TFZ5GQEEC5", #--> 승구's aws
-            aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
-        )
-        s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
-        #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
-        url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
-        #--> 접근 가능한 s3에 올라가는 파일 경로
-        clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
-        #--> s3 파일을 읽어 API로 넘겨주는 과정
+
         return render_template("index.html")
+
     else:
         return render_template("index.html")
     

@@ -8,6 +8,7 @@ load_dotenv(verbose=True)
 mode = os.environ['MODE']
 secret_key = os.environ['JWT_SECRET_KEY']
 mongodb = os.environ['LOCAL_DB']
+google_credential = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 
 
 # if mode == "develop":
