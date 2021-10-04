@@ -1,6 +1,6 @@
 import requests
 import json
-
+import config
 
 class ClovaSpeechClient:
     invoke_url = 'https://clovaspeech-gw.ncloud.com/external/v1/1351/355543f790a3b210ecf36c82a2738896d9574c17e963a63633febac1f2386737'
@@ -12,7 +12,7 @@ class ClovaSpeechClient:
             'language': 'ko-KR',
             'completion': completion,
             
-            'callback': 'http://14.138.175.117:5000//Receive',
+            'callback': config.clova_redirect,
             #--> 서버 주소 넣어야 함
             'userdata': userdata,
             'wordAlignment': wordAlignment,

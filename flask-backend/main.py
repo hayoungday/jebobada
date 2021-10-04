@@ -279,7 +279,7 @@ def uploads():
                 ocrJson = ocr.getOCRjson(url)
                 fullscript=ocr.getFullScriptFromJson(ocrJson)
                 print(fullscript)
-                insert_data['fullscript'] = fullscript
+                insert_data['text'] = fullscript
             except:
                 pass
             insert_data['filetype']='사진 파일'
