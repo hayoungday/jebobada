@@ -39,7 +39,7 @@ class googleOCR :
     
     def setEnvVar(self) : # 테스트에서만 사용
         # 환경변수 설정 : 서비스 계정 키 파일 경로 설정
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"C:\Users\goldo\Downloads\pelagic-berm-326302-83e0cfee0c82.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"C:\Users\skyun\Downloads\pelagic-berm-326302-83e0cfee0c82.json"
 
     def getFullScriptFromJson(self, resj) : # resj = ocr 
         # json에서 전체 스크립트 가져오기

@@ -9,37 +9,24 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { InputBase } from '@material-ui/core';
+import SearchBox from './SearchBox';
 
-class Upload extends Component { 
-
-    // state = { 
-    //     boards: [ 
-    //         { 
-    //             brdno: 1, 
-    //             brdwriter: 'Lee SunSin', 
-    //             brdtitle: 'If you intend to live then you die', 
-    //             brddate: new Date() 
-    //         }, 
-    //         { 
-    //             brdno: 2, 
-    //             brdwriter: 'So SiNo', 
-    //             brdtitle: 'Founder for two countries', 
-    //             brddate: new Date() 
-    //         } 
-    //     ] 
-    // } 
+class Upload extends Component {
+    
 
     state = {
         maxNo: 1,
-        boards:"",
-        completed:0
+        boards:[],
+        completed:0,
+        userInput:""
     }
     componentDidMount(){
-        // this.loadItem();
-        this.timer = setInterval(this.progress,20)
-        this.callApi()
-        .then(res => this.setState({boards:res}))
-        .catch(err => console.log(err))
+        this.intervalId = setInterval(() => this.loadData(), 5000);
+        this.loadData();            
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     callApi = async() => {
@@ -49,44 +36,51 @@ class Upload extends Component {
         return body
     }
 
-    // loadItem = async() => {
-    //     axios.get("/getuser")
-    //     .then(res => {
-    //         console.log(res)
-    //         console.log(res.data)
-    //         // console.log(res.data[0])
-    //         console.log(res.data[0].filename)
-    //         console.log(typeof res.data)
-    //         // console.log(res[1].filename)
-    //     })
-    // }
+    loadData(){
+        this.callApi()
+        .then(res => this.setState({boards:res}))
+        .catch(err => console.log(err))
+        console.log(this.state.boards)
+    }
 
     progress = () =>{
         const { completed } = this.state;
         this.setState({completed: completed >=100 ? 0 : completed +1})
     }
 
-    render() { 
-        // const { boards } = this.state; 
-        // const list = boards.map(function(row){ 
-        //     return row.brdno + row.brdwriter ; 
-        // }); 
+    handleChange = (e) => {
+        console.log(this.state.userInput)
+                
+        this.setState({
+          userInput : e.target.value
+        })
         
+    }
+    render() {
+        const {maxNo,boards,completed,userInput}=this.state;
+        const filteredData=boards.filter((data)=>{
+            return data.text.includes(userInput);
+        })
         return ( 
             <div>
                 <Header/>
                 <br></br>
-                <h1>This is Upload page</h1>
+                <h1>증거물 업로드 페이지</h1>
                 <br></br>
                 <form action = "/upload" method = "POST" enctype = "multipart/form-data">
                     <input type = "file" name = "file" />
-                    {/* <label className="input-file-button" for="input-file">
-                        파일 업로드
-                    </label> */}
-                    <input type = "submit" />
+                    <input type = "submit"/>
                 </form>
-                
-                <Table>
+                           
+                <div>
+                    <input 
+                    className="search"
+                    type="search"
+                    placeholder="키워드"
+                    onChange={this.handleChange}
+                    />                    
+                </div>             
+                <Table> 
                     <TableHead>
                         <TableRow>
                             <TableCell>번호</TableCell>
@@ -98,43 +92,24 @@ class Upload extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { this.state.boards ? this.state.boards.map((c,i) => {
-                            return ( <Evidence key={this.state.maxNo + i} 
-                                id={this.state.maxNo + i} 
-                                name={c.filename} 
-                                user_id={c.user_id} 
+                    { filteredData ? filteredData.map((c,i) => {
+                            return ( <Evidence key={maxNo + i} 
+                                id={maxNo + i}
+                                name={c.filename}
+                                user_id={c.user_id}
                                 type={c.filetype}
                                 uploaded_time={c.uploaded_time} 
                                 idx={c.index}
                                 state={c.state}/>)
-                                
                             }):
                             <TableRow>
                                 <TableCell colSpan="6" align="center">
-                                    <CircularProgress variant = "determinate" value={this.state.completed}/>
-                                    
+                                    <CircularProgress variant = "determinate" value={this.state.completed}/>    
                                 </TableCell>
-
                             </TableRow>    
-                        }
-                        
+                        }                      
                     </TableBody>
                 </Table>
-                {/* <table border="1"> 
-                    <tbody> 
-                        <tr align="center"> 
-                            <td width="50">No.</td> 
-                            <td width="300">Title</td> 
-                            <td width="100">Name</td> 
-                            <td width="100">Date</td> 
-                        </tr> 
-                        { 
-                            boards.map(row => 
-                                (<BoardItem key={row.brdno} row={row} />) 
-                            ) 
-                        } 
-                    </tbody> 
-                </table> */}
             </div> 
         ); 
     } 
@@ -149,10 +124,7 @@ class BoardItem extends React.Component {
                 <td>{this.props.row.brdwriter}</td> 
                 <td>{this.props.row.brddate.toLocaleDateString('ko-KR')}</td> 
             </tr> 
-        ); 
-    } 
+        );
+    }
 }
-
-
-
 export default Upload;

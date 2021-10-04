@@ -1,5 +1,6 @@
 # from typing import collection
 from weakref import ProxyTypes
+from pymongo.message import insert
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template,request, redirect, jsonify, make_response
@@ -15,6 +16,7 @@ import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 import time, os
+import io
 
 app = Flask("__main__")
 
@@ -220,7 +222,12 @@ def getuser():
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def uploads():
+    
+    import hashlib
     import time
+    import os
+    from werkzeug.datastructures import FileStorage
+    
     if request.method == 'POST':
         #<------ 업로드한 파일 row 생성 과정 ------>#
         conn =pymongo.MongoClient(config.mongodb)
@@ -238,7 +245,7 @@ def uploads():
         audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         
-        f = request.files['file'] 
+        f = request.files['file']
         current_time = str(datetime.now())
         name=f.filename
         hashed_name=hashlib.sha256((current_time+name).encode('utf-8')).hexdigest()
@@ -253,6 +260,7 @@ def uploads():
         if(fileExt in audio):
             insert_data['filetype']='녹음 파일'    
             insert_data['state']='변환중'
+            insert_data['text']=''
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
             #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
@@ -284,13 +292,13 @@ def uploads():
         insert_data['filename']=filename
         insert_data['hashed_filename']=hashed_filename
         insert_data['segments']=''
-        insert_data['text']=''
         insert_data['user_id']=cur_user
         insert_data['index']=collection.find({'user_id':cur_user}).count()+1
-        time="%04d %02d %02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         insert_data['uploaded_time']=str(time)
+        
         collection.insert_one(insert_data)
-
+        
         return render_template("index.html")
 
     else:
@@ -331,4 +339,3 @@ if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)
 
 # app.run(debug=True)
-

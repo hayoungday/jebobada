@@ -5,8 +5,14 @@ import {Link} from 'react-router-dom';
 // import CustomerDelete from './CustomerDelete';
 
 class Customer extends React.Component {
+    callApi = async() => {
+        const response = await fetch('/getuser')
+        const body = await response.json();
+        console.log(body)
+        return body
+    }
     render() {
-        return (
+        return (            
             <TableRow>
                 <TableCell>{this.props.id}</TableCell>
                 {/* <TableCell><img src={this.props.image} alt="profile"/></TableCell> */}

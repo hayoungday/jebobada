@@ -7,8 +7,8 @@ const Home = () => {
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading"></div>
-                <div class="masthead-heading text-uppercase">당신의 잘못이 아닙니다</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+                <div class="masthead-heading text-uppercase">Jebobada</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Jebobada</a>
             </div>
         </header>
         </div>
