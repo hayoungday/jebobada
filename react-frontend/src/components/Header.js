@@ -49,9 +49,9 @@ const Header = () => {
                     {/* <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0"> */}
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><Link class="nav-link" to="/about">서비스소개</Link></li>
-                        <li class="nav-item"><Link class="nav-link" to="/upload">업로드</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/Agree">업로드</Link></li>
                         <li class="nav-item"><Link class="nav-link" to="/download">다운로드</Link></li>
-                        <li class="nav-item"><Link class="nav-link" to="/faq">FAQ</Link></li>
+                        <li class="nav-item"><Link class="nav-link" to="/analysis">분석결과</Link></li>
                         {/* <li class="nav-item"><Link class="nav-link" to="/login">{button}</Link></li> */}
                         <li class="nav-item">{button}</li>
                     </ul>

@@ -70,5 +70,5 @@
 .select-wrap .asset + .asset { margin-left: 20px; }
 .select-wrap .asset label { vertical-align: middle; line-height: 18px; }
 
-.btn.slightly { color: #595f6a; border: 1px solid #595f6a; background-color: #fff; }
-.btn.weighty { color: #ffffff; border: none; background-color: #000; }
+.btn.slightly { color: #595f6a; border: 1px solid #595f6a; background-color: #eee; }
+.btn.weighty { color: #eeeeee; border: none; background-color: #000; }

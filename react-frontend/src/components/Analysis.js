@@ -2,13 +2,13 @@ import React from 'react';
 import Header from './Header';
 
 
-const Faq = () => {
+const Analysis = () => {
     return(
         <div>
             <Header/>
-            <h1>질문게시판</h1>
+            <h1>분석결과~~</h1>
         </div>
     )
 }
 
-export default Faq;
+export default Analysis;

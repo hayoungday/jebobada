@@ -1,3 +1,4 @@
+# from typing import collection
 from weakref import ProxyTypes
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -5,7 +6,7 @@ from flask import Flask, render_template,request, redirect, jsonify, make_respon
 import pymongo
 import requests
 import boto3
-import clovaspeechAPI, googleOCR
+import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
 # import bcrypt
@@ -189,8 +190,11 @@ def login():
         user_pwd =  generate_password_hash(data['user_pwd'])
 
         user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
-                
+
         if user is None:
+            print(user)
+            print(user_id)
+            print(user_pwd)
             return jsonify({'login':False})
         else:
             resp = make_response(render_template("index.html"))
@@ -229,6 +233,8 @@ def uploads():
             aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
         )
 
+        meta = metaExiftool.metaExiftool()
+
         audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         
@@ -254,15 +260,26 @@ def uploads():
             clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
             #--> s3 파일을 읽어 API로 넘겨주는 과정
 
+            returnDict = meta.getAudioTags(url)
+            print(returnDict)
+            insert_data['metadata']=returnDict
+
         elif (fileExt in image):
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
-            ocr = googleOCR.googleOCR()
-            ocrJson = ocr.getOCRjson(url)
-            fullscript=ocr.getFullScriptFromJson(ocrJson)
-            print(fullscript)
-            insert_data['fullscript'] = fullscript
+            try:
+                ocr = googleOCR.googleOCR()
+                ocrJson = ocr.getOCRjson(url)
+                fullscript=ocr.getFullScriptFromJson(ocrJson)
+                print(fullscript)
+                insert_data['fullscript'] = fullscript
+            except:
+                pass
             insert_data['filetype']='사진 파일'
             insert_data['state']='변환완료'
+
+            returnDict = meta.getImageTags(url)
+            print(returnDict)
+            insert_data['metadata'] = returnDict
 
         insert_data['filename']=filename
         insert_data['hashed_filename']=hashed_filename
