@@ -80,7 +80,7 @@ class PostView extends Component {
                     <div class="flex-child green">                                
                 {this.state.data?this.state.data.map((c,i)=>{
                     if(c.index==params.no & c.filetype == "녹음 파일"){
-                        return(<ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename}/>)
+                        return(<ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword}/>)
                     }
                     else if (c.index==params.no & c.filetype == "사진 파일"){
                         return(<ViewOCR hashed_filename={c.hashed_filename}/>)

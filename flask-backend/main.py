@@ -385,28 +385,48 @@ def getevidences():
     db = conn.jb_db
     collection = db.stt
 
-    data = request.get_json()
-    if(data):
-        user=data['user']
-        casenum=data['casenum']
+    if request.method=='GET':
+        if(request.args.get("keyword")):
+            collection.create_index([('text','text')])
+            keyword=request.args.get("keyword")
+            print(keyword)
+        
+            user=list(collection.find({
+                "$and":[
+                    {'user_id':cur_user},
+                    {"text":{"$regex":keyword}}                
+                ]
+                }
+                )
+            )
+        else:
+            user = list(collection.find({'user_id':cur_user}))    
+        return json.dumps(user,default=json_util.default)
 
-        try:
-            index=int(data['idx'])
-            evidence = list(collection.find({"$and":[
-            {'user_id':user},
-            {'casenum':casenum},
-            {'index':index}
-            ]}))
- 
-        except:
-            evidence = list(collection.find({"$and":[
-            {'user_id':user},
-            {'casenum':casenum}
-            ]}))                
 
-        return json.dumps(evidence, default=json_util.default)
-    else:
-        return {"result":"getevidences api error"}
+    elif request.method=='POST':
+        data = request.get_json()
+        if(data):
+            user=data['user']
+            casenum=data['casenum']
+
+            try:
+                index=int(data['idx'])
+                evidence = list(collection.find({"$and":[
+                {'user_id':user},
+                {'casenum':casenum},
+                {'index':index}
+                ]}))
+    
+            except:
+                evidence = list(collection.find({"$and":[
+                {'user_id':user},
+                {'casenum':casenum}
+                ]}))                
+
+            return json.dumps(evidence, default=json_util.default)
+        else:
+            return {"result":"getevidences api error"}
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

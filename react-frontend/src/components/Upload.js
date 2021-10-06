@@ -12,6 +12,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { InputBase } from '@material-ui/core';
 import SearchBox from './SearchBox';
 
+let keyword=""
+
 class Upload extends Component {
     
     constructor(props){
@@ -48,7 +50,16 @@ class Upload extends Component {
             user:this.state.user,
             casenum:this.props.match.params.casenum,
         }
-        return axios.post("/getevidences",body)
+        if(keyword){
+            // const response=await fetch('/getevidences?keyword='+keyword);
+            // const body=await response.json();
+            // console.log(body)
+            return axios.get("/getevidences?keyword="+keyword);
+        }
+        else{
+            return axios.post("/getevidences",body)
+        }
+        
     }
 
     async loadData(){
@@ -77,7 +88,11 @@ class Upload extends Component {
         this.setState({
           userInput : e.target.value
         })
-        
+    }
+    handleClick=value=>()=>{
+        keyword=value
+        console.log("키워드")
+        console.log(keyword)
     }
 
     /////////////////////////////////////////////////////////
@@ -161,7 +176,8 @@ class Upload extends Component {
                     type="search"
                     placeholder="키워드"
                     onChange={this.handleChange}
-                    />                    
+                    />
+                    <button onClick={this.handleClick(this.state.userInput)}>검색</button>                    
                 </div>             
                 <Table> 
                     <TableHead>
@@ -185,6 +201,7 @@ class Upload extends Component {
                                 idx={c.index}
                                 state={c.state}
                                 casenum={c.casenum}
+                                keyword={this.state.userInput}
                                 />)
                             }):
                             <TableRow>

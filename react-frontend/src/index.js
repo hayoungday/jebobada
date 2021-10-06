@@ -31,7 +31,7 @@ ReactDOM.render(
         <Route path="/signup" component={Signup}/>
         <Route path="/oauth" component={Oauth}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/PostView/:casenum?/:no?" component={PostView}/>
+        <Route path="/PostView/:casenum?/:no?/:keyword?" component={PostView}/>
         <Route path="/agree" component={Agree}/>
         <Route path="/casepage" component={CasePage}/>
       </Route>
