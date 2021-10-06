@@ -6,7 +6,10 @@ const Analysis = () => {
     return(
         <div>
             <Header/>
-            <h1>분석결과~~</h1>
+            <h3 className="analysis-picture">분석결과</h3>
+            <div className="analysis-picture">
+                <img alt="analysis picture" src="./static/react/분석결과.png"/>
+            </div>
         </div>
     )
 }

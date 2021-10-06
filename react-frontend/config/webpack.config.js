@@ -421,6 +421,7 @@ module.exports = function (webpackEnv) {
                         },
                       },
                     },
+                    require.resolve('@babel/plugin-proposal-class-properties'),
                   ],
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&

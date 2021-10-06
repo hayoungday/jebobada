@@ -7,26 +7,53 @@ import ViewOCR from './ViewOCR'
 import Meta from './Meta';
 import './PostView.css';
 class PostView extends Component {
-    state={
-        data:"",
-    }
-    componentDidMount(){
-        this.timer = setInterval(this.progress,20)
-        this.callApi()
-        .then(res => this.setState({data:res}))
-        .catch(err => console.log(err))
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            data:[],
+            user:"",
+        }
+        this.loadData = this.loadData.bind(this)
     }
 
-    callApi = async() => {
-        const response = await fetch('/getuser')
-        const body = await response.json();
-        // console.log(body)
-        console.log("hi!")
-        return body
+    componentDidMount(){
+        // this.intervalId = setInterval(() => this.loadData(), 5000);
+        this.loadData();            
     }
+    // componentWillUnmount() {
+    //     clearInterval(this.intervalId);
+    // }
+
+    async callApi() {
+
+        let body = {
+            user:this.state.user,
+            idx:this.props.match.params.no,
+            casenum:this.props.match.params.casenum,
+        }
+        return axios.post("/getevidences",body)
+    }
+
+    async loadData(){
+        const res = await axios.get("/getuser");
+        this.state.user = res.data.user;
+
+        this.callApi()
+        .then(res => {
+            console.log(res)
+            console.log(res.data)
+            console.log(typeof res.data)
+            this.setState({data:res.data})
+        })
+        .catch(err => console.log(err))
+        console.log(this.state.data)
+    }
+
     
     render() {
-        
+        {console.log(this.state.data)}
         const { params } = this.props.match; // 접근하는 파일의 idx값
         
         return (
@@ -36,30 +63,13 @@ class PostView extends Component {
                     <div class="flex-child magenta">
                         {/* <Meta/> */}
                 {this.state.data?this.state.data.map((c,i)=>{
-                    if(c.index==params.no & c.filetype == "녹음 파일"){
-                        // console.log(c.segments)
-                        // console.log(c)
-                        // console.log(c.index)
-                        // console.log(c.filetype)
-                        // console.log(params.no)                                                                               
+                    if(c.index==params.no & c.filetype == "녹음 파일"){                                                                              
                         return(<Meta metadata={c.metadata}/>)
-                        // return(<Meta/>)
                     }
                     else if (c.index==params.no & c.filetype == "사진 파일"){
-                        // console.log(c.fullscript)
-                        // console.log(c)
-                        // console.log(c.index)
-                        // console.log(c.filetype)
-                        // console.log(params.no)
-                        // console.log("사진파일")
-                        // return(<Meta metadata={c.metadata}/>)
                         return(<Meta metadata={c.metadata}/>)
                     }
                     else{
-                        // console.log(c)
-                        // console.log(c.index)
-                        // console.log(c.filetype)
-                        // console.log(params.no)
                         console.log("error")
                     }
                     return null;
@@ -70,11 +80,9 @@ class PostView extends Component {
                     <div class="flex-child green">                                
                 {this.state.data?this.state.data.map((c,i)=>{
                     if(c.index==params.no & c.filetype == "녹음 파일"){
-                        // console.log(c.segments)                                                                                           
                         return(<ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename}/>)
                     }
                     else if (c.index==params.no & c.filetype == "사진 파일"){
-                        // console.log(c.fullscript)
                         return(<ViewOCR hashed_filename={c.hashed_filename}/>)
                     }
                     return null;

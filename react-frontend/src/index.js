@@ -15,6 +15,7 @@ import Oauth from './components/oauth';
 import Logout from './components/Logout'
 import PostView from './components/PostView'
 import Agree from './components/Agree'
+import CasePage from './components/CasePage'
 
 ReactDOM.render(
     // <App />,
@@ -23,15 +24,16 @@ ReactDOM.render(
         <Route exact path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
         <Route path="/about" component={About}/>
-        <Route path="/upload" component={Upload}/>
+        <Route path="/upload/:casenum" component={Upload}/>
         <Route path="/download" component={Download}/>
         <Route path="/analysis" component={Analysis}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/oauth" component={Oauth}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/PostView/:no" component={PostView}/>
+        <Route path="/PostView/:casenum?/:no?" component={PostView}/>
         <Route path="/agree" component={Agree}/>
+        <Route path="/casepage" component={CasePage}/>
       </Route>
      </Router>, 
   document.getElementById('root')

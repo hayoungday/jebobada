@@ -10,7 +10,7 @@ import boto3
 import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
-# import bcrypt
+import bcrypt
 import config
 import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
@@ -27,6 +27,7 @@ app.config['JWT_COOKIE_CSRF_PROTECT']=True
 app.config['JWT_ACCESS_TOKEN_EXPIRES']=30000
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
 app.config['BCRYPT_LEVEL']=10
+app.config['SECRET_KEY']='hayoungday'
 
 
 jwt = JWTManager(app)
@@ -207,21 +208,16 @@ def login():
             set_refresh_cookies(resp,refresh_tk)
             return resp   
 
+
 @app.route('/getuser',methods=['GET','POST'])
 @jwt_required()
 def getuser():
-    conn =pymongo.MongoClient(config.mongodb)
-    db = conn.jb_db
-    collection = db.stt
     global cur_user
     cur_user = get_jwt_identity()
-    print(type(cur_user))
-    print(cur_user)
-    user = list(collection.find({'user_id':cur_user}))
-    return json.dumps(user,default=json_util.default)
+    return jsonify({'user':cur_user})
 
 @app.route('/upload', methods = ['GET', 'POST'])
-def uploads():
+def upload():
     
     import hashlib
     import time
@@ -236,8 +232,8 @@ def uploads():
         collection = db.stt
         s3=boto3.client(
             's3',
-            aws_access_key_id="AKIA3EDWU7TFZ5GQEEC5", #--> 승구's aws
-            aws_secret_access_key="9wQzgyV7Z2JfGFVRjUJ6hf73UNs3oBBm4ZNjkKlE", #--> 승구's aws            
+            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
+            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
         )
 
         meta = metaExiftool.metaExiftool()
@@ -246,10 +242,17 @@ def uploads():
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         
         f = request.files['file']
+        case_num = request.form['case_num']
+        user = request.form['user']
+        global filename
+        # filename = request.form['filename']
+        print(filename)
+        # print(case_num, user)
+        # f = request.files['file']
+
         current_time = str(datetime.now())
         name=f.filename
-        hashed_name=hashlib.sha256((current_time+name).encode('utf-8')).hexdigest()
-        global filename
+        hashed_name=hashlib.sha256((current_time+filename).encode('utf-8')).hexdigest()
         filename=name
         global hashed_filename
         hashed_filename=hashed_name
@@ -269,7 +272,7 @@ def uploads():
             #--> s3 파일을 읽어 API로 넘겨주는 과정
 
             returnDict = meta.getAudioTags(url)
-            print(returnDict)
+            # print(returnDict)
             insert_data['metadata']=returnDict
 
         elif (fileExt in image):
@@ -278,7 +281,7 @@ def uploads():
                 ocr = googleOCR.googleOCR()
                 ocrJson = ocr.getOCRjson(url)
                 fullscript=ocr.getFullScriptFromJson(ocrJson)
-                print(fullscript)
+                # print(fullscript)
                 insert_data['text'] = fullscript
             except:
                 pass
@@ -286,23 +289,24 @@ def uploads():
             insert_data['state']='변환완료'
 
             returnDict = meta.getImageTags(url)
-            print(returnDict)
+            # print(returnDict)
             insert_data['metadata'] = returnDict
 
+        insert_data['casenum']=case_num
         insert_data['filename']=filename
         insert_data['hashed_filename']=hashed_filename
         insert_data['segments']=''
-        insert_data['user_id']=cur_user
-        insert_data['index']=collection.find({'user_id':cur_user}).count()+1
+        insert_data['user_id']=user
+        insert_data['index']=collection.find({'user_id':user}).count()+1
         time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         insert_data['uploaded_time']=str(time)
         
         collection.insert_one(insert_data)
         
-        return render_template("index.html")
+        return {"result":"success"}
 
     else:
-        return render_template("index.html")
+        return {"result":"error"}
     
 
 @app.route('/Receive',methods=['POST'])
@@ -334,6 +338,75 @@ def receive():
     collection.update(o_query,{"$set":{'state':"변환완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
     return render_template("index.html")
+
+@app.route('/analysis')
+def analysis():
+    return render_template("index.html")
+
+@app.route('/casepage', methods = ['GET', 'POST'])
+def casepage():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+    data= request.get_json()
+    print("data",data)
+    if(data):
+        insert_data = {}
+        insert_data['CaseName'] = data['case_name']
+        insert_data['Description'] = data['description']
+        insert_data['User'] = data['user']
+        insert_data['index']=collection.find({'User':data['user']}).count()+1
+        print(insert_data['index'])
+
+        collection.insert_one(insert_data)
+    else:
+        print("no data")
+            
+    return render_template("index.html")
+
+@app.route('/getcases', methods=['GET','POST'])
+def getcases():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+
+    data = request.get_json()
+    if (data):
+        user = data['user']
+        cases = list(collection.find({'User':user}))
+
+        return json.dumps(cases, default=json_util.default)
+    else:
+        print("getcases error")
+    
+@app.route('/getevidences', methods=['GET','POST'])
+def getevidences():
+    conn =pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+
+    data = request.get_json()
+    if(data):
+        user=data['user']
+        casenum=data['casenum']
+
+        try:
+            index=int(data['idx'])
+            evidence = list(collection.find({"$and":[
+            {'user_id':user},
+            {'casenum':casenum},
+            {'index':index}
+            ]}))
+ 
+        except:
+            evidence = list(collection.find({"$and":[
+            {'user_id':user},
+            {'casenum':casenum}
+            ]}))                
+
+        return json.dumps(evidence, default=json_util.default)
+    else:
+        return {"result":"getevidences api error"}
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

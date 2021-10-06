@@ -10,6 +10,8 @@ secret_key = os.environ['JWT_SECRET_KEY']
 mongodb = os.environ['LOCAL_DB']
 google_credential = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 clova_redirect = os.environ['CLOVA']
+aws_access_key_id = os.environ['aws_access_key_id']
+aws_secret_access_key = os.environ['aws_secret_access_key']
 
 
 # if mode == "develop":
