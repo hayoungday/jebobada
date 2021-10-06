@@ -222,6 +222,7 @@ def upload():
     import hashlib
     import time
     import os
+    import io
     from werkzeug.datastructures import FileStorage
     
     if request.method == 'POST':
@@ -242,6 +243,8 @@ def upload():
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         
         f = request.files['file']
+        
+
         case_num = request.form['case_num']
         user = request.form['user']
         global filename
@@ -389,11 +392,13 @@ def getevidences():
         if(request.args.get("keyword")):
             collection.create_index([('text','text')])
             keyword=request.args.get("keyword")
+            casenum=request.args.get("casenum")
             print(keyword)
-        
+            print(casenum)        
             user=list(collection.find({
                 "$and":[
                     {'user_id':cur_user},
+                    {'casenum':casenum},
                     {"text":{"$regex":keyword}}                
                 ]
                 }

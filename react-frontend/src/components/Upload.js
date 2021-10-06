@@ -51,10 +51,7 @@ class Upload extends Component {
             casenum:this.props.match.params.casenum,
         }
         if(keyword){
-            // const response=await fetch('/getevidences?keyword='+keyword);
-            // const body=await response.json();
-            // console.log(body)
-            return axios.get("/getevidences?keyword="+keyword);
+            return axios.get("/getevidences?keyword="+keyword+"&casenum="+this.props.match.params.casenum);
         }
         else{
             return axios.post("/getevidences",body)
@@ -161,9 +158,11 @@ class Upload extends Component {
        
         return (
             <div>
+
                 <Header/>
                 <br></br>
                 <h1>증거물 업로드 페이지</h1>
+                <h3>Case {this.props.match.params.casenum}</h3>
                 <br></br>
                 <form onSubmit={this.handleFormSubmit}>
                     <input type = "file" name = "file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
@@ -208,7 +207,7 @@ class Upload extends Component {
                                 <TableCell colSpan="6" align="center">
                                     <CircularProgress variant = "determinate" value={this.state.completed}/>    
                                 </TableCell>
-                            </TableRow>    
+                            </TableRow>
                         }                      
                     </TableBody>
                 </Table>
