@@ -21,7 +21,7 @@ class CasePage extends Component {
             user:"",
             case_name:"",
             description:"",
-            cases:[],
+            
             maxNo:1,
             completed:0,
         }
@@ -33,7 +33,7 @@ class CasePage extends Component {
     }
 
     componentDidMount(){
-        this.intervalId = setInterval(() => this.loadData(), 10000);
+        this.intervalId = setInterval(() => this.loadData(), 3000);
         this.loadData();
     }
     
@@ -110,6 +110,10 @@ class CasePage extends Component {
         }
     }
 
+    handleClick=()=>{
+        this.setState({ cases: undefined });
+    }
+
     render() {
 
         return ( 
@@ -121,7 +125,7 @@ class CasePage extends Component {
                 <form onSubmit={this.handleFormSubmit}>
                     케이스명: <input type = "text" name = "case_name" placeholder="케이스명" value={this.state.case_name} onChange={this.handleValueChange}/><br/>
                     한줄설명: <input type = "text" name = "description" placeholder="한줄설명" value={this.state.description} onChange={this.handleValueChange} /><br/>
-                    <button class="btn btn-primary">등록</button>
+                    <button onClick={this.handleClick} class="btn btn-primary">등록</button>
                 </form>
 
                 <Table> 
@@ -144,7 +148,7 @@ class CasePage extends Component {
                         }):
                         <TableRow>
                             <TableCell colSpan="6" align="center">
-                                <CircularProgress variant = "determinate" value={this.state.completed}/>    
+                                <CircularProgress variant = "indeterminate" value={this.state.completed}/>    
                             </TableCell>
                         </TableRow>    
                         }

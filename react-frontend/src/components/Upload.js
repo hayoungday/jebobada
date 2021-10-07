@@ -12,6 +12,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgressButton from 'react-progress-button'
 import { InputBase } from '@material-ui/core';
 import SearchBox from './SearchBox';
+import {withStyles} from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 let keyword=""
 
@@ -22,7 +25,6 @@ class Upload extends Component {
 
         this.state = {
             maxNo: 1,
-            boards:[],
             completed:0,
             userInput:"",
             user:"",
@@ -55,7 +57,7 @@ class Upload extends Component {
         }
         if(keyword){
             let res= axios.get("/getevidences?keyword="+keyword+"&casenum="+this.props.match.params.casenum);
-            keyword=""
+            
             return res
         }
         else{
@@ -93,9 +95,9 @@ class Upload extends Component {
     }
     handleClick=value=>()=>{
         keyword=value
+        this.setState({ boards: undefined });
         console.log("키워드")
         console.log(keyword)
-    
     }
 
     /////////////////////////////////////////////////////////
@@ -161,10 +163,11 @@ class Upload extends Component {
 
 
     render() {
+        // const {classes} =this.props;
        
         return (
             <div>
-                
+                               
                 <Header/>
                 <br></br>
                 <h1>증거물 업로드 페이지</h1>
@@ -174,6 +177,7 @@ class Upload extends Component {
                     <input type = "file" name = "file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
                     <button type = "submit">등록하기</button>
                 </form>
+
                            
                 <div>
                     <input 
@@ -211,8 +215,12 @@ class Upload extends Component {
                                 />)
                             }):
                             <TableRow>
-                                <TableCell colSpan="6" align="center">
-                                    <CircularProgress className={this.props.progress} variant="indeterminate" value={this.state.completed}/>    
+                                <TableCell colSpan={6} align="center">
+                                    <br></br>
+                                    <h6>Searching.....</h6>
+                                    <br></br>
+                                    <br></br>
+                                    <CircularProgress variant="indeterminate" value={this.state.completed}/>
                                 </TableCell>
                             </TableRow>
                         }
