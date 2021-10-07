@@ -218,13 +218,10 @@ def getuser():
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload():
-    
     import hashlib
     import time
     import os
-    import io
     from werkzeug.datastructures import FileStorage
-    
     if request.method == 'POST':
         #<------ 업로드한 파일 row 생성 과정 ------>#
         conn =pymongo.MongoClient(config.mongodb)
@@ -267,11 +264,17 @@ def upload():
             insert_data['filetype']='녹음 파일'    
             insert_data['state']='변환중'
             insert_data['text']=''
+            start_time = time.time()
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            end_time = time.time()
+            print("s3 업로드 시간 : ",end_time-start_time)
             #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
             #--> 접근 가능한 s3에 올라가는 파일 경로
+            start_time = time.time()
             clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+            end_time = time.time()
+            print("클로바 호출 시간 : ",end_time-start_time)
             #--> s3 파일을 읽어 API로 넘겨주는 과정
 
             returnDict = meta.getAudioTags(url)

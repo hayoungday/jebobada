@@ -21,5 +21,4 @@ class Case extends React.Component {
         )
     }
 }
-
 export default Case;

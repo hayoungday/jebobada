@@ -9,6 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ProgressButton from 'react-progress-button'
 import { InputBase } from '@material-ui/core';
 import SearchBox from './SearchBox';
 
@@ -27,6 +28,7 @@ class Upload extends Component {
             user:"",
             file:null,
             fileName:"",
+            
         }
         this.loadData = this.loadData.bind(this)
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -36,6 +38,7 @@ class Upload extends Component {
     }
 
     componentDidMount(){
+        this.timer=setInterval(this.progress,20)
         this.intervalId = setInterval(() => this.loadData(), 5000);
         this.loadData();            
     }
@@ -51,7 +54,9 @@ class Upload extends Component {
             casenum:this.props.match.params.casenum,
         }
         if(keyword){
-            return axios.get("/getevidences?keyword="+keyword+"&casenum="+this.props.match.params.casenum);
+            let res= axios.get("/getevidences?keyword="+keyword+"&casenum="+this.props.match.params.casenum);
+            keyword=""
+            return res
         }
         else{
             return axios.post("/getevidences",body)
@@ -90,6 +95,7 @@ class Upload extends Component {
         keyword=value
         console.log("키워드")
         console.log(keyword)
+    
     }
 
     /////////////////////////////////////////////////////////
@@ -158,7 +164,7 @@ class Upload extends Component {
        
         return (
             <div>
-
+                
                 <Header/>
                 <br></br>
                 <h1>증거물 업로드 페이지</h1>
@@ -176,7 +182,8 @@ class Upload extends Component {
                     placeholder="키워드"
                     onChange={this.handleChange}
                     />
-                    <button onClick={this.handleClick(this.state.userInput)}>검색</button>                    
+                    <button onClick={this.handleClick(this.state.userInput)}>검색</button>
+                    
                 </div>             
                 <Table> 
                     <TableHead>
@@ -205,10 +212,10 @@ class Upload extends Component {
                             }):
                             <TableRow>
                                 <TableCell colSpan="6" align="center">
-                                    <CircularProgress variant = "determinate" value={this.state.completed}/>    
+                                    <CircularProgress className={this.props.progress} variant="indeterminate" value={this.state.completed}/>    
                                 </TableCell>
                             </TableRow>
-                        }                      
+                        }
                     </TableBody>
                 </Table>
             </div> 
