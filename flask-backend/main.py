@@ -16,7 +16,7 @@ import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 import time, os
-import io
+from io import BufferedReader
 
 app = Flask("__main__")
 
@@ -35,7 +35,6 @@ jwt = JWTManager(app)
 filename=''
 hashed_filename=''
 cur_user = ''
-
 # class JSONEncoder(json.JSONEncoder):
 #     def default(self, o):
 #         if isinstance(o, ObjectId):
@@ -206,7 +205,7 @@ def login():
             resp.set_cookie("logined", "true")
             set_access_cookies(resp,access_tk)
             set_refresh_cookies(resp,refresh_tk)
-            return resp   
+            return resp
 
 
 @app.route('/getuser',methods=['GET','POST'])
@@ -223,65 +222,104 @@ def upload():
     import os
     from werkzeug.datastructures import FileStorage
     if request.method == 'POST':
-        #<------ 업로드한 파일 row 생성 과정 ------>#
+        
         conn =pymongo.MongoClient(config.mongodb)
         db = conn.jb_db
         now=time.localtime()
         collection = db.stt
-        s3=boto3.client(
-            's3',
-            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
-            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
-        )
-
         meta = metaExiftool.metaExiftool()
-
         audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
-        
-        f = request.files['file']
-        
-
+        f=request.files['file']
         case_num = request.form['case_num']
         user = request.form['user']
-        global filename
-        # filename = request.form['filename']
-        print(filename)
-        # print(case_num, user)
-        # f = request.files['file']
 
+        file_hash_data=hashlib.md5(f.read()).hexdigest()
+        print("case_num 타입",type(case_num))
+        print("file_hash_data 타입",type(file_hash_data))          
+        
+        #<------------------ 해시 일치하는 파일 찾기 ------------------->#
+        hash_cnt=0                
+        hash_cnt=(collection.find({
+                "$and":[
+                    {'user_id':user},
+                    {'casenum':str(case_num)},
+                    {'file_hash_data':file_hash_data}                
+                ]
+                }
+                ).count()
+            )
+        if(hash_cnt!=0):
+            return {"result":"file_upload_block"}
+        #<------------------                    ------------------->#
+              
+        global filename
+        
         current_time = str(datetime.now())
         name=f.filename
         hashed_name=hashlib.sha256((current_time+filename).encode('utf-8')).hexdigest()
         filename=name
+        print(filename)
         global hashed_filename
         hashed_filename=hashed_name
         insert_data={}
         fileName,fileExt=os.path.splitext(filename)
         url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+        try:           
+            insert_data['file_hash_data']=file_hash_data
+        except:
+            print("hash calculate error")
+            pass
+        f.seek(0)
 
         if(fileExt in audio):
             insert_data['filetype']='녹음 파일'    
             insert_data['state']='변환중'
             insert_data['text']=''
-            start_time = time.time()
-            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
-            end_time = time.time()
-            print("s3 업로드 시간 : ",end_time-start_time)
-            #ServerSideEncryption='aws:kms',SSEKMSKeyId='alias/aws/s3'
+            insert_data['metadata']=[]
+            insert_data['casenum']=case_num
+            insert_data['filename']=filename
+            insert_data['hashed_filename']=hashed_filename
+            insert_data['segments']=''
+            insert_data['user_id']=user
+            insert_data['index']=collection.find({'user_id':user}).count()+1
+            time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            insert_data['uploaded_time']=str(time)            
+            
+            s3=boto3.client(
+            's3',
+            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
+            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
+            )
+            
+            collection.insert_one(insert_data)
+                        
+            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})  
+                  
+            
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
-            #--> 접근 가능한 s3에 올라가는 파일 경로
-            start_time = time.time()
             clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
-            end_time = time.time()
-            print("클로바 호출 시간 : ",end_time-start_time)
-            #--> s3 파일을 읽어 API로 넘겨주는 과정
-
             returnDict = meta.getAudioTags(url)
-            # print(returnDict)
+            o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
             insert_data['metadata']=returnDict
+            collection.update(o_query,{"$set":{'metadata':insert_data['metadata']}})
 
-        elif (fileExt in image):
+        elif (fileExt in image):   
+            insert_data['text']=''
+            insert_data['casenum']=case_num
+            insert_data['filename']=filename
+            insert_data['hashed_filename']=hashed_filename
+            insert_data['segments']=''
+            insert_data['user_id']=user
+            insert_data['index']=collection.find({'user_id':user}).count()+1
+            time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            insert_data['uploaded_time']=str(time)            
+            
+            s3=boto3.client(
+            's3',
+            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
+            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
+            )
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
             try:
                 ocr = googleOCR.googleOCR()
@@ -291,26 +329,16 @@ def upload():
                 insert_data['text'] = fullscript
             except:
                 pass
+
             insert_data['filetype']='사진 파일'
             insert_data['state']='변환완료'
 
             returnDict = meta.getImageTags(url)
-            # print(returnDict)
+            print(type(returnDict))
             insert_data['metadata'] = returnDict
+            collection.insert_one(insert_data)
 
-        insert_data['casenum']=case_num
-        insert_data['filename']=filename
-        insert_data['hashed_filename']=hashed_filename
-        insert_data['segments']=''
-        insert_data['user_id']=user
-        insert_data['index']=collection.find({'user_id':user}).count()+1
-        time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        insert_data['uploaded_time']=str(time)
-        
-        collection.insert_one(insert_data)
-        
         return {"result":"success"}
-
     else:
         return {"result":"error"}
     
@@ -438,5 +466,3 @@ def getevidences():
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)
-
-# app.run(debug=True)

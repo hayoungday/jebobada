@@ -11,6 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { InputBase } from '@material-ui/core';
 import SearchBox from './SearchBox';
+import './Agree.css'
 
 class CasePage extends Component {
 
@@ -21,7 +22,7 @@ class CasePage extends Component {
             user:"",
             case_name:"",
             description:"",
-            
+            cases:[],
             maxNo:1,
             completed:0,
         }
@@ -33,7 +34,7 @@ class CasePage extends Component {
     }
 
     componentDidMount(){
-        this.intervalId = setInterval(() => this.loadData(), 3000);
+        this.intervalId = setInterval(() => this.loadData(), 10000);
         this.loadData();
     }
     
@@ -110,51 +111,104 @@ class CasePage extends Component {
         }
     }
 
-    handleClick=()=>{
-        this.setState({ cases: undefined });
-    }
-
     render() {
 
-        return ( 
-            <div>
+        return (
+            <div className="flex-column-container">
                 <Header/>
-                <br></br>
-                <h1>CASES</h1>
-                <br></br>
-                <form onSubmit={this.handleFormSubmit}>
-                    케이스명: <input type = "text" name = "case_name" placeholder="케이스명" value={this.state.case_name} onChange={this.handleValueChange}/><br/>
-                    한줄설명: <input type = "text" name = "description" placeholder="한줄설명" value={this.state.description} onChange={this.handleValueChange} /><br/>
-                    <button onClick={this.handleClick} class="btn btn-primary">등록</button>
-                </form>
-
-                <Table> 
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>번호</TableCell>
-                            <TableCell>케이스명</TableCell>
-                            <TableCell>설명</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {console.log(typeof this.state.cases)}
-                    { this.state.cases ? this.state.cases.map((c,i) => {
-                        return ( <Case key={this.state.maxNo + i} 
-                            id={this.state.maxNo + i}
-                            name={c.CaseName}
-                            description={c.Description}
-                            idx={c.index}
-                            />)
-                        }):
-                        <TableRow>
-                            <TableCell colSpan="6" align="center">
-                                <CircularProgress variant = "indeterminate" value={this.state.completed}/>    
-                            </TableCell>
-                        </TableRow>    
-                        }
-                    </TableBody>
-                </Table>
+                <div className="flex-container-agree">
+                    <div className="agree-box" style={{backgroundColor: "#dee5f8"}}>
+                        <span className="agree-text" style={{color: "000"}}>개인정보<p/>수집 및 이용 동의</span>
+                    </div>
+                    <img className="connect-square" src="./static/react/square_icon.png"/>
+                    <div className="case-box" style={{backgroundColor: "#3d7be6"}}>
+                        <span className="case-text" style={{color: "#fff"}}>사건 생성 및 선택</span>
+                    </div>
+                    <img className="connect-square" src="./static/react/square_icon.png"/>
+                    <div className="upload-box" style={{backgroundColor: "#dee5f8"}}>
+                        <span className="upload-text" style={{color: "#000"}}>증거 등록</span>
+                    </div>
+                </div>
+                <div className="flex-column-container">
+                    <div className="flex-container-case-box">
+                        <div className="flex-column-content-container">
+                            <span className="select-case-text">
+                                증거를 등록할 사건을 선택해주세요
+                            </span>
+                            <span className="select-case-content">
+                                기간, 괴롭힘 유형 등 자신만의 분류 기준으로 사건을 생성하여 관리하면<p/>더욱 체계적인 보고서 생성이 가능합니다.
+                            </span>
+                        </div>
+                        <div className="add-case-button">
+                            <span className="add-case-button-content">사건 추가</span>
+                        </div>
+                    </div>
+                    <Table> 
+                        <TableHead>
+                            <TableRow>
+                                <TableCell style={{textAlign:"center"}}>번호</TableCell>
+                                <TableCell style={{textAlign:"center"}}>케이스명</TableCell>
+                                <TableCell style={{textAlign:"center"}}>설명</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {console.log(typeof this.state.cases)}
+                        { this.state.cases ? this.state.cases.map((c,i) => {
+                            return ( <Case key={this.state.maxNo + i} 
+                                id={this.state.maxNo + i}
+                                name={c.CaseName}
+                                description={c.Description}
+                                idx={c.index}
+                                />)
+                            }):
+                            <TableRow>
+                                <TableCell colSpan="6" align="center">
+                                    <CircularProgress variant = "determinate" value={this.state.completed}/>    
+                                </TableCell>
+                            </TableRow>    
+                            }
+                        </TableBody>
+                    </Table>
+                </div>      
             </div> 
+            // <div>
+            //     <Header/>
+            //     <br></br>
+            //     <h1>CASES</h1>
+            //     <br></br>
+            //     <form onSubmit={this.handleFormSubmit}>
+            //         케이스명: <input type = "text" name = "case_name" placeholder="케이스명" value={this.state.case_name} onChange={this.handleValueChange}/><br/>
+            //         한줄설명: <input type = "text" name = "description" placeholder="한줄설명" value={this.state.description} onChange={this.handleValueChange} /><br/>
+            //         <button class="btn btn-primary">등록</button>
+            //     </form>
+
+            //     <Table> 
+            //         <TableHead>
+            //             <TableRow>
+            //                 <TableCell>번호</TableCell>
+            //                 <TableCell>케이스명</TableCell>
+            //                 <TableCell>설명</TableCell>
+            //             </TableRow>
+            //         </TableHead>
+            //         <TableBody>
+            //         {console.log(typeof this.state.cases)}
+            //         { this.state.cases ? this.state.cases.map((c,i) => {
+            //             return ( <Case key={this.state.maxNo + i} 
+            //                 id={this.state.maxNo + i}
+            //                 name={c.CaseName}
+            //                 description={c.Description}
+            //                 idx={c.index}
+            //                 />)
+            //             }):
+            //             <TableRow>
+            //                 <TableCell colSpan="6" align="center">
+            //                     <CircularProgress variant = "determinate" value={this.state.completed}/>    
+            //                 </TableCell>
+            //             </TableRow>    
+            //             }
+            //         </TableBody>
+            //     </Table>
+            // </div> 
         ); 
     } 
 }

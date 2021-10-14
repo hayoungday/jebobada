@@ -14,6 +14,7 @@ import { InputBase } from '@material-ui/core';
 import SearchBox from './SearchBox';
 import {withStyles} from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { useLocation } from 'react-router-dom'
 
 
 let keyword=""
@@ -29,8 +30,7 @@ class Upload extends Component {
             userInput:"",
             user:"",
             file:null,
-            fileName:"",
-            
+            fileName:""           
         }
         this.loadData = this.loadData.bind(this)
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -41,7 +41,7 @@ class Upload extends Component {
 
     componentDidMount(){
         this.timer=setInterval(this.progress,20)
-        this.intervalId = setInterval(() => this.loadData(), 5000);
+        this.intervalId = setInterval(() => this.loadData(), 3000);
         this.loadData();            
     }
     componentWillUnmount() {
@@ -99,6 +99,9 @@ class Upload extends Component {
         console.log("키워드")
         console.log(keyword)
     }
+    searchClick=()=>{
+        this.setState({boards:undefined});
+    }
 
     /////////////////////////////////////////////////////////
 
@@ -122,12 +125,6 @@ class Upload extends Component {
     }
 
     addEvidence(){
-        // let body = {
-        //     filename:this.state.fileName,
-        //     file:this.state.file,
-        //     user:this.state.user,
-        //     case_num:this.props.match.params.no,
-        // }
 
         const formData = new FormData()
         formData.append('file',this.state.file)
@@ -144,7 +141,9 @@ class Upload extends Component {
             }
         }
 
-        return axios.post("/upload",formData,config)
+        const upload_res= axios.post("/upload",formData,config)
+        console.log(upload_res)
+        return upload_res
         // return axios.post("/upload",formData)
     }
 
@@ -164,18 +163,17 @@ class Upload extends Component {
 
     render() {
         // const {classes} =this.props;
-       
         return (
-            <div>
-                               
+            <div>                               
                 <Header/>
                 <br></br>
                 <h1>증거물 업로드 페이지</h1>
-                <h3>Case {this.props.match.params.casenum}</h3>
+                <br></br>
+                <h2>Case</h2><h3>{this.props.location.state.casename}</h3>
                 <br></br>
                 <form onSubmit={this.handleFormSubmit}>
                     <input type = "file" name = "file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
-                    <button type = "submit">등록하기</button>
+                    <button type = "submit" onClick={this.searchClick}>등록하기</button>
                 </form>
 
                            
@@ -217,7 +215,7 @@ class Upload extends Component {
                             <TableRow>
                                 <TableCell colSpan={6} align="center">
                                     <br></br>
-                                    <h6>Searching.....</h6>
+                                    <h6>loading....</h6>
                                     <br></br>
                                     <br></br>
                                     <CircularProgress variant="indeterminate" value={this.state.completed}/>

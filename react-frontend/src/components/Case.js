@@ -12,10 +12,16 @@ class Case extends React.Component {
     //     return body
     // }
     render() {
-        return (            
+        // console.log(this.props.name)
+        return (
+            
             <TableRow>
                 <TableCell>{this.props.id}</TableCell>
-                <TableCell><Link to = {'/upload/'+this.props.idx}>{this.props.name}</Link></TableCell>
+                <TableCell><Link to={{
+                        pathname:'/upload/'+this.props.idx,
+                        state:{casename: this.props.name}}
+                    }>{this.props.name}</Link></TableCell>
+                
                 <TableCell>{this.props.description}</TableCell>
             </TableRow>
         )

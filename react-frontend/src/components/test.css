@@ -1,0 +1,147 @@
+main {
+    width: 1920px;
+    height: 1080px;
+    padding: 0 0 193px;
+    background-color: #fff;
+  }
+  .flex-container {
+    display: flex;
+    height: auto;
+    margin:5px,5px,5px,5px;
+}
+
+  .header  {
+    width: 1920px;
+    height: 147px;
+    margin: 0 0 97px;
+    padding: 33px 1567px 34px 45px;
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .JEBOBADA {
+    width: 308px;
+    height: 80px;
+    font-family: SegoeUI;
+    font-size: 60px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3d7be6;
+  }
+
+.flex-container {
+    display: flex;
+    height: auto;
+    margin:5px,5px,5px,5px;
+}
+
+.main_1 {
+    width: 680px;
+    height: 543px;
+    /* margin: 99px 0 0;
+    padding: 118px 54px 100px 39px; */
+    border-radius: 50px;
+    border: solid 1px #e2e2e2;
+    background-color: #fff;
+    z-index: 1;
+    display: flex;
+}
+
+.main_2{
+  width: 400px;
+  height: 543px;
+  /* margin: 197px 20px 0;
+  padding: 151px 68px 79px; */
+  border-radius: 50px;
+  border: solid 1px #e2e2e2;
+  background-color: #fff;
+  display: flex;
+}
+
+.main_3{
+  width: 400px;
+  height: 543px;
+  /* margin: 100px 0 0;
+  padding: 151px 59px 78px 69px; */
+  border-radius: 50px;
+  border: solid 1px #e2e2e2;
+  background-color: #fff;
+  display: flex;
+}
+
+.first_num {
+    width: 86px;
+  height: 200px;
+  margin: 0 574px 442px 20px;
+  font-family: SegoeUI;
+  font-size: 150px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3d7be6;
+  z-index: 2;
+}
+
+.first_title {
+    width: 200px;
+  height: 66px;
+  margin: 0 387px 65px 0;
+  font-family: SegoeUI;
+  font-size: 50px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.34;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000;
+}
+
+.upload_content{
+  width: 354px;
+  height: 60px;
+  margin: 72px 83px 49px 53px;
+  font-family: SegoeUI;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+
+.download_content{
+    width: 437px;
+  height: 60px;
+  margin: 42px 0 18px 53px;
+  font-family: SegoeUI;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+
+.upload_image{
+  width: 74px;
+  height: 74px;
+  margin: 65px 53px 42px 23px;
+}
+
+.download_image{
+  width: 74px;
+  height: 74px;
+  margin: 46px 53px 0 23px;
+}

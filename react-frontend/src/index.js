@@ -16,6 +16,7 @@ import Logout from './components/Logout'
 import PostView from './components/PostView'
 import Agree from './components/Agree'
 import CasePage from './components/CasePage'
+import test from './components/test'
 
 ReactDOM.render(
     // <App />,
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="/PostView/:casenum?/:no?/:keyword?" component={PostView}/>
         <Route path="/agree" component={Agree}/>
         <Route path="/casepage" component={CasePage}/>
+        <Route path="/test" component={test}/>
       </Route>
      </Router>, 
   document.getElementById('root')
