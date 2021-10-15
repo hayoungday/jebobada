@@ -17,6 +17,7 @@ import PostView from './components/PostView'
 import Agree from './components/Agree'
 import CasePage from './components/CasePage'
 import test from './components/test'
+import Modal from './components/Modal';
 
 ReactDOM.render(
     // <App />,
@@ -36,6 +37,7 @@ ReactDOM.render(
         <Route path="/agree" component={Agree}/>
         <Route path="/casepage" component={CasePage}/>
         <Route path="/test" component={test}/>
+        <Route path="/Modal" component={Modal}/>
       </Route>
      </Router>, 
   document.getElementById('root')

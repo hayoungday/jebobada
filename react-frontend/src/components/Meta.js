@@ -7,7 +7,7 @@ class Meta extends Component {
         return (
             <div class='component_design'>
                 <br></br>
-                {/* <h1 class='contents_design'>Meta data for audio file</h1> */}
+                {/* <h1 class='contents_design'>Meta data for au    dio file</h1> */}
                 <h1 class='contents_design'>{metadata.fileName}</h1>
                 {console.log(metadata)}
                 {/* {console.log(metadata[0])} */}
