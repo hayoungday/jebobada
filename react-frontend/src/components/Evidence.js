@@ -15,17 +15,19 @@ class Evidence extends React.Component {
     render() {
         return (            
             <TableRow>
-                <TableCell>{this.props.id}</TableCell>
-                {/* <TableCell><img src={this.props.image} alt="profile"/></TableCell> */}
-                <TableCell>{this.props.name}</TableCell>
-                <TableCell>{this.props.uploaded_time}</TableCell>
-                <TableCell>
-                    {this.props.state==="변환완료"? <div>변환완료</div>:<div><CircularProgress variant="indeterminate" value="변환중"/></div>}        
-                            
-                {/* {this.props.state} */}
+                <TableCell style={{ textAlign: "center" }}>{this.props.id}</TableCell>
+
+                <TableCell style={{ textAlign: "center" }}>
+                    <Link to={'/PostView/'+this.props.casenum+'/'+this.props.idx+'/'+this.props.keyword}>{this.props.name}</Link>
                 </TableCell>
-                <TableCell>{this.props.type}</TableCell>
-                <TableCell><button><Link to={'/PostView/'+this.props.casenum+'/'+this.props.idx+'/'+this.props.keyword}>자세히 보기</Link></button></TableCell>
+
+                <TableCell style={{ textAlign: "center" }}>{this.props.uploaded_time}</TableCell>
+
+                <TableCell style={{ textAlign: "center" }}>{this.props.type}</TableCell>
+
+                <TableCell style={{ textAlign: "center" }}>
+                    {this.props.state==="변환완료"? <div>변환완료</div>:<div><CircularProgress variant="indeterminate" value="변환중"/></div>}                                    
+                </TableCell>
             </TableRow>
         )
     }

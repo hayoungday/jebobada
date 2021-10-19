@@ -10,7 +10,7 @@ import boto3
 import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
-import bcrypt
+from flask_bcrypt import Bcrypt
 import config
 import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
@@ -26,11 +26,14 @@ app.config['JWT_COOKIE_SECURE']=False
 app.config['JWT_COOKIE_CSRF_PROTECT']=True
 app.config['JWT_ACCESS_TOKEN_EXPIRES']=30000
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
+
 app.config['BCRYPT_LEVEL']=10
 app.config['SECRET_KEY']='hayoungday'
 
 
 jwt = JWTManager(app)
+
+bcrypt = Bcrypt(app)
 
 filename=''
 hashed_filename=''
@@ -75,7 +78,10 @@ def signup():
     else:
         data=request.get_json()
         userid = data['user_id']
-        password = generate_password_hash(data['user_pwd'])
+        password = bcrypt.generate_password_hash(data['user_pwd'])
+        password2 = data['user_pwd2']
+        print(bcrypt.check_password_hash(password, data['user_pwd2']))
+        print(password)
         # re_password = data['user_pwd2']
 
         print(data)
@@ -83,11 +89,12 @@ def signup():
         userinfo={'social':'local', 'user_nickname':userid, 'user_pwd':password}
         
         # if not (userid and username and password and re_password):    
-        if not (userid and password):
+        if not (userid and password and password2):
             print("input all")
             return jsonify({'result':'input_all'})
-        # elif password != re_password:
-        #     return jsonify({'result':'check_pwd'})
+        elif bcrypt.check_password_hash(password, data['user_pwd2']) == False:
+            print("check password")
+            return jsonify({'result':'check_pwd'})
         else:
             print("db insert")
             try:
@@ -188,24 +195,38 @@ def login():
 
     data = request.get_json()
     if(data):
-        user_id = data['user_id']
-        user_pwd =  generate_password_hash(data['user_pwd'])
+        if (data['user_id'] and data['user_pwd']):
+            user_id = data['user_id']
+            user_pwd = data['user_pwd']
+            # user_pwd = bcrypt.generate_password_hash(data['user_pwd'])
 
-        user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
-
-        if user is None:
-            print(user)
-            print(user_id)
-            print(user_pwd)
-            return jsonify({'login':False})
+            # user=list(collection.find({"$and":[
+            #             {'user_nickname':user_id},
+            #             {'user_pwd':user_pwd},
+            #         ]}))
+            
+            user = list(collection.find({'user_nickname':user_id}))
+            if user:
+                db_pwd = user[0]['user_pwd']
+                valid = bcrypt.check_password_hash(db_pwd.decode('utf-8'), user_pwd)
+                if valid == False:
+                    return jsonify({'login':False}), render_template("index.html")
+                else:
+                    resp = make_response(render_template("index.html"))
+                    access_tk = create_access_token(identity=user_id)
+                    refresh_tk = create_refresh_token(identity=user_id)
+                    resp.set_cookie("logined", "true")
+                    set_access_cookies(resp,access_tk)
+                    set_refresh_cookies(resp,refresh_tk)
+                    return resp
+            else:
+                return jsonify({'login':False}), render_template("index.html")
+            
         else:
-            resp = make_response(render_template("index.html"))
-            access_tk = create_access_token(identity=user_id)
-            refresh_tk = create_refresh_token(identity=user_id)
-            resp.set_cookie("logined", "true")
-            set_access_cookies(resp,access_tk)
-            set_refresh_cookies(resp,refresh_tk)
-            return resp
+            return jsonify({'login':False}), render_template("index.html")
+    else:
+        # return jsonify({'login':False}), render_template("index.html")
+        return render_template("index.html")
 
 
 @app.route('/getuser',methods=['GET','POST'])
@@ -371,6 +392,10 @@ def receive():
     collection.update(o_query,{"$set":{'text':data['text']}})
     collection.update(o_query,{"$set":{'state':"변환완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
+    return render_template("index.html")
+
+@app.route('/Agree')
+def Agree():
     return render_template("index.html")
 
 @app.route('/analysis')

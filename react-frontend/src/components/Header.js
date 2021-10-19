@@ -39,10 +39,10 @@ const Header = () => {
     return (
         <div>
             <div class="header">
-                <span class="JEBOBADA">
-                    JEBOBADA 
-                    <li class="nav-item">{button}</li>  
-                </span>
+                <Link to="/" style={{textDecoration:'none'}}>
+                    <span class="JEBOBADA">JEBOBADA
+                    <li className="nav-item">{button}</li>   
+                </span></Link>
             </div>
         {/* <nav class="navbar navbar-expand-lg " id="mainNav">
             <div class="container">

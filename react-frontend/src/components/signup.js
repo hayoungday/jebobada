@@ -27,19 +27,19 @@ const Signup = ({history}) => {
         let body = {
             user_id: userid,
             user_pwd: userpassword,
-            // user_pwd2: userpassword2
+            user_pwd2: userpassword2
         }
 
         axios
         .post("/signup",body)
         .then(res =>{
-
             if (res.data.result == 'success'){
                 alert('회원가입 완료');
                 history.push('/login')
+            } else if (res.data.result == 'input_all') {
+                alert("모두 다 기입해주세요");
             } else {
-                alert("회원가입 실패");
-
+                alert("비밀번호를 다시 확인해주세요")
             }
         })
 

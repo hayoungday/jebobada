@@ -43,6 +43,7 @@ const Login = ({history}) => {
                 history.push('/')
             } else {
                 alert("아이디 및 비밀번호를 다시 확인해주세요")
+                window.location.replace('/login')
             }
         })
 
