@@ -10,7 +10,7 @@ import boto3
 import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
-import bcrypt
+from flask_bcrypt import Bcrypt
 import config
 import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
@@ -31,34 +31,11 @@ app.config['SECRET_KEY']='hayoungday'
 
 
 jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 
 filename=''
 hashed_filename=''
 cur_user = ''
-# class JSONEncoder(json.JSONEncoder):
-#     def default(self, o):
-#         if isinstance(o, ObjectId):
-#             return str(o)
-#         return json.JSONEncoder.default(self, o)
-
-
-
-# Bcrypt = bcrypt(app)
-
-#전역선언X 요청이 올때마다 새로 선언
-#커넥션을 계속해서 refresh 해주는 방식으로 변경
-
-
-
-# @app.before_request
-# def before_request():
-#     conn =pymongo.MongoClient('127.0.0.1',27017) #환경변수 ㄱ
-    # conn =pymongo.MongoClient('218.146.20.51',27017)
-    
-
-# @app.teardown_request
-# def teardown_request():
-#     conn.close()
 
 @app.route("/")
 def my_index():
@@ -75,7 +52,10 @@ def signup():
     else:
         data=request.get_json()
         userid = data['user_id']
-        password = generate_password_hash(data['user_pwd'])
+        password = bcrypt.generate_password_hash(data['user_pwd'])
+        password2 = data['user_pwd2']
+        print(bcrypt.check_password_hash(password, data['user_pwd2']))
+        print(password)
         # re_password = data['user_pwd2']
 
         print(data)
@@ -83,11 +63,12 @@ def signup():
         userinfo={'social':'local', 'user_nickname':userid, 'user_pwd':password}
         
         # if not (userid and username and password and re_password):    
-        if not (userid and password):
+        if not (userid and password and password2):
             print("input all")
             return jsonify({'result':'input_all'})
-        # elif password != re_password:
-        #     return jsonify({'result':'check_pwd'})
+        elif bcrypt.check_password_hash(password, data['user_pwd2']) == False:
+            print("check password")
+            return jsonify({'result':'check_pwd'})
         else:
             print("db insert")
             try:
@@ -181,31 +162,106 @@ def token_remove():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
+    import time
+    
+    # <--------------- access 하는 클라이언트 ip 얻기 ---------------->#
+    access_ip=request.environ.get('HTTP_X_REAL_IP',request.remote_addr)
+    print("로그인 한 ip : ",access_ip)
     conn =pymongo.MongoClient(config.mongodb)
-    # conn =pymongo.MongoClient('mongodb://AdminGoldory:king3680!@218.146.20.51:27017')
+    
     db = conn.jb_db
     collection = db.user
 
     data = request.get_json()
     if(data):
-        user_id = data['user_id']
-        user_pwd =  generate_password_hash(data['user_pwd'])
-
-        user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
-
-        if user is None:
-            print(user)
-            print(user_id)
-            print(user_pwd)
-            return jsonify({'login':False})
+        if (data['user_id'] and data['user_pwd']):
+            user_id = data['user_id']
+            user_pwd = data['user_pwd']
+            
+            user = list(collection.find({'user_nickname':user_id}))
+            if user:
+                db_pwd = user[0]['user_pwd']
+                valid = bcrypt.check_password_hash(db_pwd.decode('utf-8'), user_pwd)
+                if valid == False:
+                    now=time.localtime()
+                    time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+                    print("로그인 실패 시각 :",str(time))
+                    access_log={"access_time":str(time),"access_ip":access_ip,"login":"fail"}
+                    print(access_log)
+                    collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
+                    return jsonify({'login':False}), render_template("index.html")
+                else:
+                    now=time.localtime()
+                    time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+                    print("로그인 성공 시각 :",str(time))
+                    access_log={"access_time":str(time),"access_ip":access_ip,"login":"success"}
+                    print(access_log)
+                    collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
+                    resp = make_response(render_template("index.html"))
+                    access_tk = create_access_token(identity=user_id)
+                    refresh_tk = create_refresh_token(identity=user_id)
+                    resp.set_cookie("logined", "true")
+                    set_access_cookies(resp,access_tk)
+                    set_refresh_cookies(resp,refresh_tk)
+                    return resp
+            else:
+                
+                return jsonify({'login':False}), render_template("index.html")
+            
         else:
-            resp = make_response(render_template("index.html"))
-            access_tk = create_access_token(identity=user_id)
-            refresh_tk = create_refresh_token(identity=user_id)
-            resp.set_cookie("logined", "true")
-            set_access_cookies(resp,access_tk)
-            set_refresh_cookies(resp,refresh_tk)
-            return resp
+            return jsonify({'login':False}), render_template("index.html")
+    else:
+        # return jsonify({'login':False}), render_template("index.html")
+        return render_template("index.html")
+
+# @app.route('/login',methods=['GET','POST'])
+# def login():
+#     import time
+    
+#     # <--------------- access 하는 클라이언트 ip 얻기 ---------------->#
+#     access_ip=request.environ.get('HTTP_X_REAL_IP',request.remote_addr)
+#     print("로그인 한 ip : ",access_ip)
+
+#     conn =pymongo.MongoClient(config.mongodb)
+#     db = conn.jb_db
+#     collection = db.user
+
+#     data = request.get_json()
+#     if(data):
+#         user_id = data['user_id']
+#         user_pwd =  generate_password_hash(data['user_pwd'])
+
+#         user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
+
+#         if user is None:
+#             print(user)
+#             print(user_id)
+#             print(user_pwd)
+
+#             # <--------------- 로그인 실패 ---------------->#
+#             now=time.localtime()
+#             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+#             print("로그인 실패 시각 :",str(time))
+#             access_log={"access_time":str(time),"access_ip":access_ip,"login":"fail"}
+#             print(access_log)
+#             collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
+#             return jsonify({'login':False})
+#         else:
+#             resp = make_response(render_template("index.html"))
+#             access_tk = create_access_token(identity=user_id)
+#             refresh_tk = create_refresh_token(identity=user_id)
+#             resp.set_cookie("logined", "true")
+#             set_access_cookies(resp,access_tk)
+#             set_refresh_cookies(resp,refresh_tk)
+
+#             # <--------------- 로그인 성공 ---------------->#
+#             now=time.localtime()
+#             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+#             print("로그인 성공 시각 :",str(time))
+#             access_log={"access_time":str(time),"access_ip":access_ip,"login":"success"}
+#             print(access_log)
+#             collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
+#             return resp
 
 
 @app.route('/getuser',methods=['GET','POST'])
@@ -250,6 +306,7 @@ def upload():
                 ).count()
             )
         if(hash_cnt!=0):
+            print("file_uplpad_blocked")
             return {"result":"file_upload_block"}
         #<------------------                    ------------------->#
               
@@ -270,6 +327,7 @@ def upload():
         except:
             print("hash calculate error")
             pass
+        
         f.seek(0)
 
         if(fileExt in audio):
@@ -294,7 +352,8 @@ def upload():
             
             collection.insert_one(insert_data)
                         
-            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})  
+            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            #'ServerSideEncryption':'aws:kms'  
                   
             
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
@@ -464,5 +523,21 @@ def getevidences():
         else:
             return {"result":"getevidences api error"}
 
+@app.route('/getAccesslog',methods=['GET','POST'])
+def getAccesslog():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.user
+
+    data = request.get_json()
+
+    print(data)
+    if (data):
+        user = data['user_nickname']
+        cases = list(collection.find({'user_nickname':user}))
+        print("유저:",user)
+        return json.dumps(cases, default=json_util.default)
+    else:
+        print("getAccesslog error")
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

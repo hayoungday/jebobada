@@ -30,7 +30,7 @@ class Upload extends Component {
             userInput:"",
             user:"",
             file:null,
-            fileName:""           
+            fileName:"",          
         }
         this.loadData = this.loadData.bind(this)
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -131,25 +131,28 @@ class Upload extends Component {
         formData.append('filename',this.state.fileName)
         formData.append('user',this.state.user)
         formData.append('case_num',this.props.match.params.casenum)
-
-        console.log(formData)
-        console.log(typeof formData)
+        let file_upload_res;
 
         const config = {
             headers: {
                 'enctype':'multipart/form-data'
             }
+        }     
+        axios.post("/upload",formData,config).then((res)=>{
+            if(res.data.result==="file_upload_block"){
+                alert("동일한 파일이 존재합니다!")
+            }
+            res.data.result=""
         }
-
-        const upload_res= axios.post("/upload",formData,config)
-        console.log(upload_res)
-        return upload_res
-        // return axios.post("/upload",formData)
-    }
+            
+        )
+        
+    }   
 
     async callUserApi() {
         try {
             const res = await axios.get("/getuser");
+            console.log(res)
             this.state.user = res.data.user;
             console.log(this.state.user)
 
@@ -175,6 +178,7 @@ class Upload extends Component {
                     <input type = "file" name = "file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
                     <button type = "submit" onClick={this.searchClick}>등록하기</button>
                 </form>
+                
 
                            
                 <div>

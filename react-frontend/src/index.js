@@ -18,6 +18,7 @@ import Agree from './components/Agree'
 import CasePage from './components/CasePage'
 import test from './components/test'
 import Modal from './components/Modal';
+import Access_log_modal from './components/Access_log_modal';
 
 ReactDOM.render(
     // <App />,
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path="/casepage" component={CasePage}/>
         <Route path="/test" component={test}/>
         <Route path="/Modal" component={Modal}/>
+        <Route path="/Access_log_modal" component={Access_log_modal}/>
       </Route>
      </Router>, 
   document.getElementById('root')
