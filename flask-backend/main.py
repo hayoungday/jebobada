@@ -26,11 +26,14 @@ app.config['JWT_COOKIE_SECURE']=False
 app.config['JWT_COOKIE_CSRF_PROTECT']=True
 app.config['JWT_ACCESS_TOKEN_EXPIRES']=30000
 app.config['JWT_REFRESH_TOKEN_EXPIRES']=100
+
 app.config['BCRYPT_LEVEL']=10
 app.config['SECRET_KEY']='hayoungday'
 
 
 jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
+
 bcrypt = Bcrypt(app)
 
 filename=''
@@ -177,6 +180,12 @@ def login():
         if (data['user_id'] and data['user_pwd']):
             user_id = data['user_id']
             user_pwd = data['user_pwd']
+            # user_pwd = bcrypt.generate_password_hash(data['user_pwd'])
+
+            # user=list(collection.find({"$and":[
+            #             {'user_nickname':user_id},
+            #             {'user_pwd':user_pwd},
+            #         ]}))
             
             user = list(collection.find({'user_nickname':user_id}))
             if user:
@@ -213,55 +222,6 @@ def login():
     else:
         # return jsonify({'login':False}), render_template("index.html")
         return render_template("index.html")
-
-# @app.route('/login',methods=['GET','POST'])
-# def login():
-#     import time
-    
-#     # <--------------- access 하는 클라이언트 ip 얻기 ---------------->#
-#     access_ip=request.environ.get('HTTP_X_REAL_IP',request.remote_addr)
-#     print("로그인 한 ip : ",access_ip)
-
-#     conn =pymongo.MongoClient(config.mongodb)
-#     db = conn.jb_db
-#     collection = db.user
-
-#     data = request.get_json()
-#     if(data):
-#         user_id = data['user_id']
-#         user_pwd =  generate_password_hash(data['user_pwd'])
-
-#         user = collection.find_one({'user_nickname':user_id},{'user_pwd':user_pwd})
-
-#         if user is None:
-#             print(user)
-#             print(user_id)
-#             print(user_pwd)
-
-#             # <--------------- 로그인 실패 ---------------->#
-#             now=time.localtime()
-#             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-#             print("로그인 실패 시각 :",str(time))
-#             access_log={"access_time":str(time),"access_ip":access_ip,"login":"fail"}
-#             print(access_log)
-#             collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
-#             return jsonify({'login':False})
-#         else:
-#             resp = make_response(render_template("index.html"))
-#             access_tk = create_access_token(identity=user_id)
-#             refresh_tk = create_refresh_token(identity=user_id)
-#             resp.set_cookie("logined", "true")
-#             set_access_cookies(resp,access_tk)
-#             set_refresh_cookies(resp,refresh_tk)
-
-#             # <--------------- 로그인 성공 ---------------->#
-#             now=time.localtime()
-#             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-#             print("로그인 성공 시각 :",str(time))
-#             access_log={"access_time":str(time),"access_ip":access_ip,"login":"success"}
-#             print(access_log)
-#             collection.update_one({"user_nickname":user_id},{"$push":{"access_log":access_log}})
-#             return resp
 
 
 @app.route('/getuser',methods=['GET','POST'])
@@ -430,6 +390,10 @@ def receive():
     collection.update(o_query,{"$set":{'text':data['text']}})
     collection.update(o_query,{"$set":{'state':"변환완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
+    return render_template("index.html")
+
+@app.route('/Agree')
+def Agree():
     return render_template("index.html")
 
 @app.route('/analysis')
