@@ -110,9 +110,6 @@ class CasePage extends Component {
     this.setState({ isModalOpen: true });
   };
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-  };
 
   render() {
     return (
@@ -158,53 +155,52 @@ class CasePage extends Component {
                 더욱 체계적인 보고서 생성이 가능합니다.
               </span>
             </div>
-            <div className="add-case-button">
-              <button
-                className="add-case-button-content"
-                onClick={this.openModal}
-              >
-                사건 추가
+            <button className="add-case-button" onClick={this.openModal}>
+                <span className="add-case-button-content">사건 추가</span>
               </button>
               <Modal visible={this.state.isModalOpen}>
-                <button onClick={() => {
-                      this.setState({
-                        isModalOpen: false,
-                      });
-                    }}>닫기</button>
+                <button class = "close_button" onClick={() => {this.setState({isModalOpen: false});}}>
+                    <img class = "close_button_img" src="./static/react/close_icon.png" />
+                  </button>
+                  {/* <img src="./static/react/close_icon.png" style={{ float: "right" }}>
+                    <button  onClick={() => {this.setState({isModalOpen: false});}}/>
+                  </img> */}
+                  <div className="flex-column-container">
+                  <span className="modal_title">사건 정보를 작성해주세요</span>
                 <form onSubmit={this.handleFormSubmit}>
-                  케이스명:{" "}
-                  <input
-                    type="text"
-                    name="case_name"
-                    placeholder="케이스명"
-                    value={this.state.case_name}
-                    onChange={this.handleValueChange}
-                  />
-                  <br />
-                  한줄설명:{" "}
-                  <input
-                    type="text"
-                    name="description"
-                    placeholder="한줄설명"
-                    value={this.state.description}
-                    onChange={this.handleValueChange}
-                  />
-                  <br />
-                  <button
-                    class="btn btn-primary"
-                    onClick={() => {
+                <div className="flex-container-first-box">
+                    <span className="case_name"> 사건명:{" "}</span>
+                    <input className="case_name_input"
+                      type="text"
+                      name="case_name"
+                      placeholder="사건명"
+                      value={this.state.case_name}
+                      onChange={this.handleValueChange}
+                    />
+                  </div>
+                  <div className="flex-container-first-box">
+                    <span className="case_description"> 한줄요약:{" "}</span>
+                    <input className="case_description_input"
+                      type="text"
+                      name="description"
+                      placeholder="한줄요약"
+                      value={this.state.description}
+                      onChange={this.handleValueChange}
+                    />
+                  </div>                  
+                  <button className="case_button" onClick={() => {
                       this.setState({
                         isModalOpen: false,
                         cases: undefined,
                       });
                     }}
                   >
-                    등록
+                    <span className="case_button_text">등록</span>
                   </button>
                 </form>
+                </div>
               </Modal>
               {console.log(this.state.isModalOpen)}
-            </div>
           </div>
           <Table>
             <TableHead>

@@ -44,6 +44,26 @@ const Signup = ({ history }) => {
     });
   };
 
+  const onButtonClick = (event) => {
+      event.preventDefault();
+
+      let body = {
+          user_id: userid
+      }
+
+      axios.post("/check_double", body).then((res)=> {
+          if(res.data.result == "success"){
+              console.log(res.data.result)
+              alert("사용 가능한 ID 입니다.")
+          }
+          else if (res.data.result == "fail"){
+              alert("이미 존재하는 ID 입니다.")
+              console.log(res.data.result)
+              setId("");
+          }
+      })
+  }
+
   return (
     <div>
       <Header />
@@ -54,22 +74,18 @@ const Signup = ({ history }) => {
         <div class="row mt-5">
           <div class="col-12">
             <form onSubmit={onSubmitHandler}>
-              {/* <div class="form-group">
-                    <label for="username">이름</label>
-                    <input type="text" class="form-control" id = 'username' value={username} placeholder="사용자 이름" onChange={onNameHandler}/>
-                </div> */}
 
-              <div class="form-group">
+                <div class="form-group">
                 <label for="userid">아이디</label>
                 <input
-                  type="text"
-                  class="form-control"
-                  id="userid"
-                  value={userid}
-                  placeholder="아이디"
-                  onChange={onIdHandler}
+                    type="text"
+                    class="form-control"
+                    id="userid"
+                    value={userid}
+                    placeholder="아이디"
+                    onChange={onIdHandler}
                 />
-                {/* <!-- id는 삭제해도 되더라. 마지막에 name과 app.py의 get 메소드 사용하는 부분이 일치해야 상응한다 --> */}
+                <button class="btn btn-primary" onClick={onButtonClick}>중복확인</button>
               </div>
 
               <div class="form-group">

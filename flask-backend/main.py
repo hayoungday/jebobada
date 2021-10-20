@@ -44,6 +44,27 @@ cur_user = ''
 def my_index():
     return render_template("index.html",tocken="Hello Flask+React")
 
+@app.route("/check_double", methods=['GET','POST'])
+def check_double():
+    conn = pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.user
+
+    if request.method == 'GET':
+        return render_template("index.html")
+    else:
+        data=request.get_json()
+        user_id = data['user_id']
+        user = list(collection.find({'user_nickname':user_id}))
+        print(user)
+        if user:
+            return jsonify({'result':'fail'})
+        else:
+            return jsonify({'result':'success'})
+            
+        
+
+
 @app.route("/signup",methods=['GET','POST'])
 def signup():
     conn =pymongo.MongoClient(config.mongodb)

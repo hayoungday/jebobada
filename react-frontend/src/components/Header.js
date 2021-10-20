@@ -65,9 +65,12 @@ const Header = () => {
   return (
     <div>
       <div class="header">
-        <span class="JEBOBADA">
-          JEBOBADA
-          <li class="nav-item">{button}</li>
+        <Link to="/" style={{textDecoration:'none'}}>
+            <span class="JEBOBADA">
+                JEBOBADA
+            </span>
+        </Link>
+            <li class="nav-item">{button}</li>
 
 
           <button onClick={() => setIsModalOpen(true)}>
@@ -114,7 +117,6 @@ const Header = () => {
 
             <button onClick={() => setIsModalOpen(false)}>닫기</button>
           </Access_log_modal>
-        </span>
       </div>
     </div>
   );

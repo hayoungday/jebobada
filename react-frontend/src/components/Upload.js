@@ -232,6 +232,7 @@ class Upload extends Component {
                     자세하게 적을 수록 신고 시에 도움이 많이 됩니다
                   </span>
                 </div>
+<<<<<<< Updated upstream
                 <button className="add-case-button" onClick={this.openModal}>
                   <span className="add-case-button-content">증거 등록</span>
                 </button>
@@ -247,6 +248,55 @@ class Upload extends Component {
                   </button>
                   <form onSubmit={this.handleFormSubmit}>
                     {/* 일시:{" "}
+=======
+                <img
+                    className="connect-square"
+                    src="../static/react/square_icon.png"
+                />
+                <div className="upload-box" style={{ backgroundColor: "#3d7be6" }}>
+                    <span className="upload-text" style={{ color: "#fff" }}>
+                    증거 등록
+                    </span>
+                </div>
+                </div>
+
+
+                <div>
+                    <input 
+                    className="search"
+                    type="search"
+                    placeholder="키워드"
+                    onChange={this.handleChange}
+                    />
+                    <button onClick={this.handleClick(this.state.userInput)}>검색</button>
+                    
+                </div> 
+                
+                
+                <div className="flex-column-container">
+                <div className="flex-container-case-box">
+                    <div className="flex-column-content-container">
+                    <span className="select-case-text">
+                        증거를 등록해주세요
+                    </span>
+                    <span className="select-case-content">
+                        사건에 해당하는 증거들을 등록해주세요
+                        <p />
+                        자세하게 적을 수록 신고 시에 도움이 많이 됩니다
+                    </span>
+                    </div>
+                    <button className="add-case-button" onClick={this.openModal}>
+                        <span className="add-case-button-content">증거 등록</span>
+                    </button>
+                    <Modal visible={this.state.isModalOpen}>
+                        <button onClick={() => {
+                            this.setState({
+                                isModalOpen: false,
+                            });
+                            }}>닫기</button>
+                        <form onSubmit={this.handleFormSubmit}>
+                        {/* 일시:{" "}
+>>>>>>> Stashed changes
                         <input
                             type="date"
                             name="case_name"
