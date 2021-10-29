@@ -16,7 +16,7 @@ const Home = () => {
                         <span className="first_title">증거등록</span>
                         <div className="flex-column-content-container">
                             <div className="flex-container-first-box">
-                                <Link to="/Agree"><img className="upload_image" src="./static/react/upload.png"/></Link>
+                                <Link to="/casepage"><img className="upload_image" src="./static/react/upload.png"/></Link>
                                 <span className="upload_content">
                                 <p/>괴롭힘 피해 증거를 JEBOBADA에 등록할 수 있습니다.<p/>
                                     등록한 증거들은 분석되어 3단계 ANALYSIS에서<p/>

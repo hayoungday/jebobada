@@ -208,6 +208,7 @@ class CasePage extends Component {
                 <TableCell style={{ textAlign: "center" }}>번호</TableCell>
                 <TableCell style={{ textAlign: "center" }}>케이스명</TableCell>
                 <TableCell style={{ textAlign: "center" }}>설명</TableCell>
+                <TableCell style={{ textAlign: "center" }}></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -220,6 +221,7 @@ class CasePage extends Component {
                       id={this.state.maxNo + i}
                       name={c.CaseName}
                       description={c.Description}
+                      user = {c.User}
                       idx={c.index}
                     />
                   );

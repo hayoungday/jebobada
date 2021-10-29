@@ -258,6 +258,8 @@ def upload():
     import time
     import os
     from werkzeug.datastructures import FileStorage
+
+
     if request.method == 'POST':
         
         conn =pymongo.MongoClient(config.mongodb)
@@ -267,10 +269,23 @@ def upload():
         meta = metaExiftool.metaExiftool()
         audio=['.m4a','.wav','.mp3','.aac','.ac3','.flac']
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
-        f=request.files['file']
+        print(request)
+        
         case_num = request.form['case_num']
         user = request.form['user']
+        date = request.form['date']
+        location = request.form['location']
+        attacker = request.form['attacker']
+        desc = request.form['desc']
+        types = request.form['type']
 
+        print(str(case_num), str(user))
+        print(request.files)
+        print(len(request.files))
+        print(request.form)
+        f=request.files['file']
+        # f=request.form['file']
+        
         file_hash_data=hashlib.md5(f.read()).hexdigest()
         print("case_num 타입",type(case_num))
         print("file_hash_data 타입",type(file_hash_data))          
@@ -321,6 +336,11 @@ def upload():
             insert_data['hashed_filename']=hashed_filename
             insert_data['segments']=''
             insert_data['user_id']=user
+            insert_data['date']=date
+            insert_data['location']=location
+            insert_data['attacker']=attacker
+            insert_data['desc']=desc
+            insert_data['type']=types
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)            
@@ -351,6 +371,11 @@ def upload():
             insert_data['hashed_filename']=hashed_filename
             insert_data['segments']=''
             insert_data['user_id']=user
+            insert_data['date']=date
+            insert_data['location']=location
+            insert_data['attacker']=attacker
+            insert_data['desc']=desc
+            insert_data['type']=types
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)            
@@ -419,6 +444,10 @@ def Agree():
 
 @app.route('/analysis')
 def analysis():
+    return render_template("index.html")
+
+@app.route('/uploadevidence')
+def uploadevidence():
     return render_template("index.html")
 
 @app.route('/casepage', methods = ['GET', 'POST'])
@@ -524,5 +553,68 @@ def getAccesslog():
         return json.dumps(cases, default=json_util.default)
     else:
         print("getAccesslog error")
+
+@app.route("/deletecase",methods=['GET','POST'])
+def deletecase():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+    collection2 = db.stt
+
+    data = request.get_json()
+
+    print(data)
+
+    collection.remove({
+        "$and":[
+            {'CaseName':data['case_name']},
+            {'User':data['user']}                
+        ]
+        }
+    )
+
+    collection2.remove({
+        "$and":[
+            {'user_id':data['user']},
+            {'casenum':str(data['casenum'])}
+        ]
+    })
+
+    print(list(collection2.find({
+        "$and":[
+            {'user_id':data['user']},
+            {'casenum':str(data['casenum'])}
+        ]
+    })))
+    print(data['user'])
+    print(data['casenum'])
+    
+    return render_template("index.html")
+
+@app.route("/deleteevidence",methods=['GET','POST'])
+def deleteevidence():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+
+    data = request.get_json()
+
+    print(data)
+    
+    collection.remove({
+        "$and":[
+            {'casenum':data['casenum']},
+            {'filename':data['filename']},
+            {'user_id':data['user']}                
+        ]
+        }
+    )
+    
+    return render_template("index.html")
+
+@app.route("/caseupdate",methods=['GET','POST'])
+def caseupdate():
+    return render_template("index_html")
+
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,41 +1,21 @@
 {
   "files": {
-<<<<<<< Updated upstream
-    "main.css": "/static/react//css/main.93b37985.chunk.css",
-    "main.js": "/static/react/js/9c7765b5.main.js",
-    "main.js.map": "/static/react/js/9c7765b5.main.js.map",
-    "runtime-main.js": "/static/react/js/9c7765b5.runtime-main.js",
-    "runtime-main.js.map": "/static/react/js/9c7765b5.runtime-main.js.map",
-    "js/9c7765b5.2.js": "/static/react/js/9c7765b5.2.js",
-    "js/9c7765b5.2.js.map": "/static/react/js/9c7765b5.2.js.map",
-    "../../templates/index.html": "/static/react/../../templates/index.html",
-    "/css/main.93b37985.chunk.css.map": "/static/react//css/main.93b37985.chunk.css.map",
-    "/media/Header.css": "/static/react//media/map-image.3cd6dd98.png",
-    "js/9c7765b5.2.js.LICENSE.txt": "/static/react/js/9c7765b5.2.js.LICENSE.txt"
-  },
-  "entrypoints": [
-    "js/9c7765b5.runtime-main.js",
-    "js/9c7765b5.2.js",
-    "/css/main.93b37985.chunk.css",
-    "js/9c7765b5.main.js"
-=======
     "main.css": "/static/react//css/main.2d45ef62.chunk.css",
-    "main.js": "/static/react/js/e50ad11b.main.js",
-    "main.js.map": "/static/react/js/e50ad11b.main.js.map",
-    "runtime-main.js": "/static/react/js/e50ad11b.runtime-main.js",
-    "runtime-main.js.map": "/static/react/js/e50ad11b.runtime-main.js.map",
-    "js/e50ad11b.2.js": "/static/react/js/e50ad11b.2.js",
-    "js/e50ad11b.2.js.map": "/static/react/js/e50ad11b.2.js.map",
+    "main.js": "/static/react/js/b050ec4f.main.js",
+    "main.js.map": "/static/react/js/b050ec4f.main.js.map",
+    "runtime-main.js": "/static/react/js/b050ec4f.runtime-main.js",
+    "runtime-main.js.map": "/static/react/js/b050ec4f.runtime-main.js.map",
+    "js/b050ec4f.2.js": "/static/react/js/b050ec4f.2.js",
+    "js/b050ec4f.2.js.map": "/static/react/js/b050ec4f.2.js.map",
     "../../templates/index.html": "/static/react/../../templates/index.html",
     "/css/main.2d45ef62.chunk.css.map": "/static/react//css/main.2d45ef62.chunk.css.map",
     "/media/Header.css": "/static/react//media/map-image.3cd6dd98.png",
-    "js/e50ad11b.2.js.LICENSE.txt": "/static/react/js/e50ad11b.2.js.LICENSE.txt"
+    "js/b050ec4f.2.js.LICENSE.txt": "/static/react/js/b050ec4f.2.js.LICENSE.txt"
   },
   "entrypoints": [
-    "js/e50ad11b.runtime-main.js",
-    "js/e50ad11b.2.js",
+    "js/b050ec4f.runtime-main.js",
+    "js/b050ec4f.2.js",
     "/css/main.2d45ef62.chunk.css",
-    "js/e50ad11b.main.js"
->>>>>>> Stashed changes
+    "js/b050ec4f.main.js"
   ]
 }

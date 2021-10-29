@@ -1,109 +1,227 @@
-import React from "react";
-// import './Header.css';
-import { Link, RouteComponentProps } from "react-router-dom";
-import "./Home.css";
+import React, { Component, useState } from 'react';
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-{
-  /* <Link class="nav-link" to="/about">서비스소개</Link> */
-}
+const physics = ["폭행", "폭언"]
+const lang = ["모욕","협박","비하"]
+const onwork = ["무시","정보차단","차단","배제","사적지시","전가","업무제외","SNS","야근","건의","감시","사직종용","반성문(시말서 강요)","차별","사비"]
+const outwork = ["행사","장기자랑 강요","강요","후원 강요","휴가","육아휴직","모임","실업급여"]
+const group = ["따돌림","소문","비밀","태움"]
+const sexual = ["성희롱"]
 
-const Home = () => {
-  return (
-    <div>
-      <div className="flex-container">
-        <div className="first_box">
-          <div className="flex-column-container">
-            <span className="first_num">1</span>
-            <span className="first_title">증거등록</span>
 
-            <div className="flex-container-first-box">
-              <Link to="/Agree">
-                <img className="upload_image" src="./static/react/upload.png" />
-              </Link>
-              <span className="upload_content">
-                <p />
-                괴롭힘 피해 증거를 JEBOBADA에 등록할 수 있습니다.
-                <p />
-                등록한 증거들은 분석되어 3단계 ANALYSIS에서
-                <p />
-                보고서와 대시보드로 확인하실 수 있습니다.
-                <p />
-              </span>
-            </div>
-            <div className="flex-container-first-box">
-              <Link to="/Download">
-                <img
-                  className="download_image"
-                  src="./static/react/download.png"
-                />
-              </Link>
-              <span className="download_content">
-                <p />
-                JEBOBADA의 자체 툴, JB-EXTRACTOR 도구로
-                <p />
-                컴퓨터에 남아있는 증거들을 추가로 수집할 수 있습니다.
-                <p />
-                먼저 툴을 설치하고, 증거를 추출하여 JEBOBADA에 등록 해보세요!
-                <p />
-              </span>
-            </div>
-          </div>
+
+function Check_Modal({ className, visible, type, children }) {
+  const [chk_physics, setPhysics] = useState(new Array(physics.length).fill(false))
+  const [chk_lang, setLang] = useState(new Array(lang.length).fill(false))
+  const [chk_onwork, setOnwork] = useState(new Array(onwork.length).fill(false))
+  const [chk_outwork, setOutwork] = useState(new Array(outwork.length).fill(false))
+  const [chk_group, setGroup] = useState(new Array(group.length).fill(false))
+  const [chk_sexual, setSexual] = useState(new Array(sexual.length).fill(false))
+
+  const modal_contents =(type)=>{
+
+    const onPhysicsHandler = (position) => {
+      const updatedchecked = chk_physics.map((item, index)=>
+          index === position ? !item : item
+      )
+      setPhysics(updatedchecked)
+    }
+    const onLangHandler = (position) => {
+      const updatedchecked = chk_lang.map((item, index)=>
+          index === position ? !item : item
+      )
+      setLang(updatedchecked)
+    }
+    const onWorkHandler = (position) => {
+      const updatedchecked = chk_onwork.map((item, index)=>
+          index === position ? !item : item
+      )
+      setOnwork(updatedchecked)
+    }
+    const onOutworkHandler = (position) => {
+      const updatedchecked = chk_outwork.map((item, index)=>
+          index === position ? !item : item
+      )
+      setOutwork(updatedchecked)
+    }
+    const onGroupHandler = (position) => {
+      const updatedchecked = chk_group.map((item, index)=>
+          index === position ? !item : item
+      )
+      setGroup(updatedchecked)
+    }
+    const onSexualHandler = (position) => {
+      const updatedchecked = chk_sexual.map((item, index)=>
+          index === position ? !item : item
+      )
+      setSexual(updatedchecked)
+    }
+
+    if (type == "physics"){
+      return (
+        <div>
+          <h1>신체적 괴롭힘</h1>
+          {physics.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setPhysics[index]} onChange={()=>onPhysicsHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
         </div>
-        <div className="second_box">
-          <div className="flex-column-container">
-            <span className="second_num">2</span>
-            <span className="second_title">조회&분석</span>
-            <span className="second_content">
-              <p />
-              1단계에서 업로드한 증거물 확인과
-              <p />
-              사건 별 보고서 및 대시보드 생성을 위한
-              <p />
-              분석 작업이 진행됩니다.
-              <p />
-            </span>
-            <div className="go_button_box1">
-              <span className="go_button">GO</span>
-            </div>
-          </div>
+      );
+    } else if (type == "lang"){
+      return (
+        <div>
+          <h1>언어적 괴롭힘</h1>
+          {lang.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setLang[index]} onChange={()=>onLangHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
         </div>
-        <div className="third_box">
-          <div className="flex-column-container">
-            <span className="third_num">3</span>
-            <span className="third_title">분석결과</span>
-            <span className="third_content">
-              <p />
-              등록한 증거들의 분석 결과를
-              <p />
-              보고서와 대시보드로 제공합니다.
-              <p />
-              보고서와 대시보드는 이후 신고 절차에서
-              <p />
-              신뢰성 있는 자료로 적용될 수 있습니다.
-              <p />
-            </span>
-            <Link
-              to="/Analysis"
-              className="go_button_box2"
-              style={{ textDecoration: "none" }}
-            >
-              <span className="go_button">GO</span>
-            </Link>
-          </div>
+      );    
+    } else if (type == "onwork"){
+      return (
+        <div>
+          <h1>직장 내에서 발생한 괴롭힘</h1>
+          {onwork.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setOnwork[index]} onChange={()=>onWorkHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
         </div>
-      </div>
-    </div>
+      );    
+    } else if (type == "outwork"){
+      return (
+        <div>
+          <h1>직장 밖에서 발생한 괴롭힘</h1>
+          {outwork.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setOutwork[index]} onChange={()=>onOutworkHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
+        </div>
+      );    
+    } else if (type == "group"){
+      return (
+        <div>
+          <h1>집단적 괴롭힘</h1>
+          {group.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setGroup[index]} onChange={()=>onGroupHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
+        </div>
+      );
+    } else if (type == "sexual"){
+      return (
+        <div>
+          <h1>성희롱</h1>
+          {sexual.map((item,index)=>{
+            return(
+                <li key={index}>
+                    <label>
+                    <input type="checkbox" name={item} value={item} checked={setSexual[index]} onChange={()=>onSexualHandler(index)}/>
+                    {item}
+                    </label>
+                </li>
+            )
+          })}
+        </div>
+      );
+    }
+  }
+  console.log(chk_physics)
+  console.log(chk_group)
+  console.log(chk_lang)
+  console.log(chk_onwork)
+  console.log(chk_outwork)
+  console.log(chk_sexual)
+    return (
+      <>
+        <ModalOverlay visible={visible} />
+        <ModalWrapper className={className} tabIndex="-1" visible={visible}>
+          <ModalInner tabIndex="0" className="modal-inner">
+            {children}
+            {modal_contents(type)}
+          </ModalInner>
+        </ModalWrapper>
+      </>
+    )
+  }
 
-    // <div>
-    // <header class="masthead">
-    //     <div class="container">
-    //         <div class="masthead-subheading"></div>
-    //         <div class="masthead-heading text-uppercase">Jebobada</div>
-    //         <a class="btn btn-primary btn-xl text-uppercase" href="#services">Jebobada</a>
-    //     </div>
-    // </header>
-    // </div>
-  );
-};
+  
 
-export default Home;
+  
+  
+  Check_Modal.propTypes = {
+    visible: PropTypes.bool,
+    type: PropTypes.string
+  }
+  
+  const ModalWrapper = styled.div`
+    box-sizing: border-box;
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: auto;
+    outline: 0;
+  `
+  
+  const ModalOverlay = styled.div`
+    box-sizing: border-box;
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  `
+  
+  const ModalInner = styled.div`
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+    background-color: #dee5f8;
+    border-radius: 50px;
+    width: 600px;
+    max-width: 800px;
+    height: 400px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 40px 20px;
+  `
+
+export default Check_Modal;

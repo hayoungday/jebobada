@@ -1,4 +1,6 @@
 import React, {Component,useState} from 'react';
+import { Link, RouteComponentProps } from "react-router-dom";
+
 import Header from './Header';
 import axios from 'axios';
 import Evidence from './Evidence';
@@ -17,6 +19,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useLocation } from 'react-router-dom'
 import Modal from "./Modal"
 import "./Agree.css";
+import Check_Modal from './Check_Modal';
+import Agree_Modal from './Agree_Modal';
+import SelectType_Modal from './SelectType_Modal';
 
 
 let keyword=""
@@ -34,6 +39,7 @@ class Upload extends Component {
             file:null,
             fileName:"",
             isModalOpen: false,
+            isSelectModalOpen: false,
             // dateFormats: ['d', 'D', 'M', 'd/M/yy', 'MMMM dd, yyyy'],
             location: "",
             attacker: "",
@@ -174,6 +180,10 @@ class Upload extends Component {
         this.setState({ isModalOpen: true });
     };
 
+    // agreement = () => {
+      
+    // };
+
     render() {
         // const {classes} =this.props;
         return (
@@ -209,59 +219,7 @@ class Upload extends Component {
                 </span>
               </div>
             </div>
-
-            <div>
-              <input
-                className="search"
-                type="search"
-                placeholder="키워드"
-                onChange={this.handleChange}
-              />
-              <button onClick={this.handleClick(this.state.userInput)}>
-                검색
-              </button>
-            </div>
-
-            <div className="flex-column-container">
-              <div className="flex-container-case-box">
-                <div className="flex-column-content-container">
-                  <span className="select-case-text">증거를 등록해주세요</span>
-                  <span className="select-case-content">
-                    사건에 해당하는 증거들을 등록해주세요
-                    <p />
-                    자세하게 적을 수록 신고 시에 도움이 많이 됩니다
-                  </span>
-                </div>
-<<<<<<< Updated upstream
-                <button className="add-case-button" onClick={this.openModal}>
-                  <span className="add-case-button-content">증거 등록</span>
-                </button>
-                <Modal visible={this.state.isModalOpen}>
-                  <button
-                    onClick={() => {
-                      this.setState({
-                        isModalOpen: false,
-                      });
-                    }}
-                  >
-                    닫기
-                  </button>
-                  <form onSubmit={this.handleFormSubmit}>
-                    {/* 일시:{" "}
-=======
-                <img
-                    className="connect-square"
-                    src="../static/react/square_icon.png"
-                />
-                <div className="upload-box" style={{ backgroundColor: "#3d7be6" }}>
-                    <span className="upload-text" style={{ color: "#fff" }}>
-                    증거 등록
-                    </span>
-                </div>
-                </div>
-
-
-                <div>
+               <div>
                     <input 
                     className="search"
                     type="search"
@@ -285,100 +243,57 @@ class Upload extends Component {
                         자세하게 적을 수록 신고 시에 도움이 많이 됩니다
                     </span>
                     </div>
-                    <button className="add-case-button" onClick={this.openModal}>
+                    <button className="add-case-button" style={{textDecoration:'none'}}>
+                   
+                      <button onClick={this.openModal}>
                         <span className="add-case-button-content">증거 등록</span>
+                      </button>
+                      <Agree_Modal visible={this.state.isModalOpen}>
+                        <button onClick={(e) => {
+                          e.preventDefault()
+                          {alert("영업기밀, 민감 정보 등의 등록은 주의해주시길 바랍니다.")}
+                          this.setState({isModalOpen:false, isSelectModalOpen: true})
+                        }}>개인정보 수집  및 이용에 동의합니다</button>
+                      </Agree_Modal>
+                      <SelectType_Modal visible={this.state.isSelectModalOpen}>
+                      <button onClick={(e) => {
+                          e.preventDefault()
+                          this.setState({isSelectModalOpen: false})
+                        }}>닫기</button>
+                      <Link to={{
+                        pathname: "/uploadevidence",
+                        state: {
+                          casenum: this.props.match.params.casenum,
+                          user: this.state.user
+                        }
+                      }}>
+                        <button>직접 증거 등록</button>
+                      </Link>
+                      <Link><button>컴퓨터 사용기록 등록</button></Link>
+                      </SelectType_Modal>
                     </button>
-                    <Modal visible={this.state.isModalOpen}>
-                        <button onClick={() => {
-                            this.setState({
-                                isModalOpen: false,
-                            });
-                            }}>닫기</button>
-                        <form onSubmit={this.handleFormSubmit}>
-                        {/* 일시:{" "}
->>>>>>> Stashed changes
-                        <input
-                            type="date"
-                            name="case_name"
-                            placeholder="사건 발생 일시를 적어주세요"
-                            value={this.state.case_name}
-                            onChange={this.handleValueChange}
-                        />
-                        <br /> */}
-                    발생장소:{" "}
-                    <input
-                      type="text"
-                      name="location"
-                      placeholder="사건이 발생한 장소를 적어주세요"
-                      value={this.state.location}
-                      onChange={this.handleValueChange}
-                    />
-                    <br />
-                    행위자
-                    <br />
-                    (가해자):{" "}
-                    <input
-                      type="text"
-                      name="attacker"
-                      placeholder="사건 행위자를 적어주세요"
-                      value={this.state.attacker}
-                      onChange={this.handleValueChange}
-                    />
-                    <br />
-                    구체적인
-                    <br />
-                    피해사실:{" "}
-                    <input
-                      type="text"
-                      name="description"
-                      placeholder="구체적인 피해사실을 적어주세요"
-                      value={this.state.description}
-                      onChange={this.handleValueChange}
-                    />
-                    <br />
-                    <form onSubmit={this.handleFormSubmit}>
-                      <input
-                        type="file"
-                        name="file"
-                        file={this.state.file}
-                        value={this.state.fileName}
-                        onChange={this.handleFileChange}
-                      />
-                    </form>
-                    <button 
-                      class="btn btn-primary"
-                      onClick={() => {
-                        this.setState({
-                          isModalOpen: false,
-                          boards: undefined,
-                        });
-                      }}
-                    >
-                      등록
-                    </button>
-                  </form>
-                </Modal>
-                {console.log(this.state.isModalOpen)}
               </div>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ textAlign: "center" }}>번호</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      증거명
-                    </TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      업로드일
-                    </TableCell>
+                    <TableCell style={{ textAlign: "center" }}>증거명</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>설명</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>괴롭힘유형</TableCell>
                     <TableCell style={{ textAlign: "center" }}>분류</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>일시</TableCell>
                     <TableCell style={{ textAlign: "center" }}>상태</TableCell>
-                  </TableRow>
+                    <TableCell style={{ textAlign: "center" }}>
+                      <button>수정</button>
+                      <button>삭제</button>
+                    </TableCell>                  
+                </TableRow>
                 </TableHead>
                 <TableBody>
                   {this.state.boards ? (
                     this.state.boards.map((c, i) => {
                       return (
-                        <Evidence
+                        <Evidence 
                           key={this.state.maxNo + i}
                           id={this.state.maxNo + i}
                           name={c.filename}
@@ -389,6 +304,9 @@ class Upload extends Component {
                           state={c.state}
                           casenum={c.casenum}
                           keyword={this.state.userInput}
+                          desc = {c.desc}
+                          bullying = {c.type}
+
                         />
                       );
                     })
@@ -410,66 +328,6 @@ class Upload extends Component {
               </Table>
             </div>
           </div>
-          // <div>
-          //     <Header/>
-          //     <br></br>
-          //     <h1>증거물 업로드 페이지</h1>
-          //     <br></br>
-          //     <h2>Case</h2><h3>{this.props.location.state.casename}</h3>
-          //     <br></br>
-          //     <form onSubmit={this.handleFormSubmit}>
-          //         <input type = "file" name = "file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
-          //         <button type = "submit" onClick={this.searchClick}>등록하기</button>
-          //     </form>
-
-          //     <div>
-          //         <input
-          //         className="search"
-          //         type="search"
-          //         placeholder="키워드"
-          //         onChange={this.handleChange}
-          //         />
-          //         <button onClick={this.handleClick(this.state.userInput)}>검색</button>
-
-          //     </div>
-          // <Table>
-          //     <TableHead>
-          //         <TableRow>
-          //             <TableCell>번호</TableCell>
-          //             <TableCell>이름</TableCell>
-          //             <TableCell>업로드 시간</TableCell>
-          //             <TableCell>상태</TableCell>
-          //             <TableCell>분류</TableCell>
-          //             <TableCell>자세히 보기</TableCell>
-          //         </TableRow>
-          //     </TableHead>
-          //     <TableBody>
-          //     { this.state.boards ? this.state.boards.map((c,i) => {
-          //             return ( <Evidence key={this.state.maxNo + i}
-          //                 id={this.state.maxNo + i}
-          //                 name={c.filename}
-          //                 user_id={c.user_id}
-          //                 type={c.filetype}
-          //                 uploaded_time={c.uploaded_time}
-          //                 idx={c.index}
-          //                 state={c.state}
-          //                 casenum={c.casenum}
-          //                 keyword={this.state.userInput}
-          //                 />)
-          //             }):
-          //             <TableRow>
-          //                 <TableCell colSpan={6} align="center">
-          //                     <br></br>
-          //                     <h6>loading....</h6>
-          //                     <br></br>
-          //                     <br></br>
-          //                     <CircularProgress variant="indeterminate" value={this.state.completed}/>
-          //                 </TableCell>
-          //             </TableRow>
-          //         }
-          //     </TableBody>
-          // </Table>
-          // </div>
         ); 
     } 
 }
