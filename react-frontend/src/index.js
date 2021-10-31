@@ -20,6 +20,7 @@ import test from './components/test'
 import Modal from './components/Modal';
 import Access_log_modal from './components/Access_log_modal';
 import UploadEvidence from './components/UploadEvidence';
+import EvidenceEdit from './components/EvidenceEdit'
 
 ReactDOM.render(
     // <App />,
@@ -42,6 +43,7 @@ ReactDOM.render(
         <Route path="/Modal" component={Modal}/>
         <Route path="/Access_log_modal" component={Access_log_modal}/>
         <Route path="/uploadevidence" component={UploadEvidence}/>
+        <Route path="/editevidence" component={EvidenceEdit}/>
       </Route>
      </Router>, 
   document.getElementById('root')

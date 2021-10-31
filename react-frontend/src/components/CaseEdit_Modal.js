@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import "./Agree.css"
 import axios from 'axios';
 
-function CaseEdit_Modal({ className, visible, case_name, user, children }) {
+function CaseEdit_Modal({ className, visible, case_name, user, closeModal, children, desc }) {
 
     const [description, setDesc] = useState("");
 
@@ -29,6 +29,7 @@ function CaseEdit_Modal({ className, visible, case_name, user, children }) {
             e.preventDefault()
             try{
                 addCase(e)
+                closeModal()
             }
             catch(err){
                 return console.lor(err)
@@ -36,6 +37,7 @@ function CaseEdit_Modal({ className, visible, case_name, user, children }) {
         }
 
         return(
+          <div>
             <form onSubmit={handleFormSubmit}>
                 <div className="flex-container-first-box">
                     <span className="case_name">
@@ -48,9 +50,8 @@ function CaseEdit_Modal({ className, visible, case_name, user, children }) {
                 <input className="case_description_input"
                     type="text"
                     name="description"
-                    placeholder="한줄요약"
-                    value={description}
-                    onChange={onDescHandler}
+                    onChange={onDescHandler}        
+                    placeholder={desc}
                 />
                 </div> 
 
@@ -64,7 +65,11 @@ function CaseEdit_Modal({ className, visible, case_name, user, children }) {
                 <button className="case_button">
                 <span className="case_button_text">수정</span>
                 </button>
-            </form>     
+            </form>
+
+            <button onClick = {closeModal}>닫기</button>
+
+          </div>
         )
 
     }
@@ -84,7 +89,9 @@ function CaseEdit_Modal({ className, visible, case_name, user, children }) {
   CaseEdit_Modal.propTypes = {
     visible: PropTypes.bool,
     case_name : PropTypes.string,
-    user: PropTypes.string
+    user: PropTypes.string,
+    closeModal: PropTypes.func,
+    desc : PropTypes.string
   }
   
   const ModalWrapper = styled.div`

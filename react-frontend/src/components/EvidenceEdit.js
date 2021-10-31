@@ -7,21 +7,24 @@ import "./Agree.css";
 import Checkbox from "./Checkbox";
 import Check_Modal from "./Check_Modal";
 import { Button } from "@material-ui/core";
+import Evidence from "./Evidence";
  
-const UploadEvidence = (props) => {
+const EvidenceEdit = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [type, setType] = useState("");
 
     const [user, setUser] = useState("");
-    const [date, setDate] = useState("");
-    const [location, setLocation] = useState("");
-    const [attacker, setAttacker] = useState("");
-    const [desc, setDesc] = useState("");
+    const [date, setDate] = useState(props.location.state.datetime);
+    const [location, setLocation] = useState(props.location.state.location);
+    const [attacker, setAttacker] = useState(props.location.state.attacker);
+    const [desc, setDesc] = useState(props.location.state.desc);
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState("");
 
-    const [checkedItems, setCheckedItems] = useState(new Set())
+
+
+    const [checkedItems, setCheckedItems] = useState(new Set(props.location.state.bullying))
     
     const setaa = checkedItems.keys()
 
@@ -63,11 +66,10 @@ const UploadEvidence = (props) => {
             var formData = new FormData()
             var myType = [...setaa]
             var myType2 = Array.from(checkedItems)
-
-            console.log(date)
-
             console.log({setaa})
             console.log("mytype2",myType2)
+            console.log(date)
+
             formData.append('file',file)
             formData.append('filename',filename)
             formData.append('user',props.location.state.user)
@@ -77,6 +79,7 @@ const UploadEvidence = (props) => {
             formData.append('attacker',attacker)
             formData.append('desc',desc)
             formData.append('type',myType2)
+            formData.append('index',props.location.state.index)
             let config = {
                 headers: {
                     'enctype':'multipart/form-data'
@@ -87,7 +90,7 @@ const UploadEvidence = (props) => {
                 console.log(setaa)
 
             }
-            axios.post("/upload",formData,config).then((res)=>{
+            axios.post("/evidenceupdate",formData,config).then((res)=>{
                 if(res.data.result==="file_upload_block"){
                     alert("동일한 파일이 존재합니다!")
                 }
@@ -109,6 +112,7 @@ const UploadEvidence = (props) => {
 
     return(
     <div className="flex-column-container">
+        {console.log(props)}
         <Header />
         <div className="flex-container-agree">
             <div className="agree-box" style={{ backgroundColor: "#dee5f8" }}>
@@ -146,7 +150,6 @@ const UploadEvidence = (props) => {
                 <input
                     type="date"
                     name="date"
-                    placeholder="사건 발생 일시를 적어주세요"
                     value={date}
                     onChange={onDateHandler}
                 />
@@ -155,7 +158,6 @@ const UploadEvidence = (props) => {
                 <input
                     type="text"
                     name="location"
-                    placeholder="사건이 발생한 장소를 적어주세요"
                     value={location}
                     onChange={onLocationHandler}
                 />
@@ -166,7 +168,6 @@ const UploadEvidence = (props) => {
                 <input
                     type="text"
                     name="attacker"
-                    placeholder="사건 행위자를 적어주세요"
                     value={attacker}
                     onChange={onAttackerHandler}
                 />
@@ -206,7 +207,6 @@ const UploadEvidence = (props) => {
                 <input
                     type="text"
                     name="description"
-                    placeholder="구체적인 피해사실을 적어주세요"
                     value={desc}
                     onChange={onDescHandler}
                 />
@@ -226,4 +226,4 @@ const UploadEvidence = (props) => {
     );
 }
 
-export default UploadEvidence
+export default EvidenceEdit

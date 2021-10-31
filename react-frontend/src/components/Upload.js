@@ -283,10 +283,7 @@ class Upload extends Component {
                     <TableCell style={{ textAlign: "center" }}>분류</TableCell>
                     <TableCell style={{ textAlign: "center" }}>일시</TableCell>
                     <TableCell style={{ textAlign: "center" }}>상태</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
-                      <button>수정</button>
-                      <button>삭제</button>
-                    </TableCell>                  
+                    <TableCell style={{ textAlign: "center" }}></TableCell>                  
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -299,13 +296,15 @@ class Upload extends Component {
                           name={c.filename}
                           user_id={c.user_id}
                           type={c.filetype}
-                          uploaded_time={c.uploaded_time}
+                          date={c.date}
                           idx={c.index}
                           state={c.state}
                           casenum={c.casenum}
                           keyword={this.state.userInput}
                           desc = {c.desc}
                           bullying = {c.type}
+                          attacker = {c.attacker}
+                          location = {c.location}
 
                         />
                       );

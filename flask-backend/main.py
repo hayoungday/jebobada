@@ -614,7 +614,69 @@ def deleteevidence():
 
 @app.route("/caseupdate",methods=['GET','POST'])
 def caseupdate():
-    return render_template("index_html")
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+
+    data = request.get_json()
+
+    user = data['user']['user']
+    case_name = data['case_name']['case_name']
+    description = data['description']
+
+    collection.update({
+        "$and":[
+            {'CaseName':case_name},
+            {'User':user}
+        ]
+    },{
+        "$set":{"Description":description}
+    })
+    
+
+    return data
+
+@app.route("/evidenceupdate",methods=['GET','POST'])
+def evidenceupdate():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+
+    case_num = request.form['case_num']
+    user = request.form['user']
+    index = request.form['index']
+
+    date = request.form['date']
+    location = request.form['location']
+    attacker = request.form['attacker']
+    types = request.form['type']
+    desc = request.form['desc']
+
+    print(case_num,user,index)
+    print(type(case_num))
+    print(type(user))
+    print(type(index))
+    print(type(types))
+    print(date,location,attacker,types,desc)
+
+    collection.update_one({
+        "$and":[
+            {'casenum':case_num},
+            {'user_id':user},
+            {'index':int(index)}
+        ]
+    },{
+        "$set":
+            {'date':date,
+            'location':location,
+            'attacker':attacker,
+            'type':types,
+            'desc':desc}
+        
+    })
+
+    return "success"
+
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

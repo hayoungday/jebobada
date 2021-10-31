@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import {Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios'
+
 // import CustomerDelete from './CustomerDelete';
 
 class Evidence extends React.Component {
@@ -26,6 +27,7 @@ class Evidence extends React.Component {
             return axios.post("/deleteevidence",body)
         }
 
+
         return (            
             <TableRow  style={{ textAlign: "center" }}>
                 <TableCell style={{ textAlign: "center" }}>{this.props.id}</TableCell>
@@ -44,14 +46,30 @@ class Evidence extends React.Component {
 
                 <TableCell style={{ textAlign: "center" }}>{this.props.type}</TableCell>
 
-                <TableCell style={{ textAlign: "center" }}>{this.props.uploaded_time}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{this.props.date}</TableCell>
 
                 <TableCell style={{ textAlign: "center" }}>
                     {this.props.state==="변환완료"? <div>변환완료</div>:<div><CircularProgress variant="indeterminate" value="변환중"/></div>}        
                 </TableCell>
 
                 <TableCell style={{ textAlign: "center" }}>
+                    <Link to = {{
+                        pathname:'/editevidence',
+                        state: {
+                            casenum : this.props.casenum,
+                            user: this.props.user_id,
+                            filename: this.props.filename,
+                            desc : this.props.desc,
+                            bullying: this.props.bullying,
+                            datetime: this.props.date,
+                            attacker : this.props.attacker,
+                            location : this.props.location,
+                            index : this.props.idx,
+                        }
+                    }} style={{textDecoration:'none'}}>
                     <button>수정</button>
+                    </Link>
+                    
                     <button onClick={handleDeleteButton}>삭제</button>
                 </TableCell>
             

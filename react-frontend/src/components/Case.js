@@ -19,6 +19,10 @@ class Case extends React.Component {
     openModal = () => {
         this.setState({isModalOpen:true})
     }
+
+    closeModal = () => {
+        this.setState({isModalOpen:false})
+    }
     
     
     render() {
@@ -47,12 +51,8 @@ class Case extends React.Component {
                 <TableCell style={{ textAlign: "center" }}>{this.props.description}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                     <button onClick={this.openModal}>수정</button>
-                    <CaseEditModal visible={this.state.isModalOpen} case_name = {this.props.name} user = {this.props.user}>
-                        <button onClick = {(e) => {
-                            e.preventDefault()
-                            this.setState({isModalOpen:false})
-                        }
-                        }>닫기</button>
+                    <CaseEditModal visible={this.state.isModalOpen} case_name = {this.props.name} user = {this.props.user} closeModal = {this.closeModal} desc = {this.props.description}>
+                        
                     </CaseEditModal>
                     <button onClick={handleDeleteButton}>삭제</button>
                 </TableCell>
