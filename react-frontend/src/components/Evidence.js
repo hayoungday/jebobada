@@ -16,15 +16,22 @@ class Evidence extends React.Component {
     }
     render() {
 
-        const handleDeleteButton=()=>{    
-            console.log("button clicked!!!!")
-    
-            let body = {
-                casenum: this.props.casenum,
-                user: this.props.user_id,
-                filename: this.props.name
+        const handleDeleteButton=()=>{
+            var message = "해당 증거를 정말로 삭제하시겠습니까?"
+            
+            const result = window.confirm(message)
+
+            if(result){
+                let body = {
+                    casenum: this.props.casenum,
+                    user: this.props.user_id,
+                    filename: this.props.name
+                }
+                return axios.post("/deleteevidence",body)
+            } else{
+                console.log("취소되었습니다.")
             }
-            return axios.post("/deleteevidence",body)
+            
         }
 
 
