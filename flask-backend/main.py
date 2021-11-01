@@ -399,7 +399,7 @@ def upload():
             insert_data['state']='변환완료'
 
             returnDict = meta.getImageTags(url)
-            print(type(returnDict))
+            print(returnDict)
             insert_data['metadata'] = returnDict
             collection.insert_one(insert_data)
 

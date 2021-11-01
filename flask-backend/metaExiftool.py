@@ -61,7 +61,10 @@ class metaExiftool :
         try : 
             lines = meta.decode('euc-kr').split("\n")
         except : 
-            lines = meta.decode('utf8').split("\n")
+            try : 
+                lines = meta.decode('utf8').split("\n")
+            except : 
+                lines = meta.decode('latin_1').split("\n")
         return lines
 
     def getMeta(self, filepath) : 
@@ -70,7 +73,6 @@ class metaExiftool :
 
         cmd = "curl -s %s | exiftool -" %filepath
         output = subprocess.check_output(cmd, shell=True)
-        print(output)
         
         # with open(filepath, 'rb') as f : 
         return output
@@ -109,17 +111,19 @@ class metaExiftool :
         # - 녹음 기기(voice-memo-uuid) - ios 전용
         # - 녹음 어플(encoder) - ios 전용         
         returnDict = {}
+        returnDict['fileName'] = None
         returnDict['title'] = None
         returnDict['fileFormat'] = None
-        # returnDict['fileSize'] = None
+        returnDict['fileSize'] = None
         returnDict['duration'] = None
         # returnDict['fileCtime'] = None
+        returnDict['fileMtime'] = None
         returnDict['audioCtime'] = None
         returnDict['title'] = None
         returnDict['voiceMemoUuid'] = None
         returnDict['encoder'] = None
         returnDict['majorBrand'] = None
-
+        
         # exiftool을 실행하고 결과물을 line 별로 파싱 후 list로 저장
         metaLines = self.getAsLines(self.getMeta(filepath))
         
@@ -134,15 +138,18 @@ class metaExiftool :
                 elif key == 'File Type' : 
                     returnDict['fileFormat'] = value
                     continue
-                # elif key == 'File Size' : 
-                #     returnDict['fileSize'] = value
-                #     continue
+                elif key == 'File Size' : 
+                    returnDict['fileSize'] = value
+                    continue
                 elif key == 'Duration' : 
                     returnDict['duration'] = value
                     continue
                 # elif key == 'File Creation Date/Time' : 
                 #     returnDict['fileCtime'] = value
                 #     continue
+                elif key == 'File Modification Date/Time' : 
+                    returnDict['fileMtime'] = value
+                    continue
                 elif key == 'Create Date' : 
                     returnDict['audioCtime'] = value
                     continue
@@ -179,8 +186,9 @@ class metaExiftool :
         returnDict = {}
         returnDict['fileName'] = None
         returnDict['fileType'] = None
-        # returnDict['fileSize'] = None
+        returnDict['fileSize'] = None
         # returnDict['fileCtime'] = None
+        returnDict['fileMtime'] = None
         returnDict['imageCtime'] = None
         returnDict['gpsPosition'] = None
         returnDict['deviceModel'] = None
@@ -204,12 +212,15 @@ class metaExiftool :
                 elif key == 'File Type' : 
                     returnDict['fileType'] = value
                     continue
-                # elif key == 'File Size' : 
-                #     returnDict['fileSize'] = value
-                #     continue
+                elif key == 'File Size' : 
+                    returnDict['fileSize'] = value
+                    continue
                 # elif key == 'File Creation Date/Time' : 
                 #     returnDict['fileCtime'] = value
                 #     continue
+                elif key == 'File Modification Date/Time' : 
+                    returnDict['fileMtime'] = value
+                    continue
                 elif key == 'Create Date' : 
                     returnDict['imageCtime'] = value
                     continue
@@ -257,33 +268,3 @@ class metaExiftool :
         return flag
 
 
-
-
-# # test
-
-# # # Open image file for reading (binary mode)
-# cwd = os.getcwd()
-# filepaths = os.listdir()
-
-# path = 'iosYu2.m4a'
-# # path = 'iphonesample.jpg'
-# mpeg4 = ['.m4a', '.mp4']
-# id3 = ['.mp3', 'wav'] 
-
-# meta = metaExiftool()
-# ext = meta.getExt(path) # .mp3, .wav
-# returnDict = meta.getAudioTags(path)
-# for i in returnDict : 
-#     print(i,'\t\t',returnDict[i])
-
-# print('\n\n')
-
-# returnDict = meta.getFullTags(path)
-# for i in returnDict : 
-#     print(i,'\t\t',returnDict[i])
-
-# print('\n\n')
-
-# returnDict = meta.getImageTags(path)
-# for i in returnDict : 
-#     print(i,'\t\t',returnDict[i])

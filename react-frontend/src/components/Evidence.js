@@ -35,7 +35,19 @@ class Evidence extends React.Component {
 
 
                 <TableCell style={{ textAlign: "center" }}>
-                    <Link to={'/PostView/'+this.props.casenum+'/'+this.props.idx+'/'+this.props.keyword}>
+
+                    <Link to = {{
+                        pathname: '/PostView/'+this.props.casenum+'/'+this.props.idx+'/'+this.props.keyword,
+                        state:{
+                            bullying: this.props.bullying,
+                            filename: this.props.filename,
+                            desc : this.props.desc,
+                            datetime: this.props.date,
+                            location: this.props.location,
+                            attacker: this.props.attacker,
+
+                        }
+                    }}>
                         {this.props.name}
                     </Link>
                 </TableCell>

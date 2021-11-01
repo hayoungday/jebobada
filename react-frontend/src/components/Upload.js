@@ -267,9 +267,9 @@ class Upload extends Component {
                           user: this.state.user
                         }
                       }}>
-                        <button>직접 증거 등록</button>
+                        <button>직접 수집한 증거 등록하기</button>
                       </Link>
-                      <Link><button>컴퓨터 사용기록 등록</button></Link>
+                      <Link><button>컴퓨터 사용기록 등록하기</button></Link>
                       </SelectType_Modal>
                     </button>
               </div>
