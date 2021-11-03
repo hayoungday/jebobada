@@ -102,20 +102,27 @@ def Recycle():
                 deleted_files.append(del_file)
 
     result = []
+    extlist = ['docx', 'xlsx', 'xls', 'ppt', 'pdf', 'txt', 'hwp', 'csv']
+    label = "업무제외/제출강요"
 
     for del_file in deleted_files:
         if del_file.type == "dir":
-            result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "파일 또는 폴더 삭제")
+            result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "폴더 삭제" + "," + "icon_folder_del" + "," + label)
 
             #print ('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, del_file.type, del_file.size, del_file.filepath.strip(), del_file.filename.strip(), os.path.basename(del_file.Ifile), os.path.basename(del_file.Rfile)))
-            if full_display:
+            """ if full_display:
                 for root, dir, files in os.walk(del_file.Rfile):
                     for file in files:
-                        result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + os.path.join(del_file.filepath, file).replace("/", "\\") + "," + "파일 또는 폴더 삭제")
+                        result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + os.path.join(del_file.filepath, file).replace("/", "\\") + "," + "파일 또는 폴더 삭제") """
                         #print('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, "dir content", os.path.getsize(os.path.join(root, file)), os.path.join(del_file.filepath, file).replace("/", "\\"), file, "", ""))
         #elif del_file.type == "file":
         else:
-            result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "파일 또는 폴더 삭제")
+            extention = del_file.filename.strip().split('.')
+            if len(extention) > 1:
+                if extention[-1].split(' ')[0].lower() in extlist: 
+                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "문서 삭제" + "," + "icon_doc_del" + "," + label)
+                else:
+                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "파일 삭제" + "," + "icon_file_del" + "," + label)
             #print('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, del_file.type, del_file.size, del_file.filepath.strip(), del_file.filename.strip(), os.path.basename(del_file.Ifile), os.path.basename(del_file.Rfile)))
 
     return result

@@ -259,11 +259,13 @@ class MainWindow(QMainWindow, form_mainWindow):
                         flag += 1
                     
                 if flag > 0:
-                    self.result.append("{},{},{},{}".format(
+                    self.result.append("{},{},{},{},{},{}".format(
                         "프리패치",
                         timestamp.replace(' ', '/').split('.')[0],
                         p.executableName,
-                        "응용 프로그램 실행",
+                        "프로그램 실행",
+                        "icon_exec",
+                        "사적지시/초과근무/전가/제출강요"
                     ))
                     
     def jumplistParse(self):
@@ -271,6 +273,9 @@ class MainWindow(QMainWindow, form_mainWindow):
 
         jumplist_item = JL("C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Recent".format(os.getlogin()), appid_path)
         jumplist_list = jumplist_item.result.split('\n') # string to list
+
+        extlist = ['docx', 'xlsx', 'xls', 'ppt', 'pdf', 'txt', 'hwp', 'csv']
+        label = "초과근무/제출강요"
 
         for i in range(1, len(jumplist_list)):
             if "1700-01-01" not in jumplist_list[i].split(',')[4]:
@@ -280,17 +285,33 @@ class MainWindow(QMainWindow, form_mainWindow):
                 for r in range(len(self.dateList)):
                     if time_obj >= self.dateList[r][0] and time_obj <= self.dateList[r][1]:
                         flag += 1
-
+                
                 if flag > 0:
                     if "LNK_File" in jumplist_list[i].split(',')[27]:
                         date_item = jumplist_list[i].split(',')[4].replace(' ', '/')
                         date_item = date_item.split('.')[0] + "\""
-                        self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "문서 열람")
+                        extention = jumplist_list[i].split(',')[25].split('.')
+                        if len(extention) > 2:
+                            if extention[-2].split(' ')[0].lower() in extlist: 
+                                self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "문서 열람" + "," + "icon_" + extention[-2].split(' ')[0] + "," + label)
+                            else:
+                                self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "파일 열람" + "," + "icon_" + extention[-2].split(' ')[0] + "," + label)
+                        else:      
+                            self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "폴더 열람" + "," + "icon_folder" + "," + label)
+
                     elif "JumpList" in jumplist_list[i].split(',')[27]:
                         item = jumplist_list[i].split(',')[14].split('\\')
                         date_item = jumplist_list[i].split(',')[4].replace(' ', '/')
                         date_item = date_item.split('.')[0] + "\""
-                        self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "파일 또는 폴더 열람")
+                        extention = item[-1].replace('"','').split('.')
+                        if len(extention) > 1:
+                            if extention[-1].split(' ')[0].lower() in extlist:                           
+                                self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "문서 열람" + "," + "icon_" + extention[-1].split(' ')[0] + "," + label)
+                            else:
+                                self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "파일 열람" + "," + "icon_" + extention[-1].split(' ')[0] + "," + label)
+                        else:
+                            self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "폴더 열람" + "," + "icon_folder" + "," + label)
+
                     else:
                         print("wrong data")
                     
@@ -304,6 +325,7 @@ class MainWindow(QMainWindow, form_mainWindow):
     #pip install browser-history
     def historyParse(self):
         outputs = get_history()
+        label = "SNS/사적지시"
         for r in range(len(outputs.histories)):
             flag = 0
             time_obj = (outputs.histories[r][0]).timestamp()
@@ -311,15 +333,21 @@ class MainWindow(QMainWindow, form_mainWindow):
                 if time_obj >= self.dateList[k][0] and time_obj <= self.dateList[k][1]:
                     flag += 1
             if flag > 0:
-                self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1] + "," + "웹 사이트 접속")
+                if outputs.histories[r][1].split('/')[0] in "file:":
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1].replace(',', '') + "," + "파일 다운로드" + "," + "icon_filedown" + "," + label)
+                elif outputs.histories[r][1].split('/')[3].split('?')[0] == "search":
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1] + "," + "인터넷 검색" + "," + "icon_search" + "," + label)
+                else:
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1] + "," + "웹사이트 방문" + "," + "icon_visit" + "," + label)
+                #print(outputs.histories[r][1].split('/'))
 
     def recycleParse(self):
         list = Recycle()
         for r in range(len(list)):
             flag = 0
             time_obj = datetime.datetime.strptime(list[r].split(',')[1], '%Y-%m-%d/%H:%M:%S').timestamp()
-            for r in range(len(self.dateList)):
-                if time_obj >= self.dateList[r][0] and time_obj <= self.dateList[r][1]:
+            for k in range(len(self.dateList)):
+                if time_obj >= self.dateList[k][0] and time_obj <= self.dateList[k][1]:
                     flag += 1
             if flag > 0:
                 self.result.append(list[r])
@@ -333,10 +361,14 @@ class MainWindow(QMainWindow, form_mainWindow):
         Filename_tmp = "컴퓨터 사용기록 추출결과"
 
         Filesave = QFileDialog.getSaveFileName(self, '파일 저장', Filename_tmp + "-" + str(datetime.datetime.now().date()), "csv files (*.csv)")
-        FileHeader = ["타입, 시간, 이름, 설명"]
+        FileHeader = ["타입, 시간, 이름, 설명, 아이콘, 라벨링"]
 
         if Filesave[0] != "":
             with open(Filesave[0], "w") as f:
+                for r in range(self.dateList_step1.count()):
+                    f.writelines(self.dateList_step1.item(r).text())
+                    f.write(',')
+                f.write('\n')
                 f.writelines(FileHeader)
                 f.write('\n')
                 for r in range(len(self.result)):
