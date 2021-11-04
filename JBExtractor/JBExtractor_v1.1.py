@@ -10,12 +10,12 @@ from PyQt5.QtCore import QPoint, QTimer, Qt, QDateTime
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
-import pandas as pd
-
 from windowsprefetch import Prefetch
 from JLParser import JL
 from recycleParser import Recycle
 from browser_history import get_history
+
+import evtx_dump
 
 # Get absolute path to resource, works for dev and for PyInstaller
 def resource_path(relative_path):
@@ -170,7 +170,7 @@ class MainWindow(QMainWindow, form_mainWindow):
         self.recycleParse()
         #self.lnkParse()
         self.historyParse()
-        #self.eventlogParse()
+        self.eventlogParse()
 
     def addDateBtnClick(self):
         start_time = self.startDate_step1.dateTime()
@@ -354,14 +354,22 @@ class MainWindow(QMainWindow, form_mainWindow):
 
 
     def eventlogParse(self):
-        print()
+        label = "사적지시/초과근무"
+
+        for r in range(len(self.dateList)):
+            list = evtx_dump.evtxParse(self.dateList[r][0], self.dateList[r][1])
+        
+        for r in range(len(list)):
+            print(list[r])
+            self.result.append("이벤트 로그" + "," + list[r][0].replace(' ', '/').split('.')[0] + "," + "컴퓨터 관리 기록" + "," + list[r][2] + "," + "icon_system_" + list[r][3] + "," + label)
+        
 
     def downAnalysisBtnClick(self):
         
         Filename_tmp = "컴퓨터 사용기록 추출결과"
 
         Filesave = QFileDialog.getSaveFileName(self, '파일 저장', Filename_tmp + "-" + str(datetime.datetime.now().date()), "csv files (*.csv)")
-        FileHeader = ["타입, 시간, 이름, 설명, 아이콘, 라벨링"]
+        FileHeader = ["타입, 시간, 작업명, 설명, 아이콘, 라벨링"]
 
         if Filesave[0] != "":
             with open(Filesave[0], "w") as f:

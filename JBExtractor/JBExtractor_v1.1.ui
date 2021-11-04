@@ -2763,6 +2763,27 @@ border: 5px solid #DEE5F8;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QLabel" name="label_120">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>195</y>
+        <width>299</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>나눔스퀘어</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>다음과 같은 결과가 추출되었습니다.</string>
+      </property>
+     </widget>
      <zorder>label_23</zorder>
      <zorder>label_27</zorder>
      <zorder>label_14</zorder>
@@ -2773,6 +2794,7 @@ border: 5px solid #DEE5F8;</string>
      <zorder>horizontalLayoutWidget_51</zorder>
      <zorder>label_119</zorder>
      <zorder>label_step1_6</zorder>
+     <zorder>label_120</zorder>
     </widget>
     <widget class="QWidget" name="page_8">
      <widget class="QPushButton" name="backBtn_step4">
