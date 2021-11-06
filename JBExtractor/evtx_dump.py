@@ -17,16 +17,10 @@
 #   limitations under the License.
 #
 #   Version v0.1.1
-import os
-import sys
 import datetime
 from bs4 import BeautifulSoup
 
-from xml.etree import ElementTree
-
-from genericpath import exists
 import Evtx.Evtx as evtx
-import Evtx.Views as e_views
 
 def get_eventid(evtId, type):
     # 로그온 이벤트
@@ -90,20 +84,20 @@ def get_eventid(evtId, type):
         return "정책에 의해 설치 금지된 후 허용됨"
         
         # 원격 데스크톱
-    elif evtId == "5712":
-        return "RPC(원격 프로시저 호출)을 시도"
-    elif evtId == "1149":
-        return "RDP 네트워크 성공적으로 연결 (사용자 인증 성공)"
-    elif evtId == "21":
-        return "세션 로그온 성공"
+    elif evtId == "5712": # "RPC(원격 프로시저 호출)을 시도"
+        return "원격 접속 시도"
+    elif evtId == "1149": # "RDP 네트워크 성공적으로 연결 (사용자 인증 성공)"
+        return "원격 접속 연결 성공"
+    elif evtId == "21": # "세션 로그온 성공"
+        return "컴퓨터 로그온 성공"
     elif evtId == "22":
         return "셸 시작 알림 받음"
-    elif evtId == "23":
-        return "세션 로그오프 성공"
-    elif evtId == "24":
-        return "세션 연결 끊김"
-    elif evtId == "25":
-        return "세션 다시 연결 성공"
+    elif evtId == "23": # "세션 로그오프 성공"
+        return "컴퓨터 로그오프 성공"
+    elif evtId == "24": # "세션 연결 끊김"
+        return "컴퓨터 연결 끊김"
+    elif evtId == "25": # "세션 다시 연결 성공"
+        return "컴퓨터 다시 연결 성공"
     else:
         return -1
 
@@ -137,9 +131,8 @@ def evtxParse(start, end):
 
     list = []
 
-    """ with evtx.Evtx(setup_evtx_path) as log:
+    with evtx.Evtx(setup_evtx_path) as log:
         for record in log.records():
-            #list.append(record.xml())
             tmp = get_log(record.xml())
             if tmp != None:
                 if tmp[1] >= start and tmp[1] <= end:
@@ -147,28 +140,24 @@ def evtxParse(start, end):
     
     with evtx.Evtx(application_evtx_path) as log:
         for record in log.records():
-            #list.append(record.xml())
-            tmp = get_log(record.xml())
-            if tmp != None:
-                if tmp[1] >= start and tmp[1] <= end:
-                    list.append(tmp) """
-
-    with evtx.Evtx(security_evtx_path) as log:
-        for record in log.records():
-            #list.append(record.xml())
             tmp = get_log(record.xml())
             if tmp != None:
                 if tmp[1] >= start and tmp[1] <= end:
                     list.append(tmp)
 
-    """ with evtx.Evtx(system_evtx_path) as log:
+    with evtx.Evtx(security_evtx_path) as log:
         for record in log.records():
-            #list.append(record.xml())
             tmp = get_log(record.xml())
             if tmp != None:
                 if tmp[1] >= start and tmp[1] <= end:
-                    list.append(tmp) """
+                    list.append(tmp)
 
+    with evtx.Evtx(system_evtx_path) as log:
+        for record in log.records():
+            tmp = get_log(record.xml())
+            if tmp != None:
+                if tmp[1] >= start and tmp[1] <= end:
+                    list.append(tmp)
 
     return list
 
