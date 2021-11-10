@@ -10,13 +10,15 @@ import boto3
 import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
+from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
+from io import BufferedReader
 import config
-import json
+import json,csv
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 import time, os
-from io import BufferedReader
+import io
 
 app = Flask("__main__")
 
@@ -258,8 +260,6 @@ def upload():
     import time
     import os
     from werkzeug.datastructures import FileStorage
-
-
     if request.method == 'POST':
         
         conn =pymongo.MongoClient(config.mongodb)
@@ -279,6 +279,26 @@ def upload():
         desc = request.form['desc']
         types = request.form['type']
 
+        try:
+            date = request.form['date']
+        except:
+            pass
+        try:
+            location = request.form['location']
+        except:
+            pass
+        try:
+            attacker = request.form['attacker']
+        except:
+            pass
+        try:
+            desc = request.form['desc']
+        except:
+            pass
+        try:
+            types = request.form['type']
+        except:
+            pass
 
         print(str(case_num), str(user))
         print(request.files)
@@ -400,11 +420,12 @@ def upload():
             insert_data['state']='변환완료'
 
             returnDict = meta.getImageTags(url)
-            print(returnDict)
             print(type(returnDict))
             insert_data['metadata'] = returnDict
             collection.insert_one(insert_data)
 
+        elif(fileExt=='.csv'):
+            data_list=[]
             data=f.stream.read()
             stream=io.StringIO(data.decode("cp949"),newline=None)
             field=['Type','Timestamp','Names','Desc','isChecked']
