@@ -48,8 +48,8 @@ function Modal({ className, visible, children }) {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
-    border-radius: 50px;
+    background-color: #fff;
+    border-radius: 20px;
     width: 600px;
     max-width: 800px;
     height: 400px;

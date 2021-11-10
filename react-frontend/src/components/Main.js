@@ -1,0 +1,96 @@
+import React, {useState} from 'react';
+import { Cookies } from "react-cookie";
+import {Link} from 'react-router-dom';
+import Login_Modal from './Login_Modal';
+import './Main.css'
+import Signup_Modal from './Signup_Modal';
+
+
+const Main = () => {
+
+    const cookies = new Cookies();
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isSignupModalOpen,setIsSignupModalOpen] = useState(false)
+
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
+
+    const closeSignupModal=()=>{
+        setIsSignupModalOpen(false)
+    }
+
+    if (cookies.get("logined")) {
+        window.location.replace("/");
+    }
+    
+
+    return (
+        <div id="root">
+            <div class="App">
+                <header id="header" class="transparent  focus:no-underline focus:outline-none" role="button" tabindex="0">
+                    <div class="container mx-auto flex justify-between items-center px-5 xl:px-0">
+                        <a href="/main">
+                            <div class="logo transparent"></div>
+                        </a>
+                        <div class="header-nav justify-between items-center flex flex-wrap ">
+                            <div class="w-full md:hidden px-5 pb-5 text-right">
+                                <div class="flex justify-end">
+                                    <div class="logo sm mb-1"></div>
+                                </div>
+                                <p class="montserrat color-light-gray text-xxs">© Wavebridge 2021. All right reserved</p>
+                            </div>
+                            <nav class="nav">
+                                <ul class="block md:flex poppins md:space-x-8 lg:space-x-16">
+                                    <Link to="/main"><li class="active">Home</li></Link>
+                                    <Link to="/aboutus"><li class="">About Us</li></Link>
+                                    <Link to="/checklist"><li class="">CheckList</li></Link>
+                                    
+                                </ul>
+                            </nav>
+                            <nav class="lang">
+                                <ul class="flex space-x-6">
+                                    <li class="">
+                                        <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsModalOpen(true)}>Login</div>
+                                    </li>
+                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal}/>
+
+                                    <li class="">
+                                        <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsSignupModalOpen(true)}>Sign up</div>
+                                    </li>
+                                    <Signup_Modal visible={isSignupModalOpen} closeModal={closeSignupModal}/>
+                                </ul>
+                            </nav>
+                        </div>
+                        <button type="button" class="w-8 h-8 btn btn-menu focus:no-underline focus:outline-none transparent ">
+                            <span></span><span></span><span></span><span></span>
+                        </button>
+                    </div>
+                </header>
+                <div id="wrap" class="wrap">
+                    <div class="main">
+                        <div class="video">
+                            <video id="video-bg" autoPlay muted loop>
+                                <source src="./static/react/Busy.mp4" type="video/mp4"/>Your browser does not support HTML5 video.
+                            </video>
+                            <div class="container mx-auto">
+                                <div class="slogan">
+                                    <div class="mb-14">
+                                        <h1 class="text-6xl montserrat hidden md:block">JeBoBADA</h1>
+                                        <h1 class="text-6xl montserrat md:hidden">JeBoBADA</h1>
+                                        <p>증거 확보로 피해자의 권리구제를 돕는 서비스</p>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      );
+}
+
+export default Main;

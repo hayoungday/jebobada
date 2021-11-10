@@ -31,10 +31,12 @@ main {
   color: #3d7be6;
 }
 
-.flex-container {
+.flex-container-main {
   display: flex;
   height: auto;
-  margin:200px 200px 200px;
+  margin: 200px 0 0 0;
+  /* margin:200px 200px 200px 200px; */
+  justify-content: center;
 }
 
 .flex-container-first-box{
@@ -57,17 +59,25 @@ main {
 .flex-container-case-box{
   display:flex;
   height: auto;
-  margin: 0 100px 30px 100px;
+  margin: 150px 100px 0 100px;
 }
-
 
 .flex-column-container{
     display:flex;
     flex-direction: column;
     height: auto;
-    margin: auto;
+    margin: 0 200px 0 200px;
     z-index: 1;
 }
+
+.flex-column-container-case{
+  display:flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  z-index: 1;
+}
+
 .flex-column-content-container{
   display:flex;
   flex-direction: column;
@@ -329,12 +339,4 @@ margin: auto;
 padding: 16px 78px 14px;
 border-radius: 30px;
 background-color: #3d7be6;
-}
-
-.access_log_button{
-  margin-left: 1300px;
-}
-
-.login_button{
-  margin-left:1000px;
 }
