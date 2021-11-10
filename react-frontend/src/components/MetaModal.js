@@ -2,33 +2,84 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function MetaModal({ className, visible, children, type, arr }) {
+function MetaModal({ className, visible, children, type, arr, closeModal }) {
 
     const modal_contents = (type) => {
         if(type=="녹음 파일"){
             return(
-                <div>
-                    <h1>파일 정보</h1>
-                    <label>파일 이름: {arr.fileName}</label><br/>
+              <>
+                <button className="close_icon_postview" onClick={closeModal}/>
+                <div className="flex-container-column-meta">
+                    <span className="modal_meta_postview">파일 정보</span>
+                    <br/>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 이름: </span>
+                      <label className="modal_meta_label">
+                        {arr.fileName}
+                      </label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 형식: </span>
+                      <label className="modal_meta_label">{arr.fileType}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 크기: </span>
+                      <label className="modal_meta_label">{arr.fileSize}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">녹음 시각: </span>
+                      <label className="modal_meta_label">{arr.audioCtime}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">녹음 길이: </span>
+                      <label className="modal_meta_label">{arr.duration}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">녹음 장소: </span>
+                      <label className="modal_meta_label">{arr.title}</label>
+                    </div>
+                    {/* <label>파일 이름: {arr.fileName}</label><br/>
                     <label>파일 형식: {arr.fileType}</label><br/>
                     <label>파일 크기: {arr.fileSize}</label><br/>
                     <label>녹음 시각: {arr.audioCtime}</label><br/>
                     <label>녹음 길이: {arr.duration}</label><br/>
-                    <label>녹음 장소: {arr.title}</label><br/>
+                    <label>녹음 장소: {arr.title}</label><br/> */}
                 </div>
+                </>
             )
         } else if (type == "사진 파일"){
             return (
-                <div>
-                    <h1>파일 정보</h1>
-                    <label>파일 이름: {arr.fileName}</label><br/>
-                    <label>파일 형식: {arr.fileType}</label><br/>
-                    <label>파일 크기: {arr.fielSize}</label>
-                    <label>촬영 시각: {arr.imageCtime}</label><br/>
-                    <label>촬영 기기: {arr.cameraModelName}</label><br/>
-                    <label>촬영 장소: {arr.gpsPosition}</label><br/>
-                    
+              <>
+                <button className="close_icon_postview" onClick={closeModal}/>
+                <div className="flex-container-column-meta">
+                    <span className="modal_meta_postview">파일 정보</span>
+                    <br/>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 이름: </span>
+                      <label className="modal_meta_label">{arr.fileName}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 형식: </span>
+                      <label className="modal_meta_label">{arr.fileType}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">파일 크기: </span>
+                      <label className="modal_meta_label">{arr.fileSize}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">촬영 시각: </span>
+                      <label className="modal_meta_label">{arr.imageCtime}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">촬영 기기: </span>
+                      <label className="modal_meta_label">{arr.cameraModelName}</label>
+                    </div>
+                    <div className="flex-container-meta">
+                      <span className="modal_meta_text">촬영 장소: </span>
+                      <label className="modal_meta_label">{arr.gpsPosition}</label>
+                    </div>
                 </div>
+              </>
             )
         }
     }
@@ -49,7 +100,8 @@ function MetaModal({ className, visible, children, type, arr }) {
   MetaModal.propTypes = {
     visible: PropTypes.bool,
     type : PropTypes.string,
-    arr : PropTypes.object
+    arr : PropTypes.object,
+    closeModal : PropTypes.func,
   }
   
   const ModalWrapper = styled.div`
@@ -81,11 +133,10 @@ function MetaModal({ className, visible, children, type, arr }) {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
-    border-radius: 50px;
-    width: 600px;
-    max-width: 800px;
-    height: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 780px;
+    height: 640px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

@@ -13,7 +13,6 @@ import Analysis from './components/Analysis';
 import Oauth from './components/oauth';
 import Logout from './components/Logout'
 import PostView from './components/PostView'
-import Agree from './components/Agree'
 import CasePage from './components/CasePage'
 import test from './components/test'
 import Modal from './components/Modal';
@@ -46,7 +45,6 @@ ReactDOM.render(
         <Route path="/oauth" component={Oauth}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/PostView/:casenum?/:no?/:keyword?" component={PostView}/>
-        <Route path="/agree" component={Agree}/>
         <Route path="/casepage" component={CasePage}/>
         <Route path="/test" component={test}/>
         <Route path="/Modal" component={Modal}/>

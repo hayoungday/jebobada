@@ -60,11 +60,13 @@ class Case extends React.Component {
                 
                 <TableCell style={{ textAlign: "center" }}>{this.props.description}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                    <button onClick={this.openModal}>수정</button>
-                    <CaseEditModal visible={this.state.isModalOpen} case_name = {this.props.name} user = {this.props.user} closeModal = {this.closeModal} desc = {this.props.description}>
-                        
-                    </CaseEditModal>
-                    <button onClick={handleDeleteButton}>삭제</button>
+                    <div className="flex-container-evidence">
+                        <button onClick={this.openModal} className="button_edit">수정</button>
+                        <CaseEditModal visible={this.state.isModalOpen} case_name = {this.props.name} user = {this.props.user} closeModal = {this.closeModal} desc = {this.props.description}>
+                            
+                        </CaseEditModal>
+                        <button onClick={handleDeleteButton} className="button_edit">삭제</button>
+                    </div>
                 </TableCell>
             </TableRow>
         )

@@ -72,24 +72,26 @@ class Evidence extends React.Component {
                 </TableCell>
 
                 <TableCell style={{ textAlign: "center" }}>
-                    <Link to = {{
-                        pathname:'/editevidence',
-                        state: {
-                            casenum : this.props.casenum,
-                            user: this.props.user_id,
-                            filename: this.props.filename,
-                            desc : this.props.desc,
-                            bullying: this.props.bullying,
-                            datetime: this.props.date,
-                            attacker : this.props.attacker,
-                            location : this.props.location,
-                            index : this.props.idx,
-                        }
-                    }} style={{textDecoration:'none'}}>
-                    <button>수정</button>
-                    </Link>
-                    
-                    <button onClick={handleDeleteButton}>삭제</button>
+                    <div className="flex-container-evidence">
+                        <Link to = {{
+                            pathname:'/editevidence',
+                            state: {
+                                casenum : this.props.casenum,
+                                user: this.props.user_id,
+                                filename: this.props.filename,
+                                desc : this.props.desc,
+                                bullying: this.props.bullying,
+                                datetime: this.props.date,
+                                attacker : this.props.attacker,
+                                location : this.props.location,
+                                index : this.props.idx,
+                            }
+                        }} style={{textDecoration:'none'}}  className="button_edit">
+                        <button className="button_text">수정</button>
+                        </Link>
+                        
+                        <button onClick={handleDeleteButton} className="button_edit">삭제</button>
+                    </div>
                 </TableCell>
             
             </TableRow>

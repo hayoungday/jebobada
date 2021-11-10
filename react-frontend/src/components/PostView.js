@@ -8,6 +8,10 @@ import './PostView.css';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import MetaModal from './MetaModal';
 import ChangedModal from './ChangedModal';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+
 
 class PostView extends Component {
 
@@ -29,6 +33,14 @@ class PostView extends Component {
 
     openChangedModal = () => {
         this.setState({isChangedModal:true})
+    }
+
+    closeMetaModal = () => {
+        this.setState({isMetaModal:false})
+    }
+
+    closeChangedModal = () => {
+        this.setState({isChangedModal:false})
     }
 
     componentDidMount(){
@@ -73,9 +85,104 @@ class PostView extends Component {
             <div>
                 <Header/>
                 <div className="wrap">
-                <div class="flex-container">
+                    <div className="flex-column-postview-container">
+                        <span className="postview-h1-1">
+                            증거 정보 요약
+                        </span>
+                        <div className="postview-container-1">
+                            <div className="flex-container-postview-contents">
+                                <span className="date_title">일시</span>
+                                <span className="date_content">{this.props.location.state.datetime}</span>
+                                <span className="date_title">발생장소</span>
+                                <span className="date_content">{this.props.location.state.location}</span>
+                            </div>
+                            <br/>
+                            <div className="flex-container-postview-contents">
+                                <span className="date_title">행위자</span>
+                                <span className="date_content">{this.props.location.state.attacker}</span>
+                                <span className="date_title">괴롭힘유형</span>
+                                <span className="date_content">{this.props.location.state.bullying}</span>
+                            </div>
+                        </div>
+
+                        <div className="postview-container-2">
+                        <span className="desc_title">상세설명</span>
+                        <br/>
+                        <span className="desc_content">{this.props.location.state.desc}</span>
+                        </div>
+                        <div className="flex-container-postview-contents2">
+                            <button className="file_info_container" onClick={this.openMetaModal}>파일정보</button>
+                            <button className="is_edit_container" onClick={this.openChangedModal}>편집여부</button>
+                        </div>
+                    </div>
+                    
+                    {this.state.data?this.state.data.map((c,i)=>{
+                    
+                    if(c.index==params.no & c.filetype == "녹음 파일"){
+                        return(
+                            <>
+                                <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata} closeModal={this.closeMetaModal}/>
+
+                                <ChangedModal visible={this.state.isChangedModal} type={c.filetype} closeModal = {this.closeChangedModal}/>
+                            </>
+                        )
+                    }
+                    else if (c.index==params.no & c.filetype == "사진 파일"){
+                        return(
+                            <>    
+                                <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata} closeModal={this.closeMetaModal}/>
+
+                                <ChangedModal visible={this.state.isChangedModal} type={c.filetype} closeModal = {this.closeChangedModal}/>
+                            </>
+                        )
+                    }
+                    return (null)
+                }):
+                <h1></h1>   
+            }
+                        
+                    <div className="flex-column-postview-container2">
+                        <span className="postview-h1-2">
+                            원본 파일
+                        </span>
+
+                        {this.state.data?this.state.data.map((c,i)=>{
+                        
+                        if(c.index==params.no & c.filetype == "녹음 파일"){
+                            return(
+                                <div>
+                                    <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword} _id={c._id}/>
+                                </div>
+                            )
+                        }
+                        else if (c.index==params.no & c.filetype == "사진 파일"){
+                            return(
+                                <div>
+                                    <ViewOCR hashed_filename={c.hashed_filename}/>
+                                </div>
+                            )
+                        }
+                        return (null)
+                        }):
+                        <h1></h1>   
+                    }
+                </div>
+                {/* <div class="flex-container">
                     <div class="flex-child-left">
                         <h1>증거 정보 요약</h1>
+                        <Card variant="outlined">
+                            <CardContent>
+                                <h5 style={{display:"inline"}}>일시</h5>
+                                {this.props.location.state.datetime} &nbsp;&nbsp;&nbsp;
+                                <h5 style={{display:"inline"}}>발생장소</h5>
+                                {this.props.location.state.location}
+                                <br/>
+                                <h5 style={{display:"inline"}}>행위자</h5>
+                                {this.props.location.state.attacker} &nbsp;&nbsp;&nbsp;
+                                <h5 style={{display:"inline"}}>괴롭힘 유형</h5>
+                                {this.props.location.state.bullying}
+                            </CardContent>
+                        </Card>
                         <Table>
                             <TableHead>
                             <TableRow>
@@ -168,22 +275,6 @@ class PostView extends Component {
                     if(c.index==params.no & c.filetype == "녹음 파일"){
                         return(
                             <div>
-                                <button onClick={this.openMetaModal}>파일 정보 확인</button>
-                                <button onClick={this.openChangedModal}>편집여부 확인</button>
-                                <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        this.setState({isMetaModal: false})
-                                    }}>닫기</button>
-                                </MetaModal>
-
-                                <ChangedModal visible={this.state.isChangedModal} type={c.filetype}>
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        this.setState({isChangedModal: false})
-                                    }}>닫기</button>
-                                </ChangedModal>
-
                                 <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword} _id={c._id}/>
                             </div>
                         )
@@ -191,23 +282,6 @@ class PostView extends Component {
                     else if (c.index==params.no & c.filetype == "사진 파일"){
                         return(
                             <div>
-
-                                {/* <button onClick={this.openMetaModal}>파일 정보 확인</button>
-                                <button onClick={this.openChangedModal}>편집여부 확인</button> */}
-                                <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        this.setState({isMetaModal: false})
-                                    }}>닫기</button>
-                                </MetaModal>
-
-                                <ChangedModal visible={this.state.isChangedModal} type={c.filetype}>
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        this.setState({isChangedModal: false})
-                                    }}>닫기</button>
-                                </ChangedModal>
-
                                 <ViewOCR hashed_filename={c.hashed_filename}/>
                             </div>
                         )
@@ -218,7 +292,7 @@ class PostView extends Component {
             }
                 
             </div>
-            </div>
+            </div> */}
             </div>
             </div>
         );

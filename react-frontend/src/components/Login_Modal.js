@@ -13,7 +13,6 @@ import KakaoLogin from 'react-kakao-login';
 
 function Login_Modal({ className, visible, children, closeModal }) {
 
-  
   const cookies = new Cookies();
 
   const [local_id, setId] = useState("");

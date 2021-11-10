@@ -70,6 +70,14 @@ main {
     z-index: 1;
 }
 
+.flex-column-container-agree{
+  display:flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+  z-index: 1;
+}
+
 .flex-column-container-case{
   display:flex;
   flex-direction: column;

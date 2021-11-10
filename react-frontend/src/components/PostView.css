@@ -35,7 +35,7 @@
 .button_postview{
     display: flex;
     height: 50px;
-    width: 200px;
+    width: 150px;
     padding: 10px;
     background-color: #3d7be6;
     border-radius: 10px;
@@ -50,3 +50,557 @@
     font-stretch: normal;
     font-style: normal;
 }
+
+.button_edit{
+    display: flex;
+    height: 20px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: solid 1px #3d7be6;
+    text-align: center;
+    margin: 10px;
+    color: #3d7be6;
+    justify-content: center;
+    font-family: SegoeUI;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+}
+
+.button_text{
+    text-align: center;
+    color: #3d7be6;
+    justify-content: center;
+    font-family: SegoeUI;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+}
+
+.flex-container-evidence{
+    display:flex;
+    height: 20;
+    width: auto;
+    justify-content: center;
+}
+
+.flex-container-meta{
+    display:flex;
+    height: auto;
+    width: auto;
+    margin: 5px 50px;
+    justify-content: center;
+}
+
+.flex-container-column-meta{
+    display:flex;
+    height: auto;
+    width: auto;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.flex-container-select-type{
+    display:flex;
+    height: auto;
+    width: auto;
+    margin: 20px auto;
+    justify-content: center;
+}
+
+.flex-container-postview-contents{
+    display:flex;
+    height: auto;
+    width: 900px;
+    justify-content: center;
+}
+
+.flex-container-postview-contents2{
+    display:flex;
+    height: auto;
+    width: 400px;
+    margin: 0 0 0 600px;
+    justify-content: center;
+    text-align: center;
+}
+
+.flex-column-postview-container{
+    display:flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    margin: 200px 460px 0 460px;
+    justify-content: center;
+}
+
+.flex-column-postview-container2{
+    display:flex;
+    flex-direction: column;
+    height: auto;
+    margin: 50px 460px 200px 460px;
+    justify-content: center;
+}
+
+.postview-h1-1 {
+    width: 400px;
+    height: 54px;
+    margin: 0 0 30px 0;
+    font-family: SegoeUI;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+
+  .postview-h1-2 {
+    width: 400px;
+    height: 54px;
+    margin: 0 0 30px 0;
+    font-family: SegoeUI;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+
+  .postview-container-1 {
+    width: 1000px;
+    height: 183px;
+    margin: 30px 0px 0px 0;
+    padding: 39px 160px 46px 60px;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px #707070;
+    background-color: #fff;
+    justify-content: center;
+  }
+  .postview-container-2 {
+    width: 1000px;
+    height: 152px;
+    margin: 30px 0px 30px 0px;
+    padding: 24px 75px 34px 60px;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .postview-container-3 {
+    width: 1000px;
+    height: 430px;
+    margin: 10px 0 0;
+    padding: 53px 75px 252px 60px;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+  
+.date_title {
+  width: 150px;
+  height: 20px;
+  margin: 10px 20px;
+  font-family: SegoeUI;
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.35;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+
+.date_content{
+  width: 250px;
+  height: 20px;
+  margin: 0 20px;
+  font-family: SegoeUI;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+
+
+.desc_title{
+    width: 80px;
+    height: 27px;
+    margin: 0 771px 13px 0;
+    font-family: SegoeUI;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.desc_content{
+    width: 851px;
+    height: 54px;
+    margin: 13px 0 0;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.file_info_container {
+    width: 150px;
+    height: 75px;
+    margin: auto;
+    border-radius: 20px;
+    border: solid 1px #3d7be6;
+    background-color: #fff;
+    font-family: SegoeUI;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+
+  .is_edit_container {
+    width: 150px;
+    height: 75px;
+    margin: auto;
+    border-radius: 20px;
+    border: solid 1px #3d7be6;
+    background-color: #fff;
+    font-family: SegoeUI;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+
+  .edit_contents_container {
+    width: 188px;
+    height: 75px;
+    margin: 10px 0 10px 40px;
+    padding: 21px 69px;
+    border-radius: 20px;
+    border: solid 1px #3d7be6;
+    background-color: #fff;
+  }
+
+  .edit_contents {
+    width: 50px;
+    height: 33px;
+    font-family: SegoeUI;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3d7be6;
+  }
+
+  .script_title {
+    width: 298px;
+    height: 41px;
+    margin: 0 553px 30px 0;
+    font-family: SegoeUI;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+
+  .script_contents {
+    width: 851px;
+    height: 54px;
+    margin: 30px 0 0;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+
+  .close_icon_postview {
+    width: 20px;
+    height: 20px;
+    float: right;
+    background-image: url('../assets/img/close_icon.png');
+    background-size: 20px 20px;
+  }
+
+  .modal_meta_postview{
+    font-family: SegoeUI;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+  .modal_meta_label{
+    width: 480px;
+    height: 60px;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 60px;
+    letter-spacing: normal;
+    text-align: center;
+    vertical-align: middle;
+    color: #000;
+  }
+
+  .modal_meta_text{
+    width: 120px;
+    height: 27px;
+    margin: 15px 0 0 0 ;
+    /* margin: auto; */
+    /* margin: 50px 27px 30px 0; */
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 30px;
+    letter-spacing: normal;
+    text-align: center;
+    vertical-align: middle;
+    color: #000;
+  }
+
+  .info_modify {
+    width: 400px;
+    height: 54px;
+    margin: 0 auto 15px auto;
+    /* margin: 30px 222.4px 14px 58px; */
+    font-family: SegoeUI;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 54px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+  .info_modify_text {
+    width: 100px;
+    height: 27px;
+    margin: auto;
+    /* margin: 101px 25px 100px 0; */
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 27px;
+    letter-spacing: normal;
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+    color: #000;
+  }
+
+  .info_modify_container1 {
+    width: 486px;
+    height: 128px;
+    /* margin: 50px 31.4px 50px 25px; */
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 128px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .info_modify_container2 {
+    width: 486px;
+    height: 180px;
+    display: flex;
+    /* margin: 50px 31.4px 0 25px; */
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    vertical-align: middle;
+    align-items: center;
+    text-align: center;
+    color: #000;
+  }
+
+  .select-type-title {
+    width: 700px;
+    height: 54px;
+    margin: 0 auto;
+    font-family: SegoeUI;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+  .self-upload-container {
+    width: 310px;
+    height: 140px;
+    margin: auto 10px;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .self-upload-title {
+    width: 164px;
+    height: 33px;
+    margin: 25px auto;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .self-upload-text {
+    width: 186px;
+    height: 54px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    font-family: SegoeUI;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .artifact-upload-container {
+    width: 310px;
+    height: 174px;
+    margin: 75px 11.4px 0 45px;
+    padding: 33px 32px;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .artifact-upload-title {
+    width: 246px;
+    height: 33px;
+    margin: 0 0 21px;
+    font-family: SegoeUI;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .artifact-upload-text {
+    width: 208px;
+    height: 54px;
+    margin: 21px 19px 0;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .help_text {
+    width: 500px;
+    height: 30px;
+    margin: auto;
+    /* margin: 14px 134.4px 50px 56px; */
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 30px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+  .p {
+      line-height: 5px;
+  }
