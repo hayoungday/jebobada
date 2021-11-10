@@ -18,35 +18,10 @@
     margin:5px,5px,5px,5px;
 }
 
-.flex-child-left {
-    flex: 1;
-    margin: 200px 100px 0 200px
+.flex-child {
+    flex: 1;    
 }  
-
-.flex-child-right {
-    flex: 1;
-    margin: 200px 200px 0 100px
-}
 
 .flex-child:first-child {
     flex: 1;
-}
-
-.button_postview{
-    display: flex;
-    height: 50px;
-    width: 200px;
-    padding: 10px;
-    background-color: #3d7be6;
-    border-radius: 10px;
-    border: solid 1px #e2e2e2;
-    text-align: center;
-    margin: 20px;
-    color: #fff;
-    justify-content: center;
-    font-family: SegoeUI;
-    font-size: 15px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-}
+} 

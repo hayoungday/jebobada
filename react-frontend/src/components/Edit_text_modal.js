@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Modal({ className, visible, children }) {
+function Edit_text_modal({ className, visible, children }) {
     return (
       <>
         <ModalOverlay visible={visible} />
@@ -15,7 +15,7 @@ function Modal({ className, visible, children }) {
     )
   }
   
-  Modal.propTypes = {
+  Edit_text_modal.propTypes = {
     visible: PropTypes.bool,
   }
   
@@ -48,15 +48,16 @@ function Modal({ className, visible, children }) {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
-    border-radius: 50px;
-    width: 600px;
-    max-width: 800px;
-    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 1800px;
+    height: 800px;
+    max-width: 1000px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
     padding: 40px 20px;
+    overflow:scroll;
   `
 
-export default Modal;
+export default Edit_text_modal;

@@ -10,13 +10,14 @@ import boto3
 import clovaspeechAPI, googleOCR, metaExiftool
 from datetime import datetime
 import hashlib
+from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
 import config
-import json
+import json,csv
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, create_refresh_token
 from bson import json_util
 import time, os
-from io import BufferedReader
+import io
 
 app = Flask("__main__")
 
@@ -258,8 +259,6 @@ def upload():
     import time
     import os
     from werkzeug.datastructures import FileStorage
-
-
     if request.method == 'POST':
         
         conn =pymongo.MongoClient(config.mongodb)
@@ -273,11 +272,26 @@ def upload():
         
         case_num = request.form['case_num']
         user = request.form['user']
-        date = request.form['date']
-        location = request.form['location']
-        attacker = request.form['attacker']
-        desc = request.form['desc']
-        types = request.form['type']
+        try:
+            date = request.form['date']
+        except:
+            pass
+        try:
+            location = request.form['location']
+        except:
+            pass
+        try:
+            attacker = request.form['attacker']
+        except:
+            pass
+        try:
+            desc = request.form['desc']
+        except:
+            pass
+        try:
+            types = request.form['type']
+        except:
+            pass
 
         print(str(case_num), str(user))
         print(request.files)
@@ -399,21 +413,157 @@ def upload():
             insert_data['state']='변환완료'
 
             returnDict = meta.getImageTags(url)
-            print(returnDict)
+            print(type(returnDict))
             insert_data['metadata'] = returnDict
             collection.insert_one(insert_data)
+
+        elif(fileExt=='.csv'):
+            data_list=[]
+            data=f.stream.read()
+            stream=io.StringIO(data.decode("cp949"),newline=None)
+            field=['Type','Timestamp','Names','Desc','isChecked']
+            reader=csv.DictReader(stream,field)
+            for row in reader:
+                row['isChecked']="false"
+                data_list.append(row)
+            data_list.sort(key=lambda x: x['Timestamp'])
+            insert_data['state']='변환완료'              
+            insert_data['filetype']='컴퓨터 증거'
+            insert_data['casenum']=case_num
+            insert_data['filename']=filename
+            insert_data['hashed_filename']=hashed_filename
+            insert_data['user_id']=user
+            insert_data['data']=data_list
+            insert_data['index']=collection.find({'user_id':user}).count()+1
+            time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+            insert_data['uploaded_time']=str(time)
+
+            s3=boto3.client(
+            's3',
+            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
+            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
+            )
+            del(data_list[0])
+            id=collection.insert_one(insert_data)
+            print("id :"+str(id.inserted_id))
+            f.seek(0)
+            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            return json.dumps(insert_data,default=json_util.default)
 
         return {"result":"success"}
     else:
         return {"result":"error"}
+
+@app.route('/loadArtifactFile',methods=['GET','POST'])
+def loadArtifactFile():
+    idx=0
+    return_data={}
+    f=request.files['file']
+    data_list=[]
+    data=f.stream.read()
+    stream=io.StringIO(data.decode("cp949"),newline=None)
+    field=['Type','Timestamp','Name','Desc','Icon','Labeling','isChecked']
+    reader=csv.DictReader(stream,field)
+    for row in reader:
+        row['isChecked']="false"
+        row['Labeling']=str(row['Labeling']).split("/")
+        row['Timestamp']=str(row['Timestamp'].replace("/","T"))
+        data_list.append(row)
+    del(data_list[0])
+    del(data_list[0])
+    data_list.sort(key=lambda x: x['Timestamp'])
+    for list in data_list:
+        list['index']=idx
+        idx=idx+1
+    return_data['data']=data_list
+    return json.dumps(return_data,default=json_util.default)
+
+# @app.route('/uplaodArtifact',methods=['GET','POST'])
+# def uploadArtifact():
+#     import hashlib
+#     import time
+#     import os
+#     from werkzeug.datastructures import FileStorage
+#     conn =pymongo.MongoClient(config.mongodb)
+#     db = conn.jb_db
+#     now=time.localtime()
+#     collection = db.stt
+
+#     data=request.form["data"]
+#     case_num=request.form["case_num"]
+#     user=request.form["user"]
+
+
+#     insert_data={}
+#     insert_data['state']='변환완료'              
+#     insert_data['filetype']='컴퓨터 증거'
+#     insert_data['casenum']=case_num
+#     insert_data['filename']=filename
+#     insert_data['hashed_filename']=hashed_filename
+#     insert_data['user_id']=user
+#     insert_data['data']=data
+#     insert_data['index']=collection.find({'user_id':user}).count()+1
+#     time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+#     insert_data['uploaded_time']=str(time)
+
     
+    
+@app.route('/textEdit',methods=['GET','POST'])
+def textEdit():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+
+    data = request.get_json()
+    if(data):
+        editData=data['editData']
+        _id=data['_id']
+        collection.update_one({'_id':ObjectId(_id)},{"$set":{"segments":editData}})
+
+@app.route('/loadArtifact',methods=['GET','POST'])
+def loadArtifact():
+    return_res=[]
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    if(data):        
+        res=collection.find_one({'_id':ObjectId(data['_id'])})        
+        return json.dumps(res, default=json_util.default)
+
+@app.route('/isCheckedUpdate',methods=['GET','POST'])
+def isCheckedUpdate():
+    conn=pymongo.MongoClient(config.mongodb)
+    db=conn.jb_db
+    collection=db.stt
+    insert_data = {}
+
+    data=request.get_json()
+    if(data):
+        print(data['attacker'])
+        insert_data["data"]=data['isCheckedUpdate']
+        insert_data["attacker"]=data['attacker']
+        insert_data["desc"]=data['description']
+        insert_data["type"]=data['type']
+        insert_data["casenum"]=data["casenum"]
+        insert_data["user_id"]=data["user"]
+        insert_data["filetype"]=data["filetype"]
+        insert_data["filename"]=data["filename"]+"_"+data["type"]
+        insert_data["state"]="변환완료"
+        insert_data['index']=collection.find({'user_id':data["user"]}).count()+1
+
+        # if(_id):
+        #     collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":isCheckedUpdate,"attacker":attacker,"desc":description,"type":type}})
+        id=collection.insert_one(insert_data)
+        return id
 
 @app.route('/Receive',methods=['POST'])
 def receive():
     import time
     conn =pymongo.MongoClient(config.mongodb)    
     db = conn.jb_db
-    collection = db.stt    
+    collection = db.stt
     data=request.get_json()
     o_segments=data['segments']    
     o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
@@ -449,46 +599,6 @@ def analysis():
 @app.route('/uploadevidence')
 def uploadevidence():
     return render_template("index.html")
-
-@app.route('/makereport')
-def makereport():
-    return render_template('index.html')
-
-@app.route('/printreport')
-def printreport():
-    return render_template('index.html')
-
-@app.route('/showreport')
-def showreport():
-    return render_template('index.html')
-
-@app.route('/allevidence')
-def allevidence():
-    return render_template('index.html')
-
-@app.route('/mainbullying')
-def mainbullying():
-    return render_template('index.html')
-
-@app.route('/overview')
-def overview():
-    return render_template('index.html')
-
-@app.route('/main')
-def main():
-    return render_template('index.html')
-
-@app.route('/checklist')
-def checklist():
-    return render_template('index.html')
-
-@app.route('/aboutus')
-def aboutus():
-    return render_template('index.html')
-
-@app.route('/about')
-def about():
-    return render_template('index.html')
 
 @app.route('/casepage', methods = ['GET', 'POST'])
 def casepage():
@@ -692,6 +802,13 @@ def evidenceupdate():
     types = request.form['type']
     desc = request.form['desc']
 
+    print(case_num,user,index)
+    print(type(case_num))
+    print(type(user))
+    print(type(index))
+    print(type(types))
+    print(date,location,attacker,types,desc)
+
     collection.update_one({
         "$and":[
             {'casenum':case_num},
@@ -709,45 +826,6 @@ def evidenceupdate():
     })
 
     return "success"
-
-@app.route('/getallevidence', methods=['GET','POST'])
-def getallevidence():
-    conn=pymongo.MongoClient(config.mongodb)
-    db = conn.jb_db
-    collection = db.stt
-
-    data = request.get_json()
-    user = data['user']
-    type = data['type']
-    
-    if type=="all":
-
-        evidences = list(collection.find({'user_id':user}))
-        print(user)
-
-        return json.dumps(evidences,default=json_util.default)
-    elif type == "record":
-        print(user)
-        
-        evidences=list(collection.find({
-                "$and":[
-                    {'user_id':user},
-                    {'filetype':"녹음 파일"},
-                ]
-                }))
-
-        return json.dumps(evidences,default=json_util.default)
-    elif type == "picture":
-        evidences=list(collection.find({
-                "$and":[
-                    {'user_id':user},
-                    {'filetype':"사진 파일"},
-                ]
-                }))
-
-        return json.dumps(evidences,default=json_util.default)
-
-
 
 
 if __name__=='__main__':

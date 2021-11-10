@@ -7,7 +7,7 @@ const Logout = ({history}) => {
     axios.get("/logout")
     .then(res => {
         console.log(res)
-        history.push('/main')
+        history.push('/')
     })
 
     return(

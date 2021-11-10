@@ -27,25 +27,15 @@ class Case extends React.Component {
     
     render() {
         // console.log(this.props.name)
-        const handleDeleteButton=()=>{
-            var message = "정말로 삭제하시겠습니까?\n사건 내에 저장되어 있는 모든 증거가 삭제됩니다."
-            
-            const result = window.confirm(message)
-
-            if (result){
-                console.log("button clicked!!!!")
+        const handleDeleteButton=()=>{    
+            console.log("button clicked!!!!")
     
-                let body = {
-                    case_name: this.props.name,
-                    user: this.props.user,
-                    casenum: this.props.idx
-                }
-                return axios.post("/deletecase",body)
-            } else{
-                console.log('취소되었습니다.')
+            let body = {
+                case_name: this.props.name,
+                user: this.props.user,
+                casenum: this.props.idx
             }
-            
-            
+            return axios.post("/deletecase",body)
         }
 
         

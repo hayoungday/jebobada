@@ -2,9 +2,9 @@ import React from 'react';
 import Header from './Header';
 import './Analysis.css';
 
-const Analysis = React.forwardRef((props,ref) => {
+const Analysis = () => {
     return (
-        <div ref = {ref}>
+        <div>
             <Header/>
             <br></br>
             <br></br>
@@ -114,6 +114,6 @@ const Analysis = React.forwardRef((props,ref) => {
         </div>
 
     )
-})
+}
 
 export default Analysis;

@@ -160,7 +160,9 @@ const UploadEvidence = (props) => {
                     onChange={onLocationHandler}
                 />
                 <br />
-                행위자: {" "}
+                행위자
+                <br />
+                (가해자):{" "}
                 <input
                     type="text"
                     name="attacker"
@@ -198,7 +200,9 @@ const UploadEvidence = (props) => {
                 <br/>
                 {setaa}
                 <br/>
-                상세설명: {" "}
+                구체적인
+                <br />
+                피해사실:{" "}
                 <input
                     type="text"
                     name="description"
