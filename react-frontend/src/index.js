@@ -9,8 +9,7 @@ import About from './components/About';
 import Upload from './components/Upload';
 import Download from './components/Download';
 import Analysis from './components/Analysis';
-import Login from './components/Login';
-import Signup from './components/signup';
+
 import Oauth from './components/oauth';
 import Logout from './components/Logout'
 import PostView from './components/PostView'
@@ -21,6 +20,16 @@ import Modal from './components/Modal';
 import Access_log_modal from './components/Access_log_modal';
 import UploadEvidence from './components/UploadEvidence';
 import EvidenceEdit from './components/EvidenceEdit'
+import makeReport from './report/makeReport'
+import printReport from './report/printReport'
+import AllEvidence from './report/allEvidence'
+import RecordEvidence from "./report/recordEvidence"
+import PictureEvidence from "./report/pictureEvidence"
+import MainBullying from "./report/MainBullying"
+import Overview from './report/Overview'
+import Main from './components/Main'
+import CheckList from './components/CheckList'
+import AboutUs from './components/AboutUs'
 
 ReactDOM.render(
     // <App />,
@@ -32,8 +41,6 @@ ReactDOM.render(
         <Route path="/upload/:casenum" component={Upload}/>
         <Route path="/download" component={Download}/>
         <Route path="/analysis" component={Analysis}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/signup" component={Signup}/>
         <Route path="/oauth" component={Oauth}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/PostView/:casenum?/:no?/:keyword?" component={PostView}/>
@@ -44,6 +51,16 @@ ReactDOM.render(
         <Route path="/Access_log_modal" component={Access_log_modal}/>
         <Route path="/uploadevidence" component={UploadEvidence}/>
         <Route path="/editevidence" component={EvidenceEdit}/>
+        <Route path="/makereport" component={makeReport}/>
+        <Route path="/printreport" component={printReport}/>
+        <Route path="/allevidence" component={AllEvidence}/>
+        <Route path="/recordevidence" component={RecordEvidence}/>
+        <Route path="/pictureevidence" component={PictureEvidence}/>
+        <Route path="/mainbullying" component={MainBullying}/>
+        <Route path="/overview" component={Overview}/>
+        <Route path="/main" component={Main}/>
+        <Route path="/checklist" component={CheckList}/>
+        <Route path="/aboutus" component={AboutUs}/>
       </Route>
      </Router>, 
   document.getElementById('root')

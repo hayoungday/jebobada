@@ -72,11 +72,16 @@ class PostView extends Component {
         return (
             <div>
                 <Header/>
+                <div className="wrap">
                 <div class="flex-container">
-                    <div class="flex-child magenta">
-                        {/* <Meta/> */}
-                        {console.log(this.props)}
+                    <div class="flex-child-left">
+                        <h1>증거 정보 요약</h1>
                         <Table>
+                            <TableHead>
+                            <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
                             <TableRow>
                                 <TableCell>일시</TableCell>
                                 <TableCell>{this.props.location.state.datetime}</TableCell>
@@ -97,9 +102,65 @@ class PostView extends Component {
                                 <TableCell>상세설명</TableCell>
                                 <TableCell>{this.props.location.state.desc}</TableCell>
                             </TableRow>
+                            </TableHead>
                         </Table>
+
+                        {this.state.data?this.state.data.map((c,i)=>{
+                    
+                                if(c.index==params.no & c.filetype == "녹음 파일"){
+                                    return(
+                                        <div>
+                                            <div className="flex-container-first-box">
+                                                <button className="button_postview" onClick={this.openMetaModal}>파일 정보 확인</button>
+                                                <button className="button_postview" onClick={this.openChangedModal}>편집여부 확인</button>
+                                            </div>
+                                            <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
+                                                <button onClick={(e) => {
+                                                    e.preventDefault()
+                                                    this.setState({isMetaModal: false})
+                                                }}>닫기</button>
+                                            </MetaModal>
+
+                                            <ChangedModal visible={this.state.isChangedModal} type={c.filetype}>
+                                                <button onClick={(e) => {
+                                                    e.preventDefault()
+                                                    this.setState({isChangedModal: false})
+                                                }}>닫기</button>
+                                            </ChangedModal>
+                                        </div>
+                                    )
+                                }
+                                else if (c.index==params.no & c.filetype == "사진 파일"){
+                                    return(
+                                        <div>
+                                            <div className="flex-container-first-box">                                            
+                                                <button className="button_postview" onClick={this.openMetaModal}>파일 정보 확인</button>
+                                                <button className="button_postview" onClick={this.openChangedModal}>편집여부 확인</button>
+                                            </div>
+                                            <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
+                                                <button onClick={(e) => {
+                                                    e.preventDefault()
+                                                    this.setState({isMetaModal: false})
+                                                }}>닫기</button>
+                                            </MetaModal>
+
+                                            <ChangedModal visible={this.state.isChangedModal} type={c.filetype}>
+                                                <button onClick={(e) => {
+                                                    e.preventDefault()
+                                                    this.setState({isChangedModal: false})
+                                                }}>닫기</button>
+                                            </ChangedModal>
+                                        </div>
+                                    )
+                                }
+                                return (null)
+                            }):
+                            <h1></h1>   
+                        }
+
+
                     </div>
-                    <div class="flex-child green">                                
+                    <div class="flex-child-right">                                
                     <h1>원본 파일</h1>
                     
                 {this.state.data?this.state.data.map((c,i)=>{
@@ -131,8 +192,8 @@ class PostView extends Component {
                         return(
                             <div>
 
-                                <button onClick={this.openMetaModal}>파일 정보 확인</button>
-                                <button onClick={this.openChangedModal}>편집여부 확인</button>
+                                {/* <button onClick={this.openMetaModal}>파일 정보 확인</button>
+                                <button onClick={this.openChangedModal}>편집여부 확인</button> */}
                                 <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
                                     <button onClick={(e) => {
                                         e.preventDefault()
@@ -158,7 +219,7 @@ class PostView extends Component {
                 
             </div>
             </div>
-
+            </div>
             </div>
         );
     }

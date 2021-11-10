@@ -187,39 +187,10 @@ class Upload extends Component {
     render() {
         // const {classes} =this.props;
         return (
-          <div className="flex-column-container">
+          <div>
             <Header />
-            <div className="flex-container-agree">
-              <div className="agree-box" style={{ backgroundColor: "#dee5f8" }}>
-                <span className="agree-text" style={{ color: "000" }}>
-                  개인정보
-                  <p />
-                  수집 및 이용 동의
-                </span>
-              </div>
-              <img
-                className="connect-square"
-                src="../static/react/square_icon.png"
-              />
-              <div className="case-box" style={{ backgroundColor: "#dee5f8" }}>
-                <span className="case-text" style={{ color: "#000" }}>
-                  사건 생성 및 선택
-                </span>
-              </div>
-              <img
-                className="connect-square"
-                src="../static/react/square_icon.png"
-              />
-              <div
-                className="upload-box"
-                style={{ backgroundColor: "#3d7be6" }}
-              >
-                <span className="upload-text" style={{ color: "#fff" }}>
-                  증거 등록
-                </span>
-              </div>
-            </div>
-               <div>
+            
+               {/* <div>
                     <input 
                     className="search"
                     type="search"
@@ -228,9 +199,9 @@ class Upload extends Component {
                     />
                     <button onClick={this.handleClick(this.state.userInput)}>검색</button>
                     
-                </div> 
+                </div>  */}
                 
-                
+                <div className="wrap">
                 <div className="flex-column-container">
                 <div className="flex-container-case-box">
                     <div className="flex-column-content-container">
@@ -246,7 +217,7 @@ class Upload extends Component {
                     <button className="add-case-button" style={{textDecoration:'none'}}>
                    
                       <button onClick={this.openModal}>
-                        <span className="add-case-button-content">증거 등록</span>
+                        증거 등록
                       </button>
                       <Agree_Modal visible={this.state.isModalOpen}>
                         <button onClick={(e) => {
@@ -326,6 +297,7 @@ class Upload extends Component {
                 </TableBody>
               </Table>
             </div>
+          </div>
           </div>
         ); 
     } 

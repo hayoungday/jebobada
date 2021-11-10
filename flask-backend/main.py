@@ -450,6 +450,46 @@ def analysis():
 def uploadevidence():
     return render_template("index.html")
 
+@app.route('/makereport')
+def makereport():
+    return render_template('index.html')
+
+@app.route('/printreport')
+def printreport():
+    return render_template('index.html')
+
+@app.route('/showreport')
+def showreport():
+    return render_template('index.html')
+
+@app.route('/allevidence')
+def allevidence():
+    return render_template('index.html')
+
+@app.route('/mainbullying')
+def mainbullying():
+    return render_template('index.html')
+
+@app.route('/overview')
+def overview():
+    return render_template('index.html')
+
+@app.route('/main')
+def main():
+    return render_template('index.html')
+
+@app.route('/checklist')
+def checklist():
+    return render_template('index.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('index.html')
+
 @app.route('/casepage', methods = ['GET', 'POST'])
 def casepage():
     conn=pymongo.MongoClient(config.mongodb)
@@ -652,13 +692,6 @@ def evidenceupdate():
     types = request.form['type']
     desc = request.form['desc']
 
-    print(case_num,user,index)
-    print(type(case_num))
-    print(type(user))
-    print(type(index))
-    print(type(types))
-    print(date,location,attacker,types,desc)
-
     collection.update_one({
         "$and":[
             {'casenum':case_num},
@@ -676,6 +709,45 @@ def evidenceupdate():
     })
 
     return "success"
+
+@app.route('/getallevidence', methods=['GET','POST'])
+def getallevidence():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+
+    data = request.get_json()
+    user = data['user']
+    type = data['type']
+    
+    if type=="all":
+
+        evidences = list(collection.find({'user_id':user}))
+        print(user)
+
+        return json.dumps(evidences,default=json_util.default)
+    elif type == "record":
+        print(user)
+        
+        evidences=list(collection.find({
+                "$and":[
+                    {'user_id':user},
+                    {'filetype':"녹음 파일"},
+                ]
+                }))
+
+        return json.dumps(evidences,default=json_util.default)
+    elif type == "picture":
+        evidences=list(collection.find({
+                "$and":[
+                    {'user_id':user},
+                    {'filetype':"사진 파일"},
+                ]
+                }))
+
+        return json.dumps(evidences,default=json_util.default)
+
+
 
 
 if __name__=='__main__':

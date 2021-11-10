@@ -113,35 +113,9 @@ class CasePage extends Component {
 
   render() {
     return (
-      <div className="flex-column-container">
+      <div>
         <Header />
-        <div className="flex-container-agree">
-          <div className="agree-box" style={{ backgroundColor: "#dee5f8" }}>
-            <span className="agree-text" style={{ color: "000" }}>
-              개인정보
-              <p />
-              수집 및 이용 동의
-            </span>
-          </div>
-          <img
-            className="connect-square"
-            src="./static/react/square_icon.png"
-          />
-          <div className="case-box" style={{ backgroundColor: "#3d7be6" }}>
-            <span className="case-text" style={{ color: "#fff" }}>
-              사건 생성 및 선택
-            </span>
-          </div>
-          <img
-            className="connect-square"
-            src="./static/react/square_icon.png"
-          />
-          <div className="upload-box" style={{ backgroundColor: "#dee5f8" }}>
-            <span className="upload-text" style={{ color: "#000" }}>
-              증거 등록
-            </span>
-          </div>
-        </div>
+        <div className="wrap">
         <div className="flex-column-container">
           <div className="flex-container-case-box">
             <div className="flex-column-content-container">
@@ -156,16 +130,13 @@ class CasePage extends Component {
               </span>
             </div>
             <button className="add-case-button" onClick={this.openModal}>
-                <span className="add-case-button-content">사건 추가</span>
-              </button>
+              사건 추가
+            </button>
               <Modal visible={this.state.isModalOpen}>
-                <button class = "close_button" onClick={() => {this.setState({isModalOpen: false});}}>
+                <button className = "close_button" onClick={() => {this.setState({isModalOpen: false});}}>
                     <img class = "close_button_img" src="./static/react/close_icon.png" />
                   </button>
-                  {/* <img src="./static/react/close_icon.png" style={{ float: "right" }}>
-                    <button  onClick={() => {this.setState({isModalOpen: false});}}/>
-                  </img> */}
-                  <div className="flex-column-container">
+                  <div className="flex-column-container-case">
                   <span className="modal_title">사건 정보를 작성해주세요</span>
                 <form onSubmit={this.handleFormSubmit}>
                 <div className="flex-container-first-box">
@@ -194,8 +165,7 @@ class CasePage extends Component {
                         cases: undefined,
                       });
                     }}
-                  >
-                    <span className="case_button_text">등록</span>
+                  > 등록
                   </button>
                 </form>
                 </div>
@@ -244,44 +214,7 @@ class CasePage extends Component {
           </Table>
         </div>
       </div>
-      // <div>
-      //     <Header/>
-      //     <br></br>
-      //     <h1>CASES</h1>
-      //     <br></br>
-      //   <form onSubmit={this.handleFormSubmit}>
-      //       케이스명: <input type = "text" name = "case_name" placeholder="케이스명" value={this.state.case_name} onChange={this.handleValueChange}/><br/>
-      //       한줄설명: <input type = "text" name = "description" placeholder="한줄설명" value={this.state.description} onChange={this.handleValueChange} /><br/>
-      //       <button class="btn btn-primary">등록</button>
-      //   </form>
-
-      //     <Table>
-      //         <TableHead>
-      //             <TableRow>
-      //                 <TableCell>번호</TableCell>
-      //                 <TableCell>케이스명</TableCell>
-      //                 <TableCell>설명</TableCell>
-      //             </TableRow>
-      //         </TableHead>
-      //         <TableBody>
-      //         {console.log(typeof this.state.cases)}
-      //         { this.state.cases ? this.state.cases.map((c,i) => {
-      //             return ( <Case key={this.state.maxNo + i}
-      //                 id={this.state.maxNo + i}
-      //                 name={c.CaseName}
-      //                 description={c.Description}
-      //                 idx={c.index}
-      //                 />)
-      //             }):
-      //             <TableRow>
-      //                 <TableCell colSpan="6" align="center">
-      //                     <CircularProgress variant = "determinate" value={this.state.completed}/>
-      //                 </TableCell>
-      //             </TableRow>
-      //             }
-      //         </TableBody>
-      //     </Table>
-      // </div>
+      </div>
     );
   }
 }
