@@ -134,8 +134,8 @@ class PostView extends Component {
                                     return(
                                         <div>
                                             <div className="flex-container-first-box">                                            
-                                                <button className="button_postview" onClick={this.openMetaModal}>파일 정보 확인</button>
-                                                <button className="button_postview" onClick={this.openChangedModal}>편집여부 확인</button>
+                                            <button className="button_postview" onClick={this.openMetaModal}>파일 정보 확인</button>
+                                            <button className="button_postview" onClick={this.openChangedModal}>편집여부 확인</button>
                                             </div>
                                             <MetaModal visible={this.state.isMetaModal} type={c.filetype} arr={c.metadata}>
                                                 <button onClick={(e) => {
@@ -184,7 +184,7 @@ class PostView extends Component {
                                     }}>닫기</button>
                                 </ChangedModal>
 
-                                <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword}/>
+                                <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword} _id={c._id}/>
                             </div>
                         )
                     }

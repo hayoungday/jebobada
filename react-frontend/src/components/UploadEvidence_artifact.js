@@ -592,10 +592,8 @@ class Upload extends Component {
     console.log(this.state.attacker);
     return (
       <div>
-        <div>
-          <Header />
-        </div>
-        <div style={{ width: "75%", margin: "0 auto" }}>
+          {/* <Header /> */}
+        <div className="wrap" style={{ width: "75%", margin: "150px auto" }}>
           <div>
             <br></br>
             <br></br>

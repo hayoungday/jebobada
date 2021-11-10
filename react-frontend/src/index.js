@@ -30,6 +30,8 @@ import Overview from './report/Overview'
 import Main from './components/Main'
 import CheckList from './components/CheckList'
 import AboutUs from './components/AboutUs'
+import uploadevidence_artifact from './components/UploadEvidence_artifact'
+import Editevidence_artifact from './components/Editevidence_artifact'
 
 ReactDOM.render(
     // <App />,
@@ -61,6 +63,8 @@ ReactDOM.render(
         <Route path="/main" component={Main}/>
         <Route path="/checklist" component={CheckList}/>
         <Route path="/aboutus" component={AboutUs}/>
+        <Route path="/uploadevidence_artifact" component={uploadevidence_artifact}/>
+        <Route path="/Editevidence_artifact" component = {Editevidence_artifact}/>
       </Route>
      </Router>, 
   document.getElementById('root')
