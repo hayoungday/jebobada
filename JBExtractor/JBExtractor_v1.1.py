@@ -3,6 +3,7 @@ import sys
 import time
 import datetime
 import webbrowser
+import hashlib
 
 from PyQt5 import uic
 from PyQt5 import QtCore
@@ -17,7 +18,6 @@ from browser_history import get_history
 
 import evtx_dump
 from stickyParser import snt, plum
-
 
 # Get absolute path to resource, works for dev and for PyInstaller
 def resource_path(relative_path):
@@ -82,6 +82,8 @@ class MainWindow(QMainWindow, form_mainWindow):
         self.addDateBtn_step1.clicked.connect(self.addDateBtnClick)
         self.delDateBtn_step1.clicked.connect(self.delDateBtnClick)
 
+        self.userDate = []
+
         self.comboBox_step1.activated[str].connect(lambda: self.selectComboItem(self.comboBox_step1))
 
     #------------------------------------------------------------------------------#
@@ -95,9 +97,7 @@ class MainWindow(QMainWindow, form_mainWindow):
         self.downMenuBtn_step2.clicked.connect(self.downMenuClick)
         self.internetBtn_step2.clicked.connect(lambda: webbrowser.open('http://gabjil119.co.kr/'))
 
-
         self.extractBtn_step2.clicked.connect(self.startExtractClick)
-
 
     #------------------------------------------------------------------------------#
         # Sigal of step3 screen
@@ -128,7 +128,6 @@ class MainWindow(QMainWindow, form_mainWindow):
 
         self.uploadBtn_step4.clicked.connect(lambda: webbrowser.open('http://gabjil119.co.kr/'))
         
-
     #------------------------------------------------------------------------------#
         # Signal of step5 screen
         self.backBtn_step5.clicked.connect(self.backBtnClick)
@@ -146,6 +145,7 @@ class MainWindow(QMainWindow, form_mainWindow):
         index = self.stackedWidget.currentIndex()
         self.stackedWidget.setCurrentIndex((index + 1))
 
+
     def nextBtnClick_step1(self):
         if self.dateList_step1.count() == 0:
             self.warning_step1_2 = warningDialog_step1_2()
@@ -153,18 +153,23 @@ class MainWindow(QMainWindow, form_mainWindow):
             index = self.stackedWidget.currentIndex()
             self.stackedWidget.setCurrentIndex((index + 1))
 
+
     def backBtnClick(self):
         index = self.stackedWidget.currentIndex()
         self.stackedWidget.setCurrentIndex((index - 1))
 
+
     def exitBtnClick(self):
         self.close()
+
 
     def homeBtnClick(self):
         self.stackedWidget.setCurrentIndex(0)
 
+
     def downMenuClick(self):
         self.stackedWidget.setCurrentIndex(3)
+
 
     def startExtractClick(self):
         self.dateList = []
@@ -181,6 +186,7 @@ class MainWindow(QMainWindow, form_mainWindow):
             self.dateList[r].append(startTime)
             self.dateList[r].append(endTime)
 
+
         self.prefetchParse()
         self.jumplistParse()
         self.nextBtnClick()
@@ -189,6 +195,8 @@ class MainWindow(QMainWindow, form_mainWindow):
         self.historyParse()
         self.eventlogParse()
         self.stickyParse()
+
+        
 
         self.label_doc_step3.setText(str(self.doc_cnt) + " 건")
         self.label_web_step3.setText(str(self.web_cnt) + " 건")
@@ -206,38 +214,61 @@ class MainWindow(QMainWindow, form_mainWindow):
         if start_time_epoch > end_time_epoch:
             self.warning_step1_1 = warningDialog_step1_1()
         else:
+            string = datetime.datetime.fromtimestamp(start_time_epoch).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.fromtimestamp(end_time_epoch).strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(start_time_epoch).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.fromtimestamp(end_time_epoch).strftime('%Y-%m-%d %p %I:%M'))
+
 
     def delDateBtnClick(self):
         if self.dateList_step1.count() > 0:
             row = self.dateList_step1.currentRow()
             if row > -1:
+                self.userDate.remove(self.dateList_step1.item(row).text())
                 self.dateList_step1.takeItem(row)
             else:
                 self.warning_step1_3 = warningDialog_step1_3()
         else:
             self.warning_step1_2 = warningDialog_step1_2()
 
+
     def selectComboItem(self, item):
         now_time = datetime.datetime.today().timestamp()
-        if item.currentText() == "한시간":
-            tmp_time = now_time - 3600
+        if item.currentText() == "3시간":
+            tmp_time = now_time - 10800
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
-        elif item.currentText() == "당일":
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
+        elif item.currentText() == "1일":
             tmp_time = now_time - 86400
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
         elif item.currentText() == "3일":
             tmp_time = now_time - 259200
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
         elif item.currentText() == "1주":
             tmp_time = now_time - 604800
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
         elif item.currentText() == "2주":
             tmp_time = now_time - 1209600
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
         elif item.currentText() == "1개월":
             tmp_time = now_time - 2592000
             self.dateList_step1.addItem(datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d %p %I:%M') + " ~ " + datetime.datetime.today().strftime('%Y-%m-%d %p %I:%M'))
+            string = datetime.datetime.fromtimestamp(tmp_time).strftime('%Y-%m-%d/%H:%M:%S') + "~" + datetime.datetime.today().strftime('%Y-%m-%d/%H:%M:%S')
+            self.userDate.append(string)
+
         else:
             print("error")
 
@@ -260,7 +291,8 @@ class MainWindow(QMainWindow, form_mainWindow):
         basic_program = ["APPLICATIONFRAMEHOST.EXE", "AUDIODG.EXE", "BACKGROUNDTASKHOST.EXE", "CONHOST.EXE", "CONSENT.EXE",
                         "DLLHOST.EXE", "FILECOAUTH.EXE", "GAMEBAR.EXE", "HELPPANE.EXE", "INDEX.EXE", "INST.EXE", "MOUSOCOREWORKER.EXE",
                         "MSCORSVW.EXE", "NGEN.EXE", "NGENTASK.EXE", "RUNTIMEBROKER.EXE", "SVCHOST.EXE", "TASKHOSTW.EXE", "TASKMGR.EXE",
-                        "TIWORKER.EXE", "UPDATER.EXE", "WERFAULT.EXE", "WMIPRVSE.EXE", "MCHOST.EXE", "MCAUTOREG.EXE", ]
+                        "TIWORKER.EXE", "UPDATER.EXE", "WERFAULT.EXE", "WMIPRVSE.EXE", "MCHOST.EXE", "MCAUTOREG.EXE", "SPPSVC.EXE",
+                        "GOOGLEUPDATE.EXE", "MICROSOFTEDGEUPDATE.EXE", "MPCMDRUN.EXE", "SCHTASKS.EXE", "SIHCLIENT.EXE", "WSL.EXE", "WUDFHOST.EXE", "RUNDLL32.EXE"]
 
         file_paths = []
         if os.path.isdir(prefetch_path):
@@ -296,6 +328,7 @@ class MainWindow(QMainWindow, form_mainWindow):
                         "icon_exec",
                         "사적지시/초과근무/전가/제출강요"
                     ))
+
                     
     def jumplistParse(self):
         appid_path = os.path.dirname(os.path.abspath(__file__)) + '/JLParser_AppID.csv'
@@ -303,7 +336,7 @@ class MainWindow(QMainWindow, form_mainWindow):
         jumplist_item = JL("C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Recent".format(os.getlogin()), appid_path)
         jumplist_list = jumplist_item.result.split('\n') # string to list
 
-        extlist = ['docx', 'xlsx', 'xls', 'pptx', 'pdf', 'txt', 'hwp', 'csv', 'ppt']
+        extlist = ['docx', 'xlsx', 'xls', 'pptx', 'pdf', 'txt', 'hwp', 'csv']
         label = "초과근무/제출강요"
 
         for i in range(1, len(jumplist_list)):
@@ -323,11 +356,11 @@ class MainWindow(QMainWindow, form_mainWindow):
                         extention = jumplist_list[i].split(',')[25].split('.')
                         if len(extention) > 2:
                             if extention[-2].split(' ')[0].lower() in extlist: 
-                                self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "문서 열람" + "," + "icon_" + extention[-2].split(' ')[0] + "," + label)
+                                self.result.append("링크 파일" + "," + date_item.replace('"','') + "," + jumplist_list[i].split(',')[25].replace('"','') + "," + "문서 열람" + "," + "icon_" + extention[-2].split(' ')[0] + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
                             else:
-                                self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "파일 열람" + "," + "icon_" + extention[-2].split(' ')[0] + "," + label)
+                                self.result.append("링크 파일" + "," + date_item.replace('"','') + "," + jumplist_list[i].split(',')[25].replace('"','') + "," + "파일 열람" + "," + "icon_file" + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
                         else:      
-                            self.result.append("링크 파일" + "," + date_item + "," + jumplist_list[i].split(',')[25] + "," + "폴더 열람" + "," + "icon_folder" + "," + label)
+                            self.result.append("링크 파일" + "," + date_item.replace('"','') + "," + jumplist_list[i].split(',')[25].replace('"','') + "," + "폴더 열람" + "," + "icon_folder" + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
 
                     elif "JumpList" in jumplist_list[i].split(',')[27]:
                         self.doc_cnt += 1
@@ -337,14 +370,15 @@ class MainWindow(QMainWindow, form_mainWindow):
                         extention = item[-1].replace('"','').split('.')
                         if len(extention) > 1:
                             if extention[-1].split(' ')[0].lower() in extlist:                           
-                                self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "문서 열람" + "," + "icon_" + extention[-1].split(' ')[0] + "," + label)
+                                self.result.append("점프 리스트" + "," + date_item.replace('"','') + "," + item[-1].replace('"','') + "," + "문서 열람" + "," + "icon_" + extention[-1].split(' ')[0] + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
                             else:
-                                self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "파일 열람" + "," + "icon_" + extention[-1].split(' ')[0] + "," + label)
+                                self.result.append("점프 리스트" + "," + date_item.replace('"','') + "," + item[-1].replace('"','') + "," + "파일 열람" + "," + "icon_file" + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
                         else:
-                            self.result.append("점프 리스트" + "," + date_item + "," + item[-1].replace('"','') + "," + "폴더 열람" + "," + "icon_folder" + "," + label)
+                            self.result.append("점프 리스트" + "," + date_item.replace('"','') + "," + item[-1].replace('"','') + "," + "폴더 열람" + "," + "icon_folder" + "," + label + "," + jumplist_list[i].split(',')[14].replace('"',''))
 
                     else:
                         print("wrong data")
+
                     
     def lnkParse(self):
         dirname = "C:\\Users\\{}\\AppData\\Roaming\\Microsoft\\Windows\\Recent".format(os.getlogin())
@@ -365,11 +399,11 @@ class MainWindow(QMainWindow, form_mainWindow):
             if flag > 0:
                 self.web_cnt += 1
                 if outputs.histories[r][1].split('/')[0] in "file:":
-                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1].replace(',', '') + "," + "파일 다운로드" + "," + "icon_filedown" + "," + label)
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + ",\"" + outputs.histories[r][1] + "\"," + "파일 다운로드" + "," + "icon_filedown" + "," + label)
                 elif outputs.histories[r][1].split('/')[3].split('?')[0] == "search":
-                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1] + "," + "인터넷 검색" + "," + "icon_search" + "," + label)
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + ",\"" + outputs.histories[r][1] + "\"," + "인터넷 검색" + "," + "icon_search" + "," + label)
                 else:
-                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + "," + outputs.histories[r][1] + "," + "웹사이트 방문" + "," + "icon_visit" + "," + label)
+                    self.result.append("웹 히스토리" + "," + (outputs.histories[r][0]).strftime('%Y-%m-%d/%H:%M:%S.%f').split('.')[0] + ",\"" + outputs.histories[r][1] + "\"," + "웹사이트 방문" + "," + "icon_visit" + "," + label)
 
     def recycleParse(self):
         list = Recycle()
@@ -417,22 +451,35 @@ class MainWindow(QMainWindow, form_mainWindow):
                 self.result.append("스티커 노트" + "," + list[r][1].replace(' ', '/') + "," + '+'.join(list[r][0]) + "," + "스티커 노트에 저장된 텍스트" + "," + "icon_sticky" + "," + label) 
 
     def downAnalysisBtnClick(self):
-        
+
         try:
             if len(self.result) > 0:
                 Filename_tmp = "컴퓨터 사용기록 추출결과"
 
                 Filesave = QFileDialog.getSaveFileName(self, '파일 저장', Filename_tmp + "-" + str(datetime.datetime.now().date()), "csv files (*.csv)")
-                FileHeader = ["타입, 시간, 작업명, 설명, 아이콘, 라벨링"]
+                FileHeader = ["타입, 시간, 작업명, 설명, 아이콘, 라벨링, 경로"]
 
                 if Filesave[0] != "":
                     with open(Filesave[0], "w") as f:
-                        for r in range(self.dateList_step1.count()):
-                            f.writelines(self.dateList_step1.item(r).text())
+                        
+                        encoding_date = str(self.userDate).encode()
+                        hexdigest_date = hashlib.sha256(encoding_date).hexdigest()
+                        f.writelines(hexdigest_date)
+                        f.write('\n')
+
+                        encoding_result = str(self.result).encode()
+                        hexdigest_result = hashlib.sha256(encoding_result).hexdigest()
+                        f.writelines(hexdigest_result)
+                        f.write('\n')
+
+                        for r in range(len(self.userDate)):
+                            f.writelines(self.userDate[r])
                             f.write(',')
                         f.write('\n')
+
                         f.writelines(FileHeader)
                         f.write('\n')
+
                         for r in range(len(self.result)):
                             f.writelines(self.result[r])
                             f.write('\n')
@@ -552,7 +599,8 @@ class loadingScreenDialog(QDialog, form_loadingDialog):
         super(loadingScreenDialog, self).__init__()
         self.initUI()
         self.show()
-    
+
+
     def initUI(self):
         self.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -560,23 +608,13 @@ class loadingScreenDialog(QDialog, form_loadingDialog):
 
         self.stopBtn_progress.clicked.connect(self.stopBtnClick)
 
-        self.movie = QMovie(resource_path("icons\\spinner.gif"))
-        self.movie.setCacheMode(QMovie.CacheAll)
-        self.loadingLabel.setMovie(self.movie)
-        self.movie.start()
+        self.action()
 
-        timer = QTimer(self)
-        timer.singleShot(1000, self.stopAnimation)
-    
+    def action(self):
+        h1 = ThreadClass(self)
+        h1.start()
+
     def stopBtnClick(self):
-        self.close()
-
-    def stopAnimation(self):
-        for i in range(0, 101):
-            self.num = i
-            self.progressBar.setValue(self.num)
-            time.sleep(0.01)
-        
         self.close()
 
 class helpDialog_step1(QDialog, form_helpDialog_step1):
@@ -629,6 +667,17 @@ class helpDialog_step2(QDialog, form_helpDialog_step2):
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
 
+
+class ThreadClass(QThread):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+        
+    def run(self):
+        for i in range(0, 101):
+            self.num = i
+            self.parent.progressBar.setValue(self.num)
+            time.sleep(0.05)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
