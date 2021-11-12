@@ -38,8 +38,28 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
 
         return(
           <div>
-            <form onSubmit={handleFormSubmit}>
+            <button className="close_icon_login" onClick={closeModal}/>
+            <div className="flex-column-container-case">
+              <span className="modal_title">사건 정보를 작성해주세요</span>
+              <form onSubmit={handleFormSubmit}>
                 <div className="flex-container-first-box">
+                  <span className="case_name"> 사건명:{" "}</span>
+                  <label className="case_name_fixed">{case_name}</label>
+                </div>
+                
+                <div className="flex-container-first-box">
+                  <span className="case_description"> 한줄요약:{" "}</span>
+                  <input className="case_description_input"
+                    type="text"
+                    name="description"
+                    placeholder={desc}
+                    onChange={onDescHandler}
+                  />
+                </div>
+
+
+
+                {/* <div className="flex-container-first-box">
                     <span className="case_name">
                         사건명: {case_name}
                     </span>
@@ -53,7 +73,7 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
                     onChange={onDescHandler}        
                     placeholder={desc}
                 />
-                </div> 
+                </div>  */}
 
                 {/* onClick={() => {
                     this.setState({
@@ -63,12 +83,10 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
                 }} */}
 
                 <button className="case_button">
-                <span className="case_button_text">수정</span>
+                  수정
                 </button>
-            </form>
-
-            <button onClick = {closeModal}>닫기</button>
-
+              </form>
+            </div>
           </div>
         )
 
@@ -120,18 +138,18 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
   `
   
   const ModalInner = styled.div`
-    box-sizing: border-box;
-    position: relative;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
-    border-radius: 50px;
-    width: 600px;
-    max-width: 800px;
-    height: 400px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
-    padding: 40px 20px;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  border-radius: 20px;
+  width: 600px;
+  max-width: 800px;
+  height: 400px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  padding: 40px 20px;
   `
 
 export default CaseEdit_Modal;

@@ -42,6 +42,7 @@ main {
 .flex-container-first-box{
     display:flex;
     height: auto;
+    margin: 25px auto;
 }
 
 .flex-container-agree{
@@ -68,6 +69,14 @@ main {
     height: auto;
     margin: 0 200px 0 200px;
     z-index: 1;
+}
+
+.flex-column-container-main{
+  display:flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+  z-index: 1;
 }
 
 .flex-column-container-agree{
@@ -242,7 +251,7 @@ color: #000;
 height: 60px; */
 width: 365px;
 height: auto;
-margin: 25px;
+margin: auto auto 50px auto;
 font-family: SegoeUI;
 font-size: 15px;
 font-weight: normal;
@@ -250,7 +259,7 @@ font-stretch: normal;
 font-style: normal;
 line-height: 1.33;
 letter-spacing: normal;
-text-align: left;
+text-align: center;
 color: #000;
 }
 
@@ -330,7 +339,7 @@ color: #fff;
 
 .go_button_box1{
 width: 200px;
-height: 70px;
+height: 40px;
 /* margin-top: 62px; */
 margin: auto;
 padding: 16px 78px 14px;
@@ -340,11 +349,21 @@ background-color: #3d7be6;
 }
 
 .go_button_box2{
-width: 200px;
-height: 70px;
-margin: auto;
+  align-items: center;
+width: 250px;
+height: 40px;
+margin: auto 10px;
 /* margin: 51px 41px 0 31px; */
-padding: 16px 78px 14px;
-border-radius: 30px;
-background-color: #3d7be6;
+border-radius: 20px;
+background-color: #fff;
+border: solid 1.5px #3d7be6;
+font-family: SegoeUI;
+font-size: 15px;
+font-weight: bold;
+font-stretch: normal;
+font-style: normal;
+line-height: 40px;
+letter-spacing: normal;
+text-align: center;
+color: #3d7be6;
 }

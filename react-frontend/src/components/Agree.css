@@ -250,6 +250,25 @@ font-style: normal;
   background-color: #fff;
   }
 
+  .case_name_fixed {
+    width: 500px;
+    height: 57px;
+    margin: 0px 10px 0px 0px;
+    border-radius: 20px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    line-height: 57px;
+    vertical-align: middle;
+    font-family: SegoeUI;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+    }
+
   .case_description{
   width: 150px;
   height: 40px;
