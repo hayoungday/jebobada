@@ -66,6 +66,7 @@ class ViewFile extends Component {
             <p>
               <h5>화자{d.speaker}</h5>
               <br></br>
+              <div style={{width:"auto"}}>
               <EasyEdit
                 type={Types.TEXTAREA}
                 onSave={(value) => {this.editText(index,value)}}
@@ -76,10 +77,10 @@ class ViewFile extends Component {
                 instructions="수정할 내용을 입력해 주세요"
                 placeholder={d.stt}
                 value={d.stt}
+                
               ></EasyEdit>
+              </div>
               <br></br>
-              
-              {/* {this.print(index,this.state.editText)} */}
             </p>            
           ))}
           

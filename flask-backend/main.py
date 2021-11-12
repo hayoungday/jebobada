@@ -7,7 +7,7 @@ from flask import Flask, render_template,request, redirect, jsonify, make_respon
 import pymongo
 import requests
 import boto3
-import clovaspeechAPI, googleOCR, metaExiftool
+import clovaspeechAPI, googleOCR, metaExiftool,check_csv
 from datetime import datetime
 import hashlib
 from bson.objectid import ObjectId
@@ -19,6 +19,7 @@ from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity
 from bson import json_util
 import time, os
 import io
+
 
 app = Flask("__main__")
 
@@ -424,60 +425,38 @@ def upload():
             insert_data['metadata'] = returnDict
             collection.insert_one(insert_data)
 
-        elif(fileExt=='.csv'):
-            data_list=[]
-            data=f.stream.read()
-            stream=io.StringIO(data.decode("cp949"),newline=None)
-            field=['Type','Timestamp','Names','Desc','isChecked']
-            reader=csv.DictReader(stream,field)
-            for row in reader:
-                row['isChecked']="false"
-                data_list.append(row)
-            data_list.sort(key=lambda x: x['Timestamp'])
-            insert_data['state']='변환완료'              
-            insert_data['filetype']='컴퓨터 증거'
-            insert_data['casenum']=case_num
-            insert_data['filename']=filename
-            insert_data['hashed_filename']=hashed_filename
-            insert_data['user_id']=user
-            insert_data['data']=data_list
-            insert_data['index']=collection.find({'user_id':user}).count()+1
-            time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-            insert_data['uploaded_time']=str(time)
-
-            s3=boto3.client(
-            's3',
-            aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
-            aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
-            )
-            del(data_list[0])
-            id=collection.insert_one(insert_data)
-            print("id :"+str(id.inserted_id))
-            f.seek(0)
-            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
-            return json.dumps(insert_data,default=json_util.default)
-
         return {"result":"success"}
     else:
         return {"result":"error"}
 
 @app.route('/loadArtifactFile',methods=['GET','POST'])
-def loadArtifactFile():
+
+def loadArtifactFile():  
     idx=0
     return_data={}
     f=request.files['file']
     data_list=[]
     data=f.stream.read()
     stream=io.StringIO(data.decode("cp949"),newline=None)
-    field=['Type','Timestamp','Name','Desc','Icon','Labeling','isChecked']
-    reader=csv.DictReader(stream,field)
+    field=['Type','Timestamp','Name','Desc','Icon','Labeling','path','isChecked']
+    if(check_csv.check_csv(stream)=="verified fail"):
+        return_data['res']="verified fail"
+        return_data['data']=[]
+        return json.dumps(return_data,default=json_util.default)
+
+    f.seek(0)
+    data=f.stream.read()
+    csv_data=io.StringIO(data.decode("cp949"),newline=None)
+    reader=csv.DictReader(csv_data,field)
+    tmp=0
     for row in reader:
-        row['isChecked']="false"
-        row['Labeling']=str(row['Labeling']).split("/")
-        row['Timestamp']=str(row['Timestamp'].replace("/","T"))
-        data_list.append(row)
-    del(data_list[0])
-    del(data_list[0])
+        if(tmp>3):
+            row['isChecked']="false"
+            row['Labeling']=str(row['Labeling']).split("/")
+            row['Timestamp']=str(row['Timestamp'].replace("/","T"))
+            data_list.append(row)
+        tmp=tmp+1
+    
     data_list.sort(key=lambda x: x['Timestamp'])
     for list in data_list:
         list['index']=idx

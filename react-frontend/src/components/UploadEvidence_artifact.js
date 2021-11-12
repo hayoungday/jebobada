@@ -45,6 +45,7 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fileVerify:false,
       isSnackbarOpen: false,
       isDetail:false,
       user: "",
@@ -164,7 +165,14 @@ class Upload extends Component {
       },
     };
     axios.post("/loadArtifactFile", formData, config).then((res) => {
+      if(res.data.res=="verified fail"){
+        alert("임의로 편집된 파일은 업로드가 불가능합니다. 원본 파일을 업로드 해 주세요.")
+      }
+      else{
+        this.setState({fileVerify:true})
+      }
       console.log(res.data.data);
+      
       this.setState({ artifactList: res.data.data });
       this.setState({ originalArtifact: res.data.data });
       // this.setState({ artifactList: res.data.data });
@@ -254,7 +262,7 @@ class Upload extends Component {
     }
   }
   UserChooserOpen() {
-    if (this.state.isListOpen) {
+    if (this.state.isListOpen&&this.state.fileVerify) {
       return (
         <div
           style={{
@@ -319,7 +327,7 @@ class Upload extends Component {
   }
 
   typographyOpen() {
-    if (this.state.isListOpen) {
+    if (this.state.isListOpen&&this.state.fileVerify) {
       return (
         <Typography variant="h4" gutterBottom component="div">
           선택한 항목을 아래에서 확인할 수 있습니다
@@ -329,10 +337,10 @@ class Upload extends Component {
   }
 
   listOpen() {
-    if (this.state.isListOpen) {
+    if (this.state.isListOpen&&this.state.fileVerify) {
       return (
         <div>
-          <div>
+          <div style={{ transition: "all.5s ease" }}>
             <Modal
               style={{ transition: "all.5s ease" }}
               open={this.state.isModalOpen}
@@ -428,7 +436,7 @@ class Upload extends Component {
               </div>
             </Modal>
           </div>
-          <div style={{float:"right",marginRight:"20px"}}>
+          <div style={{  marginRight: "50px" }}>
             <FormControlLabel
               control={
                 <Switch
@@ -439,7 +447,7 @@ class Upload extends Component {
               label="전체 보기"
             />
           </div>
-          <div>
+          <div >
             <ViewArtifact_checkedFalse
               startTime={this.state.startTime_input}
               endTime={this.state.endTime_input}
@@ -458,7 +466,7 @@ class Upload extends Component {
     }
   }
   checkedListOpen() {
-    if (this.state.isListOpen) {
+    if (this.state.isListOpen&&this.state.fileVerify) {
       return (
         <div>
           <ViewArtifact_checkedTrue
@@ -473,7 +481,7 @@ class Upload extends Component {
   }
 
   userInputOpen() {
-    if (this.state.isListOpen) {
+    if (this.state.isListOpen&&this.state.fileVerify) {
       return (
         <div>
           <br></br>
@@ -593,7 +601,7 @@ class Upload extends Component {
     return (
       <div>
           {/* <Header /> */}
-        <div className="wrap" style={{ width: "75%", margin: "150px auto" }}>
+        <div style={{ width: "85%", margin: "0 auto" }}>
           <div>
             <br></br>
             <br></br>
@@ -631,6 +639,7 @@ class Upload extends Component {
               overflowX: "auto",
               boxShadow:
                 "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63)",
+              borderRadius:"30px"
             }}
           >
             {this.listOpen()}
@@ -667,7 +676,6 @@ class Upload extends Component {
               onClose={() => {
                 this.snackbarClose();
               }}
-              
             >
               <Alert
                 onClose={() => {

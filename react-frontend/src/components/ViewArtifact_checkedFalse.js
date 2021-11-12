@@ -49,14 +49,16 @@ export default function ViewArtifact_checkedFalse(props) {
   }  
 
   return (
-    <div style={{ transition: "all.5s ease" }}>
-      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all"}}>
+    <div style={{ transition: "all.5s ease"}}>
+      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
         <colgroup>
           <col style={{ width: "10%" }} />
-          <col style={{ width: "10%" }} />
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "40%" }} />
+          <col style={{ width: "5%" }} />
+          <col style={{ width: "15%" }} />
+          <col style={{ width: "15%" }} />
+          <col style={{ width: "30%" }} />
+          {props.isDetail==true?<col style={{ width: "25%" }}/>:null}
+          
         </colgroup>
         <TableHead>
           <TableRow>
@@ -73,6 +75,10 @@ export default function ViewArtifact_checkedFalse(props) {
             <TableCell>
               <Typography variant="h6">작업명</Typography>
             </TableCell>
+            {props.isDetail==true?<TableCell>
+              <Typography variant="h6">경로</Typography>
+            </TableCell>:null}
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -133,6 +139,9 @@ export default function ViewArtifact_checkedFalse(props) {
                     <div style={{ whiteSpace: "normal"}}>
                     <Typography variant="subtitle1">{c.Name}</Typography></div>
                   </TableCell>
+                  {props.isDetail==true?<TableCell>
+                    <Typography variant="subtitle1">{c.path}</Typography>
+                  </TableCell>:null}
                 </TableRow>
               );
             })

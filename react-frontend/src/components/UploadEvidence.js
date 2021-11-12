@@ -7,6 +7,11 @@ import "./Agree.css";
 import Checkbox from "./Checkbox";
 import Check_Modal from "./Check_Modal";
 import { Button } from "@material-ui/core";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
+import Typography from "@mui/material/Typography";
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
  
 const UploadEvidence = (props) => {
 
@@ -16,7 +21,7 @@ const UploadEvidence = (props) => {
     const [user, setUser] = useState("");
     const [date, setDate] = useState("");
     const [location, setLocation] = useState("");
-    const [attacker, setAttacker] = useState("");
+    const [attacker, setAttacker] = useState([]);
     const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState("");
@@ -107,72 +112,65 @@ const UploadEvidence = (props) => {
         history.goBack()
     }
 
-    return(
-    <div className="flex-column-container">
+    return (
+      <div className="flex-column-container">
         <Header />
-        <div className="flex-container-agree">
-            <div className="agree-box" style={{ backgroundColor: "#dee5f8" }}>
-            <span className="agree-text" style={{ color: "000" }}>
-                개인정보
-                <p />
-                수집 및 이용 동의
-            </span>
-            </div>
-            <img
-            className="connect-square"
-            src="../static/react/square_icon.png"
-            />
-            <div className="case-box" style={{ backgroundColor: "#dee5f8" }}>
-            <span className="case-text" style={{ color: "#000" }}>
-                사건 생성 및 선택
-            </span>
-            </div>
-            <img
-            className="connect-square"
-            src="../static/react/square_icon.png"
-            />
-            <div
-            className="upload-box"
-            style={{ backgroundColor: "#3d7be6" }}
-            >
-            <span className="upload-text" style={{ color: "#fff" }}>
-                증거 등록
-            </span>
-            </div>
-        </div>
+        <div className="flex-container-agree"></div>
         <div>
-            <form onSubmit={handleFormSubmit}>
-                일시:{" "}
-                <input
+          <form onSubmit={handleFormSubmit}>
+            
+            {/* <input
+              type="date"
+              name="date"
+              placeholder="사건 발생 일시를 적어주세요"
+              value={date}
+              onChange={onDateHandler}
+            /> */}
+            <div>
+              <Stack direction="row" spacing={3}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Typography variant="h5" gutterBottom component="div">
+                    일시 :
+                  </Typography>
+                </div>
+                <div>
+                  <TextField
                     type="date"
-                    name="date"
-                    placeholder="사건 발생 일시를 적어주세요"
-                    value={date}
-                    onChange={onDateHandler}
-                />
-                <br />
-                발생장소:{" "}
-                <input
-                    type="text"
-                    name="location"
-                    placeholder="사건이 발생한 장소를 적어주세요"
-                    value={location}
-                    onChange={onLocationHandler}
-                />
-                <br />
-                행위자: {" "}
-                <input
-                    type="text"
-                    name="attacker"
-                    placeholder="사건 행위자를 적어주세요"
-                    value={attacker}
-                    onChange={onAttackerHandler}
-                />
-                <br />
-                괴롭힘
-                <br/>
-                유형:{"    "}
-                {/* {items.map(({name, id},index)=>{
+                    defaultValue=""
+                    sx={{ width: 250 }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={(event) => console.log(event.target.value)}
+                  />
+                </div>
+              </Stack>
+            </div>
+            <br />
+            발생장소:{" "}
+            <input
+              type="text"
+              name="location"
+              placeholder="사건이 발생한 장소를 적어주세요"
+              value={location}
+              onChange={onLocationHandler}
+            />
+            <br />
+            행위자:{" "}
+            <ReactTagInput
+              tags={attacker}
+              placeholder="행위자를 입력하고 Enter를 누르세요"
+              maxTags={10}
+              editable={true}
+              readOnly={false}
+              removeOnBackspace={true}
+              onChange={setAttacker}
+            />
+            <br />
+            괴롭힘
+            <br />
+            유형:{"    "}
+            {/* {items.map(({name, id},index)=>{
                     return(
                         <li key={index}>
                             <label>
@@ -182,43 +180,91 @@ const UploadEvidence = (props) => {
                         </li>
                     )
                 })} */}
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("physics");}} value = "신체적"/>
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("lang");}} value = "언어적"/>
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("onwork");}} value = "업무적"/>
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("outwork");}} value = "업무외"/>
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("group");}} value = "집단적"/>
-                <input type = "button" onClick={() => {setIsModalOpen(true); setType("sexual");}} value = "성희롱"/>
-                <Check_Modal visible={isModalOpen} type = {type} getSetValue={getSetValue}>
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        setIsModalOpen(false)
-                    }}>닫기</button>
-                </Check_Modal>
-                
-                <br/>
-                {setaa}
-                <br/>
-                상세설명: {" "}
-                <input
-                    type="text"
-                    name="description"
-                    placeholder="구체적인 피해사실을 적어주세요"
-                    value={desc}
-                    onChange={onDescHandler}
-                />
-                <br />
-                <input
-                    type="file"
-                    name="file"
-                    file={file}
-                    value={filename}
-                    onChange={onFileHandler}
-                />
-                <input type="submit" class="btn btn-primary" value="등록"/>
-            </form>
-            
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("physics");
+              }}
+              value="신체적"
+            />
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("lang");
+              }}
+              value="언어적"
+            />
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("onwork");
+              }}
+              value="업무적"
+            />
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("outwork");
+              }}
+              value="업무외"
+            />
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("group");
+              }}
+              value="집단적"
+            />
+            <input
+              type="button"
+              onClick={() => {
+                setIsModalOpen(true);
+                setType("sexual");
+              }}
+              value="성희롱"
+            />
+            <Check_Modal
+              visible={isModalOpen}
+              type={type}
+              getSetValue={getSetValue}
+            >
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsModalOpen(false);
+                }}
+              >
+                닫기
+              </button>
+            </Check_Modal>
+            <br />
+            {setaa}
+            <br />
+            상세설명:{" "}
+            <input
+              type="text"
+              name="description"
+              placeholder="구체적인 피해사실을 적어주세요"
+              value={desc}
+              onChange={onDescHandler}
+            />
+            <br />
+            <input
+              type="file"
+              name="file"
+              file={file}
+              value={filename}
+              onChange={onFileHandler}
+            />
+            <input type="submit" class="btn btn-primary" value="등록" />
+          </form>
         </div>
-    </div>
+      </div>
     );
 }
 

@@ -138,7 +138,6 @@ class Upload extends Component {
     }
 
     addEvidence(){
-
         const formData = new FormData()
         formData.append('file',this.state.file)
         formData.append('filename',this.state.fileName)
@@ -179,10 +178,15 @@ class Upload extends Component {
     openModal = () => {
         this.setState({ isModalOpen: true });
     };
+    closeModal=()=>{
+      this.setState({isModalOpen:false});
+    };
 
     agreeButton = () => {
       alert("영업기밀, 민감 정보 등의 등록은 주의해주시길 바랍니다.")
-      this.setState({isModalOpen:false,isSelectModalOpen:true})
+
+      console.log(this.state.isModalOpen)
+      this.setState({isSelectModalOpen:true,isModalOpen:false})
     }
 
     // agreement = () => {
