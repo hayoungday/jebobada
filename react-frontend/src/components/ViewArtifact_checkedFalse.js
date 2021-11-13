@@ -35,9 +35,14 @@ export default function ViewArtifact_checkedFalse(props) {
     fontFamily: "NanumSquare-Regular"
   }
 
+  const header_Back={
+    backgroundColor:"#576DD4",
+    
+  }
+
   const desc_Typo={
     fontFamily:"NanumSquare",
-    color:"#0753D5",
+    color:"#576DD4",
     fontWeight:"bolder"
   }
 
@@ -73,19 +78,19 @@ export default function ViewArtifact_checkedFalse(props) {
           {props.isDetail==true?<col style={{ width: "35%" }}/>:null}
           
         </colgroup>
-        <TableHead style={{backgroundColor:"#767BEE"}}>
+        <TableHead>
           <TableRow >
-            <TableCell style={{backgroundColor:"#6B7BD7"}}></TableCell>
-            <TableCell style={{backgroundColor:"#6B7BD7"}}>
+            <TableCell style={header_Back}></TableCell>
+            <TableCell style={header_Back}>
               <Typography variant="h6"></Typography>
             </TableCell>
-            <TableCell style={{backgroundColor:"#6B7BD7"}}>
+            <TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
-            <TableCell style={{backgroundColor:"#6B7BD7"}}>
+            <TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>작업명</Typography>
             </TableCell >
-            {props.isDetail==true?<TableCell style={{backgroundColor:"#6B7BD7"}}>
+            {props.isDetail==true?<TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>:null}
             

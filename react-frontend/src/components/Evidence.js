@@ -41,7 +41,7 @@ class Evidence extends React.Component {
                 {/* <TableCell><img src={this.props.image} alt="profile"/></TableCell> */}
 
 
-                <TableCell style={{ textAlign: "center" }}>
+                <TableCell style={{ textAlign: "center",wordBreak:'keep-all' }}>
 
                     <Link to = {{
                         pathname: '/PostView/'+this.props.casenum+'/'+this.props.idx+'/'+this.props.keyword,
@@ -59,7 +59,7 @@ class Evidence extends React.Component {
                     </Link>
                 </TableCell>
 
-                <TableCell style={{textAlign: "center"}}>{this.props.desc}</TableCell>
+                <TableCell style={{textAlign: "center",textOverflow:'ellipsis',whiteSpace:"nowrap",overflow:"hidden"}}>{this.props.desc}</TableCell>
 
                 <TableCell style={{textAlign: "center"}}>{this.props.bullying}</TableCell>
 

@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProgressButton from 'react-progress-button'
-import { InputBase } from '@material-ui/core';
+import { InputBase, Typography } from '@material-ui/core';
 import SearchBox from './SearchBox';
 import {withStyles} from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -200,8 +200,8 @@ class Upload extends Component {
         return (
           <div>
             <Header />
-            
-               {/* <div>
+
+            {/* <div>
                     <input 
                     className="search"
                     type="search"
@@ -211,123 +211,190 @@ class Upload extends Component {
                     <button onClick={this.handleClick(this.state.userInput)}>검색</button>
                     
                 </div>  */}
-                
-                <div className="wrap">
-                <div className="flex-column-container">
-                <div className="flex-container-case-box">
-                    <div className="flex-column-content-container">
-                    <span className="select-case-text">
-                        증거를 등록해주세요
-                    </span>
-                    <span className="select-case-content">
-                        사건에 해당하는 증거들을 등록해주세요
-                        <p />
-                        자세하게 적을 수록 신고 시에 도움이 많이 됩니다
-                    </span>
-                    </div>
-                    <button className="add-case-button" style={{textDecoration:'none'}} onClick={this.openModal}>
-                      증거등록
-                    </button>
 
-                      <Agree_Modal visible={this.state.isModalOpen} agreeButton = {this.agreeButton}>
-                        <button className="close_icon_postview" onClick={(e) => {
-                          e.preventDefault()
-                          this.setState({isModalOpen: false})
-                        }}/>
-                      </Agree_Modal>
-                      <SelectType_Modal visible={this.state.isSelectModalOpen}>
-                          <button className="close_icon_postview" onClick={(e) => {
-                              e.preventDefault()
-                              this.setState({isSelectModalOpen: false})
-                            }}/>
-                          <div className="flex-column-container-agree">
-                          <span className="select-type-title">등록할 증거 유형을 선택해주세요</span>
-                          <div className="flex-container-column-meta">
-                            <div className="flex-container-select-type">
-                            <Link to={{
+            <div className="wrap">
+              <div className="flex-column-container">
+                <div className="flex-container-case-box">
+                  <div className="flex-column-content-container">
+                    <span className="select-case-text">
+                      증거를 등록해주세요
+                    </span>
+                    <p />
+                    <p />
+                    <span className="select-case-content">
+                      사건에 해당하는 증거들을 등록해주세요
+                      <p />
+                      자세하게 적을 수록 신고 시에 도움이 많이 됩니다
+                    </span>
+                  </div>
+                  <button
+                    className="add-case-button"
+                    style={{ textDecoration: "none" }}
+                    onClick={this.openModal}
+                  >
+                    증거등록
+                  </button>
+
+                  <Agree_Modal
+                    visible={this.state.isModalOpen}
+                    agreeButton={this.agreeButton}
+                  >
+                    <button
+                      className="close_icon_postview"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.setState({ isModalOpen: false });
+                      }}
+                    />
+                  </Agree_Modal>
+                  <SelectType_Modal visible={this.state.isSelectModalOpen}>
+                    <button
+                      className="close_icon_postview"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.setState({ isSelectModalOpen: false });
+                      }}
+                    />
+                    <div className="flex-column-container-agree">
+                      <span className="select-type-title">
+                        등록할 증거 유형을 선택해주세요
+                      </span>
+                      <div className="flex-container-column-meta">
+                        <div className="flex-container-select-type">
+                          <Link
+                            to={{
                               pathname: "/uploadevidence",
                               state: {
                                 casenum: this.props.match.params.casenum,
-                                user: this.state.user
-                              }
-                            }}>
-                              <div className="self-upload-container">
-                                <span className="self-upload-title">직접 수집한 증거 등록하기</span>
-                                <span className="self-upload-text">녹음파일, 사진파일, 캡쳐파일 등</span>
-                              </div>
-                            </Link>
-                            <Link
-                              to={{
-                                pathname: "/UploadEvidence_artifact",
-                                state:{
-                                  casenum: this.props.match.params.casenum,
-                                  user: this.state.user
-                                }
-                            }}>
-                              <div className="self-upload-container">
-                                <span className="self-upload-title">컴퓨터 사용 기록 등록하기</span>
-                                <span className="self-upload-text">JB Extractor에서 추출한 컴퓨터 사용 기록</span>
-                              </div>
-                            </Link>
+                                user: this.state.user,
+                              },
+                            }}
+                          >
+                            <div className="self-upload-container">
+                              <span className="self-upload-title">
+                                직접 수집한 증거 등록하기
+                              </span>
+                              <span className="self-upload-text">
+                                녹음파일, 사진파일, 캡쳐파일 등
+                              </span>
                             </div>
+                          </Link>
+                          <Link
+                            to={{
+                              pathname: "/UploadEvidence_artifact",
+                              state: {
+                                casenum: this.props.match.params.casenum,
+                                user: this.state.user,
+                              },
+                            }}
+                          >
+                            <div className="self-upload-container">
+                              <span className="self-upload-title">
+                                컴퓨터 사용 기록 등록하기
+                              </span>
+                              <span className="self-upload-text">
+                                JB Extractor에서 추출한 컴퓨터 사용 기록
+                              </span>
                             </div>
-                          </div>
-                        </SelectType_Modal>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </SelectType_Modal>
+                </div>
+                <div className="table_style">
+                  <Table style={{tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
+                    <colgroup>
+                      <col style={{ width: "5%" }} />
+                      <col style={{ width: "15%" }} />
+                      <col style={{ width: "20%" }} />
+                      <col style={{ width: "15%" }} />
+                      <col style={{ width: "10%" }} />
+                      <col style={{ width: "15%" }} />
+                      <col style={{ width: "8%" }} />
+                      <col style={{ width: "12%" }} />
+                    </colgroup>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell className="table_cell_left">
+                          <Typography variant="h6" className="table_head_typo">
+                            번호
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            증거명
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            설명
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            괴롭힘 유형
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            분류
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            일시
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell">
+                          <Typography variant="h6" className="table_head_typo">
+                            상태
+                          </Typography>
+                        </TableCell>
+                        <TableCell className="table_cell_right"></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {this.state.boards ? (
+                        this.state.boards.map((c, i) => {
+                          return (
+                            <Evidence
+                              key={this.state.maxNo + i}
+                              id={this.state.maxNo + i}
+                              name={c.filename}
+                              user_id={c.user_id}
+                              type={c.filetype}
+                              date={c.date}
+                              idx={c.index}
+                              state={c.state}
+                              casenum={c.casenum}
+                              keyword={this.state.userInput}
+                              desc={c.desc}
+                              bullying={c.type}
+                              attacker={c.attacker}
+                              location={c.location}
+                            />
+                          );
+                        })
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={6} align="center">
+                            <br></br>
+                            <h6>loading....</h6>
+                            <br></br>
+                            <br></br>
+                            <CircularProgress
+                              variant="indeterminate"
+                              value={this.state.completed}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
               </div>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ textAlign: "center" }}>번호</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>증거명</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>설명</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>괴롭힘유형</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>분류</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>일시</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>상태</TableCell>
-                    <TableCell style={{ textAlign: "center" }}></TableCell>                  
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.state.boards ? (
-                    this.state.boards.map((c, i) => {
-                      return (
-                        <Evidence 
-                          key={this.state.maxNo + i}
-                          id={this.state.maxNo + i}
-                          name={c.filename}
-                          user_id={c.user_id}
-                          type={c.filetype}
-                          date={c.date}
-                          idx={c.index}
-                          state={c.state}
-                          casenum={c.casenum}
-                          keyword={this.state.userInput}
-                          desc = {c.desc}
-                          bullying = {c.type}
-                          attacker = {c.attacker}
-                          location = {c.location}
-
-                        />
-                      );
-                    })
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={6} align="center">
-                        <br></br>
-                        <h6>loading....</h6>
-                        <br></br>
-                        <br></br>
-                        <CircularProgress
-                          variant="indeterminate"
-                          value={this.state.completed}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
             </div>
-          </div>
           </div>
         ); 
     } 

@@ -267,7 +267,6 @@ class Upload extends Component {
   UserChooserOpen() {
     if (this.state.isListOpen && this.state.fileVerify) {
       return (
-        
         <div
           style={{
             display: "flex",
@@ -275,24 +274,21 @@ class Upload extends Component {
             alignItems: "center",
           }}
         >
-          <div style={{flex:"2"}}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.isDetail}
-                  onChange={this.handleSwitchClick}
-                />
-              }
-              label="전체 보기"
-            />
+          <div style={{ flex: "2",textAlign:"center"}}>
+            <div><Typography variant="h6" style={{fontFamily:"NanumSquare-Regular",color:"#4B64D4"}}>전체 보기</Typography></div>
+            <div>
+              <Switch
+                checked={this.state.isDetail}
+                onChange={this.handleSwitchClick}
+              />
+            </div>
           </div>
           <div style={{ flex: "6" }}>
             <TypeChooser getType={this.getType} />
           </div>
-          <div style={{ flex: "1" ,marginRight:"1%"}}>
+          <div style={{ flex: "1"}}>
             <TextField
               id="datetime-local"
-              
               label="start time"
               type="datetime-local"
               defaultValue=""
@@ -303,11 +299,13 @@ class Upload extends Component {
               onChange={(event) => this.getStartTime(event)}
             />
           </div>
-          <div style={{ flex: "1",marginRight:"1%" }}>
+          <div style={{marginLeft:"0.5%",marginRight:"0.5%"}}>
+          <Typography variant="h5" style={{color:"#4B64D4"}}>~</Typography>
+          </div>
+          <div style={{ flex: "1", marginRight: "1%" }}>
             <TextField
               id="datetime-local"
               label="end time"
-              
               type="datetime-local"
               sx={{ width: 250 }}
               InputLabelProps={{
@@ -341,7 +339,7 @@ class Upload extends Component {
             </Button>
           </div>
           <br></br>
-          
+
           <br></br>
         </div>
       );
@@ -369,12 +367,20 @@ class Upload extends Component {
               <div>
                 <Box sx={modal_style}>
                   <Typography
-                    style={{ color: "#5C7BDE", fontWeight: "bold" }}
+                    style={{
+                      color: "#4B64D4",
+                      fontFamily: "NanumSquare-Regular",
+                      fontWeight: "bold",
+                    }}
                     variant="h4"
                   >
                     근무 시간 선택
                   </Typography>
-                  <Typography variant="h5" sx={{ mt: 2 }}>
+                  <Typography
+                    variant="h5"
+                    sx={{ mt: 2 }}
+                    style={{ fontFamily: "NotoSansKR-Light", color: "#3F3F3F" }}
+                  >
                     정규 근무 시간을 선택해주세요
                   </Typography>
 
@@ -382,7 +388,11 @@ class Upload extends Component {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginRight: "9%" }}>
                       <Typography
-                        style={{ color: "#5C7BDE", fontWeight: "bold" }}
+                        style={{
+                          color: "#4B64D4",
+                          fontFamily: "NanumSquare-Regular",
+                          fontWeight: "bold",
+                        }}
                         variant="h6"
                       >
                         시작시간
@@ -390,7 +400,11 @@ class Upload extends Component {
                     </div>
                     <div style={{ marginLeft: "9%" }}>
                       <Typography
-                        style={{ color: "#5C7BDE", fontWeight: "bold" }}
+                        style={{
+                          color: "#4B64D4",
+                          fontFamily: "NanumSquare-Regular",
+                          fontWeight: "bold",
+                        }}
                         variant="h6"
                       >
                         종료시간
@@ -510,7 +524,7 @@ class Upload extends Component {
               gutterBottom
               component="div"
               style={{
-                color: "#0753D5",
+                color: "#4B64D4",
                 fontFamily: "NanumSquare-Regular",
                 fontWeight: "bolder",
                 marginLeft: "1.5%",
@@ -546,7 +560,7 @@ class Upload extends Component {
               gutterBottom
               component="div"
               style={{
-                color: "#0753D5",
+                color: "#4B64D4",
                 fontFamily: "NanumSquare-Regular",
                 fontWeight: "bolder",
                 marginLeft: "1%",
@@ -637,7 +651,6 @@ class Upload extends Component {
     return (
       <div style={{ backgroundColor: "#F0F0F4" }}>
         <Header />
-
         <br></br>
         <br></br>
         <br></br>
@@ -665,7 +678,7 @@ class Upload extends Component {
               marginLeft: "1%",
             }}
           >
-            <span style={{ color: "#0753D5" }}>JB Extractor</span>에서 추출한
+            <span style={{ color: "#4B64D4" }}>JB Extractor</span>에서 추출한
             컴퓨터 증거 파일을 업로드해주세요.
           </Typography>
         </div>
@@ -752,7 +765,7 @@ class Upload extends Component {
                 textAlign: "center",
               }}
             >
-              <div>{this.checkedListOpen()}</div>
+              {this.checkedListOpen()}
             </div>
           ) : null}
 

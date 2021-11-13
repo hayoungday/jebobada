@@ -29,7 +29,7 @@ export default function ViewArtifact_checkedTrue(props) {
   };
   //   console.log(props.type);
   const header_Typo={
-    color:"#6B7BD7",
+    color:"#0753D5",
     fontWeight:"bolder",
     fontFamily: "NanumSquare-Regular"
   }
@@ -52,18 +52,18 @@ export default function ViewArtifact_checkedTrue(props) {
           
         </colgroup>
         <TableHead>
-        <TableRow >
+        <TableRow>
             <TableCell></TableCell>
-            <TableCell>
+            <TableCell >
               <Typography variant="h6"></Typography>
             </TableCell>
-            <TableCell>
+            <TableCell >
               <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
             <TableCell >
               <Typography variant="h6" style={header_Typo}>작업명</Typography>
             </TableCell >
-           <TableCell >
+           <TableCell>
               <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>
             
