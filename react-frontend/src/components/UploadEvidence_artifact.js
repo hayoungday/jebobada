@@ -18,8 +18,10 @@ import "./UploadEvidence_artifact.css";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import MuiAlert from "@mui/material/Alert";
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const modal_style = {
   position: "absolute",
@@ -45,9 +47,9 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fileVerify:false,
+      fileVerify: false,
       isSnackbarOpen: false,
-      isDetail:false,
+      isDetail: false,
       user: "",
       file: null,
       fileName: "",
@@ -84,7 +86,7 @@ class Upload extends Component {
     this.UserChooserOpen = this.UserChooserOpen.bind(this);
     this.checkedListOpen = this.checkedListOpen.bind(this);
     this.go = this.go.bind(this);
-    this.typographyOpen = this.typographyOpen.bind(this);
+    // this.typographyOpen = this.typographyOpen.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
     this.modalClose = this.modalClose.bind(this);
     this.snackbarOpen = this.snackbarOpen.bind(this);
@@ -165,14 +167,15 @@ class Upload extends Component {
       },
     };
     axios.post("/loadArtifactFile", formData, config).then((res) => {
-      if(res.data.res=="verified fail"){
-        alert("임의로 편집된 파일은 업로드가 불가능합니다. 원본 파일을 업로드 해 주세요.")
-      }
-      else{
-        this.setState({fileVerify:true})
+      if (res.data.res == "verified fail") {
+        alert(
+          "임의로 편집된 파일은 업로드가 불가능합니다. 원본 파일을 업로드 해 주세요."
+        );
+      } else {
+        this.setState({ fileVerify: true });
       }
       console.log(res.data.data);
-      
+
       this.setState({ artifactList: res.data.data });
       this.setState({ originalArtifact: res.data.data });
       // this.setState({ artifactList: res.data.data });
@@ -191,10 +194,10 @@ class Upload extends Component {
     }
   }
 
-  handleSwitchClick=(event)=>{
-    console.log(event.target.checked)
-    this.setState({isDetail:event.target.checked})
-  }
+  handleSwitchClick = (event) => {
+    console.log(event.target.checked);
+    this.setState({ isDetail: event.target.checked });
+  };
 
   snackbarOpen() {
     this.setState({ isSnackbarOpen: true });
@@ -262,8 +265,9 @@ class Upload extends Component {
     }
   }
   UserChooserOpen() {
-    if (this.state.isListOpen&&this.state.fileVerify) {
+    if (this.state.isListOpen && this.state.fileVerify) {
       return (
+        
         <div
           style={{
             display: "flex",
@@ -271,7 +275,7 @@ class Upload extends Component {
             alignItems: "center",
           }}
         >
-          <div style={{ flex: "6", marginRight: "3%" }}>
+          <div style={{ flex: "6", marginRight: "3%",marginLeft:"5%" }}>
             <TypeChooser getType={this.getType} />
           </div>
           <div style={{ flex: "2" }}>
@@ -321,23 +325,34 @@ class Upload extends Component {
               <SearchIcon color="primary" fontSize="large"></SearchIcon>
             </Button>
           </div>
+          <br></br>
+          <div style={{ marginRight: "50px" }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.isDetail}
+                  onChange={this.handleSwitchClick}
+                />
+              }
+              label="전체 보기"
+            />
+          </div>
+          <br></br>
         </div>
       );
     }
   }
 
-  typographyOpen() {
-    if (this.state.isListOpen&&this.state.fileVerify) {
-      return (
-        <Typography variant="h4" gutterBottom component="div">
-          선택한 항목을 아래에서 확인할 수 있습니다
-        </Typography>
-      );
-    }
-  }
+  // typographyOpen() {
+  //   if (this.state.isListOpen && this.state.fileVerify) {
+  //     return (
+
+  //     );
+  //   }
+  // }
 
   listOpen() {
-    if (this.state.isListOpen&&this.state.fileVerify) {
+    if (this.state.isListOpen && this.state.fileVerify) {
       return (
         <div>
           <div style={{ transition: "all.5s ease" }}>
@@ -436,18 +451,8 @@ class Upload extends Component {
               </div>
             </Modal>
           </div>
-          <div style={{  marginRight: "50px" }}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.isDetail}
-                  onChange={this.handleSwitchClick}
-                />
-              }
-              label="전체 보기"
-            />
-          </div>
-          <div >
+
+          <div>
             <ViewArtifact_checkedFalse
               startTime={this.state.startTime_input}
               endTime={this.state.endTime_input}
@@ -466,7 +471,7 @@ class Upload extends Component {
     }
   }
   checkedListOpen() {
-    if (this.state.isListOpen&&this.state.fileVerify) {
+    if (this.state.isListOpen && this.state.fileVerify) {
       return (
         <div>
           <ViewArtifact_checkedTrue
@@ -481,20 +486,33 @@ class Upload extends Component {
   }
 
   userInputOpen() {
-    if (this.state.isListOpen&&this.state.fileVerify) {
+    if (this.state.isListOpen && this.state.fileVerify) {
       return (
         <div>
-          <br></br>
-          <br></br>
           <br></br>
           <Box
             component="form"
             sx={{
               "& > :not(style)": { m: 1 },
+              width: "70%",
+              marginLeft: "3%",
             }}
             noValidate
             autoComplete="off"
           >
+            <Typography
+              variant="h6"
+              gutterBottom
+              component="div"
+              style={{
+                color: "#0753D5",
+                fontFamily: "NanumSquare-Regular",
+                fontWeight: "bolder",
+                marginLeft: "1.5%",
+              }}
+            >
+              행위자*
+            </Typography>
             <ReactTagInput
               tags={this.state.attacker}
               placeholder="행위자를 입력하고 Enter를 누르세요"
@@ -512,21 +530,34 @@ class Upload extends Component {
             component="form"
             sx={{
               "& > :not(style)": { m: 1 },
+              width: "92%",
+              marginLeft: "3%",
             }}
             noValidate
             autoComplete="off"
           >
+            <Typography
+              variant="h6"
+              gutterBottom
+              component="div"
+              style={{
+                color: "#0753D5",
+                fontFamily: "NanumSquare-Regular",
+                fontWeight: "bolder",
+                marginLeft: "1%",
+              }}
+            >
+              상세설명
+            </Typography>
             <TextField
               fullWidth
-              id="outlined-multiline-static"
-              label="상세설명"
               multiline
               rows={8}
               variant="outlined"
               onChange={this.setDescription}
-              helperText="피해 사실에 대한 상세한 설명을 적어주세요"
             />
           </Box>
+          <br></br>
         </div>
       );
     }
@@ -565,15 +596,15 @@ class Upload extends Component {
     axios.post("/loadArtifactFile", formData, config).then((res) => {
       this.setState({ artifactList: res.data.data });
     });
-    
+
     this.setState({ attacker: [] });
     this.setState({ description: "" });
     this.setState({ type: "" });
 
-    if (this.state.attacker.length==0) {
+    if (this.state.attacker.length == 0) {
       return alert("행위자는 필수 입력 사항입니다!");
     }
-    this.setState({isSnackbarOpen:true});
+    this.setState({ isSnackbarOpen: true });
     let body = {
       filetype: "컴퓨터 증거",
       isCheckedUpdate: this.state.artifactList,
@@ -599,36 +630,81 @@ class Upload extends Component {
   render() {
     console.log(this.state.attacker);
     return (
-      <div>
-          {/* <Header /> */}
-        <div style={{ width: "85%", margin: "0 auto" }}>
+      <div style={{ backgroundColor: "#F0F0F4" }}>
+        <Header />
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <div style={{ width: "80%", margin: "0 auto", marginTop: "3%" }}>
+          <Typography
+            variant="h3"
+            gutterBottom
+            component="div"
+            style={{
+              color: "#3F3F3F",
+              fontFamily: "NanumSquare-Regular",
+              fontWeight: "bolder",
+              marginLeft: "2%",
+            }}
+          >
+            컴퓨터 증거 등록
+          </Typography>
+          <Typography
+            variant="h5"
+            gutterBottom
+            component="div"
+            style={{
+              color: "#3F3F3F",
+              fontFamily: "NotoSansKR-Light",
+              marginLeft: "1%",
+            }}
+          >
+            <span style={{ color: "#0753D5" }}>JB Extractor</span>에서 추출한
+            컴퓨터 증거 파일을 업로드해주세요.
+          </Typography>
+        </div>
+        <div style={{ width: "80%", margin: "0 auto" }}>
           <div>
             <br></br>
-            <br></br>
             <form onSubmit={this.handleFormSubmit}>
-              <form onSubmit={this.handleFormSubmit}>
-                <input
-                  style={{ flex: "1" }}
-                  type="file"
-                  name="file"
-                  file={this.state.file}
-                  onChange={this.handleFileChange}
-                />
-              </form>
-              <button
-                class="btn btn-primary"
-                onClick={() => {
-                  this.setState({
-                    isListOpen: true,
-                  });
-                }}
-              >
-                등록
-              </button>
+              <Stack direction="row" spacing={1}>
+                <form onSubmit={this.handleFormSubmit}>
+                  <input
+                    type="file"
+                    name="file"
+                    id="input-file"
+                    onChange={this.handleFileChange}
+                  />
+                </form>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      isListOpen: true,
+                    });
+                  }}
+                >
+                  등록
+                </button>
+              </Stack>
             </form>
             <br></br>
           </div>
-          {this.UserChooserOpen()}
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "18px",
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              // display: "flex",
+              // flexDirection: "column",
+              // textAlign: "center",
+            }}
+          >
+            {this.state.isListOpen?<br></br>:null}            
+            {this.UserChooserOpen()}
+            {this.state.isListOpen?<br></br>:null}   
+            
+          </div>
           <br></br>
           <div
             style={{
@@ -637,71 +713,101 @@ class Upload extends Component {
               overflowY: "auto",
               // overflowX: "hidden",
               overflowX: "auto",
-              boxShadow:
-                "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63)",
-              borderRadius:"30px"
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              borderRadius: "18px",
             }}
           >
             {this.listOpen()}
           </div>
           <br></br>
           <br></br>
-          <div>{this.typographyOpen()}</div>
+          {this.state.isListOpen ? (
+            <Typography
+              variant="h4"
+              gutterBottom
+              component="div"
+              style={{
+                color: "#3F3F3F",
+                fontFamily: "NanumSquare-Regular",
+                fontWeight: "bolder",
+                marginLeft: "2%",
+              }}
+            >
+              선택한 항목을 아래에서 확인할 수 있습니다
+            </Typography>
+          ) : null}
+          {this.state.isListOpen ? (
+            <div
+              style={{
+                backgroundColor: "white",
+                borderRadius: "18px",
+                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+              }}
+            >
+              <div>{this.checkedListOpen()}</div>
+            </div>
+          ) : null}
+
           <br></br>
           <br></br>
           <div
             style={{
-              height: "auto",
-              maxHeight: "800px",
-              overflowY: "auto",
-              // overflowX: "hidden",
-              overflowX: "auto",
-              boxShadow:
-                "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63)",
+              backgroundColor: "white",
+              borderRadius: "18px",
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
             }}
           >
-            {this.checkedListOpen()}
+            {this.userInputOpen()}
           </div>
-          <div>{this.userInputOpen()}</div>
-          <div>
-            <br></br>
-            <Button onClick={()=>{this.submitButton()}}variant="contained">
-              <Typography variant="h6" display="block" gutterBottom>
-                확인
-              </Typography>
-            </Button>
-            <Snackbar
-              open={this.state.isSnackbarOpen}
-              autoHideDuration={6000}
-              onClose={() => {
-                this.snackbarClose();
-              }}
-            >
-              <Alert
+          {this.state.isListOpen ? (
+            <div>
+              <br></br>
+              <Button
+                onClick={() => {
+                  this.submitButton();
+                }}
+                variant="contained"
+              >
+                <Typography variant="h6" display="block" gutterBottom>
+                  확인
+                </Typography>
+              </Button>
+              <Snackbar
+                open={this.state.isSnackbarOpen}
+                autoHideDuration={6000}
                 onClose={() => {
                   this.snackbarClose();
                 }}
-                severity="success"
-                sx={{ width: "200%" }}
               >
-                완료되었습니다!
-              </Alert>
-            </Snackbar>
-            
-            <Button
-              variant="text"
-              style={{ float: "right" }}
-              onClick={() => {
-                this.go();
-              }}
-            >
-              <Typography variant="h6" display="block" gutterBottom>
-                &lt; 되돌아가기
-              </Typography>
-            </Button>
-            <br></br>
-            <br></br>
-          </div>
+                <Alert
+                  onClose={() => {
+                    this.snackbarClose();
+                  }}
+                  severity="success"
+                  sx={{ width: "200%" }}
+                >
+                  완료되었습니다!
+                </Alert>
+              </Snackbar>
+
+              <Button
+                variant="text"
+                style={{ float: "right" }}
+                onClick={() => {
+                  this.go();
+                }}
+              >
+                <Typography variant="h6" display="block" gutterBottom>
+                  &lt; 되돌아가기
+                </Typography>
+              </Button>
+              <br></br>
+              <br></br>
+            </div>
+          ) : null}
         </div>
       </div>
     );

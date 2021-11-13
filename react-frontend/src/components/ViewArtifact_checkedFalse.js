@@ -29,6 +29,18 @@ export default function ViewArtifact_checkedFalse(props) {
     }
   };
 
+  const header_Typo={
+    color:"white",
+    fontWeight:"bolder",
+    fontFamily: "NanumSquare-Regular"
+  }
+
+  const desc_Typo={
+    fontFamily:"NanumSquare",
+    color:"#0753D5",
+    fontWeight:"bolder"
+  }
+
   // console.log(props.startTime);
   // console.log(props.endTime);
   // console.log(props.isFilter)
@@ -49,34 +61,32 @@ export default function ViewArtifact_checkedFalse(props) {
   }  
 
   return (
-    <div style={{ transition: "all.5s ease"}}>
-      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
+    <div style={{ backgroundColor:"white"}}>
+      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}} stickyHeader>
         <colgroup>
-          <col style={{ width: "10%" }} />
+          <col style={{ width: "5%" }} />
           <col style={{ width: "5%" }} />
           <col style={{ width: "15%" }} />
-          <col style={{ width: "15%" }} />
-          <col style={{ width: "30%" }} />
-          {props.isDetail==true?<col style={{ width: "25%" }}/>:null}
+          
+          {props.isDetail==true?<col style={{ width: "40%" }}/>:<col style={{ width: "75%" }}/>}
+          
+          {props.isDetail==true?<col style={{ width: "35%" }}/>:null}
           
         </colgroup>
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell>
+        <TableHead style={{backgroundColor:"#767BEE"}}>
+          <TableRow >
+            <TableCell style={{backgroundColor:"#6B7BD7"}}></TableCell>
+            <TableCell style={{backgroundColor:"#6B7BD7"}}>
               <Typography variant="h6"></Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">설명</Typography>
+            <TableCell style={{backgroundColor:"#6B7BD7"}}>
+              <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">시간</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">작업명</Typography>
-            </TableCell>
-            {props.isDetail==true?<TableCell>
-              <Typography variant="h6">경로</Typography>
+            <TableCell style={{backgroundColor:"#6B7BD7"}}>
+              <Typography variant="h6" style={header_Typo}>작업명</Typography>
+            </TableCell >
+            {props.isDetail==true?<TableCell style={{backgroundColor:"#6B7BD7"}}>
+              <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>:null}
             
           </TableRow>
@@ -128,10 +138,8 @@ export default function ViewArtifact_checkedFalse(props) {
                     ></img>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle1">{c.Desc}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle1">
+                    <Typography variant="h6" style={desc_Typo}>{c.Desc}</Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
                       {c.Timestamp.replace("T", " ")}
                     </Typography>
                   </TableCell>

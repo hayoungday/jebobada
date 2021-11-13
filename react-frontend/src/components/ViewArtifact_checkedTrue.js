@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 
 import Checkbox from "@mui/material/Checkbox";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
+let image_src="./static/react/artifact_icons/"
 export default function ViewArtifact_checkedTrue(props) {
   const [checkedInputs, setCheckInputs] = useState([]);
   const changeHandler = (checked, id) => {
@@ -27,31 +28,45 @@ export default function ViewArtifact_checkedTrue(props) {
     }
   };
   //   console.log(props.type);
+  const header_Typo={
+    color:"#6B7BD7",
+    fontWeight:"bolder",
+    fontFamily: "NanumSquare-Regular"
+  }
+
+  const desc_Typo={
+    fontFamily:"NanumSquare",
+    color:"#0753D5",
+    fontWeight:"bolder"
+  }
+
   return (
     <div style={{ transition: "all.5s ease" }}>
-      <Table style={{ tableLayout: "fixed", wordBreak: "break-all" }}>
+      <Table style={{ tableLayout: "fixed", wordBreak: "break-all",wordWrap:"break-word" }}>
         <colgroup>
-          <col style={{ width: "10%" }} />
-          <col style={{ width: "10%" }} />
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "40%" }} />
+          <col style={{ width: "5%" }} />
+          <col style={{ width: "5%" }} />
+          <col style={{ width: "15%" }} />
+          <col style={{ width: "40%" }}/>
+          <col style={{ width: "35%" }}/>
+          
         </colgroup>
         <TableHead>
-          <TableRow>
+        <TableRow >
             <TableCell></TableCell>
             <TableCell>
               <Typography variant="h6"></Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="h6">설명</Typography>
+              <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">시간</Typography>
+            <TableCell >
+              <Typography variant="h6" style={header_Typo}>작업명</Typography>
+            </TableCell >
+           <TableCell >
+              <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">작업명</Typography>
-            </TableCell>
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -78,17 +93,22 @@ export default function ViewArtifact_checkedTrue(props) {
                     />
                   )}
                 </TableCell>
-                <TableCell>icon</TableCell>
+                <TableCell><img
+                      style={{ maxHeight: "30px", maxWidth: "30px" }}
+                      src={image_src + c.Icon + ".png"}
+                    ></img></TableCell>
                 <TableCell>
-                  <Typography variant="subtitle1">{c.Desc}</Typography>
+                <Typography variant="h6" style={desc_Typo}>{c.Desc}</Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {c.Timestamp.replace("T", " ")}
+                    </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle1">
-                    {c.Timestamp.replace("T", " ")}
-                  </Typography>
+                <div style={{ whiteSpace: "normal"}}>
+                    <Typography variant="subtitle1">{c.Name}</Typography></div>
                 </TableCell>
-                <TableCell style={{ textOverflow: "ellipsis" }}>
-                  <Typography variant="subtitle1">{c.Name}</Typography>
+                <TableCell >
+                <Typography variant="subtitle1">{c.path}</Typography>
                 </TableCell>
               </TableRow>
             ) : (
