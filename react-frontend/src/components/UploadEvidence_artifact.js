@@ -275,12 +275,24 @@ class Upload extends Component {
             alignItems: "center",
           }}
         >
-          <div style={{ flex: "6", marginRight: "3%",marginLeft:"5%" }}>
+          <div style={{flex:"2"}}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.isDetail}
+                  onChange={this.handleSwitchClick}
+                />
+              }
+              label="전체 보기"
+            />
+          </div>
+          <div style={{ flex: "6" }}>
             <TypeChooser getType={this.getType} />
           </div>
-          <div style={{ flex: "2" }}>
+          <div style={{ flex: "1" ,marginRight:"1%"}}>
             <TextField
               id="datetime-local"
+              
               label="start time"
               type="datetime-local"
               defaultValue=""
@@ -291,10 +303,11 @@ class Upload extends Component {
               onChange={(event) => this.getStartTime(event)}
             />
           </div>
-          <div style={{ flex: "2" }}>
+          <div style={{ flex: "1",marginRight:"1%" }}>
             <TextField
               id="datetime-local"
               label="end time"
+              
               type="datetime-local"
               sx={{ width: 250 }}
               InputLabelProps={{
@@ -303,16 +316,18 @@ class Upload extends Component {
               onChange={(event) => this.getEndTime(event)}
             />
           </div>
-          <div style={{ flex: "2" }}>
+          <div style={{ flex: "4" }}>
             <TextField
+              fullWidth
               id="filled-search"
               label="검색"
               type="search"
               variant="filled"
               onChange={this.setKeyword}
+              size="large"
             />
           </div>
-          <div style={{ flex: "1", textAlign: "center" }}>
+          <div style={{ flex: "0.5", textAlign: "center" }}>
             <Button
               onClick={() => {
                 this.setState({
@@ -326,17 +341,7 @@ class Upload extends Component {
             </Button>
           </div>
           <br></br>
-          <div style={{ marginRight: "50px" }}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.isDetail}
-                  onChange={this.handleSwitchClick}
-                />
-              }
-              label="전체 보기"
-            />
-          </div>
+          
           <br></br>
         </div>
       );
@@ -702,7 +707,7 @@ class Upload extends Component {
           >
             {this.state.isListOpen?<br></br>:null}            
             {this.UserChooserOpen()}
-            {this.state.isListOpen?<br></br>:null}   
+            {this.state.isListOpen?<br></br>:null}  
             
           </div>
           <br></br>
