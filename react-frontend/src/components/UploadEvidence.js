@@ -113,6 +113,11 @@ const UploadEvidence = (props) => {
         history.goBack()
     }
 
+    const closeModal = (e) => {
+      e.preventDefault()
+      setIsModalOpen(false)
+  }
+
     return (
       <div>
         <Header />
@@ -125,9 +130,9 @@ const UploadEvidence = (props) => {
               등록할 증거의 정보를 작성해주세요. 자세히 기록할 수록 도움이 됩니다.
             </span>
 
-            <div className="upload_box">
               <form onSubmit={handleFormSubmit}>
-                
+              <div className="upload_box">
+
                 <div className="upload-input-text">일시*</div>
                 <input className="upload-input-box" type="date" defaultValue="" onChange={(e)=>console.log(e.target.value)}/>
 
@@ -152,7 +157,7 @@ const UploadEvidence = (props) => {
                   <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("sexual");}} value="성희롱"/>
                   </div>
                   
-                  <Check_Modal visible={isModalOpen} type={type} getSetValue={getSetValue}>
+                  <Check_Modal visible={isModalOpen} type={type} getSetValue={getSetValue} closeModal={closeModal}>
                     <button className="close_icon_postview" onClick={(e) => { e.preventDefault(); setIsModalOpen(false);}}/>
                   </Check_Modal>
                   <br />
@@ -165,12 +170,14 @@ const UploadEvidence = (props) => {
 
                 <div className="upload-input-text">첨부파일</div>
                 <input type="file" name="file" file={file} value={filename} onChange={onFileHandler}/>
+                </div>
+
+                <input type="submit" class="upload-button-container" value="등록" />
 
               </form>
-            </div>
-            <button className="upload-button-container" type="submit" value="등록">
+            {/* <button className="upload-button-container" type="submit" value="등록">
               등록
-            </button>
+            </button> */}
           </div>
         </div>
 

@@ -46,8 +46,9 @@
     width: 143px;
     height: 75px;
     margin: 40px auto 200px auto;
-    float: left;
-    /* padding: 27px 48px 21px 49px; */
+    display: flex;
+    align-items: center;
+    padding: 24px 48px 24px 49px;
     border-radius: 10px;
     border: solid 1px #0753e9;
     background-color: #0753e9;
@@ -129,16 +130,16 @@
 
   .flex-container-type-modal {
     display: flex;
-    width: 635px;
+    width: 600px;
     height: auto;
     margin: auto;
 }
 
 
   .type-modal-title {
-    width: 302px;
+    width: 600px;
     height: 54px;
-    margin: auto;
+    margin: 10px auto;
     font-family: "NanumSquare-Regular";
     font-size: 40px;
     font-weight: bold;
@@ -146,14 +147,14 @@
     font-style: normal;
     line-height: 1.33;
     letter-spacing: normal;
-    text-align: center;
+    text-align: left;
     color: #568ce9;
   }
 
   .type-modal-subtitle {
     width: auto;
     height: 41px;
-    margin: auto;
+    margin: auto 0;
     font-family: "NanumSquare-Regular";
     font-size: 30px;
     font-weight: bold;
@@ -168,12 +169,12 @@
   .qna-icon {
     width: 30px;
     height: 30px;
-    margin: auto;
+    margin: auto 10px;
     border-radius: 64px;
   }
 
   .type-chkbox {
-    width: 635px;
+    width: 600px;
     height: 313px;
     margin: auto;
     padding: 54px 116px 55px;
@@ -183,21 +184,21 @@
   }
 
   .type-modal-confirm-button {
-    width: 188px;
-    height: 75px;
-    margin: 69px 329.4px 0 35px;
-    padding: 21px 69px;
+    width: 100px;
+    height: 60px;
+    margin: 20px auto;
     border-radius: 20px;
     border: solid 1px #3d7be6;
     background-color: #fff;
     font-family: "NanumSquare-Regular";
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.32;
+    line-height: 15px;
     letter-spacing: normal;
     text-align: center;
+    justify-content: center;
     color: #3d7be6;
   }
 

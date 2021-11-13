@@ -8,6 +8,7 @@ import Access_log_modal from "./Access_log_modal";
 
 // import './Header.css';
 import "./Home.css";
+import "./Main.css"
 import axios from "axios";
 
 const cookies = new Cookies();

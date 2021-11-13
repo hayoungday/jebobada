@@ -31,17 +31,27 @@ function ChangedModal({ className, visible, children, type, closeModal }) {
             )
         } else if (type == "사진 파일"){
             return (
-                <div>
-                    <button className="close_icon_postview" onClick={closeModal}/>
-                    <h1>편집 정보</h1>
-                    <label>편집 여부: 편집이 의심됩니다.</label><br/>
-                    <label>편집 의심 이유: 이유 + 프로그램명</label><br/>
-
-                    <h1>조작 여부 탐지</h1>
-                    <label>조작 여부: 조작이 의심 됩니다.</label><br/>
-                    <label>조작 의심 이유: 카카오톡 조작 어플 사용이 의심됩니다.</label><br/>
-                    
+              <>
+              <button className="close_icon_postview" onClick={closeModal}/>                  
+              <div className="flex-container-column-meta">
+                <span className="info_modify">편집 정보</span>
+                <span className="help_text">
+                  편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여
+                </span>
+                <span className="help_text">
+                  녹음 파일이 가공되었는지 확인합니다.
+                </span>
+                <br/>
+                <div className="flex-container-meta">
+                  <span className="info_modify_text">편집 여부</span>
+                  <span className="info_modify_container1">편집이 의심됩니다.</span>
                 </div>
+                <div className="flex-container-meta">
+                  <span className="info_modify_text">판단 이유</span>
+                  <span className="info_modify_container2">음성 파일 내에서 조작으로 의심되는 부자연스러운 지점이 발견되었습니다.</span>
+                </div>
+              </div>      
+          </>
             )
         }
     }

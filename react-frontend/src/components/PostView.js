@@ -85,6 +85,33 @@ class PostView extends Component {
             <div>
                 <Header/>
                 <div className="wrap">
+                    <div className="flex-container-postview">
+                        <div className="flex-column-postview-container2">
+                            <span className="postview-h1-2">
+                                원본 파일
+                            </span>
+
+                            {this.state.data?this.state.data.map((c,i)=>{
+                            
+                            if(c.index==params.no & c.filetype == "녹음 파일"){
+                                return(
+                                    <div>
+                                        <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword} _id={c._id}/>
+                                    </div>
+                                )
+                            }
+                            else if (c.index==params.no & c.filetype == "사진 파일"){
+                                return(
+                                    <div>
+                                        <ViewOCR hashed_filename={c.hashed_filename}/>
+                                    </div>
+                                )
+                            }
+                            return (null)
+                            }):
+                            <h1></h1>   
+                            }
+                        </div>
                     <div className="flex-column-postview-container">
                         <span className="postview-h1-1">
                             증거 정보 요약
@@ -141,31 +168,7 @@ class PostView extends Component {
                 <h1></h1>   
             }
                         
-                    <div className="flex-column-postview-container2">
-                        <span className="postview-h1-2">
-                            원본 파일
-                        </span>
-
-                        {this.state.data?this.state.data.map((c,i)=>{
-                        
-                        if(c.index==params.no & c.filetype == "녹음 파일"){
-                            return(
-                                <div>
-                                    <ViewFile text={c.segments} name={c.filename} hashed_filename={c.hashed_filename} keyword={params.keyword} _id={c._id}/>
-                                </div>
-                            )
-                        }
-                        else if (c.index==params.no & c.filetype == "사진 파일"){
-                            return(
-                                <div>
-                                    <ViewOCR hashed_filename={c.hashed_filename}/>
-                                </div>
-                            )
-                        }
-                        return (null)
-                        }):
-                        <h1></h1>   
-                    }
+                    
                 </div>
                 {/* <div class="flex-container">
                     <div class="flex-child-left">
