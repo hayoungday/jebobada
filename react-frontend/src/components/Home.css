@@ -95,6 +95,13 @@ main {
   z-index: 1;
 }
 
+.flex-column-container-upload{
+  display:flex;
+  flex-direction: column;
+  height: auto;
+  margin: 150px 200px 0 200px;
+}
+
 .flex-column-content-container{
   display:flex;
   flex-direction: column;

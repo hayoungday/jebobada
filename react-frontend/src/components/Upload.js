@@ -182,11 +182,13 @@ class Upload extends Component {
       this.setState({isModalOpen:false});
     };
 
-    agreeButton = () => {
+    agreeButton = (e) => {
       alert("영업기밀, 민감 정보 등의 등록은 주의해주시길 바랍니다.")
-
-      console.log(this.state.isModalOpen)
+      e.preventDefault()
+      console.log(this.state.isModalOpen, this.state.isSelectModalOpen)
       this.setState({isSelectModalOpen:true,isModalOpen:false})
+      console.log(this.state.isModalOpen, this.state.isSelectModalOpen)
+
     }
 
     // agreement = () => {
@@ -225,18 +227,20 @@ class Upload extends Component {
                     </div>
                     <button className="add-case-button" style={{textDecoration:'none'}} onClick={this.openModal}>
                       증거등록
+                    </button>
+
                       <Agree_Modal visible={this.state.isModalOpen} agreeButton = {this.agreeButton}>
-                        {/* <button onClick={(e) => {
+                        <button className="close_icon_postview" onClick={(e) => {
                           e.preventDefault()
-                          {alert("영업기밀, 민감 정보 등의 등록은 주의해주시길 바랍니다.")}
-                          this.setState({isModalOpen:false, isSelectModalOpen: true})
-                        }}>개인정보 수집  및 이용에 동의합니다</button> */}
+                          this.setState({isModalOpen: false})
+                        }}/>
                       </Agree_Modal>
                       <SelectType_Modal visible={this.state.isSelectModalOpen}>
                           <button className="close_icon_postview" onClick={(e) => {
                               e.preventDefault()
                               this.setState({isSelectModalOpen: false})
                             }}/>
+                          <div className="flex-column-container-agree">
                           <span className="select-type-title">등록할 증거 유형을 선택해주세요</span>
                           <div className="flex-container-column-meta">
                             <div className="flex-container-select-type">
@@ -266,11 +270,9 @@ class Upload extends Component {
                               </div>
                             </Link>
                             </div>
+                            </div>
                           </div>
-
-                        
                         </SelectType_Modal>
-                    </button>
               </div>
               <Table>
                 <TableHead>

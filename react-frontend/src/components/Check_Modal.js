@@ -121,15 +121,23 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
 
     if (type == "physics"){
       return (
-        <div>
-        <img data-tip data-for="physics" src="./static/react/questionmark.png"/>
-          {physics.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        
-        <ReactTooltip id="physics" place="top" effect="solid">
-        - 폭행 : 물건을 던지거나 책상을 치는 등 신체적인 위협이나 폭력을 가하는 행위<br/>
-        </ReactTooltip>
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span><br/>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">신체적 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+              {physics.map((issue, index)=>(
+                <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+              ))}
+          </div>
+          
+          <button className="type-modal-confirm-button">확인</button>
+
+          <ReactTooltip id="physics" place="top" effect="solid">
+          - 폭행 : 물건을 던지거나 책상을 치는 등 신체적인 위협이나 폭력을 가하는 행위<br/>
+          </ReactTooltip>
         </div>
       )
     } else if (type == "lang"){
@@ -277,11 +285,10 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
+    background-color: #fff;
     border-radius: 50px;
-    width: 600px;
-    max-width: 800px;
-    height: 400px;
+    width: 1000px;
+    height: 720px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
