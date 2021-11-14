@@ -393,3 +393,16 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     text-align: center;
     font-weight: bolder;
   }
+
+  .casepage_test_case_box{
+    background-color: white;
+    border-radius: 18px;
+    font-family: NanumSquare-Regular;
+    font-weight: bolder;
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin-left: 5%;
+    line-height: 200px;
+    text-align: center;
+  }

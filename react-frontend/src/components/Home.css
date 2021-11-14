@@ -363,8 +363,8 @@ margin: auto 10px;
 /* margin: 51px 41px 0 31px; */
 border-radius: 20px;
 background-color: #fff;
-border: solid 1.5px #3d7be6;
-font-family: SegoeUI;
+border: solid 1.5px #4B64D4;
+font-family: NanumSquare-Regular;
 font-size: 15px;
 font-weight: bold;
 font-stretch: normal;
@@ -372,5 +372,29 @@ font-style: normal;
 line-height: 40px;
 letter-spacing: normal;
 text-align: center;
-color: #3d7be6;
+color: #4B64D4;
+transition: background-color 0.2s ease-in-out,
+              color 0.2s ease-in-out;
+}
+
+.go_button_box2:hover{
+  align-items: center;
+  width: 250px;
+  height: 40px;
+  margin: auto 10px;
+  /* margin: 51px 41px 0 31px; */
+  border-radius: 20px;
+  background-color: #4B64D4;
+  border: solid 1.5px #4B64D4;
+  font-family: NanumSquare-Regular;
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 40px;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
+  transition: background-color 0.2s ease-in-out,
+                color 0.2s ease-in-out;  
 }

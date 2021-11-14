@@ -2,7 +2,9 @@ import React, { Component, useState } from "react";
 import Header from "./Header";
 import axios from "axios";
 import Case from "./Case";
-import Paper from "@material-ui/core/Paper";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,6 +15,7 @@ import { InputBase } from "@material-ui/core";
 import SearchBox from "./SearchBox";
 import Modal from "./Modal";
 import Typography from "@mui/material/Typography";
+import FadeIn from 'react-fade-in';
 
 import "./Agree.css";
 
@@ -209,7 +212,7 @@ class CasePage extends Component {
                       </Typography>
                     </TableCell>
                     <TableCell className="table_cell">
-                    <Typography variant="h6" className="table_head_typo">
+                      <Typography variant="h6" className="table_head_typo">
                         케이스명
                       </Typography>
                     </TableCell>
@@ -253,6 +256,18 @@ class CasePage extends Component {
                 </TableBody>
               </Table>
             </div>
+            
+ {/* ==========    여기 아래는 그냥 테스트중     ============= */}
+            <FadeIn>
+              <br></br>
+              <br></br>
+              <div className="casepage_test_case_box">
+                사건1
+              </div>
+              <div className="casepage_test_case_box">
+                사건2
+              </div>
+            </FadeIn>
           </div>
         </div>
       </div>

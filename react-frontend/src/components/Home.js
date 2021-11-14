@@ -1,5 +1,6 @@
 import React from 'react';
 // import './Header.css';
+import FadeIn from 'react-fade-in';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import './Home.css'
 
@@ -9,7 +10,9 @@ import './Home.css'
 const Home = () => {
     return (
         <div className="wrap">
+            <FadeIn>
             <div className="flex-container-main">
+            
                 <div className="first_box">
                     <div className="flex-column-container-main">
                         <span className="first_title">괴롭힘 자료</span>
@@ -47,7 +50,9 @@ const Home = () => {
                         </Link>
                     </div>
                 </div>
+                
             </div>
+            </FadeIn>
         </div>            
     );
 };
