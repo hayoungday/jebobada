@@ -57,27 +57,27 @@
 
 .button_edit{
     display: flex;
-    height: 20px;
-    width: 40px;
+    height: 30px;
+    width: 60px;
     background-color: #fff;
     border-radius: 10px;
-    border: solid 1px #3d7be6;
+    border: solid 1px #4B64D4;
     text-align: center;
     margin: 10px;
-    color: #3d7be6;
+    color: #4B64D4;
     justify-content: center;
-    font-family: SegoeUI;
+    font-family: NotoSansKR-Regular;
     font-size: 15px;
-    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
+    vertical-align: middle;
 }
 
 .button_text{
     text-align: center;
-    color: #3d7be6;
+    color: #4B64D4;
     justify-content: center;
-    font-family: SegoeUI;
+    font-family: NotoSansKR-Regular;
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
@@ -505,15 +505,15 @@
     width: 700px;
     height: 54px;
     margin: 0 auto;
-    font-family: SegoeUI;
-    font-size: 40px;
+    font-family:  NanumSquare-Regular;
+    font-size: 36px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.33;
     letter-spacing: normal;
     text-align: center;
-    color: #568ce9;
+    color: #4B64D4;
   }
 
   .self-upload-container {
@@ -523,6 +523,36 @@
     border-radius: 10px;
     border: solid 1px #707070;
     background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .self-upload-container{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .self-upload-container::after{
+    content: '»';
+    font-size: 35px;
+    color:#4B64D4;
+    position: absolute;
+    opacity: 0;  
+    top: 14px;
+    right: -20px;
+    transition: 0.5s;
+    margin-top: 23px;
+  }
+
+  .self-upload-container:hover{
+    padding-right: 24px;
+    padding-left:8px;
+  }
+
+  .self-upload-container:hover::after{
+    opacity: 1;
+    right: 10px;
   }
 
   .self-upload-title {
@@ -531,8 +561,8 @@
     margin: 25px auto 5px auto;
     display: flex;
     align-items: center;
-    font-family: SegoeUI;
-    font-size: 20px;
+    font-family:  NanumSquare-Regular;
+    font-size: 22px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -548,15 +578,14 @@
     margin: auto;
     display: flex;
     align-items: center;
-    font-family: SegoeUI;
-    font-size: 15px;
+    font-family: NotoSansKR-Regular;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.35;
     letter-spacing: normal;
     text-align: center;
-    color: #000;
+    color: #3F3F3F;
   }
 
   .artifact-upload-container {

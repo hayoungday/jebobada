@@ -71,6 +71,7 @@ function Agree_Modal({ className, visible, children, agreeButton }) {
     right: 0;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 999;
+    transition: "all.5s ease"
   `
   
   const ModalInner = styled.div`
@@ -85,6 +86,7 @@ function Agree_Modal({ className, visible, children, agreeButton }) {
     transform: translateY(-50%);
     margin: 0 auto;
     padding: 40px 20px;
+    transition: "all.5s ease"
   `
 
 export default Agree_Modal;

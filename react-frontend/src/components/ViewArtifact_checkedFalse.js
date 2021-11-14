@@ -31,7 +31,6 @@ export default function ViewArtifact_checkedFalse(props) {
 
   const header_Typo={
     color:"white",
-    fontWeight:"bolder",
     fontFamily: "NanumSquare-Regular"
   }
 

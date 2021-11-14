@@ -33,9 +33,11 @@ class Evidence extends React.Component {
             }
             
         }
+        console.log(this.props.object_id) 
 
 
-        return (            
+        return (     
+                  
             <TableRow  style={{ textAlign: "center" }}>
                 <TableCell style={{ textAlign: "center" }}>{this.props.id}</TableCell>
                 {/* <TableCell><img src={this.props.image} alt="profile"/></TableCell> */}
@@ -52,7 +54,7 @@ class Evidence extends React.Component {
                             datetime: this.props.date,
                             location: this.props.location,
                             attacker: this.props.attacker,
-
+                            object_id: this.props.object_id
                         }
                     }}>
                         {this.props.name}
@@ -89,8 +91,8 @@ class Evidence extends React.Component {
                         }} style={{textDecoration:'none'}}  className="button_edit">
                         <button className="button_text">수정</button>
                         </Link>
-                        
-                        <button onClick={handleDeleteButton} className="button_edit">삭제</button>
+                        <div className="button_edit">
+                        <button onClick={handleDeleteButton} className="button_text">삭제</button></div>
                     </div>
                 </TableCell>
             

@@ -13,6 +13,7 @@ import Checkbox from "@mui/material/Checkbox";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 let image_src="./static/react/artifact_icons/"
 export default function ViewArtifact_checkedTrue(props) {
+  console.log(props.data)
   const [checkedInputs, setCheckInputs] = useState([]);
   const changeHandler = (checked, id) => {
     if (checked) {
@@ -29,14 +30,13 @@ export default function ViewArtifact_checkedTrue(props) {
   };
   //   console.log(props.type);
   const header_Typo={
-    color:"#0753D5",
-    fontWeight:"bolder",
+    color:"#4B64D4",
     fontFamily: "NanumSquare-Regular"
   }
 
   const desc_Typo={
     fontFamily:"NanumSquare",
-    color:"#0753D5",
+    color:"#4B64D4",
     fontWeight:"bolder"
   }
 
@@ -73,7 +73,7 @@ export default function ViewArtifact_checkedTrue(props) {
           {props.data.map((c, i) => {
             return c.isChecked == "true" ? (
               <TableRow>
-                <TableCell>
+                <TableCell> 
                   {c.isChecked == "true" ? (
                     <Checkbox
                       {...label}

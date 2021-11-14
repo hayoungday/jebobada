@@ -513,7 +513,7 @@ def loadArtifact():
     db = conn.jb_db
     collection = db.stt
     data = request.get_json()
-    
+    print(data)
     if(data):        
         res=collection.find_one({'_id':ObjectId(data['_id'])})        
         return json.dumps(res, default=json_util.default)

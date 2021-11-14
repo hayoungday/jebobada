@@ -134,7 +134,7 @@ const UploadEvidence = (props) => {
               <div className="upload_box">
 
                 <div className="upload-input-text">일시*</div>
-                <input className="upload-input-box" type="date" defaultValue="" onChange={(e)=>console.log(e.target.value)}/>
+                <input className="upload-input-box" type="date" defaultValue="" onChange={onDateHandler}/>
 
                 <div className="upload-input-text">발생장소*</div>
                 <input className="upload-input-box" type="text" name="location" placeholder="사건이 발생한 장소를 적어주세요" value={location} onChange={onLocationHandler}/>

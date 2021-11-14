@@ -274,6 +274,7 @@ class Upload extends Component {
                               <span className="self-upload-title">
                                 직접 수집한 증거 등록하기
                               </span>
+                              <p/>
                               <span className="self-upload-text">
                                 녹음파일, 사진파일, 캡쳐파일 등
                               </span>
@@ -292,6 +293,7 @@ class Upload extends Component {
                               <span className="self-upload-title">
                                 컴퓨터 사용 기록 등록하기
                               </span>
+                              <p/>
                               <span className="self-upload-text">
                                 JB Extractor에서 추출한 컴퓨터 사용 기록
                               </span>
@@ -305,11 +307,11 @@ class Upload extends Component {
                 <div className="table_style">
                   <Table style={{tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
                     <colgroup>
-                      <col style={{ width: "5%" }} />
+                      <col style={{ width: "7%" }} />
                       <col style={{ width: "15%" }} />
                       <col style={{ width: "20%" }} />
                       <col style={{ width: "15%" }} />
-                      <col style={{ width: "10%" }} />
+                      <col style={{ width: "8%" }} />
                       <col style={{ width: "15%" }} />
                       <col style={{ width: "8%" }} />
                       <col style={{ width: "12%" }} />
@@ -359,6 +361,7 @@ class Upload extends Component {
                         this.state.boards.map((c, i) => {
                           return (
                             <Evidence
+                              obejct_id={c._id}
                               key={this.state.maxNo + i}
                               id={this.state.maxNo + i}
                               name={c.filename}
