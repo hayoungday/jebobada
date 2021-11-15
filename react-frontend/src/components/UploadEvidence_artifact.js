@@ -174,7 +174,7 @@ class Upload extends Component {
       } else {
         this.setState({ fileVerify: true });
       }
-      console.log(res.data.data);
+      // console.log(res.data.data);
 
       this.setState({ artifactList: res.data.data });
       this.setState({ originalArtifact: res.data.data });
@@ -254,7 +254,7 @@ class Upload extends Component {
 
   getData(data) {
     this.setState({ artifactList: data });
-    console.log(data);
+    // console.log(data);
   }
 
   getType(type) {
@@ -635,7 +635,7 @@ class Upload extends Component {
       filename: this.state.fileName,
     };
     const res = axios.post("/isCheckedUpdate", body);
-    console.log(res);
+    // console.log(res);
     this.setState({});
   };
 
@@ -666,7 +666,7 @@ class Upload extends Component {
               marginLeft: "2%",
             }}
           >
-            컴퓨터 증거 등록
+            컴퓨터 사용 기록
           </Typography>
           <Typography
             variant="h5"
@@ -679,7 +679,7 @@ class Upload extends Component {
             }}
           >
             <span style={{ color: "#4B64D4" }}>JB Extractor</span>에서 추출한
-            컴퓨터 증거 파일을 업로드해주세요.
+            컴퓨터 사용 기록 파일을 업로드해주세요.
           </Typography>
         </div>
         <div style={{ width: "80%", margin: "0 auto" }}>

@@ -370,7 +370,8 @@ class Upload extends Component {
                         this.state.boards.map((c, i) => {
                           return (
                             <Evidence
-                              obejct_id={c._id}
+                              data={c.data}
+                              object_id={c._id}
                               key={this.state.maxNo + i}
                               id={this.state.maxNo + i}
                               name={c.filename}

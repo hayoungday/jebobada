@@ -901,6 +901,31 @@ def evidenceupdate():
 
     return "success"
 
+@app.route("/evidenceupdate_artifact",methods=['GET','POST'])
+def evidenceupdate_artifact():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+
+    time_list=[]
+    # print(data['isCheckedUpdate'])
+    for i in data['isCheckedUpdate']:
+        if(i['isChecked']=="true"):
+            time_list.append(i["Timestamp"])
+    start_time=time_list[0].split("T")[0]
+    end_time=time_list[-1].split("T")[0]
+    if(start_time==end_time):
+        date=start_time
+    else:
+        date=start_time+" ~ "+end_time
+
+    _id=data["_id"]
+    updated_artifact_list=data['isCheckedUpdate']
+    desc=data["desc"]
+    attacker=data["attacker"]
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date}})
+
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

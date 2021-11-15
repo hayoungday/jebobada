@@ -133,7 +133,7 @@ class PostView extends Component {
                   )}
                 </div>
                 <div className="flex-column-postview-container">
-                  <span className="postview-h1-1">증거 정보 요약</span>
+                  <span className="postview-h1-1">상세 정보</span>
                   <div className="postview-container-1">
                     <div className="flex-container-postview-contents">
                       <span className="date_title">일시</span>
