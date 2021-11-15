@@ -217,14 +217,17 @@ class Upload extends Component {
                 <div className="flex-container-case-box">
                   <div className="flex-column-content-container">
                     <span className="select-case-text">
-                      증거를 등록해주세요
+                      괴롭힘<span className="text_color">증거 자료</span>를
+                      <span className="text_color">등록</span>하세요.
                     </span>
                     <p />
                     <p />
                     <span className="select-case-content">
-                      사건에 해당하는 증거들을 등록해주세요
+                      직장 내 괴롭힘 관련 증거 자료(캡처/녹음 파일, 컴퓨터
+                      사용기록 등)를 등록하여 증거 자료를 관리하세요.
                       <p />
-                      자세하게 적을 수록 신고 시에 도움이 많이 됩니다
+                      등록 시, 육하원칙에 따라 피해 정황을 자세히 기록해두면
+                      추후 신고할 때 큰 도움이 됩니다.
                     </span>
                   </div>
                   <button
@@ -232,7 +235,7 @@ class Upload extends Component {
                     style={{ textDecoration: "none" }}
                     onClick={this.openModal}
                   >
-                    증거등록
+                    증거 자료 등록
                   </button>
 
                   <Agree_Modal
@@ -274,7 +277,7 @@ class Upload extends Component {
                               <span className="self-upload-title">
                                 직접 수집한 증거 등록하기
                               </span>
-                              <p/>
+                              <p />
                               <span className="self-upload-text">
                                 녹음파일, 사진파일, 캡쳐파일 등
                               </span>
@@ -293,7 +296,7 @@ class Upload extends Component {
                               <span className="self-upload-title">
                                 컴퓨터 사용 기록 등록하기
                               </span>
-                              <p/>
+                              <p />
                               <span className="self-upload-text">
                                 JB Extractor에서 추출한 컴퓨터 사용 기록
                               </span>
@@ -305,7 +308,13 @@ class Upload extends Component {
                   </SelectType_Modal>
                 </div>
                 <div className="table_style">
-                  <Table style={{tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
+                  <Table
+                    style={{
+                      tableLayout: "fixed",
+                      wordBreak: "break-all",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     <colgroup>
                       <col style={{ width: "7%" }} />
                       <col style={{ width: "15%" }} />

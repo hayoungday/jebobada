@@ -2,9 +2,7 @@ import React, { Component, useState } from "react";
 import Header from "./Header";
 import axios from "axios";
 import Case from "./Case";
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import {Link} from 'react-router-dom';
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,6 +14,7 @@ import SearchBox from "./SearchBox";
 import Modal from "./Modal";
 import Typography from "@mui/material/Typography";
 import FadeIn from 'react-fade-in';
+import CaseEditModal from './CaseEdit_Modal'
 
 import "./Agree.css";
 
@@ -31,12 +30,14 @@ class CasePage extends Component {
       maxNo: 1,
       completed: 0,
       isModalOpen: false,
+      isCaseEditModalOpen: false,
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.addCase = this.addCase.bind(this);
     this.loadData = this.loadData.bind(this);
+    this.handleDeleteButton=this.handleDeleteButton.bind(this);
   }
 
   componentDidMount() {
@@ -114,6 +115,33 @@ class CasePage extends Component {
     this.setState({ isModalOpen: true });
   };
 
+  openCaseEditModal=()=>{
+    this.setState({isCaseEditModalOpen:true})
+  }
+
+  closeCaseEditModal=()=>{
+    this.setState({isCaseEditModalOpen:false})
+  }
+
+  handleDeleteButton=(case_name,user,idx)=>{
+    var message =
+      "정말로 삭제하시겠습니까?\n사건 내에 저장되어 있는 모든 증거가 삭제됩니다.";
+
+    const result = window.confirm(message);
+
+    if (result) {
+      console.log("button clicked!!!!");
+
+      let body = {
+        case_name: case_name,
+        user: user,
+        casenum: idx
+      };
+      return axios.post("/deletecase", body);
+    } else {
+      console.log("취소되었습니다.");
+    }
+  };
 
   render() {
     return (
@@ -124,17 +152,16 @@ class CasePage extends Component {
             <div className="flex-container-case-box">
               <div className="flex-column-content-container">
                 <span className="select-case-text">
-                  증거를 등록할 사건을 선택해주세요
+                  <span className="text_color">폴더</span>를 생성하여 괴롭힘 관련 자료를<span className="text_color">관리</span>하세요
                 </span>
                 <span className="select-case-content">
-                  기간, 괴롭힘 유형 등 자신만의 분류 기준으로 사건을 생성하여
-                  관리하면
+                  폴더 하나 당 하나의 신고 보고서를 생성할 수 있습니다.
                   <p />
-                  더욱 체계적인 보고서 생성이 가능합니다.
+                  폴더에 직장 내 괴롭힘 신고를 위한 증거 자료를 모아 관리하세요.
                 </span>
               </div>
               <button className="add-case-button" onClick={this.openModal}>
-                사건 추가
+                새로 만들기
               </button>
               <Modal visible={this.state.isModalOpen}>
                 <button
@@ -149,26 +176,26 @@ class CasePage extends Component {
                   />
                 </button>
                 <div className="flex-column-container-case">
-                  <span className="modal_title">사건 정보를 작성해주세요</span>
+                  <span className="modal_title">폴더 생성</span>
                   <form onSubmit={this.handleFormSubmit}>
                     <div className="flex-container-first-box">
-                      <span className="case_name"> 사건명: </span>
+                      <span className="case_name"> 폴더명: </span>
                       <input
                         className="case_name_input"
                         type="text"
                         name="case_name"
-                        placeholder="사건명"
+                        placeholder="폴더명"
                         value={this.state.case_name}
                         onChange={this.handleValueChange}
                       />
                     </div>
                     <div className="flex-container-first-box">
-                      <span className="case_description"> 한줄요약: </span>
+                      <span className="case_description"> 설명: </span>
                       <input
                         className="case_description_input"
                         type="text"
                         name="description"
-                        placeholder="한줄요약"
+                        placeholder="설명"
                         value={this.state.description}
                         onChange={this.handleValueChange}
                       />
@@ -190,7 +217,7 @@ class CasePage extends Component {
               </Modal>
               {console.log(this.state.isModalOpen)}
             </div>
-            <div className="table_style">
+            {/* <div className="table_style">
               <Table
                 style={{
                   tableLayout: "fixed",
@@ -255,19 +282,62 @@ class CasePage extends Component {
                   )}
                 </TableBody>
               </Table>
+            </div> */}
+
+            {/* ==========    여기 아래는 그냥 테스트중     ============= */}
+            <div>
+              <FadeIn>
+                {this.state.cases ? (
+                  this.state.cases.map((c, i) => {
+                    return (
+                      <div className="casepage_test_case_box">
+                        <button className="casepage_test_case_box_title">
+                          <Link
+                            to={{
+                              pathname: "/upload/" + c.index,
+                              state: { casename: c.CaseName },
+                            }}
+                          >
+                            {c.CaseName}
+                          </Link>
+                        </button>
+                        <div className="casepage_test_case_box_desc">{c.Description}</div>
+                        <div className="flex-container-evidence">
+                          <div className="button_edit">
+                            <button
+                              onClick={this.openCaseEditModal}
+                              className="button_text"
+                            >
+                              수정
+                            </button>
+                          </div>
+                          <CaseEditModal
+                            visible={this.state.isCaseEditModalOpen}
+                            case_name={c.CaseName}
+                            user={c.User}
+                            closeModal={this.closeCaseEditModal}
+                            desc={c.Description}
+                          ></CaseEditModal>
+                          <div className="button_edit">
+                            <button
+                              onClick={()=>this.handleDeleteButton(c.CaseName,c.User,c.index)}
+                              className="button_text"
+                            >
+                              삭제
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div>
+                    <CircularProgress variant="indeterminate" />
+                  </div>
+                )}
+              </FadeIn>
             </div>
-            
- {/* ==========    여기 아래는 그냥 테스트중     ============= */}
-            <FadeIn>
-              <br></br>
-              <br></br>
-              <div className="casepage_test_case_box">
-                사건1
-              </div>
-              <div className="casepage_test_case_box">
-                사건2
-              </div>
-            </FadeIn>
+            <br></br>
           </div>
         </div>
       </div>

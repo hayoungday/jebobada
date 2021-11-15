@@ -44,11 +44,8 @@ class Case extends React.Component {
             } else{
                 console.log('취소되었습니다.')
             }
-            
-            
         }
-
-        
+                
         return (
             
             <TableRow>

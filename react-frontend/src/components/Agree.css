@@ -238,7 +238,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   width: 400px;
   height: 54px;
   margin: 10px auto;
-  font-family: SegoeUI;
+  font-family: NanumSquare-Regular;
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;
@@ -246,7 +246,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   line-height: 1.33;
   letter-spacing: normal;
   text-align: center;
-  color: #000;
+  color: #4B64D4;
   }
 
   .case_name{
@@ -355,10 +355,11 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   .table_style{
     height: auto;
-    max-height: 800px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 18px;
     background-color: white;
+    max-height: 600px;
+    overflow-y: auto;
   }
 
   .table{
@@ -395,14 +396,76 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 
   .casepage_test_case_box{
+    display:table-cell;
+    vertical-align: top;
     background-color: white;
     border-radius: 18px;
     font-family: NanumSquare-Regular;
-    font-weight: bolder;
+    word-break: normal;
     float: left;
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
     margin-left: 5%;
-    line-height: 200px;
+    margin-top:5%;
+    line-height: 0px;
     text-align: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  /* .casepage_test_case_box:hover{
+    display:table-cell;
+    vertical-align: top;
+    background-color: white;
+    border-radius: 18px;
+    border: solid 2px #4B64D4;
+    font-family: NanumSquare-Regular;
+    float: left;
+    width: 350px;
+    height: 350px;
+    margin-left: 5%;
+    margin-top:5%;
+    line-height: 0px;
+    text-align: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: border 0.1s ease-in-out;
+  } */
+
+  .casepage_test_case_box_title{
+    background-color: #4B64D4;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    width:350px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 18px;
+    color:#fff;
+    margin-bottom: 100px;
+    font-family: NanumSquare-Regular;
+    transition: font-size 0.2s ease-in-out;
+  }
+
+  .casepage_test_case_box_title:hover{
+    background-color: #4B64D4;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    width:350px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 20px;
+    color:#fff;
+    margin-bottom: 100px;
+
+    transition: font-size 0.2s ease-in-out;
+  }
+
+  .casepage_test_case_box_desc{
+    font-size: 18px;
+    color:#3F3F3F;
+    font-family: NotoSansKR-Regular;
+    margin-bottom: 100px;
+    word-break: normal;
+  }
+  
+  .text_color{
+    color:#4B64D4
   }
