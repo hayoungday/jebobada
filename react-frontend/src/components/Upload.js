@@ -217,8 +217,8 @@ class Upload extends Component {
                 <div className="flex-container-case-box">
                   <div className="flex-column-content-container">
                     <span className="select-case-text">
-                      괴롭힘<span className="text_color">증거 자료</span>를
-                      <span className="text_color">등록</span>하세요.
+                      괴롭힘 <span className="text_color">증거 자료</span>를
+                      <span className="text_color"> 등록</span>하세요.
                     </span>
                     <p />
                     <p />
@@ -395,10 +395,9 @@ class Upload extends Component {
                             <h6>loading....</h6>
                             <br></br>
                             <br></br>
-                            <CircularProgress
-                              variant="indeterminate"
-                              value={this.state.completed}
-                            />
+                            <div className="circular_progress">
+                              <CircularProgress variant="indeterminate" />
+                            </div>
                           </TableCell>
                         </TableRow>
                       )}

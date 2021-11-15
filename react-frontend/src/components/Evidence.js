@@ -33,7 +33,7 @@ class Evidence extends React.Component {
             }
             
         }
-        console.log(this.props.object_id) 
+       
 
 
         return (     
@@ -70,7 +70,7 @@ class Evidence extends React.Component {
                 <TableCell style={{ textAlign: "center" }}>{this.props.date}</TableCell>
 
                 <TableCell style={{ textAlign: "center" }}>
-                    {this.props.state==="변환완료"? <div>변환완료</div>:<div><CircularProgress variant="indeterminate" value="변환중"/></div>}        
+                    {this.props.state==="등록완료"? <div>등록완료</div>:<div><CircularProgress variant="indeterminate" value="변환중"/></div>}        
                 </TableCell>
 
                 <TableCell style={{ textAlign: "center" }}>

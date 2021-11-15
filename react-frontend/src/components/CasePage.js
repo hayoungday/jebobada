@@ -152,7 +152,7 @@ class CasePage extends Component {
             <div className="flex-container-case-box">
               <div className="flex-column-content-container">
                 <span className="select-case-text">
-                  <span className="text_color">폴더</span>를 생성하여 괴롭힘 관련 자료를<span className="text_color">관리</span>하세요
+                  <span className="text_color">폴더</span>를 생성하여 괴롭힘 관련 자료를 <span className="text_color">관리</span>하세요
                 </span>
                 <span className="select-case-content">
                   폴더 하나 당 하나의 신고 보고서를 생성할 수 있습니다.
@@ -331,7 +331,7 @@ class CasePage extends Component {
                     );
                   })
                 ) : (
-                  <div>
+                  <div className="circular_progress">
                     <CircularProgress variant="indeterminate" />
                   </div>
                 )}

@@ -418,7 +418,7 @@ def upload():
                 pass
 
             insert_data['filetype']='사진 파일'
-            insert_data['state']='변환완료'
+            insert_data['state']='등록완료'
 
             returnDict = meta.getImageTags(url)
             print(type(returnDict))
@@ -527,7 +527,17 @@ def isCheckedUpdate():
 
     data=request.get_json()
     if(data):
-        print(data['attacker'])
+        time_list=[]
+        # print(data['isCheckedUpdate'])
+        for i in data['isCheckedUpdate']:
+            if(i['isChecked']=="true"):
+                time_list.append(i["Timestamp"])
+        start_time=time_list[0].split("T")[0]
+        end_time=time_list[-1].split("T")[0]
+        if(start_time==end_time):
+            insert_data["date"]=start_time
+        else:
+            insert_data["date"]=start_time+" ~ "+end_time
         insert_data["data"]=data['isCheckedUpdate']
         insert_data["attacker"]=data['attacker']
         insert_data["desc"]=data['description']
@@ -536,7 +546,7 @@ def isCheckedUpdate():
         insert_data["user_id"]=data["user"]
         insert_data["filetype"]=data["filetype"]
         insert_data["filename"]=data["filename"]+"_"+data["type"]
-        insert_data["state"]="변환완료"
+        insert_data["state"]="등록완료"
         insert_data['index']=collection.find({'user_id':data["user"]}).count()+1
 
         # if(_id):
@@ -570,7 +580,7 @@ def receive():
             segments.append(speaker_data)    
     collection.update(o_query,{"$set":{'segments':segments}})
     collection.update(o_query,{"$set":{'text':data['text']}})
-    collection.update(o_query,{"$set":{'state':"변환완료"}})
+    collection.update(o_query,{"$set":{'state':"등록완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
     return render_template("index.html")
 
@@ -892,8 +902,8 @@ def evidenceupdate():
     return "success"
 
 
-# if __name__=='__main__':
-#  app.run(host='0.0.0.0', port=5000, debug=True)
-
 if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+ app.run(host='0.0.0.0', port=5000, debug=True)
+
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=80, debug=True)

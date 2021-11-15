@@ -4,7 +4,10 @@
     width: 95%;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63); /* 그림자 */
     margin: 100px auto;
-    height: auto;    
+    height: auto;
+    max-height: 600px;
+    overflow-y: auto;
+    border-radius: 18px;
 }
 .audio_contents_design{
     margin: 15px;
