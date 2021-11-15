@@ -275,7 +275,7 @@ class Upload extends Component {
                           >
                             <div className="self-upload-container">
                               <span className="self-upload-title">
-                                직접 수집한 증거 등록하기
+                                직접 수집한 증거 자료
                               </span>
                               <p />
                               <span className="self-upload-text">
@@ -294,7 +294,7 @@ class Upload extends Component {
                           >
                             <div className="self-upload-container">
                               <span className="self-upload-title">
-                                컴퓨터 사용 기록 등록하기
+                                컴퓨터 사용 기록
                               </span>
                               <p />
                               <span className="self-upload-text">

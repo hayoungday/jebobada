@@ -109,6 +109,7 @@ main {
   height: auto;
   z-index: 1;
   align-items: left;
+  font-size: 0px;
 }
 
 .first_box {

@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import "./UploadEvidence_artifact.css";
 import ReactTagInput from "@pathofdev/react-tag-input";
-import "@pathofdev/react-tag-input/build/index.css";
+import "@pathofdev/react-tag-input/src/styles/index.css";
 import MuiAlert from "@mui/material/Alert";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";

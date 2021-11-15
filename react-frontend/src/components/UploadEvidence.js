@@ -8,7 +8,7 @@ import Checkbox from "./Checkbox";
 import Check_Modal from "./Check_Modal";
 import { Button } from "@material-ui/core";
 import ReactTagInput from "@pathofdev/react-tag-input";
-import "@pathofdev/react-tag-input/build/index.css";
+import "@pathofdev/react-tag-input/src/styles/index.css";
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -157,9 +157,7 @@ const UploadEvidence = (props) => {
                   <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("sexual");}} value="성희롱"/>
                   </div>
                   
-                  <Check_Modal visible={isModalOpen} type={type} getSetValue={getSetValue} closeModal={closeModal}>
-                    <button className="close_icon_postview" onClick={(e) => { e.preventDefault(); setIsModalOpen(false);}}/>
-                  </Check_Modal>
+                  
                   <br />
                   {setaa}
                   <br />
@@ -180,6 +178,9 @@ const UploadEvidence = (props) => {
             </button> */}
           </div>
         </div>
+        <Check_Modal visible={isModalOpen} type={type} getSetValue={getSetValue} closeModal={closeModal}>
+          <button className="close_icon_postview" onClick={(e) => { e.preventDefault(); setIsModalOpen(false);}}/>
+        </Check_Modal>
 
 
 

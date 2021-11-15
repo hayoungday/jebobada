@@ -215,11 +215,10 @@ color: #3F3F3F;
 }
 
 .add-case-button{
-width: 288px;
-height: 80px;
+width: 150px;
+height: 50px;
 /* margin: 31px 26.5px 62px 245px; */
 margin: auto 0px auto auto;
-padding: 17px;
 text-align: center;
 border-radius: 45px;
 border: solid 1px #576DD4;
@@ -227,7 +226,7 @@ background-color: #576DD4;
 text-align: center;
 color: #fefefe;
 font-family: NanumSquare-Regular;
-font-size: 35px;
+font-size: 20px;
 font-weight: bold;
 font-stretch: normal;
 font-style: normal; 
