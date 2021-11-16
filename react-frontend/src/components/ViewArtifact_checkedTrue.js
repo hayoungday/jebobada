@@ -13,7 +13,6 @@ import Checkbox from "@mui/material/Checkbox";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 let image_src="./static/react/artifact_icons/"
 export default function ViewArtifact_checkedTrue(props) {
-  console.log(props.data)
   const [checkedInputs, setCheckInputs] = useState([]);
   const changeHandler = (checked, id) => {
     if (checked) {

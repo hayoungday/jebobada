@@ -19,12 +19,10 @@ export default function ViewArtifact_checkedFalse(props) {
     if (checked) {
       setCheckInputs([...checkedInputs, id]);
       props.data[id].isChecked = "true";
-      console.log(id);
       props.getData(props.data);
     } else {
       setCheckInputs(checkedInputs.filter((el) => el !== id));
       props.data[id].isChecked = "false";
-      console.log(id);
       props.getData(props.data);
     }
   };
@@ -45,15 +43,8 @@ export default function ViewArtifact_checkedFalse(props) {
     fontWeight:"bolder"
   }
 
-  // console.log(props.startTime);
-  // console.log(props.endTime);
-  // console.log(props.isFilter)
-  // console.log(props.work_startTime)
-  // console.log(props.work_endTime)
-  
   let filteredData;
   if(props.isDetail==false){
-    console.log(props.isDetail)
     filteredData = props.data.filter(
       (res) => res.Timestamp >= props.startTime && res.Timestamp <= props.endTime &&res.Name.includes(props.keyword)&&(res.Desc=="컴퓨터 ON"||res.Desc=="컴퓨터 OFF"||res.Desc=="인터넷 검색"||res.Desc=="웹사이트 방문"||res.Desc=="문서 삭제"||res.Desc=="문서 열람")
     );
@@ -128,10 +119,11 @@ export default function ViewArtifact_checkedFalse(props) {
                     ) : (
                       <Checkbox
                         {...label}
+                        defaultChecked={true}
                         onChange={(e) => {
                           changeHandler(e.currentTarget.checked, c.index);
                         }}
-                        checked={checkedInputs.includes(c.index) ? true : false}
+                        checked={true}
                       />
                     )}
                   </TableCell>

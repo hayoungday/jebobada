@@ -913,18 +913,32 @@ def evidenceupdate_artifact():
     for i in data['isCheckedUpdate']:
         if(i['isChecked']=="true"):
             time_list.append(i["Timestamp"])
-    start_time=time_list[0].split("T")[0]
-    end_time=time_list[-1].split("T")[0]
-    if(start_time==end_time):
-        date=start_time
+    try:
+        start_time=time_list[0].split("T")[0]
+    except:
+        pass
+    try:
+        end_time=time_list[-1].split("T")[0]
+    except:
+        pass
+    if(start_time==None and end_time==None):
+        start_time,end_time="",""
     else:
-        date=start_time+" ~ "+end_time
+        if(start_time==end_time):
+            date=start_time
+        else:
+            date=start_time+" ~ "+end_time
 
     _id=data["_id"]
     updated_artifact_list=data['isCheckedUpdate']
     desc=data["desc"]
     attacker=data["attacker"]
-    collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date}})
+    type=data["type"]
+    original_filename=data["filename"].split("_")[0]
+    filename=original_filename+"_"+data["type"]
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date,"type":type,"filename":filename}})
+
+    return "success"
 
 
 if __name__=='__main__':
