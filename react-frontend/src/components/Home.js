@@ -3,6 +3,7 @@ import React from 'react';
 import FadeIn from 'react-fade-in';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import './Home.css'
+import DownloadIcon from '@mui/icons-material/Download';
 
 
 {/* <Link class="nav-link" to="/about">서비스소개</Link> */}
@@ -28,7 +29,7 @@ const Home = () => {
 
                             <div className="flex-container-first-box">
                                 <Link to="/casepage" className="go_button_box2" style={{textDecoration:'none'}}>My Storage</Link>
-                                <Link to="/Download" className="go_button_box2" style={{textDecoration:'none'}}>JB Extractor</Link>
+                                <a href="https://craftguy.s3.ap-northeast-2.amazonaws.com/JB+Extractor.exe" className="go_button_box2" style={{textDecoration:'none'}}>JB Extractor&nbsp; <DownloadIcon/></a>
                             </div>
                         </div>
                     </div>
