@@ -647,7 +647,6 @@ class Upload extends Component {
   };
 
   render() {
-    console.log(this.state.attacker);
     return (
       <div style={{ backgroundColor: "#F0F0F4" }}>
         <Header />

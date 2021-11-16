@@ -58,10 +58,10 @@ class Editevidence_artifact extends Component {
       artifactList: this.props.location.state.artifact_checked_list,
       _id:this.props.location.state.object_id["$oid"],
       attacker: this.props.location.state.attacker,
-      description: "",
+      description: this.props.location.state.desc,
       id: "",
       value: "1",
-      type: "",
+      type: this.props.location.state.bullying,
       keyword: "",
       keyword_input: "",
       startTime: "0000-00-00T00:00",
@@ -235,7 +235,7 @@ class Editevidence_artifact extends Component {
             </div>
           </div>
           <div style={{ flex: "6" }}>
-            {/* <TypeChooser getType={this.getType} defaultType={this.props.location.state.bullying}/> */}
+            <TypeChooser getType={this.getType} defaultType={this.props.location.state.bullying}/>
           </div>
           <div style={{ flex: "1"}}>
             <TextField
@@ -525,7 +525,7 @@ class Editevidence_artifact extends Component {
               rows={8}
               variant="outlined"
               onChange={this.setDescription}
-              defaultValue={this.props.location.state.attacker}
+              defaultValue={this.props.location.state.desc}
             />
           </Box>
           <br></br>
@@ -563,7 +563,9 @@ class Editevidence_artifact extends Component {
       _id:this.state._id,
       isCheckedUpdate: this.state.artifactList,
       desc:this.state.description,
-      attacker:this.state.attacker
+      attacker:this.state.attacker,
+      type:this.state.type,
+      filename:this.props.location.state.filename
     };
     axios.post("/evidenceupdate_artifact", body);
     alert("수정이 완료되었습니다.")
@@ -587,7 +589,7 @@ class Editevidence_artifact extends Component {
         <br></br>
         <div style={{ width: "80%", margin: "0 auto", marginTop: "3%" }}>
           <Typography
-            variant="h5"
+            variant="h4"
             gutterBottom
             component="div"
             style={{

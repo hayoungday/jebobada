@@ -54,7 +54,7 @@ class Upload extends Component {
 
     componentDidMount(){
         this.timer=setInterval(this.progress,20)
-        this.intervalId = setInterval(() => this.loadData(), 3000);
+        this.intervalId = setInterval(() => this.loadData(), 500);
         this.loadData();            
     }
     componentWillUnmount() {
@@ -201,17 +201,6 @@ class Upload extends Component {
           <div>
             <Header />
 
-            {/* <div>
-                    <input 
-                    className="search"
-                    type="search"
-                    placeholder="키워드"
-                    onChange={this.handleChange}
-                    />
-                    <button onClick={this.handleClick(this.state.userInput)}>검색</button>
-                    
-                </div>  */}
-
             <div className="wrap">
               <div className="flex-column-container">
                 <div className="flex-container-case-box">
@@ -306,6 +295,17 @@ class Upload extends Component {
                       </div>
                     </div>
                   </SelectType_Modal>
+                </div>
+                <div style={{marginBottom:"3%"}}>
+                  <input
+                    className="search"
+                    type="search"
+                    placeholder="키워드"
+                    onChange={this.handleChange}
+                  />
+                  <button onClick={this.handleClick(this.state.userInput)}>
+                    검색
+                  </button>
                 </div>
                 <div className="table_style">
                   <Table
