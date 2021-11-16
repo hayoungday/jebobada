@@ -13,7 +13,7 @@
   width: 234px;
   height: 82px;
   margin:0 0 0 0;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -39,7 +39,7 @@ text-align: center;
   width: 234px;
   height: 41px;
   margin:auto;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -64,7 +64,7 @@ text-align: center;
 width: 128px;
 height: 41px;
 margin:auto;
-font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
 font-size: 30px;
 font-weight: bold;
 font-stretch: normal;
@@ -221,8 +221,8 @@ height: 50px;
 margin: auto 0px auto auto;
 text-align: center;
 border-radius: 45px;
-border: solid 1px #576DD4;
-background-color: #576DD4;
+border: solid 1px #4B64D4;
+background-color: #4B64D4;
 text-align: center;
 color: #fefefe;
 font-family: NanumSquare-Regular;
@@ -253,7 +253,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: 40px;
   margin: 9px 10px 0px 0;
   vertical-align: middle;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -282,7 +282,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: #fff;
     line-height: 57px;
     vertical-align: middle;
-    font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -297,7 +297,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: 40px;
   margin: 27px 10px 27px 0;
   vertical-align: middle;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -325,8 +325,8 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding: 10px 51px 11px;
     border-radius: 50px;
     border: solid 1px #707070;
-    background-color: #3d7be6;
-    font-family: SegoeUI;
+    background-color: #4B64D4;  
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -357,7 +357,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 18px;
     background-color: white;
-    max-height: 600px;
+    max-height: 530px;
     overflow-y: auto;
   }
 
@@ -370,20 +370,20 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   .table_cell_left{
     text-align: center;
-    background-color: #576DD4;
+    background-color: #4B64D4;
     border-top-left-radius: 18px;
   }
 
   .table_cell_right{
     text-align: center;
-    background-color: #576DD4;
+    background-color: #4B64D4;
     border-top-right-radius: 18px;
 
   }
 
   .table_cell{
     text-align: center;
-    background-color: #576DD4;
+    background-color: #4B64D4;
 
   }
 

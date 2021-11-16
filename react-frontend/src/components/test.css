@@ -22,7 +22,7 @@ main {
   .JEBOBADA {
     width: 308px;
     height: 80px;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 60px;
     font-weight: bold;
     font-stretch: normal;
@@ -77,7 +77,7 @@ main {
     width: 86px;
   height: 200px;
   margin: 0 574px 442px 20px;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 150px;
   font-weight: bold;
   font-stretch: normal;
@@ -93,7 +93,7 @@ main {
     width: 200px;
   height: 66px;
   margin: 0 387px 65px 0;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 50px;
   font-weight: bold;
   font-stretch: normal;
@@ -108,7 +108,7 @@ main {
   width: 354px;
   height: 60px;
   margin: 72px 83px 49px 53px;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 15px;
   font-weight: normal;
   font-stretch: normal;
@@ -123,7 +123,7 @@ main {
     width: 437px;
   height: 60px;
   margin: 42px 0 18px 53px;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 15px;
   font-weight: normal;
   font-stretch: normal;

@@ -8,6 +8,8 @@ import pymongo
 import requests
 import boto3
 import clovaspeechAPI, googleOCR, metaExiftool,check_csv
+import detectEdition #음성
+import kakaoForgeryDetect
 from datetime import datetime
 import hashlib
 from bson.objectid import ObjectId
@@ -372,19 +374,67 @@ def upload():
             aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
             aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
             )
-            
-            collection.insert_one(insert_data)
                         
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
             #'ServerSideEncryption':'aws:kms'  
                   
             
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+            
             clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+            
             returnDict = meta.getAudioTags(url)
             o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
             insert_data['metadata']=returnDict
-            collection.update(o_query,{"$set":{'metadata':insert_data['metadata']}})
+            
+            ###편집여부 backend###
+            
+            detEdi = detectEdition.detectEdition()
+            detEdi.setFilePath(url)
+            
+            useFamousApp = detEdi.useFamousRecorderApp()
+            isEditted_dic = detEdi.isEditted()
+            isEditted = isEditted_dic['isEditted']
+            
+            editted_result = ""
+            
+            if (useFamousApp):
+                print('편집아님1')
+                insert_data['edited']="false"
+
+            elif (useFamousApp == None and isEditted == True):
+                print('편집됨')
+                insert_data['edited']="true"
+                
+                if isEditted_dic['reason'] == "meta":
+                    insert_data['reason'] = "meta"
+                    insert_data['relatedMetadata'] = isEditted_dic['relatedMetadataFields']
+                    insert_data['programNames'] = isEditted_dic['programNames'][0]
+                elif isEditted_dic['reason'] == "cmt":
+                    insert_data['reason'] = "cmt"
+                
+            elif (useFamousApp == None and isEditted == False):
+                print('편집아님')
+                insert_data['edited']="false"
+                
+            else:
+                editted_result = "else"
+                print("error 삐용삐용 ")
+            
+            print("=========================")
+            print(useFamousApp)
+            print(isEditted_dic)
+            print(isEditted)
+            print(editted_result)
+            print("=========================")
+            
+            collection.insert_one(insert_data)
+            
+            
+            ###STT
+            
+            
+            # collection.update(o_query,{"$set":{'metadata':insert_data['metadata']}})
 
         elif (fileExt in image):   
             insert_data['text']=''
@@ -423,8 +473,39 @@ def upload():
             returnDict = meta.getImageTags(url)
             print(type(returnDict))
             insert_data['metadata'] = returnDict
+            
+            
+            #===카톡조작===
+            kfdModule = kakaoForgeryDetect.kakaoForgeryDetect(url)
+            detEdi = detectEdition.detectEdition()
+            detEdi.setFilePath(url)
+            
+            print("-------------------------------")
+            
+            if detEdi.useImageEditor() == None:
+                print("일단 편집 흔적은 없음~")
+                insert_data['edited'] = "false"
+                if kfdModule.isFakeKakaoApp():
+                    print("조작ㅋ")
+                    insert_data['manipulated'] = "true"
+                else:
+                    if kfdModule.isKakaoTalkLinedUpHorizontal() == False:
+                        print("조작")
+                        insert_data['manipulated'] = "true"
+                    else:
+                        print("정상!")
+                        insert_data['manipulated'] = "false"
+            else:
+                print("편집됨")
+                insert_data['edited'] = "true"
+            
+            print("is fake kakao app? : ", kfdModule.isFakeKakaoApp())
+            print("is chatbox lined up? : ", kfdModule.isKakaoTalkLinedUpHorizontal())
+            
+            print("-------------------------------")
+            
             collection.insert_one(insert_data)
-
+            
         return {"result":"success"}
     else:
         return {"result":"error"}
@@ -925,7 +1006,6 @@ def evidenceupdate_artifact():
     desc=data["desc"]
     attacker=data["attacker"]
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date}})
-
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,11 +1,11 @@
     
 .component_design{    
     background: white;
-    width: 95%;
+    width: 100%;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.63); /* 그림자 */
-    margin: 100px auto;
+    margin: auto;
     height: auto;
-    max-height: 600px;
+    max-height: 500px;
     overflow-y: auto;
     border-radius: 18px;
 }
@@ -13,8 +13,8 @@
     margin: 15px;
 }
 .image_contents_design{
-    margin-left: 100px auto;
-    height: 480px;
+    margin: auto;
+    height: 500px;
     max-width: auto;
 
     
@@ -44,14 +44,14 @@
     height: 50px;
     width: 150px;
     padding: 10px;
-    background-color: #3d7be6;
+    background-color: #4B64D4;
     border-radius: 10px;
     border: solid 1px #e2e2e2;
     text-align: center;
     margin: 20px;
     color: #fff;
     justify-content: center;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
@@ -80,7 +80,7 @@
     text-align: center;
     color: #4B64D4;
     justify-content: center;
-    font-family: NotoSansKR-Regular;
+    font-family: "NotoSansKR-Regular";
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
@@ -128,16 +128,16 @@
 .flex-container-postview-contents{
     display:flex;
     height: auto;
-    width: 900px;
+    width: 300px;
     justify-content: center;
 }
 
 .flex-container-postview-contents2{
     display:flex;
     height: auto;
-    width: 400px;
-    margin: 0 0 0 600px;
-    justify-content: center;
+    width: 380px;
+    margin: 0 0 0 1290px;
+    justify-content: end;
     text-align: center;
 }
 
@@ -147,7 +147,7 @@
     height: auto;
     width: auto;
     /* margin: 200px 460px 0 460px; */
-    margin:200px auto;
+    margin:200px 0px 0px 200px;
     justify-content: center;
 }
 
@@ -156,78 +156,97 @@
     flex-direction: column;
     height: auto;
     /* margin: 50px 460px 200px 460px; */
-    margin:200px auto;
+    margin:200px 200px 0px 0px;
     justify-content: center;
 }
 
+.flex-column-postview-container3{
+  display:flex;
+  flex-direction: column;
+  height: auto;
+  /* margin: 50px 460px 200px 460px; */
+  margin:20px 200px 200px 200px;
+  justify-content: center;
+}
 .postview-h1-1 {
-    width: 400px;
-    height: 54px;
-    margin: 0 0 30px 0;
-    font-family: SegoeUI;
-    font-size: 40px;
+    width: 200px;
+    height: 41px;
+    margin: 0 0 0 25px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 30px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.33;
+    line-height: 30px;
     letter-spacing: normal;
     text-align: left;
     color: #000;
   }
 
   .postview-h1-2 {
-    width: 400px;
-    height: 54px;
-    margin: 0 0 30px 0;
-    font-family: SegoeUI;
-    font-size: 40px;
+    width: 200px;
+    height: 41px;
+    margin: 0px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 30px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.33;
+    line-height: 30px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+
+  .postview-h1-3 {
+    width: 200px;
+    height: 41px;
+    margin: 0;
+    font-family: "NotoSansKR-Regular";
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 30px;
     letter-spacing: normal;
     text-align: left;
     color: #000;
   }
 
   .postview-container-1 {
-    width: 1000px;
-    height: 183px;
-    margin: 30px 0px 0px 0;
-    padding: 39px 160px 46px 60px;
-    border-radius: 20px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    /* border: solid 1px #707070; */
+    width: 1040px;
+    height: 593px;
+    margin: 20px 25px 0px 0px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 7px 29px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
-    justify-content: center;
   }
   .postview-container-2 {
-    width: 1000px;
-    height: 152px;
-    margin: 30px 0px 30px 0px;
-    padding: 24px 75px 34px 60px;
-    border-radius: 20px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    /* border: solid 1px #707070; */
+    width: 380px;
+    height: 593px;
+    margin: 20px 0px 0px 25px;
+    padding: 87px 66px 86px 67px;
+    border-radius: 10px;
+    box-shadow: 0 7px 29px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
   }
 
   .postview-container-3 {
-    width: 1000px;
-    height: 430px;
-    margin: 10px 0 0;
-    padding: 53px 75px 252px 60px;
-    border-radius: 20px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px #707070;
+    width: 1460px;
+    height: 179px;
+    margin: 20px 0 0 0;
+    padding: 45px 561px 27px 48px;
+    border-radius: 10px;
+    box-shadow: 0 7px 29px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
   }
   
 .date_title {
-  width: 150px;
+  width: 100px;
   height: 20px;
-  margin: 10px 20px;
-  font-family: SegoeUI;
+  margin: 20px 0px;
+  font-family: "NotoSansKR-Regular";
   font-size: 15px;
   font-weight: bold;
   font-stretch: normal;
@@ -239,10 +258,10 @@
 }
 
 .date_content{
-  width: 250px;
+  width: 200px;
   height: 20px;
-  margin: 0 20px;
-  font-family: SegoeUI;
+  margin: 20px 0px;
+  font-family: "NotoSansKR-Regular";
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -258,7 +277,7 @@
     width: 80px;
     height: 27px;
     margin: 0 771px 13px 0;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
@@ -273,7 +292,7 @@
     width: 851px;
     height: 54px;
     margin: 13px 0 0;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -285,32 +304,34 @@
 }
 
 .file_info_container {
-    width: 150px;
-    height: 75px;
-    margin: auto;
-    border-radius: 20px;
-    border: solid 1px #3d7be6;
-    background-color: #fff;
-    font-family: SegoeUI;
-    font-size: 25px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.32;
-    letter-spacing: normal;
-    text-align: center;
-    color: #568ce9;
+  width: 140px;
+  height: 40px;
+  margin: 25px 10px 0 0;
+  padding: 4px 20px 3px;
+  border-radius: 20px;
+  border: solid 1px #4b64d4;
+  background-color: #4b64d4;
+  font-family: "NotoSansKR-Regular";
+  font-size: 25px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.32;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
   }
 
 
   .is_edit_container {
-    width: 150px;
-    height: 75px;
-    margin: auto;
+    width: 140px;
+    height: 40px;
+    margin: 25px 0 0 10px;
+    padding: 4px 20px 3px;
     border-radius: 20px;
-    border: solid 1px #3d7be6;
-    background-color: #fff;
-    font-family: SegoeUI;
+    border: solid 1px #4b64d4;
+    background-color: #4b64d4;
+    font-family: "NotoSansKR-Regular";
     font-size: 25px;
     font-weight: bold;
     font-stretch: normal;
@@ -318,7 +339,7 @@
     line-height: 1.32;
     letter-spacing: normal;
     text-align: center;
-    color: #568ce9;
+    color: #fff;
   }
 
 
@@ -335,7 +356,7 @@
   .edit_contents {
     width: 50px;
     height: 33px;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 25px;
     font-weight: bold;
     font-stretch: normal;
@@ -350,7 +371,7 @@
     width: 298px;
     height: 41px;
     margin: 0 553px 30px 0;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 30px;
     font-weight: bold;
     font-stretch: normal;
@@ -365,7 +386,7 @@
     width: 851px;
     height: 54px;
     margin: 30px 0 0;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -385,7 +406,7 @@
   }
 
   .modal_meta_postview{
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 40px;
     font-weight: bold;
     font-stretch: normal;
@@ -402,7 +423,7 @@
     border-radius: 10px;
     border: solid 1px #707070;
     background-color: #fff;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -420,7 +441,7 @@
     margin: 15px 0 0 0 ;
     /* margin: auto; */
     /* margin: 50px 27px 30px 0; */
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -437,7 +458,7 @@
     height: 54px;
     margin: 0 auto 15px auto;
     /* margin: 30px 222.4px 14px 58px; */
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 40px;
     font-weight: bold;
     font-stretch: normal;
@@ -453,7 +474,7 @@
     height: 27px;
     margin: auto;
     /* margin: 101px 25px 100px 0; */
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -473,7 +494,7 @@
     border-radius: 10px;
     border: solid 1px #707070;
     background-color: #fff;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -492,13 +513,13 @@
     border-radius: 10px;
     border: solid 1px #707070;
     background-color: #fff;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     letter-spacing: normal;
-    vertical-align: middle;
+    line-height: 180px;
     align-items: center;
     text-align: center;
     color: #000;
@@ -508,7 +529,7 @@
     width: 700px;
     height: 54px;
     margin: 0 auto;
-    font-family:  NanumSquare-Regular;
+    font-family: "NanumSquare-Regular";
     font-size: 36px;
     font-weight: bold;
     font-stretch: normal;
@@ -564,7 +585,7 @@
     margin: 25px auto 5px auto;
     display: flex;
     align-items: center;
-    font-family:  NanumSquare-Regular;
+    font-family: "NanumSquare-Regular";
     font-size: 22px;
     font-weight: bold;
     font-stretch: normal;
@@ -581,7 +602,7 @@
     margin: auto;
     display: flex;
     align-items: center;
-    font-family: NotoSansKR-Regular;
+    font-family: "NotoSansKR-Regular";
     font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
@@ -605,7 +626,7 @@
     width: 246px;
     height: 33px;
     margin: 0 0 21px;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 25px;
     font-weight: bold;
     font-stretch: normal;
@@ -620,7 +641,7 @@
     width: 208px;
     height: 54px;
     margin: 21px 19px 0;
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: normal;
     font-stretch: normal;
@@ -636,7 +657,7 @@
     height: 30px;
     margin: auto;
     /* margin: 14px 134.4px 50px 56px; */
-    font-family: SegoeUI;
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: normal;
     font-stretch: normal;

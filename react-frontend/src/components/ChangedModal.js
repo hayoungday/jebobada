@@ -1,8 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+ 
+function ChangedModal({ className, visible, children, relatedMetadata, programNames, reason, manipulated,edited, type, closeModal }) {
 
-function ChangedModal({ className, visible, children, type, closeModal }) {
+    const pic_edited = () => {
+      if (edited == "true"){
+        return ("편집이 의심됩니다.")
+      } else if (edited=="false" & manipulated == "true"){
+        return ("조작이 의심됩니다.")
+      } else if (edited=="false" & manipulated == "false"){
+        return ("조작이 의심되지 않습니다.")
+      } else if (edited == "false"){
+          return ("편집 흔적을 찾을 수 없습니다.")
+      } else{
+        return ("에러를 찾아라~")
+      }
+    }
+
+    const aud_edited = () =>{
+      if (edited == "true"){
+        console.log(edited)
+        return("편집이 의심됩니다.")
+      } else if ( edited == "false"){
+        console.log(edited)
+        return("편집 흔적을 찾을 수 없습니다.")
+      } else{
+        console.log("error",edited)
+      }
+    }
+
+    const aud_cause = () =>{
+      if (edited == "true"){
+        console.log(edited)
+        if (reason =="meta"){
+          console.log(reason)
+          return({programNames},"프로그램을 사용하여 편집한 흔적이 발견되었습니다.")
+        }
+        else if (reason =="cmt"){
+          console.log(reason)
+          return("음성파일이 수정된 시간이 생성시간보다 최근입니다.")
+        }
+      } else if ( edited == "false"){
+        console.log(edited)
+        return("편집 프로그램을 사용한 흔적이 발견되지 않았습니다.")
+      }
+    }
 
     const modal_contents = (type) => {
         if(type=="녹음 파일"){
@@ -20,11 +63,11 @@ function ChangedModal({ className, visible, children, type, closeModal }) {
                       <br/>
                       <div className="flex-container-meta">
                         <span className="info_modify_text">편집 여부</span>
-                        <span className="info_modify_container1">편집이 의심됩니다.</span>
+                        <span className="info_modify_container1">{aud_edited()}</span>
                       </div>
                       <div className="flex-container-meta">
                         <span className="info_modify_text">판단 이유</span>
-                        <span className="info_modify_container2">음성 파일 내에서 조작으로 의심되는 부자연스러운 지점이 발견되었습니다.</span>
+                        <span className="info_modify_container1">{aud_cause()}</span>
                       </div>
                     </div>      
                 </>
@@ -44,11 +87,11 @@ function ChangedModal({ className, visible, children, type, closeModal }) {
                 <br/>
                 <div className="flex-container-meta">
                   <span className="info_modify_text">편집 여부</span>
-                  <span className="info_modify_container1">편집이 의심됩니다.</span>
+                  <span className="info_modify_container1">{pic_edited()}</span>
                 </div>
                 <div className="flex-container-meta">
                   <span className="info_modify_text">판단 이유</span>
-                  <span className="info_modify_container2">음성 파일 내에서 조작으로 의심되는 부자연스러운 지점이 발견되었습니다.</span>
+                  <span className="info_modify_container1">카카오톡 조작 어플 사용이 의심됩니다.</span>
                 </div>
               </div>      
           </>
@@ -73,6 +116,11 @@ function ChangedModal({ className, visible, children, type, closeModal }) {
     visible: PropTypes.bool,
     type: PropTypes.string,
     closeModal: PropTypes.func,
+    edited: PropTypes.string,
+    manipulated: PropTypes.string,
+    relatedMetadata: PropTypes.array,
+    programNames: PropTypes.string,
+    reason: PropTypes.string,
   }
   
   const ModalWrapper = styled.div`
@@ -107,7 +155,7 @@ function ChangedModal({ className, visible, children, type, closeModal }) {
     background-color: #fff;
     border-radius: 20px;
     width: 820px;
-    height: 620px;
+    height: 520px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

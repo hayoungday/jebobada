@@ -16,7 +16,11 @@ const Home = () => {
                 <div className="first_box">
                     <div className="flex-column-container-main">
                         <span className="first_title">괴롭힘 자료</span>
-                        <h3 style={{textAlign:"center"}}>등록/조회</h3>
+                        <h3 style={{
+                            textAlign:"center",
+                            fontFamily:"NanumSquare-Regular"
+                            }}
+                        >등록/조회</h3>
                         <div className="flex-column-content-container">
 
                             <span className="upload_content">
@@ -37,7 +41,7 @@ const Home = () => {
                 <div className="third_box">
                     <div className="flex-column-container-main">
                         <span className="third_title">보고서</span>
-                        <h3 style={{textAlign:"center"}}>생성/조회/편집</h3>
+                        <h3 style={{textAlign:"center",fontFamily:"NanumSquare-Regular"}}>생성/조회/편집</h3>
                         
                         <span className="third_content">
                             <p/>등록한 증거들의 분석 결과를<p/>
