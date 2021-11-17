@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo pkill -f uwsgi -9
+uwsgi --ini myproject.ini --callable app
+
+exit 0
