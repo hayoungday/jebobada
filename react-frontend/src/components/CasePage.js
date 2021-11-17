@@ -41,7 +41,7 @@ class CasePage extends Component {
   }
 
   componentDidMount() {
-    this.intervalId = setInterval(() => this.loadData(), 5000);
+    this.intervalId = setInterval(() => this.loadData(), 500);
     this.loadData();
   }
 
