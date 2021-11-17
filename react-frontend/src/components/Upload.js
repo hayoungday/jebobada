@@ -219,13 +219,7 @@ class Upload extends Component {
                       추후 신고할 때 큰 도움이 됩니다.
                     </span>
                   </div>
-                  <button
-                    className="add-case-button"
-                    style={{ textDecoration: "none" }}
-                    onClick={this.openModal}
-                  >
-                    증거 자료 등록
-                  </button>
+                  
 
                   <Agree_Modal
                     visible={this.state.isModalOpen}
@@ -296,15 +290,23 @@ class Upload extends Component {
                     </div>
                   </SelectType_Modal>
                 </div>
-                <div style={{marginBottom:"3%"}}>
+                <div className="flex-search-box" style={{marginBottom:"3%"}}>
                   <input
                     className="search-box"
                     type="search"
-                    placeholder="키워드"
+                    placeholder="    검색어를 입력하세요"
                     onChange={this.handleChange}
                   />
                   <button className="search_button" onClick={this.handleClick(this.state.userInput)}/>
                   
+                  <button
+                    className="add-case-button"
+                    style={{ textDecoration: "none" }}
+                    onClick={this.openModal}
+                  >
+                    증거 자료 등록
+                  </button>
+
                 </div>
                 
 

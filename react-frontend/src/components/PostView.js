@@ -144,7 +144,7 @@ class PostView extends Component {
                     </div>
                     
                     <div className="flex-container-postview-contents">
-                      <span className="date_title">발생장소</span>
+                      <span className="date_title">발생 장소</span>
                       <span className="date_content">
                         {this.props.location.state.location}
                       </span>
@@ -158,7 +158,7 @@ class PostView extends Component {
                     </div>
 
                     <div className="flex-container-postview-contents">
-                      <span className="date_title">괴롭힘유형</span>
+                      <span className="date_title">괴롭힘 유형</span>
                       <span className="date_content">
                         {this.props.location.state.bullying}
                       </span>
