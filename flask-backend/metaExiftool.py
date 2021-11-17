@@ -35,6 +35,7 @@
 import requests
 import subprocess
 import os
+import config
 
 
 class metaExiftool :
@@ -46,8 +47,8 @@ class metaExiftool :
         # 실제 구현에서는 api 인증키를 VWORLD_API_AUTH_KEY 환경변수에 저장 하여 사용할 것
         # 해당 환경변수가 없으면 None 
         # config.py의 전역변수를 가져옴 VWORLD_API_AUTH_KEY = os.environ.get('VWORLD_API_AUTH_KEY')
-        # self.authKey = config.VWORLD_API_AUTH_KEY  
-        self.authKey = "2029211D-6C89-354A-B0C8-815545A8D9E0" # 서버에서는 삭제
+        self.authKey = config.vworld_api_auth_key 
+        # self.authKey = "2029211D-6C89-354A-B0C8-815545A8D9E0" # 서버에서는 삭제
 
     def __del__(self) : 
         pass
