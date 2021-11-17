@@ -115,6 +115,7 @@ class kakaoForgeryDetect :
                 scope = dumpList[0]
                 xSmile = (scope[0][0] + scope[1][0]) / 2
 
+            # 샵(#)의 x값
             if not findSharp and findSmile and len(dumpList) >= 4  :
                 findSharp = 1 
                 startScope = dumpList[-2]
@@ -164,7 +165,7 @@ class kakaoForgeryDetect :
         for h in range(underlineY, 0, -1) : 
             # if not self.__isGrayScale(self.__pointRGB(underlineStartX,h), stdCritic=10) : 
             #     return underlineY - h
-            if self.__inArray(self.__pointRGB(underlineStartX,h), self.__backgroundColor, scale= 10) : 
+            if self.__inArray(self.__pointRGB(underlineStartX,h), self.__backgroundColor, scale= 8) : 
                 return underlineY - h
         return height
 
@@ -177,8 +178,9 @@ class kakaoForgeryDetect :
                     return False
             return True
         else : 
-            print("empty chatboxes")
-            return None
+            # print("empty chatboxes")
+            # 상대 대화창이 없는 것
+            return True
 
 
 
@@ -211,8 +213,6 @@ class kakaoForgeryDetect :
                 if self.__inArray(self.__averageRGBofLine(newY), backgroundColor, scale = 2) : 
                     scanStartY = newY
                     break
-            # while not self.__inArray(self.__averageRGBofLine(scanStartY), backgroundColor, scale = 2) :
-            #     scanStartY -= 1
 
 
         whiteboxes = []
@@ -250,7 +250,7 @@ class kakaoForgeryDetect :
             else : 
                 # 다음 배경 칸으로 가기 
                 averageRGB = self.__averageRGBofLine(y)
-                if not self.__inArray(averageRGB, backgroundColor, scale=3) :
+                if not self.__inArray(averageRGB, backgroundColor, scale=2) :
                     continue  
                 else : 
                     # 배경이 등장하면 다시 chatbox 시작 라인 찾기 
@@ -269,20 +269,39 @@ class kakaoForgeryDetect :
             imgW = self.__imgCV2.shape[1]
             longtextBound = imgW*29/30 
             startUpperBound= imgW*1/5
+            startUnderBound = imgW*1/15
             for coordinate in whiteboxes : 
-                if coordinate[0] < longtextBound and coordinate[0] < startUpperBound: 
+                if coordinate[0] < longtextBound and startUnderBound < coordinate[0] and coordinate[0] < startUpperBound: 
                     exceptOutlier.append(coordinate)
+            if len(exceptOutlier) >= 2 :
+                exceptOutlier.pop(-1)
             return exceptOutlier
         else : 
             return whiteboxes  
 
+    def isKakaoImage(self) : 
+        imgH = int(self.__imgCV2.shape[0]/3)
+        imgW = self.__imgCV2.shape[1]
+        critic = 0.3
+        wholePixelCnt = imgH * imgW
+        criticCnt = wholePixelCnt * critic
+        bgColorPixelCnt = 0
 
+        for y in range(imgH) : 
+            for x in range(imgW) : 
+                if self.__inArray(self.__pointRGB(x,y), self.__backgroundColor, scale= 4) : 
+                    bgColorPixelCnt += 1 
+                if criticCnt < bgColorPixelCnt : 
+                    return True
+        else : 
+            return False 
 
     def isFakeKakaoApp(self) : 
         upperBound = 4.2
-        underBound = 3.8
+        # underBound = 3.8
         ratio = self.__smileSharpRatio()
-        if ratio < underBound or upperBound < ratio :
+        # if ratio < underBound or upperBound < ratio :
+        if upperBound < ratio :
             return True 
         else : 
             return False    
@@ -299,13 +318,31 @@ class kakaoForgeryDetect :
             for x in range(underlineX, 0, -1) :
                 rgb = self.__pointRGB(x,startPoint[1]) 
                 if self.__inArray(rgb, self.__backgroundColor) : 
-                    chatboxBeginXs.append(x) 
+                    # chatboxBeginXs.append((x,underlineY)) # 디버깅 용
+                    chatboxBeginXs.append((x)) 
                     break
-        
-        return self.__haveSameValues(chatboxBeginXs), chatboxBeginXs
+        # print(chatboxBeginXs)
+        # return self.__haveSameValues(chatboxBeginXs), chatboxBeginXs  # 디버깅 용
+        return self.__haveSameValues(chatboxBeginXs)
 
+    def getOverallResult(self) : 
+        # 결과를 dict 자료구조로 반환
+        retDict = {} 
+        retDict['isFake'] = False
+        retDict['reason'] = 'normal'
 
-
+        if self.isKakaoImage() : 
+            if self.isFakeKakaoApp() : 
+                retDict['isFake'] = True
+                retDict['reason'] = 'fakeApp'
+            elif self.isKakaoTalkLinedUpHorizontal() == False : 
+                retDict['isFake'] = True
+                retDict['reason'] = 'notLinedUp'
+        else : 
+            retDict['isFake'] = False
+            retDict['reason'] = 'notKakaoTalk'
+        return retDict
+            
     # def isKakaoTalkLinedUpVertical(self) : 
     #     # chatbox 간의 수직 간격이 일정한지 비교 
     #     opponentChatboxes = self.__getChatboxUnderlines()

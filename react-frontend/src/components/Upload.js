@@ -298,15 +298,17 @@ class Upload extends Component {
                 </div>
                 <div style={{marginBottom:"3%"}}>
                   <input
-                    className="search"
+                    className="search-box"
                     type="search"
                     placeholder="키워드"
                     onChange={this.handleChange}
                   />
-                  <button onClick={this.handleClick(this.state.userInput)}>
-                    검색
-                  </button>
+                  <button className="search_button" onClick={this.handleClick(this.state.userInput)}/>
+                  
                 </div>
+                
+
+
                 <div className="table_style">
                   <Table
                     style={{

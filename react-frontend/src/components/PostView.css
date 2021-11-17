@@ -307,7 +307,6 @@
   width: 140px;
   height: 40px;
   margin: 25px 10px 0 0;
-  padding: 4px 20px 3px;
   border-radius: 20px;
   border: solid 1px #4b64d4;
   background-color: #4b64d4;
@@ -318,7 +317,9 @@
   font-style: normal;
   line-height: 1.32;
   letter-spacing: normal;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   }
 

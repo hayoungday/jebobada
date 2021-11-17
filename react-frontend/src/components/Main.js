@@ -13,6 +13,9 @@ const Main = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isSignupModalOpen,setIsSignupModalOpen] = useState(false)
 
+    const openModal = () => {
+        setIsSignupModalOpen(true)
+    }
 
     const closeModal = () => {
         setIsModalOpen(false)
@@ -55,7 +58,7 @@ const Main = () => {
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsModalOpen(true)}>Login</div>
                                     </li>
-                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal}/>
+                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal} openModal = {openModal}/>
 
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsSignupModalOpen(true)}>Sign up</div>

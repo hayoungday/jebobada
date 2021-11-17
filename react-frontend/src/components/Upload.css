@@ -202,6 +202,33 @@
     color: #3d7be6;
   }
 
+  .search-box{
+    width: 400px;
+    height: 50px;
+    /* margin: 31px 26.5px 62px 245px; */
+    margin: auto 0px auto auto;
+    text-align: center;
+    border-radius: 45px;
+    border: solid 1px #4B64D4;
+    background-color: #fff;
+    text-align: center;
+    color: #707070;
+    font-family: "NanumSquare-Regular";
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .search_button{
+      width: 20px;
+      height: 20px;
+      background-image: url('../assets/img/search.png');
+      background-size: 20px 20px;
+      border: 0;
+    }
+
   /* .react-tag-input {
     width: 931px;
     height: 55px;

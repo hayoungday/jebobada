@@ -482,25 +482,31 @@ def upload():
             
             print("-------------------------------")
             
-            if detEdi.useImageEditor() == None:
-                print("일단 편집 흔적은 없음~")
-                insert_data['edited'] = "false"
-                if kfdModule.isFakeKakaoApp():
-                    print("조작ㅋ")
-                    insert_data['manipulated'] = "true"
-                else:
-                    if kfdModule.isKakaoTalkLinedUpHorizontal() == False:
-                        print("조작")
-                        insert_data['manipulated'] = "true"
-                    else:
-                        print("정상!")
-                        insert_data['manipulated'] = "false"
-            else:
-                print("편집됨")
-                insert_data['edited'] = "true"
+            overallResult = kfdModule.getOverallResult()
+            useImageEditor = detEdi.useImageEditor()
             
-            print("is fake kakao app? : ", kfdModule.isFakeKakaoApp())
-            print("is chatbox lined up? : ", kfdModule.isKakaoTalkLinedUpHorizontal())
+            if overallResult['isFake'] : 
+                print("결과 : 조작된 카카오톡 대화창입니다")
+                insert_data['manipulated'] = "true"
+                
+                if overallResult['reason'] == 'notLinedUp' :
+                    print("근거 : 카카오톡 대화창이 바르게 정렬되지 않았습니다.") 
+                    insert_data['reason'] = "notLinedUp"
+                elif overallResult['reason'] == 'fakeApp' :
+                    print("근거 : 카카오톡 조작어플(톡썰메이커)가 사용된 흔적을 발견했습니다.")
+                    insert_data['reason'] = "fakeApp"
+            elif not useImageEditor : 
+                print("결과 : 편집 흔적이 발견되지 않음")
+                print("근거 : 편집 프로그램을 사용하거나 이미지를 조작한 흔적을 찾을 수 없습니다")
+                insert_data['edited'] = "false"
+                insert_data['reason'] = "none"
+
+            elif useImageEditor  : 
+                print("결과 : 편집흔적 발견")
+                print("근거 : 다음 프로그램 사용 흔적 발견 - ", useImageEditor)
+                insert_data['edited'] = "true"
+                insert_data['reason'] = "useprogram"
+                insert_data['programNames'] = useImageEditor
             
             print("-------------------------------")
             
@@ -1021,8 +1027,8 @@ def evidenceupdate_artifact():
 
     return "success"
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=5000, debug=True)
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=5000, debug=True)
 
 # if __name__=='__main__':
 #  app.run(host='0.0.0.0', port=80, debug=True)

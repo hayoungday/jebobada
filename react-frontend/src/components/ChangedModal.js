@@ -7,15 +7,26 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
     const pic_edited = () => {
       if (edited == "true"){
         return ("편집이 의심됩니다.")
-      } else if (edited=="false" & manipulated == "true"){
-        return ("조작이 의심됩니다.")
-      } else if (edited=="false" & manipulated == "false"){
-        return ("조작이 의심되지 않습니다.")
-      } else if (edited == "false"){
-          return ("편집 흔적을 찾을 수 없습니다.")
+      } else if (edited=="false"){
+        return ("편집 흔적을 찾을 수 없습니다")
+      } else if (manipulated == "true"){
+          return ("조작된 카카오톡 대화창입니다.")
       } else{
         return ("에러를 찾아라~")
       }
+    }
+
+    const pic_cause = () => {
+      if (reason == "notLinedUp"){
+        return("카카오톡 대화창이 바르게 정렬되지 않았습니다.")
+      } else if (reason == "fakeApp"){
+        return("카카오톡 조작어플(톡썰메이커)가 사용된 흔적을 발견했습니다.")
+      } else if (reason == "none"){
+        return("편집 프로그램을 사용하거나 이미지를 조작한 흔적을 찾을 수 없습니다")
+      } else if (reason == "useprogram"){
+        return("다음 프로그램 사용 흔적 발견 - ",{programNames})
+      }
+      
     }
 
     const aud_edited = () =>{
@@ -91,7 +102,7 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
                 </div>
                 <div className="flex-container-meta">
                   <span className="info_modify_text">판단 이유</span>
-                  <span className="info_modify_container1">카카오톡 조작 어플 사용이 의심됩니다.</span>
+                  <span className="info_modify_container1">{pic_cause()}</span>
                 </div>
               </div>      
           </>
