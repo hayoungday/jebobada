@@ -44,11 +44,8 @@ class Case extends React.Component {
             } else{
                 console.log('취소되었습니다.')
             }
-            
-            
         }
-
-        
+                
         return (
             
             <TableRow>
@@ -61,11 +58,13 @@ class Case extends React.Component {
                 <TableCell style={{ textAlign: "center" }}>{this.props.description}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                     <div className="flex-container-evidence">
-                        <button onClick={this.openModal} className="button_edit">수정</button>
+                        <div className="button_edit">
+                        <button onClick={this.openModal} className="button_text">수정</button></div>
                         <CaseEditModal visible={this.state.isModalOpen} case_name = {this.props.name} user = {this.props.user} closeModal = {this.closeModal} desc = {this.props.description}>
                             
                         </CaseEditModal>
-                        <button onClick={handleDeleteButton} className="button_edit">삭제</button>
+                        <div className="button_edit">
+                        <button onClick={handleDeleteButton} className="button_text">삭제</button></div>
                     </div>
                 </TableCell>
             </TableRow>

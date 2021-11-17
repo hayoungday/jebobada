@@ -12,7 +12,7 @@ const sexual = ["성희롱"]
 
 
 
-function Check_Modal({ className, visible, type, children, getSetValue }) {
+function Check_Modal({ className, visible, type, children, getSetValue, closeModal }) {
 
   const [chk_physics, setPhysics] = useState(new Array(physics.length).fill(false))
   const [chk_lang, setLang] = useState(new Array(lang.length).fill(false))
@@ -101,7 +101,6 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
   }
 
   const modal_contents = (type) => {
-    
 
     const checkedItemHandler = (id, isChecked, position) => {
       if (isChecked) {
@@ -121,40 +120,69 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
 
     if (type == "physics"){
       return (
-        <div>
-        <img data-tip data-for="physics" src="./static/react/questionmark.png"/>
-          {physics.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        
-        <ReactTooltip id="physics" place="top" effect="solid">
-        - 폭행 : 물건을 던지거나 책상을 치는 등 신체적인 위협이나 폭력을 가하는 행위<br/>
-        </ReactTooltip>
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">신체적 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+              {physics.map((issue, index)=>(
+                <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+              ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
+          <ReactTooltip id="physics" place="top" effect="solid">
+          - 폭행 : 물건을 던지거나 책상을 치는 등 신체적인 위협이나 폭력을 가하는 행위<br/>
+          </ReactTooltip>
         </div>
       )
     } else if (type == "lang"){
       return (
-        <div>
-        <img data-tip data-for="lang" src="./static/react/questionmark.png"/>
-          {lang.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        <ReactTooltip id="lang" place="top" effect="solid">
+
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">언어적 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+            {lang.map((issue, index)=>(
+              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+            ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
+          <ReactTooltip id="lang" place="top" effect="solid">
         - 폭언 : 욕설이나 폭언 등 위협 또는 모욕적인 언행을 하는 행위<br/>
         - 모욕 : 다른 직원들 앞 또는 온라인상에서 모욕감을 주는 행위<br/>
         - 협박 : 업무상 불이익을 주겠다며 협박하는 행위<br/>
         - 비하 : 외모, 연령, 학력, 지역, 성별, 비정규직 등을 이유로 인격을 비하하는 행위<br/>
-        </ReactTooltip>
-        </div>
+          </ReactTooltip>
+        </div> 
+
       )
     } else if (type == "onwork"){
       return (
-        <div>
-        <img data-tip data-for="onwork" src="./static/react/questionmark.png"/>
-          {onwork.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        <ReactTooltip id="onwork" place="top" effect="solid">
+
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">업무적 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+            {onwork.map((issue, index)=>(
+              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+            ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
+          <ReactTooltip id="onwork" place="top" effect="solid">
         - 무시 : 업무나 인간관계 등에 대해 무시하거나 비아냥거리는 행위<br/>
         - 정보차단 : 합당한 이유 없이 특정정보에 접근, 전달하지 못하게 하는 행위<br/>
         - 차단 : 비품을 주지 않거나, 인터넷, 사내 네트워크 접속을 차단하는 행위<br/>
@@ -172,15 +200,26 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
         - 사비 : 회사 용품을 개인 돈으로 사게 하는 행위<br/>
         </ReactTooltip>
         </div>
+
       )
     } else if (type == "outwork"){
       return (
-        <div>
-        <img data-tip data-for="outwork" src="./static/react/questionmark.png"/>
-          {outwork.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        <ReactTooltip id="outwork" place="top" effect="solid">
+
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">업무외 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+            {outwork.map((issue, index)=>(
+              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+            ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
+          <ReactTooltip id="outwork" place="top" effect="solid">
         - 행사 : 체육행사, 단합대회 등 비업무적인 행사를 강요하는 행위<br/>
         - 장기자랑 강요 : 장기자랑을 강요하는 행위<br/>
         - 강요 : 회식, 음주, 흡연 또는 금연을 강요<br/>
@@ -190,35 +229,54 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
         - 모임 : 동호회나 모임을 만들지 못하게 하거나 강제로 가입시키는 행위<br/>
         - 실업급여 : 권고사직 확인 등 구직급여 절차에 협조하지 않는 행위<br/>
         </ReactTooltip>
-          
         </div>
       )
     } else if (type == "group"){
       return (
-        <div>
-        <img data-tip data-for="group" src="./static/react/questionmark.png"/>
-          {group.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
-        <ReactTooltip id="group" place="top" effect="solid">
+
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">집단적 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+            {group.map((issue, index)=>(
+              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+            ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
+          <ReactTooltip id="group" place="top" effect="solid">
         - 따돌림 : 상사나 다수의 직원이 특정한 직원을 따돌리는 행위<br/>
         - 소문 : 개인 사생활에 대한 뒷담화나 소문, 허위사실 등을 퍼뜨리는 행위<br/>
         - 비밀 : 의사에 반해 직장 내 괴롭힘을 신고한 제보자의 신원을 공개하는 행위<br/>
         - 태움 : 업무를 가르치면서 학습능력 부족 등을 이유로 괴롭히는 행위<br/>
         </ReactTooltip>
         </div>
+
       )
     } else if (type == "sexual"){
       return (
-        <div>
-          <img data-tip data-for="sexual" src="./static/react/questionmark.png"/>
-          {sexual.map((issue, index)=>(
-            <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
-          ))}
+
+        <div className="flex-column-container-agree">
+          <span className="type-modal-title">괴롭힘 유형 선택</span>
+          <div className="flex-container-type-modal">
+            <span className="type-modal-subtitle">성희롱 괴롭힘</span>
+            <img className="qna-icon" data-tip data-for="physics" src="./static/react/questionmark.png"/>
+          </div>
+          <div className="type-chkbox">
+            {sexual.map((issue, index)=>(
+              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+            ))}
+          </div>
+          
+          <button className="type-modal-confirm-button" onClick={closeModal}>확인</button>
+
           <ReactTooltip id="sexual" place="top" effect="solid">
           - 성희롱 : 성적 수치심을 주며 피해를 입히는 행위<br/>
           </ReactTooltip>
-          
         </div>
       )
     }
@@ -245,7 +303,8 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
   Check_Modal.propTypes = {
     visible: PropTypes.bool,
     type: PropTypes.string,
-    getSetValue: PropTypes.func
+    getSetValue: PropTypes.func,
+    closeModal: PropTypes.func,
   }
   
   const ModalWrapper = styled.div`
@@ -277,11 +336,10 @@ function Check_Modal({ className, visible, type, children, getSetValue }) {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #dee5f8;
+    background-color: #fff;
     border-radius: 50px;
-    width: 600px;
-    max-width: 800px;
-    height: 400px;
+    width: 800px;
+    height: 600px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

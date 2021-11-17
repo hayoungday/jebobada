@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function TypeChooser(props) {
-  const [type, setType] = React.useState("");
+  const [type, setType] = React.useState(props.defaultType);
   const handleChange = (event) => {
     
     props.getType(event.target.value)
@@ -19,7 +19,7 @@ export default function TypeChooser(props) {
         <Select
           autoWidth
           native
-          defaultValue="dd"
+          defaultValue={props.defaultType}
           id="grouped-native-select"
           label="Grouping"
           onChange={handleChange}

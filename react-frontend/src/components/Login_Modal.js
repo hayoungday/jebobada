@@ -2,6 +2,8 @@ import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types'
 import "./login.css";
 import "./Main.css"
+import Signup_Modal from './Signup_Modal';
+
 import { Link } from "react-router-dom";
 import { KAKAO_AUTH_URL } from "./config";
 import KaKaoLogin from "react-kakao-login";
@@ -11,12 +13,18 @@ import { Cookies } from "react-cookie";
 import { withRouter } from 'react-router-dom'
 import KakaoLogin from 'react-kakao-login';
 
-function Login_Modal({ className, visible, children, closeModal }) {
+function Login_Modal({ className, visible, children, closeModal, openModal }) {
 
   const cookies = new Cookies();
 
   const [local_id, setId] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isSignupModalOpen,setIsSignupModalOpen] = useState(false)
+
+  const closeSignupModal=()=>{
+    setIsSignupModalOpen(false)
+  }
 
   const onIdHandler = (event) => {
     setId(event.currentTarget.value);
@@ -61,12 +69,9 @@ function Login_Modal({ className, visible, children, closeModal }) {
             <div className="kakao_login_medium_wide"/>
         </a>
         <div className="login_divider"/>
-        <Link to = "/signup">
-            <button className="signup_button_box">
-                회원가입
-                {/* <span className="signup_button_text">회원가입</span>     */}
-            </button>
-        </Link>
+          <button className="signup_button_box" onClick={()=>{closeModal();openModal();}}>
+              회원가입
+          </button>
      </div>
   );
     }
@@ -88,6 +93,7 @@ function Login_Modal({ className, visible, children, closeModal }) {
     visible: PropTypes.bool,
     type : PropTypes.string,
     closeModal : PropTypes.func,
+    openModal : PropTypes.func,
   }
   
   const ModalWrapper = styled.div`

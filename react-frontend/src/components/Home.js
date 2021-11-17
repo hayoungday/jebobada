@@ -1,7 +1,9 @@
 import React from 'react';
 // import './Header.css';
+import FadeIn from 'react-fade-in';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import './Home.css'
+import DownloadIcon from '@mui/icons-material/Download';
 
 
 {/* <Link class="nav-link" to="/about">서비스소개</Link> */}
@@ -9,11 +11,17 @@ import './Home.css'
 const Home = () => {
     return (
         <div className="wrap">
+            <FadeIn>
             <div className="flex-container-main">
+            
                 <div className="first_box">
                     <div className="flex-column-container-main">
                         <span className="first_title">괴롭힘 자료</span>
-                        <h3 style={{textAlign:"center"}}>등록/조회</h3>
+                        <h3 style={{
+                            textAlign:"center",
+                            fontFamily:"NanumSquare-Regular"
+                            }}
+                        >등록/조회</h3>
                         <div className="flex-column-content-container">
 
                             <span className="upload_content">
@@ -25,7 +33,7 @@ const Home = () => {
 
                             <div className="flex-container-first-box">
                                 <Link to="/casepage" className="go_button_box2" style={{textDecoration:'none'}}>My Storage</Link>
-                                <Link to="/Download" className="go_button_box2" style={{textDecoration:'none'}}>JB Extractor</Link>
+                                <a href="https://craftguy.s3.ap-northeast-2.amazonaws.com/JB+Extractor.exe" className="go_button_box2" style={{textDecoration:'none'}}>JB Extractor&nbsp; <DownloadIcon/></a>
                             </div>
                         </div>
                     </div>
@@ -34,7 +42,7 @@ const Home = () => {
                 <div className="third_box">
                     <div className="flex-column-container-main">
                         <span className="third_title">보고서</span>
-                        <h3 style={{textAlign:"center"}}>생성/조회/편집</h3>
+                        <h3 style={{textAlign:"center",fontFamily:"NanumSquare-Regular"}}>생성/조회/편집</h3>
                         
                         <span className="third_content">
                             <p/>등록한 증거들의 분석 결과를<p/>
@@ -47,7 +55,9 @@ const Home = () => {
                         </Link>
                     </div>
                 </div>
+                
             </div>
+            </FadeIn>
         </div>            
     );
 };

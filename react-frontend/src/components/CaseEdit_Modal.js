@@ -40,15 +40,15 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
           <div>
             <button className="close_icon_login" onClick={closeModal}/>
             <div className="flex-column-container-case">
-              <span className="modal_title">사건 정보를 작성해주세요</span>
+              <span className="modal_title">폴더 수정</span>
               <form onSubmit={handleFormSubmit}>
                 <div className="flex-container-first-box">
-                  <span className="case_name"> 사건명:{" "}</span>
+                  <span className="case_name"> 폴더명:{" "}</span>
                   <label className="case_name_fixed">{case_name}</label>
                 </div>
                 
                 <div className="flex-container-first-box">
-                  <span className="case_description"> 한줄요약:{" "}</span>
+                  <span className="case_description"> 설명:{" "}</span>
                   <input className="case_description_input"
                     type="text"
                     name="description"

@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "NotoSansKR-Regular";
+    font-display: fallback;
+    src: url("./NotoSansKR-Medium.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NotoSansKR-Light";
+    font-display: fallback;
+    src: url("./NotoSansKR-Light.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NanumSquare-Regular";
+    font-display: fallback;
+    src: url("./NanumSquareOTF_acR.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NanumSquare-Light";
+    font-display: fallback;
+    src: url("./NanumSquareOTF_acL.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}

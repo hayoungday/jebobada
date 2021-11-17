@@ -13,6 +13,9 @@ const Main = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isSignupModalOpen,setIsSignupModalOpen] = useState(false)
 
+    const openModal = () => {
+        setIsSignupModalOpen(true)
+    }
 
     const closeModal = () => {
         setIsModalOpen(false)
@@ -55,7 +58,7 @@ const Main = () => {
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsModalOpen(true)}>Login</div>
                                     </li>
-                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal}/>
+                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal} openModal = {openModal}/>
 
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsSignupModalOpen(true)}>Sign up</div>
@@ -80,7 +83,7 @@ const Main = () => {
                                     <div class="mb-14">
                                         <h1 class="text-6xl montserrat hidden md:block">JeBoBADA</h1>
                                         <h1 class="text-6xl montserrat md:hidden">JeBoBADA</h1>
-                                        <p>증거 확보로 피해자의 권리구제를 돕는 서비스</p>
+                                        <p>직장 내 괴롭힘,<br></br><br></br>당신의 잘못이 아닙니다.<br></br><br></br><br></br><br></br>증거 자료 관리부터 보고서 작성까지</p>
                                     </div>
                                 </div>
                             </div>    

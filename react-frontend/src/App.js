@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Header from './components/Header';
 import Home from './components/Home';
-
+import "./fonts/font.css";
 
 class App extends Component {
     render() {

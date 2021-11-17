@@ -13,7 +13,7 @@
   width: 234px;
   height: 82px;
   margin:0 0 0 0;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -39,7 +39,7 @@ text-align: center;
   width: 234px;
   height: 41px;
   margin:auto;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -64,7 +64,7 @@ text-align: center;
 width: 128px;
 height: 41px;
 margin:auto;
-font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
 font-size: 30px;
 font-weight: bold;
 font-stretch: normal;
@@ -87,7 +87,7 @@ background-color: #e2e2e2; */
   width: 600px;
   height: 54px;
   margin: 0 auto 15px auto;
-  font-family: SegoeUI;
+  font-family: NanumSquare-Regular;
   font-size: 40px;
   font-weight: bold;
   font-stretch: normal;
@@ -95,7 +95,7 @@ background-color: #e2e2e2; */
   line-height: 54px;
   letter-spacing: normal;
   text-align: center;
-  color: #568ce9;
+  color: #4B64D4;
 }
 
 .agreement {
@@ -113,7 +113,7 @@ background-color: #e2e2e2; */
   margin: 0;
   float: left;
   /* margin: 0 518px 6px 0; */
-  font-family: SegoeUI;
+  font-family: NanumSquare-Regular;
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -129,7 +129,7 @@ background-color: #e2e2e2; */
   height: auto;
   display: flex;
   margin: 6px 10px 12px 0;
-  font-family: SegoeUI;
+  font-family: NotoSansKR-Light;
   font-size: 20px;
   font-weight: normal;
   font-stretch: normal;
@@ -146,9 +146,9 @@ background-color: #e2e2e2; */
   margin: 20px auto;
   padding: 21px 69px;
   border-radius: 20px;
-  border: solid 1px #3d7be6;
+  border: solid 1px #4B64D4;
   background-color: #fff;
-  font-family: SegoeUI;
+  font-family: NanumSquare-Regular;
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;
@@ -156,7 +156,30 @@ background-color: #e2e2e2; */
   line-height: 1.32;
   letter-spacing: normal;
   text-align: center;
-  color: #3d7be6;
+  color: #4B64D4;
+  transition: background-color 0.2s ease-in-out,
+              color 0.2s ease-in-out;
+}
+
+.agree-button-container:hover {
+  width: 188px;
+  height: 75px;
+  margin: 20px auto;
+  padding: 21px 69px;
+  border-radius: 20px;
+  border: solid 1px #4B64D4;
+  background-color: #4B64D4;
+  font-family: NanumSquare-Regular;
+  font-size: 25px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.32;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
+  transition: background-color 0.2s ease-in-out,
+              color 0.2s ease-in-out;
 }
 
 .select-case-text{
@@ -164,15 +187,15 @@ width: 1000px;
 height: 60px;
 /* margin: 0 237px 0 1px; */
 margin: auto;
-font-family: SegoeUI;
+font-family: NanumSquare-Regular;
 font-size: 45px;
-font-weight: bold;
 font-stretch: normal;
 font-style: normal;
 line-height: 1.33;
 letter-spacing: normal;
 text-align: left;
-color: #000;
+font-weight: bolder;
+color: #3F3F3F;
 }
 
 .select-case-content{
@@ -180,7 +203,7 @@ width: 1000px;
 height: 82px;
 /* margin: 60px 0 0; */
 margin: auto;
-font-family: SegoeUI;
+font-family: NotoSansKR-Regular;
 font-size: 15px;
 font-weight: normal;
 font-stretch: normal;
@@ -188,33 +211,33 @@ font-style: normal;
 line-height: 1.33;
 letter-spacing: normal;
 text-align: left;
-color: #000;
+color: #3F3F3F;
 }
 
 .add-case-button{
-width: 288px;
-height: 80px;
+width: 150px;
+height: 50px;
 /* margin: 31px 26.5px 62px 245px; */
 margin: auto 0px auto auto;
-padding: 17px;
 text-align: center;
-border-radius: 50px;
-border: solid 1px #3d7be6;
-background-color: #3d7be6;
+border-radius: 45px;
+border: solid 1px #4B64D4;
+background-color: #4B64D4;
 text-align: center;
 color: #fefefe;
-font-family: SegoeUI;
-font-size: 35px;
+font-family: NanumSquare-Regular;
+font-size: 20px;
 font-weight: bold;
 font-stretch: normal;
-font-style: normal;
+font-style: normal; 
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .modal_title {
   width: 400px;
   height: 54px;
   margin: 10px auto;
-  font-family: SegoeUI;
+  font-family: NanumSquare-Regular;
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;
@@ -222,7 +245,7 @@ font-style: normal;
   line-height: 1.33;
   letter-spacing: normal;
   text-align: center;
-  color: #000;
+  color: #4B64D4;
   }
 
   .case_name{
@@ -230,7 +253,7 @@ font-style: normal;
   height: 40px;
   margin: 9px 10px 0px 0;
   vertical-align: middle;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -259,7 +282,7 @@ font-style: normal;
     background-color: #fff;
     line-height: 57px;
     vertical-align: middle;
-    font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -274,7 +297,7 @@ font-style: normal;
   height: 40px;
   margin: 27px 10px 27px 0;
   vertical-align: middle;
-  font-family: SegoeUI;
+font-family: "NotoSansKR-Regular";
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -302,8 +325,8 @@ font-style: normal;
     padding: 10px 51px 11px;
     border-radius: 50px;
     border: solid 1px #707070;
-    background-color: #3d7be6;
-    font-family: SegoeUI;
+    background-color: #4B64D4;  
+    font-family: "NotoSansKR-Regular";
     font-size: 20px;
     font-weight: bold;
     font-stretch: normal;
@@ -327,4 +350,127 @@ font-style: normal;
   .close_button_img{
     width: 20px;
     height: 20px;
+  }
+
+  .table_style{
+    height: auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 18px;
+    background-color: white;
+    max-height: 530px;
+    overflow-y: auto;
+  }
+
+  .table{
+    table-layout: fixed;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+  }
+
+  .table_cell_left{
+    text-align: center;
+    background-color: #4B64D4;
+    border-top-left-radius: 18px;
+  }
+
+  .table_cell_right{
+    text-align: center;
+    background-color: #4B64D4;
+    border-top-right-radius: 18px;
+
+  }
+
+  .table_cell{
+    text-align: center;
+    background-color: #4B64D4;
+
+  }
+
+  .table_head_typo{
+    color:white;
+    font-family: NanumSquare-Regular;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .casepage_test_case_box{
+    display:table-cell;
+    vertical-align: top;
+    background-color: white;
+    border-radius: 18px;
+    font-family: NanumSquare-Regular;
+    word-break: normal;
+    float: left;
+    width: 350px;
+    height: 350px;
+    margin-left: 5%;
+    margin-top:5%;
+    line-height: 0px;
+    text-align: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  /* .casepage_test_case_box:hover{
+    display:table-cell;
+    vertical-align: top;
+    background-color: white;
+    border-radius: 18px;
+    border: solid 2px #4B64D4;
+    font-family: NanumSquare-Regular;
+    float: left;
+    width: 350px;
+    height: 350px;
+    margin-left: 5%;
+    margin-top:5%;
+    line-height: 0px;
+    text-align: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: border 0.1s ease-in-out;
+  } */
+
+  .casepage_test_case_box_title{
+    background-color: #4B64D4;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    width:350px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 18px;
+    color:#fff;
+    margin-bottom: 100px;
+    font-family: NanumSquare-Regular;
+    transition: font-size 0.2s ease-in-out;
+  }
+
+  .casepage_test_case_box_title:hover{
+    background-color: #4B64D4;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    width:350px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 20px;
+    color:#fff;
+    margin-bottom: 100px;
+
+    transition: font-size 0.2s ease-in-out;
+  }
+
+  .casepage_test_case_box_desc{
+    font-size: 18px;
+    color:#3F3F3F;
+    font-family: NotoSansKR-Regular;
+    margin-bottom: 100px;
+    word-break: normal;
+  }
+  
+  .text_color{
+    color:#4B64D4
+  }
+
+  .circular_progress{
+    display:flex;
+    justify-content: center;
+    align-items: center;
   }

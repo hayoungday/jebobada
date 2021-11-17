@@ -19,25 +19,32 @@ export default function ViewArtifact_checkedFalse(props) {
     if (checked) {
       setCheckInputs([...checkedInputs, id]);
       props.data[id].isChecked = "true";
-      console.log(id);
       props.getData(props.data);
     } else {
       setCheckInputs(checkedInputs.filter((el) => el !== id));
       props.data[id].isChecked = "false";
-      console.log(id);
       props.getData(props.data);
     }
   };
 
-  // console.log(props.startTime);
-  // console.log(props.endTime);
-  // console.log(props.isFilter)
-  // console.log(props.work_startTime)
-  // console.log(props.work_endTime)
-  
+  const header_Typo={
+    color:"white",
+    fontFamily: "NanumSquare-Regular"
+  }
+
+  const header_Back={
+    backgroundColor:"#576DD4",
+    
+  }
+
+  const desc_Typo={
+    fontFamily:"NanumSquare",
+    color:"#576DD4",
+    fontWeight:"bolder"
+  }
+
   let filteredData;
   if(props.isDetail==false){
-    console.log(props.isDetail)
     filteredData = props.data.filter(
       (res) => res.Timestamp >= props.startTime && res.Timestamp <= props.endTime &&res.Name.includes(props.keyword)&&(res.Desc=="컴퓨터 ON"||res.Desc=="컴퓨터 OFF"||res.Desc=="인터넷 검색"||res.Desc=="웹사이트 방문"||res.Desc=="문서 삭제"||res.Desc=="문서 열람")
     );
@@ -49,34 +56,32 @@ export default function ViewArtifact_checkedFalse(props) {
   }  
 
   return (
-    <div style={{ transition: "all.5s ease"}}>
-      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}}>
+    <div style={{ backgroundColor:"white"}}>
+      <Table style={{ transition: "all.5s ease", tableLayout:"fixed",wordBreak:"break-all",wordWrap:"break-word"}} stickyHeader>
         <colgroup>
-          <col style={{ width: "10%" }} />
+          <col style={{ width: "5%" }} />
           <col style={{ width: "5%" }} />
           <col style={{ width: "15%" }} />
-          <col style={{ width: "15%" }} />
-          <col style={{ width: "30%" }} />
-          {props.isDetail==true?<col style={{ width: "25%" }}/>:null}
+          
+          {props.isDetail==true?<col style={{ width: "40%" }}/>:<col style={{ width: "75%" }}/>}
+          
+          {props.isDetail==true?<col style={{ width: "35%" }}/>:null}
           
         </colgroup>
         <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell>
+          <TableRow >
+            <TableCell style={header_Back}></TableCell>
+            <TableCell style={header_Back}>
               <Typography variant="h6"></Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">설명</Typography>
+            <TableCell style={header_Back}>
+              <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
-            <TableCell>
-              <Typography variant="h6">시간</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">작업명</Typography>
-            </TableCell>
-            {props.isDetail==true?<TableCell>
-              <Typography variant="h6">경로</Typography>
+            <TableCell style={header_Back}>
+              <Typography variant="h6" style={header_Typo}>작업명</Typography>
+            </TableCell >
+            {props.isDetail==true?<TableCell style={header_Back}>
+              <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>:null}
             
           </TableRow>
@@ -114,10 +119,11 @@ export default function ViewArtifact_checkedFalse(props) {
                     ) : (
                       <Checkbox
                         {...label}
+                        defaultChecked={true}
                         onChange={(e) => {
                           changeHandler(e.currentTarget.checked, c.index);
                         }}
-                        checked={checkedInputs.includes(c.index) ? true : false}
+                        checked={true}
                       />
                     )}
                   </TableCell>
@@ -128,10 +134,8 @@ export default function ViewArtifact_checkedFalse(props) {
                     ></img>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle1">{c.Desc}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle1">
+                    <Typography variant="h6" style={desc_Typo}>{c.Desc}</Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
                       {c.Timestamp.replace("T", " ")}
                     </Typography>
                   </TableCell>

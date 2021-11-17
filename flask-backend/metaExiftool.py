@@ -70,11 +70,11 @@ class metaExiftool :
     def getMeta(self, filepath) : 
         # 터미널로 exiftool 실행 : 자식프로세스로 실행
         # exiftool 툴 출력값(str)을 그대로 반환
-
-        cmd = "curl -s %s | exiftool -" %filepath
-        output = subprocess.check_output(cmd, shell=True)
         
-        # with open(filepath, 'rb') as f : 
+        cmd = "curl -s \"%s\" | exiftool -" % filepath # 서버 배포 시 사용
+        # cmd = "exiftool \"%s\"" % filepath # 로컬 디버깅 시 사용
+        output = subprocess.check_output(cmd, shell=True)
+ 
         return output
     
     def getKeyValueFromLine(self,line) : 
@@ -96,6 +96,9 @@ class metaExiftool :
             if line : 
                 key, value = self.getKeyValueFromLine(line)
                 returnDict[key] = value
+        # 불필요한 필드 삭제 
+        if 'Warning' in returnDict.keys() : 
+            del returnDict['Warning']
         return returnDict
 
 
@@ -266,5 +269,6 @@ class metaExiftool :
         if status == 'OK' : # 주소가 우리나라에 있을 경우에만 flag가 True
             flag = True 
         return flag
+
 
 

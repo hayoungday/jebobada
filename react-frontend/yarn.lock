@@ -10595,6 +10595,11 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-fade-in@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-fade-in/-/react-fade-in-2.0.1.tgz#b4bcd7dac63d6857ebcd68facbff2f5f9616278f"
+  integrity sha512-oqS/WT4znaXEHmL+yo0IDUDY7uC9K4RP35j1SdRUEBspR09B2iIC0i8oJ28tPOr6Ez/L2aktF9p89j+DbsTVNw==
+
 react-fluid-table@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/react-fluid-table/-/react-fluid-table-0.4.2.tgz#3ff9f29a1bf00ae2a4c03bc16f985b2bfef9282a"

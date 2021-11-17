@@ -288,8 +288,8 @@ video {
 }
 
 .mx-auto {
-    margin-left: auto;
-    margin-right: auto
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .mt-24 {
@@ -1034,7 +1034,8 @@ html {
 body,
 html {
     height: 100%;
-    width: 100%
+    width: 100%;
+    background-color: #f0f0f4;
 }
 
 body {
@@ -1144,6 +1145,18 @@ header .container {
         height: 3.75rem
     }
 }
+
+.logo {
+    height: 3.5rem;
+    /* background-color: #212529; */
+    width: 100vw;
+    line-height: 3.5rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
 
 header .logo {
     width: 230px;

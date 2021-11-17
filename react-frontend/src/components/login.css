@@ -83,7 +83,7 @@
   width: 120px;
   height: 54px;
   margin: 0 360px 20px 0;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 40px;
   font-weight: bold;
   font-stretch: normal;
@@ -118,10 +118,10 @@
   padding: 21px 213px 21px 214px;
   border-radius: 20px;
   border: solid 1px #707070;
-  background-color: #3d7be6;
+  background-color: #4B64D4;
   text-align: center;
   color: #fff;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;
@@ -136,13 +136,13 @@
   padding: 21px 188px 21px 214px;
   border-radius: 20px;
   border: solid 1px #707070;
-  background-color: #3d7be6;
-  
+  background-color: #4B64D4;
+
   text-align: center;
   color: #fff;
   font-size: 25px;
   font-weight: bold;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
 }
 
 .kakao_login_medium_wide {
@@ -167,7 +167,7 @@
   padding: 21px 188px 21px 214px;
   border-radius: 20px;
   border: solid 1px #707070;
-  background-color: #3d7be6;
+  background-color: #4B64D4;
 }
 
 
@@ -193,7 +193,7 @@
   width: 160px;
   height: 54px;
   margin: 15px 362px 28px 1px;
-  font-family: SegoeUI;
+  font-family: "NotoSansKR-Regular";
   font-size: 40px;
   font-weight: bold;
   font-stretch: normal;
@@ -220,8 +220,8 @@
   padding: 21px 44px;
   border-radius: 20px;
   border: solid 1px #707070;
-  background-color: #3d7be6;
-  font-family: SegoeUI;
+  background-color: #4B64D4;
+  font-family: "NotoSansKR-Regular";
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;
@@ -257,8 +257,8 @@
   padding: 21px 285px 21px 325px;
   border-radius: 20px;
   border: solid 1px #707070;
-  background-color: #3d7be6;
-  font-family: SegoeUI;
+  background-color: #4B64D4;
+  font-family: "NotoSansKR-Regular";
   font-size: 25px;
   font-weight: bold;
   font-stretch: normal;

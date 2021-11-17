@@ -1,0 +1,249 @@
+.upload_title {
+    width: 1120px;
+    height: 44px;
+    margin: auto auto 20px auto;
+    font-family: "NanumSquare-Regular";
+    font-size: 40px;
+    font-weight: bolder;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.13;
+    letter-spacing: normal;
+    text-align: left;
+    display: flex;
+    align-items:flex-start;
+    color: #3f3f3f;
+  }
+
+  .upload_subtitle {
+    width: 1120px;
+    height: 22px;
+    margin: auto auto 20px auto;
+    font-family: "NotoSansKR-Light";
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3f3f;
+  }
+
+  .upload_box  {
+    width: 1140px;
+    height: 950px;
+    margin: auto;
+    padding: 33.4px 99px 61.8px;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 7px 29px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  .upload-button-container {
+    width: 143px;
+    height: 75px;
+    margin: 40px auto 200px auto;
+    display: flex;
+    align-items: center;
+    padding: 24px 48px 24px 49px;
+    border-radius: 10px;
+    border: solid 1px #0753e9;
+    background-color: #0753e9;
+    font-family: "NotoSansKR-Regular";
+    font-size: 25px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+  }
+
+  .upload-input-text {
+    width: 400px;
+    height: 22px;
+    margin: 25px 104px 10px 10px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3f3f;
+  }
+
+  .upload-input-box {
+    width: 931px;
+    height: 55px;
+    /* margin: 10px 19px 35px 4px; */
+    padding: 10px 10px 10px 10px;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .upload-input-desc-box {
+    width: 931px;
+    height: 181px;
+    margin: 10px 9px 10px 4px;
+    padding: 10px 10px 10px 10px;
+
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    
+  }
+
+  .upload-modal-button {
+    width: 130px;
+    height: 55px;
+    margin:auto;
+    /* padding: 14px 31px; */
+    border-radius: 10px;
+    border: solid 1px #4B64D4;
+    background-color: #fff;
+    font-family: "NotoSansKR-Regular";
+    font-size: 25px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 55px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0753e9;
+  }
+
+  .flex-container-modal-button {
+    display: flex;
+    height: auto;
+    margin: auto;
+    /* margin:200px 200px 200px 200px; */
+    /* justify-content: center; */
+  }
+
+  .flex-container-type-modal {
+    display: flex;
+    width: 600px;
+    height: auto;
+    margin: auto;
+}
+
+
+  .type-modal-title {
+    width: 600px;
+    height: 54px;
+    margin: 10px auto;
+    font-family: "NanumSquare-Regular";
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #568ce9;
+  }
+
+  .type-modal-subtitle {
+    width: auto;
+    height: 41px;
+    margin: auto 0;
+    font-family: "NanumSquare-Regular";
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #568ce9;
+  }
+
+  .qna-icon {
+    width: 30px;
+    height: 30px;
+    margin: auto 10px;
+    border-radius: 64px;
+  }
+
+  .type-chkbox {
+    width: 600px;
+    height: 313px;
+    margin: auto;
+    padding: 54px 116px 55px;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+  }
+
+  .type-modal-confirm-button {
+    width: 100px;
+    height: 60px;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 1px #3d7be6;
+    background-color: #fff;
+    font-family: "NanumSquare-Regular";
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 15px;
+    letter-spacing: normal;
+    text-align: center;
+    justify-content: center;
+    color: #3d7be6;
+  }
+
+  .search-box{
+    width: 400px;
+    height: 50px;
+    /* margin: 31px 26.5px 62px 245px; */
+    margin: auto 0px auto auto;
+    text-align: center;
+    border-radius: 45px;
+    border: solid 1px #4B64D4;
+    background-color: #fff;
+    text-align: center;
+    color: #707070;
+    font-family: "NanumSquare-Regular";
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .search_button{
+      width: 20px;
+      height: 20px;
+      background-image: url('../assets/img/search.png');
+      background-size: 20px 20px;
+      border: 0;
+    }
+
+  /* .react-tag-input {
+    width: 931px;
+    height: 55px;
+    margin: 10px 19px 35px 4px;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 1px #707070;
+    background-color: #fff;
+    font-family: "NotoSansKR-Regular";
+    font-size: 10px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 10px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3f3f;
+  } */

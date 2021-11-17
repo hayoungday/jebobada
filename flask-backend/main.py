@@ -8,6 +8,8 @@ import pymongo
 import requests
 import boto3
 import clovaspeechAPI, googleOCR, metaExiftool,check_csv
+import detectEdition #음성
+import kakaoForgeryDetect
 from datetime import datetime
 import hashlib
 from bson.objectid import ObjectId
@@ -372,19 +374,67 @@ def upload():
             aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
             aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
             )
-            
-            collection.insert_one(insert_data)
                         
             s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
             #'ServerSideEncryption':'aws:kms'  
                   
             
             url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+            
             clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+            
             returnDict = meta.getAudioTags(url)
             o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
             insert_data['metadata']=returnDict
-            collection.update(o_query,{"$set":{'metadata':insert_data['metadata']}})
+            
+            ###편집여부 backend###
+            
+            detEdi = detectEdition.detectEdition()
+            detEdi.setFilePath(url)
+            
+            useFamousApp = detEdi.useFamousRecorderApp()
+            isEditted_dic = detEdi.isEditted()
+            isEditted = isEditted_dic['isEditted']
+            
+            editted_result = ""
+            
+            if (useFamousApp):
+                print('편집아님1')
+                insert_data['edited']="false"
+
+            elif (useFamousApp == None and isEditted == True):
+                print('편집됨')
+                insert_data['edited']="true"
+                
+                if isEditted_dic['reason'] == "meta":
+                    insert_data['reason'] = "meta"
+                    insert_data['relatedMetadata'] = isEditted_dic['relatedMetadataFields']
+                    insert_data['programNames'] = isEditted_dic['programNames'][0]
+                elif isEditted_dic['reason'] == "cmt":
+                    insert_data['reason'] = "cmt"
+                
+            elif (useFamousApp == None and isEditted == False):
+                print('편집아님')
+                insert_data['edited']="false"
+                
+            else:
+                editted_result = "else"
+                print("error 삐용삐용 ")
+            
+            print("=========================")
+            print(useFamousApp)
+            print(isEditted_dic)
+            print(isEditted)
+            print(editted_result)
+            print("=========================")
+            
+            collection.insert_one(insert_data)
+            
+            
+            ###STT
+            
+            
+            # collection.update(o_query,{"$set":{'metadata':insert_data['metadata']}})
 
         elif (fileExt in image):   
             insert_data['text']=''
@@ -418,13 +468,50 @@ def upload():
                 pass
 
             insert_data['filetype']='사진 파일'
-            insert_data['state']='변환완료'
+            insert_data['state']='등록완료'
 
             returnDict = meta.getImageTags(url)
             print(type(returnDict))
             insert_data['metadata'] = returnDict
-            collection.insert_one(insert_data)
+            
+            
+            #===카톡조작===
+            kfdModule = kakaoForgeryDetect.kakaoForgeryDetect(url)
+            detEdi = detectEdition.detectEdition()
+            detEdi.setFilePath(url)
+            
+            print("-------------------------------")
+            
+            overallResult = kfdModule.getOverallResult()
+            useImageEditor = detEdi.useImageEditor()
+            
+            if overallResult['isFake'] : 
+                print("결과 : 조작된 카카오톡 대화창입니다")
+                insert_data['manipulated'] = "true"
+                
+                if overallResult['reason'] == 'notLinedUp' :
+                    print("근거 : 카카오톡 대화창이 바르게 정렬되지 않았습니다.") 
+                    insert_data['reason'] = "notLinedUp"
+                elif overallResult['reason'] == 'fakeApp' :
+                    print("근거 : 카카오톡 조작어플(톡썰메이커)가 사용된 흔적을 발견했습니다.")
+                    insert_data['reason'] = "fakeApp"
+            elif not useImageEditor : 
+                print("결과 : 편집 흔적이 발견되지 않음")
+                print("근거 : 편집 프로그램을 사용하거나 이미지를 조작한 흔적을 찾을 수 없습니다")
+                insert_data['edited'] = "false"
+                insert_data['reason'] = "none"
 
+            elif useImageEditor  : 
+                print("결과 : 편집흔적 발견")
+                print("근거 : 다음 프로그램 사용 흔적 발견 - ", useImageEditor)
+                insert_data['edited'] = "true"
+                insert_data['reason'] = "useprogram"
+                insert_data['programNames'] = useImageEditor
+            
+            print("-------------------------------")
+            
+            collection.insert_one(insert_data)
+            
         return {"result":"success"}
     else:
         return {"result":"error"}
@@ -513,7 +600,7 @@ def loadArtifact():
     db = conn.jb_db
     collection = db.stt
     data = request.get_json()
-    
+    print(data)
     if(data):        
         res=collection.find_one({'_id':ObjectId(data['_id'])})        
         return json.dumps(res, default=json_util.default)
@@ -527,7 +614,17 @@ def isCheckedUpdate():
 
     data=request.get_json()
     if(data):
-        print(data['attacker'])
+        time_list=[]
+        # print(data['isCheckedUpdate'])
+        for i in data['isCheckedUpdate']:
+            if(i['isChecked']=="true"):
+                time_list.append(i["Timestamp"])
+        start_time=time_list[0].split("T")[0]
+        end_time=time_list[-1].split("T")[0]
+        if(start_time==end_time):
+            insert_data["date"]=start_time
+        else:
+            insert_data["date"]=start_time+" ~ "+end_time
         insert_data["data"]=data['isCheckedUpdate']
         insert_data["attacker"]=data['attacker']
         insert_data["desc"]=data['description']
@@ -536,7 +633,7 @@ def isCheckedUpdate():
         insert_data["user_id"]=data["user"]
         insert_data["filetype"]=data["filetype"]
         insert_data["filename"]=data["filename"]+"_"+data["type"]
-        insert_data["state"]="변환완료"
+        insert_data["state"]="등록완료"
         insert_data['index']=collection.find({'user_id':data["user"]}).count()+1
 
         # if(_id):
@@ -570,7 +667,7 @@ def receive():
             segments.append(speaker_data)    
     collection.update(o_query,{"$set":{'segments':segments}})
     collection.update(o_query,{"$set":{'text':data['text']}})
-    collection.update(o_query,{"$set":{'state':"변환완료"}})
+    collection.update(o_query,{"$set":{'state':"등록완료"}})
     #<-- 기존에 존재하는 파일의 segments와 text에 해당하는 column 업데이트 -->#  
     return render_template("index.html")
 
@@ -891,9 +988,47 @@ def evidenceupdate():
 
     return "success"
 
+@app.route("/evidenceupdate_artifact",methods=['GET','POST'])
+def evidenceupdate_artifact():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+
+    time_list=[]
+    # print(data['isCheckedUpdate'])
+    for i in data['isCheckedUpdate']:
+        if(i['isChecked']=="true"):
+            time_list.append(i["Timestamp"])
+    try:
+        start_time=time_list[0].split("T")[0]
+    except:
+        pass
+    try:
+        end_time=time_list[-1].split("T")[0]
+    except:
+        pass
+    if(start_time==None and end_time==None):
+        start_time,end_time="",""
+    else:
+        if(start_time==end_time):
+            date=start_time
+        else:
+            date=start_time+" ~ "+end_time
+
+    _id=data["_id"]
+    updated_artifact_list=data['isCheckedUpdate']
+    desc=data["desc"]
+    attacker=data["attacker"]
+    type=data["type"]
+    original_filename=data["filename"].split("_")[0]
+    filename=original_filename+"_"+data["type"]
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date,"type":type,"filename":filename}})
+
+    return "success"
 
 # if __name__=='__main__':
 #  app.run(host='0.0.0.0', port=5000, debug=True)
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=80, debug=True)
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=80, debug=True)
