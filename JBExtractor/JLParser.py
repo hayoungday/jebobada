@@ -14,22 +14,23 @@ https://github.com/libyal/liblnk/blob/master/documentation/Windows%20Shortcut%20
 https://community.malforensics.com/t/list-of-jump-list-ids/158
 """
 
-appid_path = os.path.dirname(os.path.abspath(__file__)) + '/JLParser_AppID.csv'
+#appid_path = os.path.dirname(os.path.abspath(__file__)) + '/JLParser_AppID.csv'
 
 class JL:
     codecs = ["ascii","cp949"]
-    def __init__(self , jumplist_path , appid_path):
+    def __init__(self , jumplist_path):
+    #def __init__(self , jumplist_path , appid_path):
         self.pretty = True
         self.delimiter = ','
 
         # set the AppIDs 
-        appid_path = os.path.abspath(appid_path)
-        if os.path.exists(appid_path):
+        #appid_path = os.path.abspath(appid_path)
+        #if os.path.exists(appid_path):
             
-            AppIDs = self.read_AppId(appid_path)
-        else:
+        #    AppIDs = self.read_AppId(appid_path)
+        #else:
             #print("[-] Error: File " + appid_path + " not found")
-            return None
+        #    return None
 
         # get the list of files to be parsed
         files = []
@@ -47,7 +48,7 @@ class JL:
         for file in files:
             #print("[+] Parse File: " + file)
             if os.path.isfile(file):
-                output += self.automaticDest(file , AppIDs) # parse JumpList
+                output += self.automaticDest(file) # parse JumpList
             else:
                 #print("[-] Error: Path " + str(file) + " is not file or not found")
                 return None
@@ -526,7 +527,8 @@ class JL:
 
         return lnk_details
 
-    def automaticDest(self, path , AppIDs):
+    def automaticDest(self, path):
+    #def automaticDest(self, path , AppIDs):
 
 
         # check file to get the AppID 
@@ -534,11 +536,11 @@ class JL:
         AppID     = "Unknown"
         AppType = "Unknown"
         AppDesc = "Unknown"
-        if re.search(r'[0-9A-F]{16}.(AUTOMATICDESTINATIONS-MS|AUTOMATICDESTINATIONS-MS)', filename.upper(), flags = 0):
-            AppID = filename.split('.')[0]
-            if AppID in AppIDs.keys():
-                AppType = AppIDs[AppID][0]
-                AppDesc = AppIDs[AppID][1]
+        #if re.search(r'[0-9A-F]{16}.(AUTOMATICDESTINATIONS-MS|AUTOMATICDESTINATIONS-MS)', filename.upper(), flags = 0):
+        #    AppID = filename.split('.')[0]
+        #    if AppID in AppIDs.keys():
+        #        AppType = AppIDs[AppID][0]
+        #        AppDesc = AppIDs[AppID][1]
 
         clean_entry = {
                     'LNK_Class_ID'             : '',
