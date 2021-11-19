@@ -276,7 +276,7 @@ class Upload extends Component {
                             }}
                           >
                             <div className="self-upload-container">
-                              <span className="self-upload-title">
+                              <span className="self-upload-title2">
                                 컴퓨터 사용 기록
                               </span>
                               <p />
@@ -291,13 +291,16 @@ class Upload extends Component {
                   </SelectType_Modal>
                 </div>
                 <div className="flex-search-box" style={{marginBottom:"3%"}}>
-                  <input
-                    className="search-box"
-                    type="search"
-                    placeholder="    검색어를 입력하세요"
-                    onChange={this.handleChange}
-                  />
-                  <button className="search_button" onClick={this.handleClick(this.state.userInput)}/>
+
+                  <div className="search-box">
+                    <input
+                      className="search-text-box"
+                      type="search"
+                      placeholder="    검색어를 입력하세요"
+                      onChange={this.handleChange}
+                    />
+                    <button className="search_button" onClick={this.handleClick(this.state.userInput)}/>
+                  </div>
                   
                   <button
                     className="add-case-button"

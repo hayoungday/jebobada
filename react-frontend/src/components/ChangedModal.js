@@ -74,11 +74,15 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
                       <br/>
                       <div className="flex-container-meta">
                         <span className="info_modify_text">편집 여부</span>
-                        <span className="info_modify_container1">{aud_edited()}</span>
+                        <div className="info_modify_container">
+                          <span className="info_modify_cont_text">{aud_edited()}</span>
+                        </div>
                       </div>
                       <div className="flex-container-meta">
                         <span className="info_modify_text">판단 이유</span>
-                        <span className="info_modify_container1">{aud_cause()}</span>
+                        <div className="info_modify_container">
+                          <span className="info_modify_cont_text">{aud_cause()}</span>
+                        </div>
                       </div>
                     </div>      
                 </>
@@ -98,11 +102,16 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
                 <br/>
                 <div className="flex-container-meta">
                   <span className="info_modify_text">편집 여부</span>
-                  <span className="info_modify_container1">{pic_edited()}</span>
+                  <div className="info_modify_container">
+                    <span className="info_modify_cont_text">{pic_edited()}</span>
+                    {console.log(aud_edited())}
+                  </div>
                 </div>
                 <div className="flex-container-meta">
                   <span className="info_modify_text">판단 이유</span>
-                  <span className="info_modify_container1">{pic_cause()}</span>
+                  <div className="info_modify_container">
+                    <span className="info_modify_cont_text">{pic_cause()}</span>
+                  </div>
                 </div>
               </div>      
           </>

@@ -149,7 +149,7 @@ class CasePage extends Component {
         <Header />
         <div className="wrap">
           <div className="flex-column-container">
-            <div className="flex-container-case-box">
+            <div className="flex-container-case-box2">
               <div className="flex-column-content-container">
                 <span className="select-case-text">
                   <span className="text_color">폴더</span>를 생성하여 괴롭힘 관련 자료를 <span className="text_color">관리</span>하세요
@@ -160,7 +160,7 @@ class CasePage extends Component {
                   폴더에 직장 내 괴롭힘 신고를 위한 증거 자료를 모아 관리하세요.
                 </span>
               </div>
-              <button className="add-case-button" onClick={this.openModal}>
+              <button className="add-case-button2" onClick={this.openModal}>
                 새로 만들기
               </button>
               <Modal visible={this.state.isModalOpen}>

@@ -274,34 +274,41 @@ def upload():
         image=['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.webp','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
         print(request)
         
+        # data=request.get_json()
+        # print(data)
+        # print(data['attacker'])
+        # print(type(data['attacker']))
+
         case_num = request.form['case_num']
         user = request.form['user']
         date = request.form['date']
         location = request.form['location']
-        attacker = request.form['attacker']
+        attacker = request.form['attacker'].split(",")
         desc = request.form['desc']
         types = request.form['type']
+        
+        print("type is",type(attacker))
 
-        try:
-            date = request.form['date']
-        except:
-            pass
-        try:
-            location = request.form['location']
-        except:
-            pass
-        try:
-            attacker = request.form['attacker']
-        except:
-            pass
-        try:
-            desc = request.form['desc']
-        except:
-            pass
-        try:
-            types = request.form['type']
-        except:
-            pass
+        # try:
+        #     date = request.form['date']
+        # except:
+        #     pass
+        # try:
+        #     location = request.form['location']
+        # except:
+        #     pass
+        # try:
+        #     attacker = request.form['attacker']
+        # except:
+        #     pass
+        # try:
+        #     desc = request.form['desc']
+        # except:
+        #     pass
+        # try:
+        #     types = request.form['type']
+        # except:
+        #     pass
 
         print(str(case_num), str(user))
         print(request.files)

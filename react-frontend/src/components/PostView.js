@@ -173,13 +173,13 @@ class PostView extends Component {
                       className="file_info_container"
                       onClick={this.openMetaModal}
                     >
-                      파일정보
+                      파일 정보
                     </button>
                     <button
                       className="is_edit_container"
                       onClick={this.openChangedModal}
                     >
-                      편집여부
+                      편집 여부
                     </button>
                   </div>
                   

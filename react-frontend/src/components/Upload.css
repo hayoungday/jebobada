@@ -43,12 +43,11 @@
   }
 
   .upload-button-container {
-    width: 143px;
-    height: 75px;
+    width: 100px;
+    height: 50px;
     margin: 40px auto 200px auto;
     display: flex;
     align-items: center;
-    padding: 24px 48px 24px 49px;
     border-radius: 10px;
     border: solid 1px #0753e9;
     background-color: #0753e9;
@@ -59,7 +58,7 @@
     font-style: normal;
     line-height: 1.12;
     letter-spacing: normal;
-    text-align: center;
+    justify-content: center;
     color: #fff;
   }
 
@@ -103,18 +102,18 @@
 
   .upload-modal-button {
     width: 130px;
-    height: 55px;
+    height: 40px;
     margin:auto;
     /* padding: 14px 31px; */
     border-radius: 10px;
     border: solid 1px #4B64D4;
     background-color: #fff;
     font-family: "NotoSansKR-Regular";
-    font-size: 25px;
+    font-size: 20px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 55px;
+    line-height: 40px;
     letter-spacing: normal;
     text-align: center;
     color: #0753e9;
@@ -212,7 +211,7 @@
     width: 400px;
     height: 50px;
     /* margin: 31px 26.5px 62px 245px; */
-    margin: auto 0px auto auto;
+    /* margin: auto 0px auto auto; */
     border-radius: 10px;
     border: solid 2px #4B64D4;
     background-color: #fff;
@@ -224,12 +223,21 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
 
+    .search-text-box{
+      width: 320px;
+      height: 40px;
+      margin: 5px 10px;
+    }
+    .search-text-box:focus { 
+      outline: none; 
+    }
+
     .search_button{
-      width: 35px;
-      height: 35px;
-      margin: 5px 0 0px 20px;
+      width: 30px;
+      height: 30px;
+      margin: 0px 0 5px 10px;
       background-image: url('../assets/img/search.png');
-      background-size: 35px 35px;
+      background-size: 30px 30px;
       border: 0;
       vertical-align: middle;
 

@@ -141,26 +141,25 @@ background-color: #e2e2e2; */
 }
 
 .agree-button-container {
-  width: 188px;
-  height: 75px;
-  margin: 20px auto;
-  padding: 21px 69px;
-  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  margin: 30px auto;
+  border-radius: 10px;
   border: solid 1px #4B64D4;
-  background-color: #fff;
+  background-color: #4B64D4;
   font-family: NanumSquare-Regular;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.32;
+  line-height: 20px;
   letter-spacing: normal;
   text-align: center;
-  color: #4B64D4;
+  color: #fff;
   transition: background-color 0.2s ease-in-out,
               color 0.2s ease-in-out;
 }
-
+/* 
 .agree-button-container:hover {
   width: 188px;
   height: 75px;
@@ -180,7 +179,7 @@ background-color: #e2e2e2; */
   color: #fff;
   transition: background-color 0.2s ease-in-out,
               color 0.2s ease-in-out;
-}
+} */
 
 .select-case-text{
 width: 1000px;
@@ -233,6 +232,25 @@ font-style: normal;
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.add-case-button2{
+  width: 150px;
+  height: 50px;
+  /* margin: 31px 26.5px 62px 245px; */
+  margin: auto 0px auto 0px;
+  text-align: center;
+  border-radius: 45px;
+  border: solid 1px #4B64D4;
+  background-color: #4B64D4;
+  text-align: center;
+  color: #fefefe;
+  font-family: NanumSquare-Regular;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal; 
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
 .modal_title {
   width: 400px;
   height: 54px;
@@ -242,7 +260,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.33;
+  line-height: 25px;
   letter-spacing: normal;
   text-align: center;
   color: #4B64D4;
@@ -318,16 +336,15 @@ font-family: "NotoSansKR-Regular";
   }
 
   .case_button{
-    width: 160px;
-    height: 61px;
-    margin: 10px 200px;
+    width: 100px;
+    height: 40px;
+    margin: 10px 230px;
     /* margin: 28px 265px 30px 101px; */
-    padding: 10px 51px 11px;
     border-radius: 50px;
     border: solid 1px #707070;
     background-color: #4B64D4;  
-    font-family: "NotoSansKR-Regular";
-    font-size: 20px;
+    font-family: "NanumSquare-Regular";
+    font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
