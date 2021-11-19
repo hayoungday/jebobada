@@ -1,5 +1,4 @@
 import datetime
-from logging import log
 import os
 from bs4 import BeautifulSoup
 
@@ -124,53 +123,3 @@ def get_log(xml_file):
         return None
 
     return log
-
-def evtxParse(start, end):
-    #setup_evtx_path = "C:\\Windows\\System32\\winevt\\Logs\\Setup.evtx"
-    #application_evtx_path = "C:\\Windows\\System32\\winevt\\Logs\\Application.evtx"
-    security_evtx_path = "C:\\Windows\\System32\\winevt\\Logs\\Security.evtx"
-    system_evtx_path = "C:\\Windows\\System32\\winevt\\Logs\\System.evtx"
-    operation_evtx_path = "C:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx"
-
-    list = []
-
-    with evtx.Evtx(security_evtx_path) as log:
-        prev_time = 0
-        prev_item = ""
-
-        for record in log.records():
-            tmp = get_log(record.xml())
-            if tmp != None:
-                if prev_time != 0:
-                    if prev_item == tmp[3] and prev_time + 60 > tmp[1]:
-                        pass
-                    else:
-                        if tmp[1] >= start and tmp[1] <= end:
-                            list.append(tmp)
-
-                else:
-                    if tmp[1] >= start and tmp[1] <= end:
-                        list.append(tmp)
-
-                prev_time = tmp[1]
-                prev_item = tmp[3]
-                
-    with evtx.Evtx(system_evtx_path) as log:
-        for record in log.records():
-            tmp = get_log(record.xml())
-            if tmp != None:
-                if tmp[1] >= start and tmp[1] <= end:
-                    list.append(tmp)
-                    
-    with evtx.Evtx(operation_evtx_path) as log:
-        for record in log.records():
-            tmp = get_log(record.xml())
-            if tmp != None:
-                if tmp[1] >= start and tmp[1] <= end:
-                    list.append(tmp)                
-                    
-
-    return list
-
-
-
