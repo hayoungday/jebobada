@@ -26,6 +26,7 @@ const UploadEvidence = (props) => {
     const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState("");
+    const [mainevdi, setMainEvdi] = useState("yes");
 
     const [checkedItems, setCheckedItems] = useState(new Set())
     
@@ -62,6 +63,10 @@ const UploadEvidence = (props) => {
         setFilename(event.currentTarget.value)
     }
 
+    const onMainHandler = (event) => {
+      setMainEvdi(event.currentTarget.value)
+    }
+
     const history = useHistory()
 
     const addEvidence = () => {
@@ -83,6 +88,8 @@ const UploadEvidence = (props) => {
             formData.append('attacker',attacker)
             formData.append('desc',desc)
             formData.append('type',myType2)
+            formData.append('mainevdi',mainevdi)
+
             let config = {
                 headers: {
                     'enctype':'multipart/form-data'
@@ -168,6 +175,11 @@ const UploadEvidence = (props) => {
 
                 <div className="upload-input-text">첨부파일</div>
                 <input type="file" name="file" file={file} value={filename} onChange={onFileHandler}/>
+
+                <div className="upload-input-text">핵심 증거 여부</div>
+                <input id="yes" value="yes" name="yes" type="radio" checked={mainevdi === "yes"} onChange={onMainHandler}/>예
+
+                <input id="no" value="no" name="no" type="radio" checked={mainevdi === "no"} onChange={onMainHandler}/>아니요
                 </div>
 
                 <input type="submit" class="upload-button-container" value="등록" />

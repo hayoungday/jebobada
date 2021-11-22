@@ -285,6 +285,7 @@ def upload():
         attacker = request.form['attacker'].split(",")
         desc = request.form['desc']
         types = request.form['type']
+        mainevdi = request.form['mainevdi']
         
         print("type is",type(attacker))
 
@@ -371,6 +372,7 @@ def upload():
             insert_data['attacker']=attacker
             insert_data['desc']=desc
             insert_data['type']=types
+            insert_data['ismain']=mainevdi
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)            
@@ -454,6 +456,7 @@ def upload():
             insert_data['attacker']=attacker
             insert_data['desc']=desc
             insert_data['type']=types
+            insert_data['ismain']=mainevdi
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)            
@@ -742,7 +745,7 @@ def getallevidence():
     if type=="all":
 
         evidences = list(collection.find({'user_id':user}))
-        print(user)
+        evidences.sort(key=lambda x:x['date'])
 
         return json.dumps(evidences,default=json_util.default)
     elif type == "record":
@@ -754,6 +757,7 @@ def getallevidence():
                     {'filetype':"녹음 파일"},
                 ]
                 }))
+        evidences.sort(key=lambda x:x['date'])
 
         return json.dumps(evidences,default=json_util.default)
     elif type == "picture":
@@ -763,6 +767,7 @@ def getallevidence():
                     {'filetype':"사진 파일"},
                 ]
                 }))
+        evidences.sort(key=lambda x:x['date'])
 
         return json.dumps(evidences,default=json_util.default)
 
@@ -1032,6 +1037,97 @@ def evidenceupdate_artifact():
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date,"type":type,"filename":filename}})
 
     return "success"
+
+@app.route("/ismainevdi")
+def ismainpic():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    pic_main = []
+    aud_main = []
+    
+    mainevdi = list(collection.find({
+        "$and":[
+            {'user_id':data['user']},
+            {'ismain': "yes"}
+        ]
+    }))
+    
+    for i in mainevdi:
+        if i['filetype'] == "사진 파일":
+            pic_main.append(i)
+            print(pic_main)
+        elif i['filetype'] == "녹음 파일":
+            print(aud_main)
+        else:
+            print(i)
+            print(type(i))
+            print(i['filetype'])
+            
+    if data['type'] == "pic":
+        return json.dumps(pic_main,default=json_util.default)
+    elif data['type'] == "aud":
+        return json.dumps(aud_main,default=json_util.default)
+    else:
+        return render_template("index.html")
+    
+@app.route("/csvevdi")
+def csvevdi():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    csvevdi = list(collection.find({
+        "$and":[
+            {'user_id':data['user']},
+            {'filetype': "컴퓨터 증거"}
+        ]
+    }))
+    
+    return json.dumps(csvevdi,default=json_util.default)
+
+@app.route("/bullyingtype")
+def bullyingtype():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    evidences = list(collection.find({'user_id':data['user']}))
+    evidences.sort(key=lambda x:x['date'])
+    
+    bul_type = []
+    
+    for e in evidences:
+        a = e['type'].split(",")
+        for bul in a:
+            bul_type.append(bul)
+    
+    print(bul_type)
+    bul_type_unq = set(bul_type)
+    bul_type = list(bul_type_unq)
+    
+    return json.dumps(bul_type,default=json_util.default)
+
+@app.route("/bullyingtimeline")
+def bullyingtimeline():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    evid = list(collection.find({
+        "$and":[
+            {'user_id':data['user']},
+            {'type': data['type']}
+        ]
+    }))
+    
+    evid.sort(key=lambda x:x['date'])
+    
+    return json.dumps(evid,default=json_util.default)
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

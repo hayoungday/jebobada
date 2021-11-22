@@ -31,5 +31,16 @@ export const SidebarData = [
     icon: <BsIcons.BsFillInfoCircleFill />,
     cName: 'nav-text'
   },
-  
+  {
+    title: '괴롭힘 유형 분류',
+    path: '/bullyingtypepage',
+    icon: <BsIcons.BsFillInfoCircleFill />,
+    cName: 'nav-text'
+  },
+  {
+    title: '행위자별 괴롭힘 행위',
+    path: '/attackertypepage',
+    icon: <BsIcons.BsFillInfoCircleFill />,
+    cName: 'nav-text'
+  },
 ];

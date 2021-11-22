@@ -40,8 +40,8 @@ const AttackerTypePage = (props) => {
             <ReportHeader/>
           </div>
           <div className="comp-item">
-            <h1>전체 자료 목록</h1> 
-              전체 증거 자료 목록입니다.<p/>해시값 비교를 통해 증거 자료의 위변조 여부를 알 수 있습니다.
+            <h1>행위자별 괴롭힘 행위</h1> 
+              <p>행위자별 괴롭힘 피해 행위를 통해 특정 행위자에게서 어떠한 괴롭힘을 당했는지 알 수 있습니다.</p>
                 <Table>
                 <TableHead>
                   <TableRow>
