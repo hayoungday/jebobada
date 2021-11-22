@@ -31,6 +31,8 @@ import CheckList from './components/CheckList'
 import AboutUs from './components/AboutUs'
 import uploadevidence_artifact from './components/UploadEvidence_artifact'
 import Editevidence_artifact from './components/Editevidence_artifact'
+import BullyingTypePage from './report/BullyingTypePage'
+import AttackerTypePage from './report/AttackerTypePage'
 
 ReactDOM.render(
     // <App />,
@@ -63,6 +65,8 @@ ReactDOM.render(
         <Route path="/aboutus" component={AboutUs}/>
         <Route path="/uploadevidence_artifact" component={uploadevidence_artifact}/>
         <Route path="/Editevidence_artifact" component = {Editevidence_artifact}/>
+        <Route path="/bullyingtypepage" component={BullyingTypePage}/>
+        <Route path="/attackertypepage" component={AttackerTypePage}/>
       </Route>
      </Router>, 
   document.getElementById('root')

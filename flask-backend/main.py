@@ -39,7 +39,6 @@ app.config['SECRET_KEY']='hayoungday'
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
-bcrypt = Bcrypt(app)
 
 filename=''
 hashed_filename=''

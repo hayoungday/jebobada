@@ -179,7 +179,7 @@ class PostView extends Component {
                       className="is_edit_container"
                       onClick={this.openChangedModal}
                     >
-                      편집 여부
+                      편집 정보
                     </button>
                   </div>
                   
