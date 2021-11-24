@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/static/react//css/main.5d0c40dc.chunk.css",
-    "main.js": "/static/react/js/22869bcb.main.js",
-    "main.js.map": "/static/react/js/22869bcb.main.js.map",
-    "runtime-main.js": "/static/react/js/22869bcb.runtime-main.js",
-    "runtime-main.js.map": "/static/react/js/22869bcb.runtime-main.js.map",
+    "main.js": "/static/react/js/f9d71518.main.js",
+    "main.js.map": "/static/react/js/f9d71518.main.js.map",
+    "runtime-main.js": "/static/react/js/f9d71518.runtime-main.js",
+    "runtime-main.js.map": "/static/react/js/f9d71518.runtime-main.js.map",
     "/css/2.116f8ba0.chunk.css": "/static/react//css/2.116f8ba0.chunk.css",
-    "js/22869bcb.2.js": "/static/react/js/22869bcb.2.js",
-    "js/22869bcb.2.js.map": "/static/react/js/22869bcb.2.js.map",
+    "js/f9d71518.2.js": "/static/react/js/f9d71518.2.js",
+    "js/f9d71518.2.js.map": "/static/react/js/f9d71518.2.js.map",
     "../../templates/index.html": "/static/react/../../templates/index.html",
     "/css/2.116f8ba0.chunk.css.map": "/static/react//css/2.116f8ba0.chunk.css.map",
     "/css/main.5d0c40dc.chunk.css.map": "/static/react//css/main.5d0c40dc.chunk.css.map",
     "/media/font.css": "/static/react//media/NotoSansKR-Medium.72ba4555.otf",
-    "js/22869bcb.2.js.LICENSE.txt": "/static/react/js/22869bcb.2.js.LICENSE.txt"
+    "js/f9d71518.2.js.LICENSE.txt": "/static/react/js/f9d71518.2.js.LICENSE.txt"
   },
   "entrypoints": [
-    "js/22869bcb.runtime-main.js",
+    "js/f9d71518.runtime-main.js",
     "/css/2.116f8ba0.chunk.css",
-    "js/22869bcb.2.js",
+    "js/f9d71518.2.js",
     "/css/main.5d0c40dc.chunk.css",
-    "js/22869bcb.main.js"
+    "js/f9d71518.main.js"
   ]
 }

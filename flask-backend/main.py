@@ -284,10 +284,10 @@ def upload():
         location = request.form['location']
         attacker = request.form['attacker'].split(",")
         desc = request.form['desc']
-        types = request.form['type']
+        types = request.form['type'].split(",")
         mainevdi = request.form['mainevdi']
         
-        print("type is",type(attacker))
+        print("\n\n\n\n\n\ntype is",type(attacker))
 
         # try:
         #     date = request.form['date']
@@ -634,10 +634,12 @@ def isCheckedUpdate():
             insert_data["date"]=start_time
         else:
             insert_data["date"]=start_time+" ~ "+end_time
+            
+        
         insert_data["data"]=data['isCheckedUpdate']
         insert_data["attacker"]=data['attacker']
         insert_data["desc"]=data['description']
-        insert_data["type"]=data['type']
+        insert_data["type"]=data['type'].split(" ")
         insert_data["casenum"]=data["casenum"]
         insert_data["user_id"]=data["user"]
         insert_data["filetype"]=data["filetype"]
@@ -730,6 +732,10 @@ def aboutus():
 
 @app.route('/about')
 def about():
+    return render_template('index.html')
+
+@app.route('/bullyingtypepage')
+def bullyingtypepage():
     return render_template('index.html')
 
 @app.route('/getallevidence', methods=['GET','POST'])
@@ -970,8 +976,8 @@ def evidenceupdate():
 
     date = request.form['date']
     location = request.form['location']
-    attacker = request.form['attacker']
-    types = request.form['type']
+    attacker = request.form['attacker'].split(",")
+    types = request.form['type'].split(",")
     desc = request.form['desc']
 
     print(case_num,user,index)
@@ -1038,7 +1044,7 @@ def evidenceupdate_artifact():
 
     return "success"
 
-@app.route("/ismainevdi")
+@app.route("/ismainevdi",methods=['GET','POST'])
 def ismainpic():
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
@@ -1073,7 +1079,7 @@ def ismainpic():
     else:
         return render_template("index.html")
     
-@app.route("/csvevdi")
+@app.route("/csvevdi",methods=['GET','POST'])
 def csvevdi():
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
@@ -1089,7 +1095,7 @@ def csvevdi():
     
     return json.dumps(csvevdi,default=json_util.default)
 
-@app.route("/bullyingtype")
+@app.route("/bullyingtype",methods=['GET','POST'])
 def bullyingtype():
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
@@ -1101,7 +1107,7 @@ def bullyingtype():
     bul_type = []
     
     for e in evidences:
-        a = e['type'].split(",")
+        a = e['type']
         for bul in a:
             bul_type.append(bul)
     
@@ -1111,7 +1117,7 @@ def bullyingtype():
     
     return json.dumps(bul_type,default=json_util.default)
 
-@app.route("/bullyingtimeline")
+@app.route("/bullyingtimeline",methods=['GET','POST'])
 def bullyingtimeline():
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
