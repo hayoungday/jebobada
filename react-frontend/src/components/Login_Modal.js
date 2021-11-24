@@ -36,7 +36,14 @@ function Login_Modal({ className, visible, children, closeModal, openModal }) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    localStorage.setItem('key',password)
+
+    let convert = {
+      key: password,
+    };
+    axios.post("/convertKeyHash", convert).then((res) => {
+      localStorage.setItem('key',res.data.response)
+    });
+
     let body = {
       user_id: local_id,
       user_pwd: password,

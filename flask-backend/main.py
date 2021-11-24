@@ -1112,6 +1112,16 @@ def load_s3_image():
 
     return({"res":(base64.b64encode(plaindata)).decode('utf-8')})
 
+@app.route("/convertKeyHash",methods=['GET','POST'])
+def convertKeyHash():
+    print(request.get_json()["key"])
+
+    m = hashlib.sha256()
+    m.update(request.get_json()["key"].encode('utf-8'))
+    print(m.hexdigest())
+
+
+    return({"response":m.hexdigest()})
 
 @app.route("/ismainevdi",methods=['GET','POST'])
 def ismainpic():
