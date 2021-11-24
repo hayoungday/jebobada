@@ -13,32 +13,13 @@
   <property name="windowTitle">
    <string>Progressing...</string>
   </property>
-  <widget class="QLabel" name="loadingLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>145</y>
-     <width>41</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>icons8-spinner.gif</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QProgressBar" name="progressBar">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>150</y>
-     <width>311</width>
-     <height>31</height>
+     <x>80</x>
+     <y>180</y>
+     <width>280</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
@@ -56,8 +37,9 @@ color: black;
 }
 QProgressBar::chunk 
 {
+color: white;
 background-color: #3D7BE6;
-border-radius :15px;
+border-radius: 15px;
 }   </string>
    </property>
    <property name="value">
@@ -72,8 +54,8 @@ border-radius :15px;
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>381</width>
-     <height>241</height>
+     <width>380</width>
+     <height>240</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -89,16 +71,16 @@ border: 2px solid #E2E2E2;</string>
   <widget class="QPushButton" name="stopBtn_progress">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>50</x>
      <y>250</y>
-     <width>331</width>
+     <width>300</width>
      <height>40</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>나눔스퀘어 Bold</family>
-     <pointsize>18</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
    <property name="cursor">
@@ -118,8 +100,8 @@ border-radius: 20px;</string>
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>381</width>
-     <height>51</height>
+     <width>380</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="font">
@@ -137,17 +119,56 @@ border-top-left-radius: 20px;
 border: 2px solid #E2E2E2;</string>
    </property>
    <property name="text">
-    <string>컴퓨터 사용기록 추출중입니다...</string>
+    <string>진행중...</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="loadingLabel">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>180</y>
+     <width>40</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>icons/spinner.gif</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>120</y>
+     <width>270</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔스퀘어</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>컴퓨터 사용기록을 추출중입니다.</string>
+   </property>
+  </widget>
   <zorder>label_32</zorder>
-  <zorder>loadingLabel</zorder>
   <zorder>progressBar</zorder>
   <zorder>stopBtn_progress</zorder>
   <zorder>label</zorder>
+  <zorder>loadingLabel</zorder>
+  <zorder>label_3</zorder>
  </widget>
  <resources/>
  <connections/>
