@@ -4,29 +4,8 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import ReportHeader from './ReportHeader';
 import BullyingTimeline from './BullyingTimeline';
-import Timeline from '@mui/lab/Timeline';
-import { makeStyles } from '@material-ui/styles';
 import './reportHeader.css'
 
-
-const useStyles = makeStyles({
-    timeline: {
-      transform: "rotate(90deg)",
-      height: '200px'
-    },
-    timelineContentContainer: {
-      textAlign: "left"
-    },
-    timelineContent: {
-      display: "inline-block",
-      transform: "rotate(-90deg)",
-      textAlign: "center",
-      minWidth: 50
-    },
-    timelineIcon: {
-      transform: "rotate(-90deg)"
-    }
-  });
 
 const BullyingTypePage = (props) => {
 
@@ -37,9 +16,6 @@ const BullyingTypePage = (props) => {
     const [bulltypes, Setbulltypes] = useState([])
     const [user,Setuser] = useState("")
     const [no, Setno] = useState(1)
-
-    const classes = useStyles();
-
 
     const getUser = async () => {
       await axios.get('/getuser').then((res)=>{
@@ -129,7 +105,7 @@ const BullyingTypePage = (props) => {
     },[])
 
 
-    
+
     return(
         <div className="flex-container">
           <div className="nav-item">
@@ -147,13 +123,11 @@ const BullyingTypePage = (props) => {
               {bulltypes.map((c)=>(
                 // console.log(typeof c)
                 // gettimelineEvdi(user,c)
-                // return console.log()
-                <Timeline className={classes.timeline} align="alternate">
+                // return console.log()     
                 <BullyingTimeline
                   type = {c}
                   user = {user}
                 />
-                </Timeline>
               ))}
 
               {bulltypes.map((c)=>(

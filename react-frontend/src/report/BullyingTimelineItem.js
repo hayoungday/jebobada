@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/styles';
-import BullyingTimelineItem from './BullyingTimelineItem';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Paper from "@material-ui/core/Paper";
 import axios from 'axios'
 
 
@@ -32,7 +38,7 @@ const useStyles = makeStyles({
     }
   });
 
-const BullyingTimeline = (props) => {
+const BullyingTimelineItem = (props) => {
 
     const classes = useStyles();
     const [bullyingevdi,Setbullyingevdi] = useState([])
@@ -62,25 +68,32 @@ const BullyingTimeline = (props) => {
     {console.log(props)}
     return(
       <div>
-        <h1>{props.type}</h1>
         {console.log(bullyingevdi)}
-        <Timeline className={classes.timeline} align="alternate">
-
-        {bullyingevdi.map((c)=>(
-                // console.log(typeof c)
-                // gettimelineEvdi(user,c)
-                // return console.log()
-          <BullyingTimelineItem
-            date = {c.date}
-            filename = {c.filename}
-            attacker = {c.attacker}
-            type = {c.type}
-          />
-        ))}
-        </Timeline>
-        <br/><br/><br/>
+        <TimelineItem>
+            <TimelineSeparator>
+                <CheckCircleOutlineIcon
+                    color="primary"
+                    className={classes.timelineIcon}
+                />
+                <Paper className={classes.timelineContent2}>
+                <Typography>
+                    {props.date}<br/>
+                    {props.filename}<br/>
+                </Typography>
+                 </Paper>
+                <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent className={classes.timelineContentContainer}>
+            <Paper className={classes.timelineContent}>
+                <Typography>
+                    [{props.attacker}]<br/>
+                    ({props.type})<br/>
+                </Typography>
+            </Paper>
+            </TimelineContent>
+        </TimelineItem>
       </div>
     )
 }
 
-export default BullyingTimeline;
+export default BullyingTimelineItem;
