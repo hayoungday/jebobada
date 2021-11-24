@@ -5,8 +5,7 @@ block_cipher = None
 
 added_files = [('JBExtractor_v1.1.ui', '.'),
 			   ('jb_loading.ui', '.'),
-			   ('jb_help_step1.ui', '.'),
-			   ('jb_help_step2.ui', '.'),
+			   ('jb_help.ui', '.'),
 			   ('jb_warning_step1_1.ui', '.'),
 			   ('jb_warning_step1_2.ui', '.'),
 			   ('jb_warning_step1_3.ui', '.'),
@@ -49,7 +48,7 @@ added_files = [('JBExtractor_v1.1.ui', '.'),
 			   ('./icons/spinner.gif', './icons'),
 			   ('JBExtract_icon.ico','.')]
 
-a = Analysis(['JBExtractor_v1.4.py'],
+a = Analysis(['JBExtractor_v1.3.py'],
              pathex=['C:\\Users\\JH\\Desktop\\JB_UI'],
              binaries=[],
              datas=added_files,
