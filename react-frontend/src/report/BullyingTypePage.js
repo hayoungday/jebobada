@@ -129,6 +129,7 @@ const BullyingTypePage = (props) => {
     },[])
 
 
+    
     return(
         <div className="flex-container">
           <div className="nav-item">
