@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function MetaModal({ className, visible, children, type, arr, closeModal }) {
+function MetaModal({ className, visible, children, type, arr, closeModal,filename }) {
 
     const modal_contents = (type) => {
         if(type=="녹음 파일"){
@@ -15,7 +15,7 @@ function MetaModal({ className, visible, children, type, arr, closeModal }) {
                     <div className="flex-container-meta">
                       <span className="modal_meta_text">파일 이름: </span>
                       <label className="modal_meta_label">
-                        {arr.fileName}
+                        {filename}
                       </label>
                     </div>
                     <div className="flex-container-meta">
@@ -56,7 +56,7 @@ function MetaModal({ className, visible, children, type, arr, closeModal }) {
                     <br/>
                     <div className="flex-container-meta">
                       <span className="modal_meta_text">파일 이름: </span>
-                      <label className="modal_meta_label">{arr.fileName}</label>
+                      <label className="modal_meta_label">{filename}</label>
                     </div>
                     <div className="flex-container-meta">
                       <span className="modal_meta_text">파일 형식: </span>

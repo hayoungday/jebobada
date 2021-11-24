@@ -143,6 +143,8 @@ class Upload extends Component {
         formData.append('filename',this.state.fileName)
         formData.append('user',this.state.user)
         formData.append('case_num',this.props.match.params.casenum)
+        console.log(localStorage.getItem('key'))
+        formData.append('key',localStorage.getItem('key'))
         let file_upload_res;
 
         const config = {

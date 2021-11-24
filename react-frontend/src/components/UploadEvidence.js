@@ -89,6 +89,7 @@ const UploadEvidence = (props) => {
             formData.append('desc',desc)
             formData.append('type',myType2)
             formData.append('mainevdi',mainevdi)
+            formData.append('key',localStorage.getItem('key'))
 
             let config = {
                 headers: {

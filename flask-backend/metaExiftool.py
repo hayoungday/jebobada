@@ -72,8 +72,8 @@ class metaExiftool :
         # 터미널로 exiftool 실행 : 자식프로세스로 실행
         # exiftool 툴 출력값(str)을 그대로 반환
         
-        cmd = "curl -s \"%s\" | exiftool -" % filepath # 서버 배포 시 사용
-        # cmd = "exiftool \"%s\"" % filepath # 로컬 디버깅 시 사용
+        # cmd = "curl -s \"%s\" | exiftool -" % filepath # 서버 배포 시 사용
+        cmd = "exiftool \"%s\"" % filepath # 로컬 디버깅 시 사용
         output = subprocess.check_output(cmd, shell=True)
  
         return output

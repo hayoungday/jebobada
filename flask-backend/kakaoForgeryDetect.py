@@ -27,12 +27,12 @@ class kakaoForgeryDetect :
         if imgPath : 
             # imgPath에 한글 포함하면 안됨
             # 서버 버전 코드
-            readFlag=cv2.IMREAD_COLOR
-            resp = urlopen(imgPath)
-            image = np.asarray(bytearray(resp.read()), dtype="uint8")
-            self.__imgCV2 = cv2.imdecode(image, readFlag)
+            # readFlag=cv2.IMREAD_COLOR
+            # resp = urlopen(imgPath)
+            # image = np.asarray(bytearray(resp.read()), dtype="uint8")
+            # self.__imgCV2 = cv2.imdecode(image, readFlag)
             # 로컬 디버깅 코드
-            # self.__imgCV2 = cv2.imread(imgPath)
+            self.__imgCV2 = cv2.imread(imgPath)
         # if chatboxLTimg : 
         #     self.chatboxCV2 = cv2.imread(chatboxLTimg)
 

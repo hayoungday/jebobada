@@ -55,11 +55,15 @@ class googleOCR :
         client = vision.ImageAnnotatorClient()
         # print('googleOCR class : client Instantiating Fail')
         # 메모리에 이미지 로드
-
-        req = urllib.request.Request(filePath)
-        with urllib.request.urlopen(req) as response:
-            content = response.read()
-
+        # ---로컬 파일---
+        with io.open(filePath, 'rb') as image_file:
+            content = image_file.read()
+        image = vision.Image(content=content)
+        # ---url 접근---
+        # req = urllib.request.Request(filePath)
+        # with urllib.request.urlopen(req) as response:
+        #     content = response.read()
+        
         image = vision.Image(content=content)
 
         # OCR 실행

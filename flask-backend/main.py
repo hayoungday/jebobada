@@ -348,7 +348,7 @@ def upload():
         hashed_filename=hashed_name
         insert_data={}
         fileName,fileExt=os.path.splitext(filename)
-        url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+        
         try:           
             insert_data['file_hash_data']=file_hash_data
         except:
@@ -356,6 +356,9 @@ def upload():
             pass
         
         f.seek(0)
+        f.save("test")
+        f.seek(0)
+        url='./test'
 
         if(fileExt in audio):
             insert_data['filetype']='녹음 파일'    
@@ -377,19 +380,36 @@ def upload():
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)            
             
+            _id=collection.insert_one(insert_data)
+            #print("---------------------",_id.inserted_id)
+            tmp=f.read()
+            #tmp는 f를 바이너리로 읽은 값
+
+            pass_string=request.form['key']
+            #pass_string은 사용자가 입력한 비밀번호 값
+
+            pass_string_bytes=bytes(pass_string,'utf-8')
+
+            values=bytearray(tmp)
+
+            cipher=pass_string_bytes*(len(values)//len(pass_string_bytes))+pass_string_bytes[:len(values)%len(pass_string_bytes)]
+
+            cipherdata=bytes(p^k for p,k in zip(values,cipher))
+            
+            plaindata=bytes(p^k for p,k in zip(cipherdata,cipher))
+
+            res=io.BytesIO(cipherdata)
+            # res=io.BytesIO(plaindata)
+
             s3=boto3.client(
             's3',
             aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
             aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
             )
-                        
-            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
-            #'ServerSideEncryption':'aws:kms'  
-                  
             
-            url='https://craftguy.s3.ap-northeast-2.amazonaws.com/'+hashed_name
+            s3.upload_fileobj(res,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
             
-            clovaspeechAPI.ClovaSpeechClient().req_url(url=url, completion='async')
+            clovaspeechAPI.ClovaSpeechClient().req_url(file=url, completion='async')
             
             returnDict = meta.getAudioTags(url)
             o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
@@ -436,7 +456,8 @@ def upload():
             print(editted_result)
             print("=========================")
             
-            collection.insert_one(insert_data)
+            collection.update_one({'_id':ObjectId(_id.inserted_id)},{"$set":insert_data})
+            os.remove("./test")
             
             
             ###STT
@@ -456,17 +477,40 @@ def upload():
             insert_data['attacker']=attacker
             insert_data['desc']=desc
             insert_data['type']=types
-            insert_data['ismain']=mainevdi
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-            insert_data['uploaded_time']=str(time)            
+            insert_data['uploaded_time']=str(time)
+            insert_data['filetype']='사진 파일'
+            insert_data['state']='분석중'
+            _id=collection.insert_one(insert_data)
+            #print("---------------------",_id.inserted_id)
+            tmp=f.read()
+            #tmp는 f를 바이너리로 읽은 값
+
+            pass_string=request.form['key']
+            #pass_string은 사용자가 입력한 비밀번호 값
+
+            pass_string_bytes=bytes(pass_string,'utf-8')
+
+            values=bytearray(tmp)
+
+            cipher=pass_string_bytes*(len(values)//len(pass_string_bytes))+pass_string_bytes[:len(values)%len(pass_string_bytes)]
+
+            cipherdata=bytes(p^k for p,k in zip(values,cipher))
             
+            plaindata=bytes(p^k for p,k in zip(cipherdata,cipher))
+
+            res=io.BytesIO(cipherdata)
+            # res=io.BytesIO(plaindata)
+
             s3=boto3.client(
             's3',
             aws_access_key_id=config.aws_access_key_id, #--> 승구's aws
             aws_secret_access_key=config.aws_secret_access_key, #--> 승구's aws            
             )
-            s3.upload_fileobj(f,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+            
+            s3.upload_fileobj(res,'craftguy',hashed_name,ExtraArgs={'ACL':'public-read'})
+
             try:
                 ocr = googleOCR.googleOCR()
                 ocrJson = ocr.getOCRjson(url)
@@ -476,15 +520,14 @@ def upload():
             except:
                 pass
 
-            insert_data['filetype']='사진 파일'
-            insert_data['state']='등록완료'
+            
 
             returnDict = meta.getImageTags(url)
-            print(type(returnDict))
+
             insert_data['metadata'] = returnDict
             
             
-            #===카톡조작===
+            # ===카톡조작===
             kfdModule = kakaoForgeryDetect.kakaoForgeryDetect(url)
             detEdi = detectEdition.detectEdition()
             detEdi.setFilePath(url)
@@ -518,8 +561,9 @@ def upload():
                 insert_data['programNames'] = useImageEditor
             
             print("-------------------------------")
-            
-            collection.insert_one(insert_data)
+            insert_data['state']='등록완료'
+            collection.update_one({'_id':ObjectId(_id.inserted_id)},{"$set":insert_data})
+            os.remove("./test")
             
         return {"result":"success"}
     else:
@@ -1044,6 +1088,31 @@ def evidenceupdate_artifact():
 
     return "success"
 
+@app.route("/load_s3_image",methods=['GET','POST'])
+def load_s3_image():
+    import base64
+    url=request.get_json()["url"]
+    print(url)
+    response=requests.get(url)
+
+    pass_string=request.get_json()["key"]
+    #pass_string은 사용자가 입력한 비밀번호 값
+
+    pass_string_bytes=bytes(pass_string,'utf-8')
+    values=bytes(response.content)
+
+    cipher=pass_string_bytes*(len(values)//len(pass_string_bytes))+pass_string_bytes[:len(values)%len(pass_string_bytes)]
+
+    plaindata=bytes(p^k for p,k in zip(values,cipher))
+
+    
+    # with open("ress.png","wb") as file:
+    #     file.write(plaindata)
+    # return send_file(io.BytesIO(plaindata),mimetype='image/png',as_attachment=True,environ=request.environ,download_name="test.png")
+
+    return({"res":(base64.b64encode(plaindata)).decode('utf-8')})
+
+
 @app.route("/ismainevdi",methods=['GET','POST'])
 def ismainpic():
     conn=pymongo.MongoClient(config.mongodb)
@@ -1134,6 +1203,8 @@ def bullyingtimeline():
     evid.sort(key=lambda x:x['date'])
     
     return json.dumps(evid,default=json_util.default)
+
+
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

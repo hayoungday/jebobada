@@ -206,6 +206,7 @@ class PostView extends Component {
                             type={c.filetype}
                             arr={c.metadata}
                             closeModal={this.closeMetaModal}
+                            filename={c.filename}
                           />
 
                           <ChangedModal
@@ -231,6 +232,7 @@ class PostView extends Component {
                             type={c.filetype}
                             arr={c.metadata}                   
                             closeModal={this.closeMetaModal}
+                            filename={c.filename}
                           />
 
                           <ChangedModal

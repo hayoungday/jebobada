@@ -3,16 +3,29 @@ import Highlighter from "react-highlight-words";
 import Edit_text_modal from "./Edit_text_modal";
 import EasyEdit, { Types } from "react-easy-edit";
 import axios from "axios";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 class ViewFile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       origin_text:this.props.text,
       isModalOpen: false,
-      editText:""
+      editText:"",
+      binary:""
     };
   }
 
+  componentDidMount(){
+    let body={
+      key:localStorage.getItem('key'),
+      url:"https://craftguy.s3.ap-northeast-2.amazonaws.com/" +this.props.hashed_filename
+    };
+    axios.post("/load_s3_image",body).then((res)=>{
+      this.setState({binary:res.data.res})
+      console.log(res.data.res)
+    })
+  }
   updateDB=(editComplete)=>{
     let body={
       editData:editComplete,
@@ -50,9 +63,8 @@ class ViewFile extends Component {
         />
       </p>
     ));
-    const url =
-      "https://craftguy.s3.ap-northeast-2.amazonaws.com/" +
-      this.props.hashed_filename;
+    const src="data:audio/ogg;base64,"+this.state.binary
+    
     return (
       <div class="component_design">
         {" "}
@@ -97,12 +109,13 @@ class ViewFile extends Component {
         <br></br>
         <h1 class="audio_contents_design">{this.props.name}</h1>
         <br></br>
-        {console.log(this.state.origin_text)}
+        {/* {console.log(this.state.origin_text)} */}
         {listdata}
-        {console.log(url)}
-        <audio controlsList="nodownload" controls>
+        {/* <audio controlsList="nodownload" controls>
           <source src={url} type="audio/mpeg" />
-        </audio>
+        </audio> */}
+        
+        {this.state.binary===""?(<CircularProgress variant="indeterminate" value="변환중" />):<audio controls src={src}/>}
         
       </div>
     );
