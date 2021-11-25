@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Paper from "@material-ui/core/Paper";
+import axios from 'axios'
 
 
 
@@ -37,22 +38,24 @@ const useStyles = makeStyles({
     }
   });
 
-const OverviewTimeline = (props) => {
+const AttackerTimelineItem = (props) => {
 
     const classes = useStyles();
+    {console.log(props)}
     return(
+      <div>
         <TimelineItem>
             <TimelineSeparator>
                 <CheckCircleOutlineIcon
                     color="primary"
                     className={classes.timelineIcon}
                 />
-                {/* <Paper className={classes.timelineContent2}>
+                <Paper className={classes.timelineContent2}>
                 <Typography>
                     {props.date}<br/>
                     {props.filename}<br/>
                 </Typography>
-                 </Paper> */}
+                 </Paper>
                 <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent className={classes.timelineContentContainer}>
@@ -64,7 +67,8 @@ const OverviewTimeline = (props) => {
             </Paper>
             </TimelineContent>
         </TimelineItem>
+      </div>
     )
 }
 
-export default OverviewTimeline;
+export default AttackerTimelineItem;

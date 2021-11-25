@@ -33,6 +33,7 @@ import uploadevidence_artifact from './components/UploadEvidence_artifact'
 import Editevidence_artifact from './components/Editevidence_artifact'
 import BullyingTypePage from './report/BullyingTypePage'
 import AttackerTypePage from './report/AttackerTypePage'
+import EvidenceDetails from './report/EvidenceDetails';
 
 ReactDOM.render(
     // <App />,
@@ -67,6 +68,7 @@ ReactDOM.render(
         <Route path="/Editevidence_artifact" component = {Editevidence_artifact}/>
         <Route path="/bullyingtypepage" component={BullyingTypePage}/>
         <Route path="/attackertypepage" component={AttackerTypePage}/>
+        <Route path="/evidencedetails" component={EvidenceDetails}/>
       </Route>
      </Router>, 
   document.getElementById('root')

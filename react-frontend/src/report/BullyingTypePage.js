@@ -4,7 +4,10 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import ReportHeader from './ReportHeader';
 import BullyingTimeline from './BullyingTimeline';
+import BullyingScatterPlot from './BullyingScatterPlot';
 import './reportHeader.css'
+import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+
 
 
 const BullyingTypePage = (props) => {
@@ -21,68 +24,8 @@ const BullyingTypePage = (props) => {
       await axios.get('/getuser').then((res)=>{
         console.log(res)
         Setuser(res.data.user)
-        getPicEvid(res.data.user)
-        getAudEvid(res.data.user)
-        getCsvEvdi(res.data.user)
         getbullyingtype(res.data.user)
       })
-
-    }
-
-    const getPicEvid =(user_id)=>{
-      
-      let body = {
-          user: user_id,
-          type: "pic",
-      }
-      axios.post('/ismainevdi',body).then((res)=>{
-        Setpicevdi(res.data)
-
-      })
-    }
-
-    const getAudEvid =(user_id)=>{
-      
-      let body = {
-          user: user_id,
-          type: "aud",
-      }
-      axios.post('/ismainevdi',body).then((res)=>{
-        Setaudevdi(res.data)
-      })
-    }
-
-    const getCsvEvdi =(user_id)=>{
-      let body = {
-        user: user_id,
-      }
-      axios.post('/csvevdi',body).then((res)=>{
-        Setcsvevdi(res.data)
-      })
-    }
-
-    const gettimelineEvdi = async (user_id,type) => {
-      let body = {
-        user: user_id,
-        type: type,
-      }
-
-      const res = await axios.post('/bullyingtimeline',body)
-      
-      Setbullyingevdi(res.data)
-
-      // .then((res)=>{
-      //   Setbullyingevdi(res.data)
-      //   data = res.data
-      //   console.log(type)
-      //   console.log(res.data)
-      // })
-
-      return(
-        <div>
-          hi
-        </div>
-      )
     }
 
     const getbullyingtype = (user_id) =>{
@@ -92,11 +35,6 @@ const BullyingTypePage = (props) => {
 
       axios.post("/bullyingtype",body).then((res)=>{
         Setbulltypes(res.data)
-        
-        // res.data.map((c)=>(
-        //   gettimelineEvdi(c,user)
-        // ))
-
       })
     }
 
@@ -117,7 +55,7 @@ const BullyingTypePage = (props) => {
             <p>괴롭힘 유형별로 증거 자료를 나타냅니다. 증거 자료에 대한 속성 값과 피해사실을 기록할 수 있습니다.</p>
             
             <br/><br/><br/>
-            {console.log(bulltypes)}
+            {console.log(user)}
             
               
               {bulltypes.map((c)=>(
@@ -132,25 +70,7 @@ const BullyingTypePage = (props) => {
 
               {bulltypes.map((c)=>(
                 console.log(c)
-              ))}
-
-            
-
-            {/* <Timeline className={classes.timeline} align="alternate">
-            
-            {evidence.map((c)=>(
-                <OverviewTimeline
-                    date = {c.date}
-                    filename = {c.filename}
-                    attacker = {c.attacker}
-                    type = {c.type}
-                />
-            ))}
-
-            {evidence.map((c)=>(
-                console.log(c)
-            ))}
-            </Timeline> */}
+              ))}            
 
           </div>
 

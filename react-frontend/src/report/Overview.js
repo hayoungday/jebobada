@@ -33,7 +33,7 @@ const Overview = () => {
     const [evidence, Setevidence] = useState([])
     const [startDate, SetStartDate] = useState("2021-03-15")
     const [endDate, SetEndDate] = useState("2021-05-01")
-    const [attackers, setAttackers] = useState(["윤승구","이호준"])
+    const [attackers, SetAttackers] = useState([])
     const [bullying, setBullying] = useState(["폭행","사적지시"])
 
     const classes = useStyles();
@@ -46,15 +46,27 @@ const Overview = () => {
   
     const getEvidences =(user_id)=>{
     
+      let attacker_arr = []
+
     let body = {
         user: user_id,
         type: "all",
     }
-    axios.post('/getallevidence',body).then((res)=>{
-        Setevidence(res.data)
-
-    })
-    }
+    axios.post("/getallevidence", body).then((res) => {
+      Setevidence(res.data);
+      //console.log(res.data)
+      //console.log(res.data[0]['date'].substr(0,10))
+      //console.log(res.data[res.data.length-1]['date'])
+      SetStartDate(res.data[0]['date'].substr(0,10))
+      SetEndDate(res.data[res.data.length-1]['date'])
+      res.data.map((c)=>{
+        // SetAttackers(attackers.concat(c.attacker))
+        attacker_arr.push(c.attacker[0])
+      })
+    });
+    console.log(attacker_arr)
+    SetAttackers(attacker_arr)
+  }
 
     useEffect(()=>{
         getUser();
@@ -63,6 +75,10 @@ const Overview = () => {
 
     return(
         <div className="flex-container">
+          {console.log(attackers.join(" "))}
+          {console.log(attackers.join(","))}
+          {console.log(attackers.toString())}
+          {console.log(attackers)}
         <div className="nav-item">
             <ReportHeader/>
         </div>
@@ -72,7 +88,8 @@ const Overview = () => {
             <h5>괴롭힘 유형별 건수와 사건을 요약하여 나타냅니다.</h5><br/>
             
             <label>피해기간 {startDate}~{endDate}{"  "}</label>
-            <label>행위자 {attackers.join(", ")}</label>
+            <label>행위자 {attackers} </label>
+            {attackers}
             <br/><br/>
 
             <h3>괴롭힘 유형별 건수</h3>
@@ -97,9 +114,6 @@ const Overview = () => {
                 />
             ))}
 
-            {evidence.map((c)=>(
-                console.log(c)
-            ))}
             </Timeline>
             <h1>요구사항</h1>
             <h5>신고기관에 바라는 요구 사항을 선택하세요.</h5><br/>

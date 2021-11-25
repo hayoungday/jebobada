@@ -8,26 +8,20 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: '사건 개요',
-    path: '/overview',
-    icon: <BsIcons.BsFillInfoCircleFill />,
-    cName: 'nav-text'
-  },
-  {
     title: '전체 자료 목록',
     path: '/allevidence',
     icon: <BsIcons.BsPersonBoundingBox />,
     cName: 'nav-text'
   },
   {
-    title: '녹음 증거 자료 목록',
-    path: '/recordevidence',
-    icon: <BsIcons.BsFillHouseDoorFill />,
+    title: '사건 개요',
+    path: '/overview',
+    icon: <BsIcons.BsFillInfoCircleFill />,
     cName: 'nav-text'
   },
   {
-    title: '사진 증거 자료 목록',
-    path: '/pictureevidence',
+    title: '행위자별 괴롭힘 행위',
+    path: '/attackertypepage',
     icon: <BsIcons.BsFillInfoCircleFill />,
     cName: 'nav-text'
   },
@@ -38,9 +32,23 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: '행위자별 괴롭힘 행위',
-    path: '/attackertypepage',
+    title: '증거자료',
+    path: '/evidencedetails',
     icon: <BsIcons.BsFillInfoCircleFill />,
     cName: 'nav-text'
   },
+  {
+    title: '녹음 증거 자료 목록',
+    path: '/recordevidence',
+    icon: <BsIcons.BsFillHouseDoorFill />,
+    cName: 'nav-text'
+  },
+  {
+    title: '이미지 증거 자료 목록',
+    path: '/pictureevidence',
+    icon: <BsIcons.BsFillInfoCircleFill />,
+    cName: 'nav-text'
+  },
+  
+  
 ];

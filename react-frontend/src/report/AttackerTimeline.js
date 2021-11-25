@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Timeline from '@mui/lab/Timeline';
 import { makeStyles } from '@material-ui/styles';
-import BullyingTimelineItem from './BullyingTimelineItem';
-import BullyingScatterPlot from './BullyingScatterPlot';
+import AttackerTimelineItem from './AttackerTimelineItem';
+import AttackerScatterPlot from './AttackerScatterPlot';
 import axios from 'axios'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 
@@ -35,11 +35,11 @@ const useStyles = makeStyles({
     }
   });
 
-const BullyingTimeline = (props) => {
+const AttackerTimeline = (props) => {
 
     const classes = useStyles();
-    const [bullyingevdi,Setbullyingevdi] = useState([])
-    const [bullyingevdi2,Setbullyingevdi2] = useState([])
+    const [Attackerevdi,SetAttackerevdi] = useState([])
+    const [Attackerevdi2,SetAttackerevdi2] = useState([])
 
     const gettimelineEvdi = async () => {
       let body = {
@@ -49,18 +49,18 @@ const BullyingTimeline = (props) => {
 
       }
 
-    const res = await axios.post('/bullyingtimeline',body)
+    const res = await axios.post('/attackertimeline',body)
     
-    Setbullyingevdi(res.data)
+    SetAttackerevdi(res.data)
 
     let body2 = {
       user: props.user,
       type: props.type,
       scatter: "yes",
     }
-    const res2 = await axios.post('/bullyingtimeline',body2)
-    Setbullyingevdi2(res2.data)
-    console.log(bullyingevdi2)
+    const res2 = await axios.post('/attackertimeline',body2)
+    SetAttackerevdi2(res2.data)
+    console.log(Attackerevdi2)
 
   }
 
@@ -72,14 +72,14 @@ const BullyingTimeline = (props) => {
     return(
       <div>
         <h1>{props.type}</h1>
-        {console.log(bullyingevdi)}
+        {console.log(Attackerevdi)}
         <Timeline className={classes.timeline} align="alternate">
 
-        {bullyingevdi.map((c)=>(
+        {Attackerevdi.map((c)=>(
                 // console.log(typeof c)
                 // gettimelineEvdi(user,c)
                 // return console.log()
-          <BullyingTimelineItem
+          <AttackerTimelineItem
             date = {c.date}
             filename = {c.filename}
             attacker = {c.attacker}
@@ -88,12 +88,12 @@ const BullyingTimeline = (props) => {
         ))}
         </Timeline>
         <br/>
-        <BullyingScatterPlot
-          data = {bullyingevdi2}
+        <AttackerScatterPlot
+          data = {Attackerevdi2}
         />
         <br/><br/>
       </div>
     )
 }
 
-export default BullyingTimeline;
+export default AttackerTimeline;

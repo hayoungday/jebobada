@@ -782,6 +782,13 @@ def about():
 def bullyingtypepage():
     return render_template('index.html')
 
+@app.route('/evidencedetails')
+def evidencedetails():
+    return render_template('index.html')
+@app.route('/attackertypepage')
+def attackertypepage():
+    return render_template('index.html')
+
 @app.route('/getallevidence', methods=['GET','POST'])
 def getallevidence():
     conn=pymongo.MongoClient(config.mongodb)
@@ -1198,6 +1205,9 @@ def bullyingtype():
 
 @app.route("/bullyingtimeline",methods=['GET','POST'])
 def bullyingtimeline():
+    import pandas as pd
+    import numpy as np
+    
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
     collection = db.stt
@@ -1212,6 +1222,72 @@ def bullyingtimeline():
     
     evid.sort(key=lambda x:x['date'])
     
+    if data['scatter'] == 'yes':
+        df = pd.DataFrame(evid)
+        df2 = df[['date']]
+        # df2['y'] = df2.groupby(['date']).col.transform('count')
+        df2['y'] = df2.count(axis = 1)
+        df2.rename(columns = {'date' : 'x'}, inplace = True)
+    
+        js = df2.to_json(orient='records')
+
+        return js
+        
+    return json.dumps(evid,default=json_util.default)
+
+@app.route("/attackertype",methods=['GET','POST'])
+def attackertype():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    evidences = list(collection.find({'user_id':data['user']}))
+    evidences.sort(key=lambda x:x['date'])
+    
+    att_type = []
+    
+    for e in evidences:
+        a = e['attacker']
+        for att in a:
+            att_type.append(att)
+    
+    print(att_type)
+    att_type_unq = set(att_type)
+    att_type = list(att_type_unq)
+    
+    return json.dumps(att_type,default=json_util.default)
+
+@app.route("/attackertimeline",methods=['GET','POST'])
+def attackertimeline():
+    import pandas as pd
+    import numpy as np
+    
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.stt
+    data = request.get_json()
+    
+    evid = list(collection.find({
+        "$and":[
+            {'user_id':data['user']},
+            {'attacker': data['type']}
+        ]
+    }))
+    
+    evid.sort(key=lambda x:x['date'])
+    
+    if data['scatter'] == 'yes':
+        df = pd.DataFrame(evid)
+        df2 = df[['date']]
+        # df2['y'] = df2.groupby(['date']).col.transform('count')
+        df2['y'] = df2.count(axis = 1)
+        df2.rename(columns = {'date' : 'x'}, inplace = True)
+    
+        js = df2.to_json(orient='records')
+        print(js)
+        return js
+        
     return json.dumps(evid,default=json_util.default)
 
 

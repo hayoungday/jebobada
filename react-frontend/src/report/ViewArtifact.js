@@ -61,7 +61,7 @@ export default function ViewArtifact(props) {
         </TableHead>
         <TableBody>
 
-          {props.data[0].data.map((c, i) => {
+          {props.data.data.map((c, i) => {
             return c.isChecked == "true" ? (
               <TableRow>
                 <TableCell>

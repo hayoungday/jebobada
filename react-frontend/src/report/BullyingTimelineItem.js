@@ -41,34 +41,9 @@ const useStyles = makeStyles({
 const BullyingTimelineItem = (props) => {
 
     const classes = useStyles();
-    const [bullyingevdi,Setbullyingevdi] = useState([])
-
-    const gettimelineEvdi = async () => {
-      let body = {
-        user: props.user,
-        type: props.type,
-      }
-
-      const res = await axios.post('/bullyingtimeline',body)
-      
-      Setbullyingevdi(res.data)
-
-      // .then((res)=>{
-      //   Setbullyingevdi(res.data)
-      //   data = res.data
-      //   console.log(type)
-      //   console.log(res.data)
-      // })
-    }
-
-  useEffect(()=>{
-    gettimelineEvdi();
-  },[])
-
     {console.log(props)}
     return(
       <div>
-        {console.log(bullyingevdi)}
         <TimelineItem>
             <TimelineSeparator>
                 <CheckCircleOutlineIcon
