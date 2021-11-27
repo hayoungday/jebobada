@@ -65,6 +65,7 @@ const AllEvidence = (props) => {
                     })}
                 </TableBody>
               </Table>
+              *해시값 : 디지털 증거의 원본성을 입증하기 위해 파일 특성을 축약한 암호같은 수치
           </div>
         </div>
     )

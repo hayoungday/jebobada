@@ -1279,14 +1279,25 @@ def attackertimeline():
     
     if data['scatter'] == 'yes':
         df = pd.DataFrame(evid)
-        df2 = df[['date']]
+        # df2 = df[['date']]
         # df2['y'] = df2.groupby(['date']).col.transform('count')
-        df2['y'] = df2.count(axis = 1)
-        df2.rename(columns = {'date' : 'x'}, inplace = True)
+
+        # df2['y'] = df2.count(axis = 1)
+        # df2.rename(columns = {'date' : 'x'}, inplace = True)
     
-        js = df2.to_json(orient='records')
-        print(js)
-        return js
+        # js = df2.to_json(orient='records')
+        # js2 = df3.to_json(orient='records')
+        # print(js)
+        # print(js2)
+        
+        df3 = df[['date']]
+        df33 = df3.groupby(['date'])
+        df33 = df33.size().reset_index(name='y')
+        df333 = pd.DataFrame(df33)
+        df333.rename(columns = {'date' : 'x'}, inplace = True)        
+        js2 = df333.to_json(orient='records')
+        
+        return js2
         
     return json.dumps(evid,default=json_util.default)
 
