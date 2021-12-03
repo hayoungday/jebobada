@@ -34,6 +34,8 @@ import Editevidence_artifact from './components/Editevidence_artifact'
 import BullyingTypePage from './report/BullyingTypePage'
 import AttackerTypePage from './report/AttackerTypePage'
 import EvidenceDetails from './report/EvidenceDetails';
+import EvidenceDetailsEdit from './report/EvidenceDetailsEdit';
+import Footer from './components/Footer';
 
 ReactDOM.render(
     // <App />,
@@ -41,6 +43,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <Route exact path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={Footer}/>
         {/* <Route path="/about" component={About}/> */}
         <Route path="/upload/:casenum" component={Upload}/>
         <Route path="/download" component={Download}/>
@@ -69,6 +72,7 @@ ReactDOM.render(
         <Route path="/bullyingtypepage" component={BullyingTypePage}/>
         <Route path="/attackertypepage" component={AttackerTypePage}/>
         <Route path="/evidencedetails" component={EvidenceDetails}/>
+        <Route path="/evidencedetailedit" component = {EvidenceDetailsEdit}/>
       </Route>
      </Router>, 
   document.getElementById('root')

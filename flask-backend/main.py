@@ -789,6 +789,10 @@ def evidencedetails():
 def attackertypepage():
     return render_template('index.html')
 
+@app.route('/pictureevidence')
+def pictureevidence():
+    return render_template('index.html')
+
 @app.route('/getallevidence', methods=['GET','POST'])
 def getallevidence():
     conn=pymongo.MongoClient(config.mongodb)
@@ -1153,15 +1157,13 @@ def ismainpic():
             print(pic_main)
         elif i['filetype'] == "녹음 파일":
             print(aud_main)
-        else:
-            print(i)
-            print(type(i))
-            print(i['filetype'])
             
     if data['type'] == "pic":
         return json.dumps(pic_main,default=json_util.default)
     elif data['type'] == "aud":
         return json.dumps(aud_main,default=json_util.default)
+    elif data['type'] == "all":
+        return json.dumps(mainevdi,default=json_util.default)
     else:
         return render_template("index.html")
     

@@ -7,11 +7,20 @@ import axios from 'axios';
 
 const PictureEvidenceTable =(props)=>{
 
+    const edited=()=>{
+        if (props.manipul === "false" || props.edited === "false"){
+            return "X"
+        } else{
+            return "O"
+        }
+    }
+
+
     return (
         <TableRow>
             <TableCell style={{ textAlign: "center" }}>{props.index}</TableCell>
             <TableCell style={{ textAlign: "center" }}>{props.name}</TableCell>
-            <TableCell style={{ textAlign: "center" }}>X</TableCell>
+            <TableCell style={{ textAlign: "center" }}>{edited()}</TableCell>
             <TableCell style={{ textAlign: "center" }}>{props.type}</TableCell>
             <TableCell style={{ textAlign: "center" }}>{props.filehash}</TableCell>
         </TableRow>

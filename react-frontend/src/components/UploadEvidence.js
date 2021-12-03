@@ -130,65 +130,70 @@ const UploadEvidence = (props) => {
       <div>
         <Header />
         <div className="wrap" >
-          <div className="flex-column-container-upload">
-            <span className="upload_title">
-              증거 자료 등록
-            </span>
-            <span className="upload_subtitle">
-              등록할 증거의 정보를 작성해주세요. 자세히 기록할 수록 도움이 됩니다.
-            </span>
 
-              <form onSubmit={handleFormSubmit}>
-              <div className="upload_box">
+        <div className="jb_banner">
+          <div className="jb-case-flex-container">
+            <div className="jb-upload-flex-column-container">
+              <span className="jb_case_banner_title">
+                증거 자료 등록
+              </span>
+              <span className="jb_case_banner_subtitle">
+              등록할 증거의 정보를 작성해주세요. 자세히 기록할수록 도움이 됩니다.<br/>
+              </span>
+            </div>
+          </div>
+        </div>
 
-                <div className="upload-input-text">일시*</div>
-                <input className="upload-input-box" type="date" defaultValue="" onChange={onDateHandler}/>
+          <div className="jb-upload-box-flex-column-container">
+            
+            <form onSubmit={handleFormSubmit}>
+            <div className="upload_box">
 
-                <div className="upload-input-text">발생장소*</div>
-                <input className="upload-input-box" type="text" name="location" placeholder="사건이 발생한 장소를 적어주세요" value={location} onChange={onLocationHandler}/>
+              <div className="upload-input-text">일시*</div>
+              <input className="upload-input-box" type="date" defaultValue="" onChange={onDateHandler}/>
 
-                <div className="upload-input-text">행위자*</div>
-                <ReactTagInput tags={attacker} className="upload-input-box" placeholder="행위자를 입력하고 Enter를 누르세요" maxTags={10} editable={true} readOnly={false} removeOnBackspace={true} onChange={setAttacker}/>
+              <div className="upload-input-text">발생장소*</div>
+              <input className="upload-input-box" type="text" name="location" placeholder="사건이 발생한 장소를 적어주세요" value={location} onChange={onLocationHandler}/>
 
-                <div className="upload-input-text">괴롭힘 유형*</div>
-                  <div className="flex-container-modal-button">
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("physics");}} value="신체적"/>
-                  
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("lang");}} value="언어적"/>
-                  
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("onwork");}} value="업무적"/>
-                  
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("outwork");}} value="업무외"/>
-                  
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("group");}} value="집단적"/>
-                  
-                  <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("sexual");}} value="성희롱"/>
-                  </div>
-                  
-                  
-                  <br />
-                  {setaa}
-                  <br />
+              <div className="upload-input-text">행위자*</div>
+              <ReactTagInput tags={attacker} className="upload-input-box" placeholder="행위자를 입력하고 Enter를 누르세요" maxTags={10} editable={true} readOnly={false} removeOnBackspace={true} onChange={setAttacker}/>
 
-                <div className="upload-input-text">상세설명</div>
-                <textarea type="text" className="upload-input-desc-box" name="description" placeholder="구체적인 피해사실을 적어주세요" value={desc} onChange={onDescHandler}/>
-
-
-                <div className="upload-input-text">첨부파일</div>
-                <input type="file" name="file" file={file} value={filename} onChange={onFileHandler}/>
-
-                <div className="upload-input-text">핵심 증거 여부</div>
-                <input id="yes" value="yes" name="yes" type="radio" checked={mainevdi === "yes"} onChange={onMainHandler}/>예
-
-                <input id="no" value="no" name="no" type="radio" checked={mainevdi === "no"} onChange={onMainHandler}/>아니요
+              <div className="upload-input-text">괴롭힘 유형*</div>
+                <div className="flex-container-modal-button">
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("physics");}} value="신체적"/>
+                
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("lang");}} value="언어적"/>
+                
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("onwork");}} value="업무적"/>
+                
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("outwork");}} value="업무외"/>
+                
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("group");}} value="집단적"/>
+                
+                <input type="button" className="upload-modal-button" onClick={() => { setIsModalOpen(true); setType("sexual");}} value="성희롱"/>
                 </div>
+                
+                
+                <br />
+                {setaa}
+                <br />
 
-                <input type="submit" class="upload-button-container" value="등록" />
+              <div className="upload-input-text">상세설명</div>
+              <textarea type="text" className="upload-input-desc-box" name="description" placeholder="구체적인 피해사실을 적어주세요" value={desc} onChange={onDescHandler}/>
 
-              </form>
-            {/* <button className="upload-button-container" type="submit" value="등록">
-              등록
-            </button> */}
+
+              <div className="upload-input-text">첨부파일</div>
+              <input type="file" name="file" file={file} value={filename} onChange={onFileHandler}/>
+
+              <div className="upload-input-text">핵심 증거 여부</div>
+              <input id="yes" value="yes" name="yes" type="radio" checked={mainevdi === "yes"} onChange={onMainHandler}/>예
+
+              <input id="no" value="no" name="no" type="radio" checked={mainevdi === "no"} onChange={onMainHandler}/>아니요
+              </div>
+
+              <input type="submit" class="upload-button-container" value="등록" />
+
+            </form>
           </div>
         </div>
         <Check_Modal visible={isModalOpen} type={type} getSetValue={getSetValue} closeModal={closeModal}>

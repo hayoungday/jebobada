@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
 import Header from "./Header";
+import Footer from "./Footer"
 import axios from "axios";
 import Case from "./Case";
 import {Link} from 'react-router-dom';
@@ -148,8 +149,134 @@ class CasePage extends Component {
       <div>
         <Header />
         <div className="wrap">
-          <div className="flex-column-container">
-            <div className="flex-container-case-box2">
+          <div className="jb_banner">
+            <div className="jb-case-flex-container">
+              <div className="jb-case-flex-column-container">
+                <span className="jb_case_banner_title">
+                  폴더를 생성하여 괴롭힘 자료를 관리하세요
+                </span>
+                <span className="jb_case_banner_subtitle">
+                  폴더 하나 당 하나의 신고 보고서를 생성할 수 있습니다.<br/>
+                  폴더에 직장 내 괴롭힘 신고를 위한 증거자료를 모아 관리하세요!<br/>
+                </span>
+              </div>
+              <button className="jb_case_banner_button" onClick={this.openModal}>
+                새로 만들기
+              </button>
+            </div>
+          </div>
+
+          <Modal visible={this.state.isModalOpen}>
+            <button
+              className="close_button"
+              onClick={() => {
+                this.setState({ isModalOpen: false });
+              }}
+            >
+              <img
+                class="close_button_img"
+                src="./static/react/close_icon.png"
+              />
+            </button>
+            <div className="flex-column-container-case">
+              <span className="modal_title">폴더 생성</span>
+              <form onSubmit={this.handleFormSubmit}>
+                <div className="flex-container-first-box">
+                  <span className="case_name"> 폴더명: </span>
+                  <input
+                    className="case_name_input"
+                    type="text"
+                    name="case_name"
+                    placeholder="폴더명"
+                    value={this.state.case_name}
+                    onChange={this.handleValueChange}
+                  />
+                </div>
+                <div className="flex-container-first-box">
+                  <span className="case_description"> 설명: </span>
+                  <input
+                    className="case_description_input"
+                    type="text"
+                    name="description"
+                    placeholder="설명"
+                    value={this.state.description}
+                    onChange={this.handleValueChange}
+                  />
+                </div>
+                <button
+                  className="case_button"
+                  onClick={() => {
+                    this.setState({
+                      isModalOpen: false,
+                      cases: undefined,
+                    });
+                  }}
+                >
+                  {" "}
+                  등록
+                </button>
+              </form>
+            </div>
+          </Modal> 
+          <FadeIn>
+            <div className="jb-case-card-flex-container">
+                {this.state.cases ? (
+                  this.state.cases.map((c, i) => {
+                    return (
+                      <div className="casepage_test_case_box">
+                        <Link
+                            to={{
+                              pathname: "/upload/" + c.index,
+                              state: { casename: c.CaseName },
+                            }}
+                          >
+                          <button className="casepage_test_case_box_title">
+                            {c.CaseName}
+                          </button>
+                        </Link>
+                        
+                        <span className="casepage_test_case_box_desc">{c.Description}</span>
+                        <div className="jb-case-item-flex-container">
+
+                            <button
+                              onClick={()=>this.handleDeleteButton(c.CaseName,c.User,c.index)}
+                              className="case_del_button"
+                            />
+
+                            <button
+                              onClick={this.openCaseEditModal}
+                              className="case_edit_button"
+                            />
+
+                            <CaseEditModal
+                              visible={this.state.isCaseEditModalOpen}
+                              case_name={c.CaseName}
+                              user={c.User}
+                              closeModal={this.closeCaseEditModal}
+                              desc={c.Description}
+                            />                             
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="circular_progress">
+                    <CircularProgress variant="indeterminate" />
+                  </div>
+                )}
+              </div>
+              </FadeIn>
+
+            <br></br>
+          </div>
+        <Footer/>
+      </div>
+    );
+  }
+}
+
+export default CasePage;
+            {/* <div className="flex-container-case-box2">
               <div className="flex-column-content-container">
                 <span className="select-case-text">
                   <span className="text_color">폴더</span>를 생성하여 괴롭힘 관련 자료를 <span className="text_color">관리</span>하세요
@@ -216,7 +343,8 @@ class CasePage extends Component {
                 </div>
               </Modal>
               {console.log(this.state.isModalOpen)}
-            </div>
+            </div> */}
+
             {/* <div className="table_style">
               <Table
                 style={{
@@ -285,64 +413,3 @@ class CasePage extends Component {
             </div> */}
 
             {/* ==========    여기 아래는 그냥 테스트중     ============= */}
-            <div>
-              <FadeIn>
-                {this.state.cases ? (
-                  this.state.cases.map((c, i) => {
-                    return (
-                      <div className="casepage_test_case_box">
-                        <button className="casepage_test_case_box_title">
-                          <Link
-                            to={{
-                              pathname: "/upload/" + c.index,
-                              state: { casename: c.CaseName },
-                            }}
-                          >
-                            {c.CaseName}
-                          </Link>
-                        </button>
-                        <div className="casepage_test_case_box_desc">{c.Description}</div>
-                        <div className="flex-container-evidence">
-                          <div className="button_edit">
-                            <button
-                              onClick={this.openCaseEditModal}
-                              className="button_text"
-                            >
-                              수정
-                            </button>
-                          </div>
-                          <CaseEditModal
-                            visible={this.state.isCaseEditModalOpen}
-                            case_name={c.CaseName}
-                            user={c.User}
-                            closeModal={this.closeCaseEditModal}
-                            desc={c.Description}
-                          ></CaseEditModal>
-                          <div className="button_edit">
-                            <button
-                              onClick={()=>this.handleDeleteButton(c.CaseName,c.User,c.index)}
-                              className="button_text"
-                            >
-                              삭제
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="circular_progress">
-                    <CircularProgress variant="indeterminate" />
-                  </div>
-                )}
-              </FadeIn>
-            </div>
-            <br></br>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default CasePage;

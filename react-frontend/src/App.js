@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Header from './components/Header';
 import Home from './components/Home';
+import Footer from './components/Footer';
 import "./fonts/font.css";
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
                 <Header/>   
                 <div>
                   <Home/>
-                </div>                
+                </div>  
+                <Footer/>              
             </div>
         );
     }

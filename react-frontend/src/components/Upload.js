@@ -2,6 +2,8 @@ import React, {Component,useState} from 'react';
 import { Link, RouteComponentProps } from "react-router-dom";
 
 import Header from './Header';
+import Footer from './Footer'
+
 import axios from 'axios';
 import Evidence from './Evidence';
 import Paper from '@material-ui/core/Paper';
@@ -22,6 +24,7 @@ import "./Agree.css";
 import Check_Modal from './Check_Modal';
 import Agree_Modal from './Agree_Modal';
 import SelectType_Modal from './SelectType_Modal';
+
 
 
 let keyword=""
@@ -202,97 +205,96 @@ class Upload extends Component {
         return (
           <div>
             <Header />
-
             <div className="wrap">
-              <div className="flex-column-container">
-                <div className="flex-container-case-box">
-                  <div className="flex-column-content-container">
-                    <span className="select-case-text">
-                      괴롭힘 <span className="text_color">증거 자료</span>를
-                      <span className="text_color"> 등록</span>하세요.
-                    </span>
-                    <p />
-                    <p />
-                    <span className="select-case-content">
-                      직장 내 괴롭힘 관련 증거 자료(캡처/녹음 파일, 컴퓨터
-                      사용기록 등)를 등록하여 증거 자료를 관리하세요.
-                      <p />
-                      등록 시, 육하원칙에 따라 피해 정황을 자세히 기록해두면
-                      추후 신고할 때 큰 도움이 됩니다.
-                    </span>
-                  </div>
-                  
+            <div className="jb_banner">
+              <div className="jb-case-flex-container">
+                <div className="jb-case-flex-column-container">
+                  <span className="jb_case_banner_title">
+                    괴롭힘 증거자료를 등록하세요
+                  </span>
+                  <span className="jb_case_banner_subtitle">
+                    직장 내 괴롭힘 관련 증거 자료 (캡쳐/녹음파일, 컴퓨터 사용기록 등)을 등록하여 증거자료를 관리하세요.<br/>
+                    증거자료 등록 시, 육하원칙에 따라 피해 정황을 자세히 기록해두면 추후 신고할 때 큰 도움이 됩니다.<br/>
+                  </span>
+                </div>
+                <button className="jb_case_banner_button" onClick={this.openModal}>
+                  증거자료 등록
+                </button>
+              </div>
+            </div>
+            
+              <div className="flex-column-container">                  
 
-                  <Agree_Modal
-                    visible={this.state.isModalOpen}
-                    agreeButton={this.agreeButton}
-                  >
-                    <button
-                      className="close_icon_postview"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({ isModalOpen: false });
-                      }}
-                    />
-                  </Agree_Modal>
-                  <SelectType_Modal visible={this.state.isSelectModalOpen}>
-                    <button
-                      className="close_icon_postview"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({ isSelectModalOpen: false });
-                      }}
-                    />
-                    <div className="flex-column-container-agree">
-                      <span className="select-type-title">
-                        등록할 증거 유형을 선택해주세요
-                      </span>
-                      <div className="flex-container-column-meta">
-                        <div className="flex-container-select-type">
-                          <Link
-                            to={{
-                              pathname: "/uploadevidence",
-                              state: {
-                                casenum: this.props.match.params.casenum,
-                                user: this.state.user,
-                              },
-                            }}
-                          >
-                            <div className="self-upload-container">
-                              <span className="self-upload-title">
-                                직접 수집한 증거 자료
-                              </span>
-                              <p />
-                              <span className="self-upload-text">
-                                녹음파일, 사진파일, 캡쳐파일 등
-                              </span>
-                            </div>
-                          </Link>
-                          <Link
-                            to={{
-                              pathname: "/UploadEvidence_artifact",
-                              state: {
-                                casenum: this.props.match.params.casenum,
-                                user: this.state.user,
-                              },
-                            }}
-                          >
-                            <div className="self-upload-container">
-                              <span className="self-upload-title2">
-                                컴퓨터 사용 기록
-                              </span>
-                              <p />
-                              <span className="self-upload-text">
-                                JB Extractor에서 추출한 컴퓨터 사용 기록
-                              </span>
-                            </div>
-                          </Link>
-                        </div>
+                <Agree_Modal
+                  visible={this.state.isModalOpen}
+                  agreeButton={this.agreeButton}
+                >
+                  <button
+                    className="close_icon_postview"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.setState({ isModalOpen: false });
+                    }}
+                  />
+                </Agree_Modal>
+                <SelectType_Modal visible={this.state.isSelectModalOpen}>
+                  <button
+                    className="close_icon_postview"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.setState({ isSelectModalOpen: false });
+                    }}
+                  />
+                  <div className="flex-column-container-agree">
+                    <span className="select-type-title">
+                      등록할 증거 유형을 선택해주세요
+                    </span>
+                    <div className="flex-container-column-meta">
+                      <div className="flex-container-select-type">
+                        <Link
+                          to={{
+                            pathname: "/uploadevidence",
+                            state: {
+                              casenum: this.props.match.params.casenum,
+                              user: this.state.user,
+                            },
+                          }}
+                        >
+                          <div className="self-upload-container">
+                            <span className="self-upload-title">
+                              직접 수집한 증거 자료
+                            </span>
+                            <p />
+                            <span className="self-upload-text">
+                              녹음파일, 사진파일, 캡쳐파일 등
+                            </span>
+                          </div>
+                        </Link>
+                        <Link
+                          to={{
+                            pathname: "/UploadEvidence_artifact",
+                            state: {
+                              casenum: this.props.match.params.casenum,
+                              user: this.state.user,
+                            },
+                          }}
+                        >
+                          <div className="self-upload-container">
+                            <span className="self-upload-title2">
+                              컴퓨터 사용 기록
+                            </span>
+                            <p />
+                            <span className="self-upload-text">
+                              JB Extractor에서 추출한 컴퓨터 사용 기록
+                            </span>
+                          </div>
+                        </Link>
                       </div>
                     </div>
-                  </SelectType_Modal>
-                </div>
-                <div className="flex-search-box" style={{marginBottom:"3%"}}>
+                  </div>
+                </SelectType_Modal>
+                
+                <div className="jb-search-box-flex-container" style={{marginBottom:"3%"}}>
 
                   <div className="search-box">
                     <input
@@ -303,18 +305,7 @@ class Upload extends Component {
                     />
                     <button className="search_button" onClick={this.handleClick(this.state.userInput)}/>
                   </div>
-                  
-                  <button
-                    className="add-case-button"
-                    style={{ textDecoration: "none" }}
-                    onClick={this.openModal}
-                  >
-                    증거 자료 등록
-                  </button>
-
                 </div>
-                
-
 
                 <div className="table_style">
                   <Table
@@ -414,8 +405,10 @@ class Upload extends Component {
                     </TableBody>
                   </Table>
                 </div>
+                
               </div>
             </div>
+            <Footer/>
           </div>
         ); 
     } 

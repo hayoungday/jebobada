@@ -68,7 +68,7 @@ const Header = () => {
     <div>
       <header id="header" class="  focus:no-underline focus:outline-none" role="button" tabindex="0">
         <div class="container mx-auto flex justify-between items-center px-5 xl:px-0">
-            <a href="/main"><div class="logo "></div></a>
+            <a href="/main"><h1>JeBoBADA</h1></a>
             <div class="header-nav justify-between items-center flex flex-wrap ">
                 <div class="w-full md:hidden px-5 pb-5 text-right">
                     <div class="flex justify-end">

@@ -13,6 +13,15 @@ const EvidenceDetails = (props) => {
 
     const [evidence, Setevidence] = useState([])
     const [no, Setno] = useState(1)
+    const [filetype, setFiletype] = useState("")
+    const [filesize, setFilesize] = useState("")
+    const [imageCtime, setImageCtime] = useState("")
+    const [gpsPosition, setgpsPosition] = useState("")
+    const [deviceModel, setDeviceModel] = useState("")
+    const [software, setSoftware] = useState("")
+    const [audioCtime, setAudioCtime] = useState("")
+    const [title, setTitle] = useState("")
+    const [duration, setDuration] = useState("")
 
     const getUser = async () => {
       await axios.get('/getuser').then((res)=>{
@@ -42,10 +51,21 @@ const EvidenceDetails = (props) => {
             <ReportHeader/>
           </div>
           <div className="comp-item">
-          {evidence.map((c,index)=>
+          
+          {evidence.map((c,index)=>              
                 <EvidenceDetailsPostView
                   filename = {c.filename}
                   meta = {c.metadata}
+                  filetype = {c.fileType}
+                  // filesize = {c.meta.filesize}
+                  // imageCtime = {c.meta.imageCtime}
+                  // gpsPosition = {c.meta.gpsPosition}
+                  // deviceModel = {c.meta.deviceModel}
+                  // software = {c.meta.software}
+                  // audioCtime = {c.meta.audioCtime}
+                  // title = {c.meta.title}
+                  // duration = {c.meta.duration}
+
                   date = {c.date}
                   location = {c.location}
                   attacker = {c.attacker}

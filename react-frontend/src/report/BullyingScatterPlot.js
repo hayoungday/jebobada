@@ -1,13 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import axios from 'axios'
+// import { ResponsiveBar } from '@nivo/bar'
+import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, ColumnSeries, Legend, DateTime, Tooltip, DataLabel, LineSeries } from '@syncfusion/ej2-react-charts';
+
 
 
 const BullyingScatterPlot = (props) => {
 
+    // const primaryxAxis = { valueType: 'DateTime', title: 'Sales Across Years',labelFormat:"yyMMMdd" }
+    // const primaryyAxis = { title: 'Sales Amount in millions(USD)' }
+
     return(
     <div style={{height:"500px"}}>
-        {console.log("hihihihi")}
+        {console.log(props.data)}
+       <ChartComponent
+          primaryXAxis={{ valueType: 'DateTime', title: 'Sales Across Years',labelFormat:"yyMMMdd" }}
+          primaryYAxis={{ title: 'Sales Amount in millions(USD)' }}
+          title="Average Sales Comparison"
+        >
+          <Inject
+            services={[
+              ColumnSeries,
+              Legend,
+              Tooltip,
+              DataLabel,
+              LineSeries,
+              DateTime
+            ]}
+          />
+          <SeriesCollectionDirective>
+            <SeriesDirective
+              dataSource={props.data}
+              xName="x"
+              yName="y"
+              name="Sales"
+              type="Column"
+            ></SeriesDirective>
+          </SeriesCollectionDirective>
+        </ChartComponent>
+
+        {/* {console.log("hihihihi")}
         {console.log(props)}
     <ResponsiveScatterPlot
         data={[{
@@ -68,7 +101,7 @@ const BullyingScatterPlot = (props) => {
                 ]
             }
         ]}
-    />
+    /> */}
     </div>
     )
 }

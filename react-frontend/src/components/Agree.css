@@ -369,12 +369,11 @@ font-family: "NotoSansKR-Regular";
     height: 20px;
   }
 
-  .table_style{
+  /* .table_style{
     height: auto;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 18px;
     background-color: white;
-    max-height: 530px;
     overflow-y: auto;
   }
 
@@ -387,20 +386,20 @@ font-family: "NotoSansKR-Regular";
 
   .table_cell_left{
     text-align: center;
-    background-color: #4B64D4;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
     border-top-left-radius: 18px;
   }
 
   .table_cell_right{
     text-align: center;
-    background-color: #4B64D4;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
     border-top-right-radius: 18px;
 
   }
 
   .table_cell{
     text-align: center;
-    background-color: #4B64D4;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
 
   }
 
@@ -409,9 +408,9 @@ font-family: "NotoSansKR-Regular";
     font-family: NanumSquare-Regular;
     text-align: center;
     font-weight: bolder;
-  }
+  } */
 
-  .casepage_test_case_box{
+  /* .casepage_test_case_box{
     display:table-cell;
     vertical-align: top;
     background-color: white;
@@ -426,7 +425,7 @@ font-family: "NotoSansKR-Regular";
     line-height: 0px;
     text-align: center;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  }
+  } */
 
   /* .casepage_test_case_box:hover{
     display:table-cell;
@@ -446,7 +445,7 @@ font-family: "NotoSansKR-Regular";
     transition: border 0.1s ease-in-out;
   } */
 
-  .casepage_test_case_box_title{
+  /* .casepage_test_case_box_title{
     background-color: #4B64D4;
     border-top-left-radius: 18px;
     border-top-right-radius: 18px;
@@ -480,7 +479,7 @@ font-family: "NotoSansKR-Regular";
     font-family: NotoSansKR-Regular;
     margin-bottom: 100px;
     word-break: normal;
-  }
+  } */
   
   .text_color{
     color:#4B64D4

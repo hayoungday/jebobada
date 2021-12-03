@@ -1,0 +1,479 @@
+.jb_banner {
+    width: 100%;
+    height: 255px;
+    margin: 87px 0 10px;
+    background-color: black;
+}
+
+.jb_footer {
+    width: 100%;
+    height: 108px;
+    bottom: 0px;
+    padding: 40px;
+    background-color: #c2c2c2;
+}
+
+.jb_main_card {
+    width: 36.9%;
+    height: 25.7%;
+    margin: 0 10px;
+    padding: 32px 36px 28px 40px;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px 0 rgba(102, 102, 102, 0.16);
+    background-color: #c2c2c2;
+  }
+
+  .jb_main_card_title{
+    width: auto;
+    height: 43px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.34;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb_main_card_subtitle{
+    width: auto;
+    height: 32px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb_main_card_contents{
+    width: auto;
+    height: 77px;
+    margin: 8px 9px 5px 0;
+    font-family: "NotoSansKR-Regular";
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: #a1a1a1;
+  }
+
+  .jb_main_card_button{
+    width: 25%;
+    height: 31.7%;
+    margin: 5px 0 0 74%;
+    padding: 18px 0 17px 0;
+    border-radius: 8px;
+    border: solid 1.5px #04116a;
+    float: right;
+    display: flex;
+    height: auto;
+    justify-content: center;
+  }
+
+  .jb_main_card_button_icon{
+    width: 19px;
+    height: 19px;
+    margin: 3px 12px 3px 0;
+    padding: 3px 3px 12px;
+    border-radius: 2px;
+    border: solid 1.5px #04116a;
+  }
+
+  .jb_main_card_button_text{
+    width: auto;
+    height: 25px;
+    margin: 0 0 0 12px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #04116a;
+  }
+
+  .jb_extractor{
+    width: 74.5%;
+    height: 200px;
+    margin: 40px auto 80px;
+    opacity: 0.6;
+    border-radius: 16px;
+    background-color: #000;
+    z-index: -1;
+  }
+
+  .jb_extractor_title{
+    width: auto;
+    height: 43px;
+    /* margin: 0 884px 18px 0; */
+    font-family: NotoSansKR;
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.34;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
+
+  .jb_extractor_content{
+    width: auto;
+    height: 54px;
+    /* margin: 18px 679px 0 0; */
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.06;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
+  
+  .jb_extractor_button{
+    width: 134%;
+    /* margin: 5px 0 0 74%; */
+    padding: 18px 0 17px 0;
+    border-radius: 8px;
+    border: solid 1.5px #fff;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    margin: 0 0 0 580%;
+  }
+
+  .jb_extractor_button_icon{
+    width: 19px;
+    height: 19px;
+    margin: 3px 12px 3px 0;
+    padding: 3px 3px 12px;
+    border-radius: 2px;
+    border: solid 1.5px #fff;
+  }
+
+  .jb_extractor_button_text{
+    width: auto;
+    height: 25px;
+    margin: 0 0 0 12px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
+
+/*casepage*/
+
+.jb_case_banner_title{
+  width: 100%;
+  height: 46px;
+  margin: 0 0 1% 0;
+  font-family: "NotoSansKR-Regular";
+  font-size: 32px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+
+.jb_case_banner_subtitle{
+  width: 100%;
+  height: 65px;
+  margin: 3% 0 0 0;
+  font-family: "NotoSansKR-Regular";
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.8;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+
+.jb_case_banner_button{
+  width: auto;
+  height: 22.7%;
+  margin: auto;
+  padding: 16px 33px 16px 34px;
+  border: solid 1.5px #fff;
+  color: #fff;
+}
+
+.casepage_test_case_box{
+  display:table-cell;
+  vertical-align: top;
+  background-color: white;
+  border-radius: 18px;
+  font-family: NanumSquare-Regular;
+  word-break: normal;
+  float: left;
+  height: 280px;
+   width: 340px;
+  /* margin-left: 5%; */
+  margin-top:5%;
+  margin: 5% 1% 1%;
+  line-height: 0px;
+  text-align: center;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+.casepage_test_case_box_title{
+  background: linear-gradient(to bottom, #04116a 11%, #0a437d 91%);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  width:340px;
+  height: 80px;
+  line-height: 80px;
+  font-size: 18px;
+  color:#fff;
+  margin-bottom: 40px;
+  font-family: NanumSquare-Regular;
+  transition: font-size 0.2s ease-in-out;
+}
+
+.casepage_test_case_box_title:hover{
+  background: linear-gradient(to bottom, #04116a 11%, #0a437d 91%);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  width:340px;
+  height: 80px;
+  line-height: 80px;
+  font-size: 20px;
+  color:#fff;
+  margin-bottom: 40px;
+
+  transition: font-size 0.2s ease-in-out;
+}
+
+.casepage_test_case_box_desc{
+  font-size: 18px;
+  color:#3F3F3F;
+  font-family: NotoSansKR-Regular;
+  margin-bottom: 100px;
+  word-break: normal;
+  padding: 10px;
+  line-height: 100%;
+}
+
+.case_del_button{
+  width: 20px;
+  height: 23px;
+  background-image: url('../assets/img/Icon\ feather-trash-2.png');
+  background-size: 20px 23px;
+  margin-right: 3%;
+
+
+}
+
+.case_edit_button{
+  width: 20px;
+  height: 23px;
+  background-image: url('../assets/img/Icon\ awesome-pen.png');
+  background-size: 20px 23px;
+  margin-left: 3%;
+
+}
+
+/*증거 업로드*/
+.search-box{
+  width: 492px;
+  height: 56px;
+  /* margin: 31px 26.5px 62px 245px; */
+  /* margin: auto 0px auto auto; */
+  border-radius: 8px;
+  border: solid 1px #b7b7b7;
+  background-color: #fff;
+  color: #000;
+  font-family: "NanumSquare-Regular";
+  font-size: 15px;
+  font-stretch: normal;
+  font-style: normal; 
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  .search-text-box{
+    width: 82%;
+    height: 46px;
+    margin: 5px 10px;
+  }
+  .search-text-box:focus { 
+    outline: none; 
+  }
+
+  .search_button{
+    width: 30px;
+    height: 30px;
+    margin: 0px 0 5px 10px;
+    background-image: url('../assets/img/search.png');
+    background-size: 30px 30px;
+    border: 0;
+    vertical-align: middle;
+
+  }
+
+  .table_style{
+    height: auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 18px;
+    background-color: white;
+  }
+
+  .table{
+    table-layout: fixed;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+  }
+
+  .table_cell_left{
+    text-align: center;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
+    border-top-left-radius: 18px;
+  }
+
+  .table_cell_right{
+    text-align: center;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
+    border-top-right-radius: 18px;
+
+  }
+
+  .table_cell{
+    text-align: center;
+    background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
+
+  }
+
+  .table_head_typo{
+    color:white;
+    font-family: NanumSquare-Regular;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .upload_box  {
+    width: 1140px;
+    height: 539px;
+    margin: auto;
+    padding: 33px 44px;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 7px 29px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  .upload-button-container {
+    width: 100px;
+    height: 50px;
+    /* margin: 40px auto 200px auto; */
+    margin-top: 0.7%;
+    margin-right: 11%;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: solid 1px #0753e9;
+    background-color: #0753e9;
+    font-family: "NotoSansKR-Regular";
+    font-size: 25px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    justify-content: center;
+    color: #fff;
+  }
+
+  /**********************************************/
+  /*가로*/
+  .jb-main-flex-container{
+    display: flex;
+    height: auto;
+    margin: 80px auto 20px;
+    justify-content: center;
+  }
+
+  .jb-main-extractor-flex-container{
+    display: flex;
+    height: auto;
+    align-items: center;
+    padding: 3% 6%;
+  }
+
+  .jb-case-flex-container{
+    display:flex;
+    height: 270px;
+    width: 100%;
+  }
+
+  .jb-case-item-flex-container{
+    display: flex;
+    width: auto;
+    justify-content: end;
+    margin: 25% 10% 10% 0;
+  }
+  
+  .jb-case-card-flex-container{
+    display: flex;
+    width: auto;
+    margin: 0 8.9% 7% 10.8%;
+    flex-flow:row wrap
+  }
+
+  .jb-search-box-flex-container{
+    display: flex;
+    height: auto;
+    width: 100%;
+    margin-top: 2%;
+  }
+
+  /*세로*/
+  .jb-main-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .jb-case-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    margin : auto;
+  }
+
+  .jb-upload-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    margin :   auto 15%;
+  }
+
+  .jb-upload-box-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    margin : 3% auto 0;
+  }
