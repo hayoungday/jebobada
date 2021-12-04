@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Link, RouteComponentProps } from "react-router-dom";
-
+import TextField from "@mui/material/TextField";
 import './reportHeader.css'
 import ViewArtifact from './ViewArtifact'
+import Button from "@mui/material/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import EvidenceDetailsEdit from './EvidenceDetailsEdit';
@@ -27,7 +28,7 @@ const EvidenceDetailsPostView = (props) => {
       
     },[])
 
-    const [open, setOpen] = useState(false)
+    const [editMode, setEditMode] = useState(false)
     
     const [filename, setFilename] = useState("")
 
@@ -44,22 +45,32 @@ const EvidenceDetailsPostView = (props) => {
     const [duration, setDuration] = useState("")
 
     const [date, setDate] = useState("")
+
     const [location,setLocation] = useState("")
-    const [attacker, setAttacker] = useState("")
+
+    const [attacker, setAttacker] = useState([])
+
     const [desc, setDesc] =useState("")
+    const [descTmp,setDescTmp]=useState("")
 
     const url = "https://craftguy.s3.ap-northeast-2.amazonaws.com/"+ props.filehash
 
-    const handleClickOpen = () => {
-      setOpen(true)
+    const editTrue = () => {
+      setEditMode(true)
     }
 
-    const handleClose = () => {
-      setOpen(false);
+    const editFalse = () => {
+      setEditMode(false)
     };
 
     const handleSubmit = () => {
-      setOpen(false);
+      setDesc(descTmp)
+      let body={
+        _id:props._id,
+        desc:descTmp
+      }
+      axios.post("/editEvidenceDetail",body)
+      setDesc(descTmp)      
     }
 
     const metaset = () => {
@@ -68,7 +79,6 @@ const EvidenceDetailsPostView = (props) => {
 
     useEffect(()=>{
       setFilename(props.filename)
-
       // setFiletype(props.filetype)
       // setFilesize(props.filesize)
       // setImageCtime(props.imageCtime)
@@ -81,34 +91,108 @@ const EvidenceDetailsPostView = (props) => {
       // setDuration(props.duration)
       // var meta2 = Object.keys(props.meta).map((key)=>props.meta[key])
       setMeta(props.meta)
+
       setDate(props.date)
       setLocation(props.location)
       setAttacker(props.attacker.join(", "))
+
       setDesc(props.desc)
+      setDescTmp(props.desc)
+
     },[])
     const pic_data = () => {
-      return(
+      return (
         <>
-            {console.log(meta)}
-            {console.log(typeof meta)}
-            {console.log(typeof meta.fileType)}
-            
-            {console.log(meta.fileType)}
+          {console.log(meta)}
+          {console.log(typeof meta)}
+          {console.log(typeof meta.fileType)}
 
-            <label>파일 이름 : {filename}</label><br/>
-            <label>파일 형식 : {meta.filetype}</label><br/>
-            <label>파일 크기 : {meta.fileSize}</label><br/>
-            <label>촬영 시각 : {meta.imageCtime}</label><br/>
-            <label>촬영 장소 : {meta.gpsPosition}</label><br/>
-            <label>촬영 기기 : {meta.deviceModel}</label><br/>
-            <label>촬영 기기 소프트웨어 버전 : {meta.software}</label><br/>
-            <br/>
-            <label>일시: {date}</label><br/>
-            <label>발생 장소: {location}</label><br/>
-            <label>행위자: {attacker}</label><br/>
-            <label>상세 설명: {desc}</label><br/><br/><br/>
+          {console.log(meta.fileType)}
+
+          <label>파일 이름 : {filename}</label>
+          <br />
+          <label>파일 형식 : {meta.filetype}</label>
+          <br />
+          <label>파일 크기 : {meta.fileSize}</label>
+          <br />
+          <label>촬영 시각 : {meta.imageCtime}</label>
+          <br />
+          <label>촬영 장소 : {meta.gpsPosition}</label>
+          <br />
+          <label>촬영 기기 : {meta.deviceModel}</label>
+          <br />
+          <label>촬영 기기 소프트웨어 버전 : {meta.software}</label>
+          <br />
+          <br />
+          <label>일시: {date}</label>
+          <br />
+          <label>발생 장소: {location}</label>
+          <br />
+          <label>행위자: {attacker}</label>
+          <br />
+          {/* <label>상세 설명: {desc}</label><br/><br/><br/> */}
+          <div>
+            {editMode === false ? (
+              <div
+                style={{
+                  border: "3px solid #E7E6E6",
+                  wordBreak: "break-all",
+                  display: "inline-block",
+                  padding: "2%",
+                  width: "70%",
+                }}
+              >
+                {desc}
+              </div>
+            ) : (
+              <div style={{ width: "70%" }}>
+                <TextField
+                  fullWidth
+                  defaultValue={desc}
+                  multiline
+                  onChange={(e) => setDescTmp(e.target.value)}
+                />
+              </div>
+            )}
+          </div>
+          <div>
+          {editMode === false ? (
+            <div>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setEditMode(true);
+                }}
+              >
+                수정하기
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setEditMode(false);
+                  handleSubmit();
+                  alert("수정되었습니다");
+                }}
+              >
+                확인
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  editFalse();
+                  alert("수정을 취소하였습니다");
+                }}
+              >
+                취소
+              </Button>
+            </div>
+          )}
+          </div>
         </>
-      )
+      );
     }
 
 
@@ -119,13 +203,12 @@ const EvidenceDetailsPostView = (props) => {
           {binary===""?(<CircularProgress variant="indeterminate" value="변환중" />):<img class='image_contents_design' src={`data:image/png;base64,${binary}`} />}
           <br/>
           {pic_data()}
-          <button onClick={handleClickOpen}>수정</button>
-          <Dialog open={open} onClose={handleClose}>
+          {/* <Dialog open={open} onClose={handleClose}>
             <EvidenceDetailsEdit 
               handleClose={handleClose}
               handleSubmit={handleSubmit}
               filename={filename}
-              setFilename = {setFilename}
+              setFilename = {setFilenameTmp}
               filetype={filetype}
               setFiletype = {setFiletype}
               filesize={filesize}
@@ -139,15 +222,15 @@ const EvidenceDetailsPostView = (props) => {
               software={software}
               setSoftware = {setSoftware}
               date={date}
-              setDate = {setDate}
+              setDate = {setDateTmp}
               location={location}
-              setLocation = {setLocation}
+              setLocation = {setLocationTmp}
               attacker={attacker}
-              setAttacker = {setAttacker}
+              setAttacker = {setAttackerTmp}
               desc={desc}
-              setDesc = {setDesc}
+              setDesc = {setDescTmp}
             />
-          </Dialog>
+          </Dialog> */}
         </div>
       )
     } else if (props.filetype === "녹음 파일"){

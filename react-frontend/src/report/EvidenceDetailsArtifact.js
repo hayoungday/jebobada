@@ -77,7 +77,7 @@ const EvidenceDetailsArtifact = (props) => {
               <TextField
                 fullWidth
                 defaultValue={desc}
-                multilineeval
+                multiline
                 onChange={(e) => editDescTmp(e)}
               />
             </div>

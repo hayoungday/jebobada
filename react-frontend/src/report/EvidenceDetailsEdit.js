@@ -12,29 +12,33 @@ import { getThemeProps } from '@material-ui/styles';
 
 const EvidenceDetailsEdit = (props) => {
 
-  const valueRef = useRef('')
-
+  const onFilenameHandler = (event) =>{
+    console.log(event.target.value)
+    props.setFilename(event.target.value)
+  }
 
   const onDateHandler = (event) => {
-    props.setDate(event.currentTarget.value);
+    console.log(event.target.value)
+    props.setDate(event.target.value);
   };
 
   const onLocationHandler = (event) => {
     // props.setLocation(event.currentTarget.value);
-    props.setLocation(valueRef.current.value)
+    console.log(event.target.value)
+    props.setLocation(event.target.value)
   };
 
   const onAttackerHandler = (event) => {
-    props.setAttacker(event.currentTarget.value)
+    console.log(event.target.value)
+    props.setAttacker(event.target.value)
   }
 
   const onDescHandler = (event) => {
-    props.setDesc(event.currentTarget.value)
+    console.log(event.target.value)
+    props.setDesc(event.target.value)
   }
 
-  const onFilenameHandler = (event) =>{
-    props.setFilename(event.currentTarget.value)
-  }
+  
 
   // const onFiletypeHandler = (event) =>{
   //   props.setFiletype(event.currentTarget.value)
@@ -151,10 +155,10 @@ const EvidenceDetailsEdit = (props) => {
           id="name"
           label="파일 이름"
           type="text"
-          value={props.filename}
+          defaultValue={props.filename}
           fullWidth
           variant="standard"
-          onChange={onFilenameHandler}
+          onChange={(e)=>onFilenameHandler(e)}
         />
         
         <TextField
@@ -166,11 +170,10 @@ const EvidenceDetailsEdit = (props) => {
           defaultValue={props.date}
           fullWidth
           variant="standard"
-          onChange={onDateHandler}
+          onChange={(e)=>onDateHandler(e)}
         />
         <TextField
           autoFocus
-          ref = {valueRef}
           margin="dense"
           id="type"
           label="발생 장소"
@@ -178,7 +181,7 @@ const EvidenceDetailsEdit = (props) => {
           defaultValue={props.location}
           fullWidth
           variant="standard"
-          onchange={(e)=>{onLocationHandler(e)}}
+          onChange={(e)=>onLocationHandler(e)}
         />
         <TextField
           autoFocus
@@ -189,23 +192,25 @@ const EvidenceDetailsEdit = (props) => {
           defaultValue={props.attacker}
           fullWidth
           variant="standard"
-          onchange={onAttackerHandler}
+          onChange={(e)=>onAttackerHandler(e)}
         />
         <TextField
           autoFocus
           margin="dense"
           id="Ctime"
           label="상세 설명"
-          type="text"
+          multiline
+          rows={4}
           defaultValue={props.desc}
           fullWidth
           variant="standard"
-          onchange={onDescHandler}
+          onChange={(e)=>onDescHandler(e)}
         />
+
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose}>Cancel</Button>
-        <Button onClick={props.handleSubmit}>Subscribe</Button>
+        <Button onClick={props.handleClose}>취소</Button>
+        <Button onClick={props.handleSubmit}>수정하기</Button>
       </DialogActions>
     </>
   )

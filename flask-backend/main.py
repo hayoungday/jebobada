@@ -1388,13 +1388,24 @@ def updateCaseRequirement():
     collection = db.case
     data=request.get_json()
     print(data)
-
     requirement=data["requirement"]
     _id=data["case_id"]
-
-    
-
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"requirement":requirement}})
+
+    return "success"
+
+@app.route('/editEvidenceDetail',methods=['GET','POST'])
+def editEvidenceDetail():
+    conn=pymongo.MongoClient(config.mongodb)
+    db=conn.jb_db
+    collection=db.stt
+    data=request.get_json()
+
+    _id=data["_id"]["$oid"]
+    desc=data["desc"]
+
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"desc":desc}})
+    print(data)
 
     return "success"
 
