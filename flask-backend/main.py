@@ -694,7 +694,7 @@ def isCheckedUpdate():
         # if(_id):
         #     collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":isCheckedUpdate,"attacker":attacker,"desc":description,"type":type}})
         id=collection.insert_one(insert_data)
-        return id
+        return json.dumps(id.inserted_id,default=json_util.default)
 
 @app.route('/ArtifactAnalysis',methods=['GET','POST'])
 def ArtifactAnalysis():
@@ -713,6 +713,8 @@ def ArtifactAnalysis():
     documentList=[]
     webList=[]
 
+    print(data)
+    print(data["work_startTime"])
     for i in checkedTrue:
         if(i["Type"]=="프리패치"):
             programList.append(i["Name"])

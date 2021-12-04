@@ -19,8 +19,11 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/src/styles/index.css";
 import MuiAlert from "@mui/material/Alert";
 import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Chip from "@mui/material/Chip";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
 
 const modal_style = {
@@ -47,6 +50,8 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isHolidayOpen: false,
+      isParentalOpen: false,
       fileVerify: false,
       isSnackbarOpen: false,
       isDetail: false,
@@ -72,6 +77,8 @@ class Upload extends Component {
       work_endTime: "99:99",
       work_startTime_input: "00:00",
       work_endTime_input: "99:99",
+      holiday_date: "",
+      parental_date: "",
     };
     this.loadData = this.loadData.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -210,6 +217,22 @@ class Upload extends Component {
     this.setState({ isSnackbarOpen: false });
   };
 
+  parentalOpen = () => {
+    this.setState({ isParentalOpen: true });
+  };
+
+  parentalClose = () => {
+    this.setState({ isParentalOpen: false });
+  };
+
+  holidayOpen = () => {
+    this.setState({ isHolidayOpen: true });
+  };
+
+  holidayClose = () => {
+    this.setState({ isHolidayOpen: false });
+  };
+
   modalOpen() {
     this.setState({ isModalOpen: true });
   }
@@ -218,9 +241,19 @@ class Upload extends Component {
     this.setState({ isModalOpen: false });
   }
 
+  getHolidayDate = (e) => {
+    console.log(e.target.value);
+    this.setState({ holiday_date: e.target.value });
+  };
+
+  getParentalDate = (e) => {
+    this.setState({ parental_date: e.target.value });
+  };
+
   getworkStartTime = (event) => {
     if (event.target.value) {
       this.setState({ work_startTime: event.target.value });
+      console.log(event.target.value);
     } else {
       this.setState({ work_endTime: "00:00" });
     }
@@ -229,6 +262,7 @@ class Upload extends Component {
   getworkEndTime = (event) => {
     if (event.target.value) {
       this.setState({ work_endTime: event.target.value });
+      console.log(event.target.value);
     } else {
       this.setState({ work_endTime: "00:00" });
     }
@@ -262,6 +296,10 @@ class Upload extends Component {
     this.setState({ type: type });
     if (type === "초과근무") {
       this.setState({ isModalOpen: true });
+    } else if (type === "휴가") {
+      this.holidayOpen();
+    } else if (type === "육아휴직") {
+      this.setState({ isParentalOpen: true });
     }
   }
   UserChooserOpen() {
@@ -274,8 +312,15 @@ class Upload extends Component {
             alignItems: "center",
           }}
         >
-          <div style={{ flex: "2",textAlign:"center"}}>
-            <div><Typography variant="h6" style={{fontFamily:"NanumSquare-Regular",color:"#4B64D4"}}>전체 보기</Typography></div>
+          <div style={{ flex: "2", textAlign: "center" }}>
+            <div>
+              <Typography
+                variant="h6"
+                style={{ fontFamily: "NanumSquare-Regular", color: "#4B64D4" }}
+              >
+                전체 보기
+              </Typography>
+            </div>
             <div>
               <Switch
                 checked={this.state.isDetail}
@@ -286,7 +331,7 @@ class Upload extends Component {
           <div style={{ flex: "6" }}>
             <TypeChooser getType={this.getType} />
           </div>
-          <div style={{ flex: "1"}}>
+          <div style={{ flex: "1" }}>
             <TextField
               id="datetime-local"
               label="start time"
@@ -299,8 +344,10 @@ class Upload extends Component {
               onChange={(event) => this.getStartTime(event)}
             />
           </div>
-          <div style={{marginLeft:"0.5%",marginRight:"0.5%"}}>
-          <Typography variant="h5" style={{color:"#4B64D4"}}>~</Typography>
+          <div style={{ marginLeft: "0.5%", marginRight: "0.5%" }}>
+            <Typography variant="h5" style={{ color: "#4B64D4" }}>
+              ~
+            </Typography>
           </div>
           <div style={{ flex: "1", marginRight: "1%" }}>
             <TextField
@@ -339,7 +386,6 @@ class Upload extends Component {
             </Button>
           </div>
           <br></br>
-
           <br></br>
         </div>
       );
@@ -359,6 +405,75 @@ class Upload extends Component {
       return (
         <div>
           <div style={{ transition: "all.5s ease" }}>
+            <Dialog
+              open={this.state.isHolidayOpen}
+              onClose={() => this.holidayClose()}
+            >
+              <DialogTitle>휴가</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  휴가 날짜를 선택하세요<div style={{ width: "400px" }}></div>
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  type="date"
+                  fullWidth
+                  variant="standard"
+                  onChange={(e) => this.getHolidayDate(e)}
+                />
+              </DialogContent>
+              <DialogActions style={{ textAlign: "center" }}>
+                <Button
+                  style={{ color: "#4B64D4" }}
+                  onClick={() => this.holidayClose()}
+                >
+                  취소
+                </Button>
+                <Button
+                  style={{ color: "#4B64D4" }}
+                  onClick={() => this.holidayClose()}
+                >
+                  확인
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            <Dialog
+              open={this.state.isParentalOpen}
+              onClose={() => this.parentalClose()}
+            >
+              <DialogTitle>육아휴직</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  육아 휴직 날짜를 선택하세요
+                  <div style={{ width: "400px" }}></div>
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  type="date"
+                  fullWidth
+                  variant="standard"
+                  onChange={(e) => this.getParentalDate(e)}
+                />
+              </DialogContent>
+              <DialogActions style={{ textAlign: "center" }}>
+                <Button
+                  style={{ color: "#4B64D4" }}
+                  onClick={() => this.parentalClose()}
+                >
+                  취소
+                </Button>
+                <Button
+                  style={{ color: "#4B64D4" }}
+                  onClick={() => this.parentalClose()}
+                >
+                  확인
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <Modal
               style={{ transition: "all.5s ease" }}
               open={this.state.isModalOpen}
@@ -633,11 +748,32 @@ class Upload extends Component {
       casenum: this.props.location.state.casenum,
       user: this.state.user,
       filename: this.state.fileName,
+      work_startTime: this.state.work_startTime_input,
+      work_endTime: this.state.work_endTime_input,
+      holiday_date: this.state.holiday_date,
+      parental_date: this.state.parental_date,
     };
-    const res = axios.post("/isCheckedUpdate", body);
+    axios.post("/isCheckedUpdate", body).then(
+      (res) =>
+      this.ArtifactAnalysis(res.data.$oid,body)
+    );
     // console.log(res);
-    this.setState({});
+    
   };
+
+  ArtifactAnalysis=(_id,body)=>{
+    let body2 = {
+      isCheckedUpdate:body["isCheckedUpdate"],
+      attacker: body["attacker"],
+      type: body["type"],
+      work_startTime: body["work_startTime"],
+      work_endTime: body["work_endTime"],
+      holiday_date: body["holiday_date"],
+      parental_date: body["parental_date"],
+      _id: _id
+    };
+    axios.post("/ArtifactAnalysis",body2)
+  }
 
   searchClick = (e) => {
     this.setState({
@@ -717,10 +853,9 @@ class Upload extends Component {
               // textAlign: "center",
             }}
           >
-            {this.state.isListOpen?<br></br>:null}            
+            {this.state.isListOpen ? <br></br> : null}
             {this.UserChooserOpen()}
-            {this.state.isListOpen?<br></br>:null}  
-            
+            {this.state.isListOpen ? <br></br> : null}
           </div>
           <br></br>
           <div
