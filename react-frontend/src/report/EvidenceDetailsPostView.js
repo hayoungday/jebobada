@@ -3,13 +3,29 @@ import { Link, RouteComponentProps } from "react-router-dom";
 
 import './reportHeader.css'
 import ViewArtifact from './ViewArtifact'
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import EvidenceDetailsEdit from './EvidenceDetailsEdit';
 import axios from 'axios';
+import EvidenceDetailsArtifact from './EvidenceDetailsArtifact';
 
 
 const EvidenceDetailsPostView = (props) => {
+  const [binary,setBianry]=useState("")
+    let checkedTrue=[]
+    const getBinary=()=>{
+      let body={
+        url : "https://craftguy.s3.ap-northeast-2.amazonaws.com/"+ props.filehash,
+        key:localStorage.getItem("key")      
+      }
+      axios.post("/load_s3_image",body).then((res)=>{
+        setBianry(res.data.res)
+      })
+    }
+    useEffect(()=>{
+      getBinary();
+      
+    },[])
 
     const [open, setOpen] = useState(false)
     
@@ -100,7 +116,7 @@ const EvidenceDetailsPostView = (props) => {
       return(
         <div>
           <h1>증거자료{props.idx+1} | {filename} </h1>
-          <img class='image_contents_design' src={url} />
+          {binary===""?(<CircularProgress variant="indeterminate" value="변환중" />):<img class='image_contents_design' src={`data:image/png;base64,${binary}`} />}
           <br/>
           {pic_data()}
           <button onClick={handleClickOpen}>수정</button>
@@ -135,11 +151,12 @@ const EvidenceDetailsPostView = (props) => {
         </div>
       )
     } else if (props.filetype === "녹음 파일"){
+      const src="data:audio/ogg;base64,"+binary
       return(
         <div>
           <h1>증거자료{props.idx+1} | {props.filename} </h1>
           <div class='image_contents_design'>
-
+          {binary===""?(<CircularProgress variant="indeterminate" value="변환중"/>):<audio controls src={src}/>}
           </div>
           <br/>
           <label>파일 이름 : {filename}</label><br/>
@@ -160,21 +177,27 @@ const EvidenceDetailsPostView = (props) => {
       return(
         <div>
           {console.log(props.data)}
+
           <h1>증거자료{props.idx+1} | {props.filename} </h1>
           <br/>
-          <ViewArtifact data={props.data} object_id={props._id}/>
+          
+          
           <br/>
-          <label>행위자: {props.attacker.join(",")}</label><br/>
+          <EvidenceDetailsArtifact attacker={props.attacker} desc={props.desc} object_id={props._id} artifactAnalysis={props.data.artifactAnalysis} date={props.data.date} type={props.data.type}/>
+          <br/>
+          <br/>
+          <ViewArtifact data={props.data} object_id={props._id}/>
+
+          {/* <label>행위자: {props.attacker.join(",")}</label><br/>
           <label>상세 설명: {props.desc}</label><br/><br/><br/>
           <br/>
           <h3>컴퓨터 사용 기록 해석</h3>
-          {props.attacker.join(",")} 에게 컴퓨터 관련 괴롭힘 피해를 당했습니다.<p/>
-          정규 근무 시간은 {props.date} 입니다.<p/>
-          괴롭힘을 당한 날인 [아티팩트 로그온 시간]에 근무를 시작하여, [아티팩트 로그오프 시간] 까지 초과근무를 하였습니다.<p/>
-          {props.bulltype.join(",")}와 관련하여 사용한 프로그램은 [프로그램 관련 아티팩트]이고, 작업한 파일은 [문서관련 아티팩트]입니다.<p/>
-          괴롭힘으로 인해 방문했던 인터넷 사이트는 [웹 관련 아티팩트] 입니다.<p/>
-          초과근무 때 연결했던 장치는 [USB 관련 아티팩트] 입니다.<p/>
-          <br/><br/>
+          <br></br>
+          {props.data.artifactAnalysis} */}
+          <br></br>       
+          
+          
+          
         </div>
       )
     }

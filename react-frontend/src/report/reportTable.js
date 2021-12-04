@@ -36,7 +36,7 @@ class reportTable extends React.Component {
 
     ShowButton=()=>{
         return(
-            <Link to='/mainbullying' style={{textDecoration:'none'}}>
+            <Link to={{pathname:'/mainbullying',state:{case_id:this.props._id}}} style={{textDecoration:'none'}}>
                 <button style={{border:'none'}}>
                      <img src='./static/react/show_report.png' style={{ width: '80px' }}/>
                 </button>

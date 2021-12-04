@@ -146,6 +146,7 @@ class makeReport extends Component {
                       description={c.Description}
                       user = {c.User}
                       idx={c.index}
+                      _id={c._id.$oid}
                     />
                   );
                 })

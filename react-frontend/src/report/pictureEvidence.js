@@ -8,7 +8,7 @@ import PictureEvidenceTable from './PictureEvidenceTable'
 import PictureEvidenceDetail from './PictureEvidenceDetail';
 
 
-const PictureEvidence = () => {
+const PictureEvidence = (props) => {
 
 const [evidence, Setevidence] = useState([])
     const [no, Setno] = useState(1)
@@ -45,7 +45,7 @@ const [evidence, Setevidence] = useState([])
     return(
       <div className="flex-container">
         <div className="nav-item">
-          <ReportHeader/>
+          <ReportHeader case_id={props.location.state.case_id}/>
         </div>
         <div className="comp-item">
           <h1>사진 증거 자료 목록</h1> 

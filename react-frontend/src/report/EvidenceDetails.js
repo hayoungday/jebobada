@@ -48,7 +48,7 @@ const EvidenceDetails = (props) => {
     return(
         <div className="flex-container">
           <div className="nav-item">
-            <ReportHeader/>
+            <ReportHeader case_id={props.location.state.case_id}/>
           </div>
           <div className="comp-item">
           

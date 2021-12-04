@@ -579,10 +579,10 @@ def loadArtifactFile():
     data=f.stream.read()
     stream=io.StringIO(data.decode("cp949"),newline=None)
     field=['Type','Timestamp','Name','Desc','Icon','Labeling','path','isChecked']
-    if(check_csv.check_csv(stream)=="verified fail"):
-        return_data['res']="verified fail"
-        return_data['data']=[]
-        return json.dumps(return_data,default=json_util.default)
+    # if(check_csv.check_csv(stream)=="verified fail"):
+    #     return_data['res']="verified fail"
+    #     return_data['data']=[]
+    #     return json.dumps(return_data,default=json_util.default)
 
     f.seek(0)
     data=f.stream.read()
@@ -1094,7 +1094,7 @@ def evidenceupdate_artifact():
     attacker=data["attacker"]
     type=data["type"]
     original_filename=data["filename"].split("_")[0]
-    filename=original_filename+"_"+data["type"]
+    filename=original_filename+"_"+str(data["type"])
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"data":updated_artifact_list,"desc":desc,"attacker":attacker,"date":date,"type":type,"filename":filename}})
 
     return "success"
@@ -1302,6 +1302,36 @@ def attackertimeline():
         return js2
         
     return json.dumps(evid,default=json_util.default)
+
+@app.route("/loadCaseInfo",methods=["GET","POST"])
+def loadCaseInfo():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+    data = request.get_json()
+    _id=data["case_id"]
+    print(_id)
+
+    caseInfo = list(collection.find({'_id':ObjectId(_id)}))
+
+    return json.dumps(caseInfo,default=json_util.default)
+
+@app.route("/updateCaseRequirement",methods=["GET","POST"])
+def updateCaseRequirement():
+    conn=pymongo.MongoClient(config.mongodb)
+    db = conn.jb_db
+    collection = db.case
+    data=request.get_json()
+    print(data)
+
+    requirement=data["requirement"]
+    _id=data["case_id"]
+
+    
+
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"requirement":requirement}})
+
+    return "success"
 
 
 

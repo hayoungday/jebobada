@@ -8,7 +8,7 @@ import MainBullyingDetail from './MainBullyingDetail';
 
 
 
-const MainBullying = () => {
+const MainBullying = (props) => {
 
 const [evidence, Setevidence] = useState([])
 const [startDate, SetStartDate] = useState("");
@@ -55,7 +55,7 @@ useEffect(() => {
   return(
       <div className="flex-container">
       <div className="nav-item">
-        <ReportHeader/>
+        <ReportHeader case_id={props.location.state.case_id}/>
       </div>
       <div className="comp-item">
         <h1>핵심 피해 기록</h1>

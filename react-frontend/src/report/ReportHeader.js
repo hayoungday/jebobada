@@ -8,14 +8,16 @@ import './reportHeader.css';
 import { IconContext } from 'react-icons';
 import axios from 'axios'
 
-const ReportHeader = () => {
+const ReportHeader = (props) => {
 
     const [user, setUser] = useState("");
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
     
-    
+    const [_id,setCase_id]=useState(props.case_id)
+    console.log(_id)
     return (
+
         <>
         {/* 아이콘 컬러 전체 변경 기능 */}
         <IconContext.Provider value={{ color: '#fff' }}>
@@ -30,8 +32,11 @@ const ReportHeader = () => {
                     {/* SidebarData를 순서대로 담기*/}
                     {SidebarData.map((item, index) => {
                     return (
+
                         <li key={index} className={item.cName}>
-                        <Link to={item.path}>
+
+                        <Link to={{
+                            pathname:item.path,state:{case_id:_id}}}>
                             {item.icon}
                             <span>{item.title}</span>
                         </Link>
