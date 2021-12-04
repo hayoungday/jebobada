@@ -477,6 +477,7 @@ def upload():
             insert_data['attacker']=attacker
             insert_data['desc']=desc
             insert_data['type']=types
+            insert_data['ismain']=mainevdi
             insert_data['index']=collection.find({'user_id':user}).count()+1
             time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
             insert_data['uploaded_time']=str(time)
@@ -741,6 +742,8 @@ def ArtifactAnalysis():
 
     if(type=="초과근무"):
         artifactAnalysis=attackerStr+"에게 야근(주말) 출근을 강요당했습니다.\n"+"저의 정규 근무시간은 "+data["work_startTime"]+" ~ "+data["work_endTime"]+"이지만, "+checkedTrue[-1]["Timestamp"].split("T")[-1]+"까지 초과근무를 하였습니다.\n"+"초과근무 당시, "+programListStr+" 프로그램을 사용했습니다.\n"+documentListStr+" 작업을 했으며, "+webListStr+" 에 접속한 사실이 있습니다."
+    elif(type=="사적지시"):
+        artifactAnalysis=attackerStr+"가 사적인 일을 지시하여 업무와 무관한 일을 하게 되었습니다.\n"+"사적 지시로 인해, 업무와 관련 없는"+programListStr+"프로그램을 사용하게 되었습니다.\n"+"또한, "+documentListStr+"작업을 했으며, "
     
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"artifactAnalysis":artifactAnalysis}})
     return "success"

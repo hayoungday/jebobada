@@ -108,7 +108,7 @@ const EvidenceDetailsPostView = (props) => {
           {console.log(typeof meta.fileType)}
 
           {console.log(meta.fileType)}
-
+          {props.data.ismain==="yes"?<div>핵심증거입니다.</div>:null}
           <label>파일 이름 : {filename}</label>
           <br />
           <label>파일 형식 : {meta.filetype}</label>
@@ -278,9 +278,6 @@ const EvidenceDetailsPostView = (props) => {
           <br></br>
           {props.data.artifactAnalysis} */}
           <br></br>       
-          
-          
-          
         </div>
       )
     }

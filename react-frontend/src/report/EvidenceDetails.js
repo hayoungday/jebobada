@@ -65,7 +65,7 @@ const EvidenceDetails = (props) => {
                   // audioCtime = {c.meta.audioCtime}
                   // title = {c.meta.title}
                   // duration = {c.meta.duration}
-
+                  
                   date = {c.date}
                   location = {c.location}
                   attacker = {c.attacker}
