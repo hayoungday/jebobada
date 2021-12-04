@@ -2,49 +2,43 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import Popover from "@mui/material/Popover";
+import HelpIcon from "@mui/icons-material/Help";
+import Tooltip from "@mui/material/Tooltip";
 
 const EvidenceDetailsArtifact = (props) => {
-  const [open, setOpen] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [desc, setDesc] = useState(props.desc);
+  const [descTmp, setDescTmp] = useState(props.desc);
   const [artifactAnalysis, setArtifactAnalysis] = useState(
     props.artifactAnalysis
   );
 
-  const [descTmp, setDescTmp] = useState(props.desc);
-  const [artifactAnalysisTmp, setArtifactAnalysisTmp] = useState(
-    props.artifactAnalysis
-  );
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  const editDescTmp = (e) => {
+    setDescTmp(e.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const setting = () => {
-    setDesc(descTmp);
-    setArtifactAnalysis(artifactAnalysisTmp);
-  };
-
-  const handleSubmit = () => {
+  const editDesc = () => {
     let body = {
       _id: props.object_id,
-      artifactAnalysis: artifactAnalysisTmp,
+      // artifactAnalysis: artifactAnalysisTmp,
       desc: descTmp,
     };
     axios.post("/EditArtifactReport", body);
-    setting();
-    setOpen(false);
+    setDesc(descTmp);
+  };
+
+  const editTrue = () => {
+    setEditMode(true);
+  };
+
+  const editFalse = () => {
+    setEditMode(false);
   };
 
   return (
@@ -65,44 +59,82 @@ const EvidenceDetailsArtifact = (props) => {
       >
         <br />
         상세 설명
-        <div
-          style={{
-            border: "3px solid #E7E6E6",
-            wordBreak: "break-all",
-            display: "inline-block",
-            padding: "2%",
-          }}
-        >
-          {desc}
+        <div>
+          {editMode === false ? (
+            <div
+              style={{
+                border: "3px solid #E7E6E6",
+                wordBreak: "break-all",
+                display: "inline-block",
+                padding: "2%",
+                width: "70%",
+              }}
+            >
+              {desc}
+            </div>
+          ) : (
+            <div style={{ width: "70%" }}>
+              <TextField
+                fullWidth
+                defaultValue={desc}
+                multilineeval
+                onChange={(e) => editDescTmp(e)}
+              />
+            </div>
+          )}
+        </div>
+        <div>
+          {editMode === false ? (
+            <div>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  editTrue();
+                }}
+              >
+                수정하기
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  editFalse();
+                  editDesc();
+                  alert("수정되었습니다");
+                }}
+              >
+                확인
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  editFalse();
+                  alert("수정을 취소하였습니다");
+                }}
+              >
+                취소
+              </Button>
+            </div>
+          )}
+          <br />
+          <Accordion style={{ width: "85%" }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>예시</Typography>
+              <Tooltip
+                title="컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!"
+                placement="right"
+              >
+                <HelpIcon />
+              </Tooltip>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{artifactAnalysis}</Typography>
+            </AccordionDetails>
+          </Accordion>
         </div>
       </Stack>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        예시
-      </Button>
-      <div>
-      <Popover
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <div style={{ display: "inline-block", padding: "2%" }}>
-          <span style={{ color: "gray" }}>(예)</span>
-          <br />
-          장준형 대리에게 야근(주말) 출근을 강요당했습니다. 저의 정규 근무시간은
-          09:00 ~ 18:00이지만, 19:26:51까지 초과근무를 하였습니다. 초과근무
-          당시, SnippingTool.exe, 프로그램을 사용했습니다.
-          output.csv_strings.csv,output.csv_run_count.csv , python.exe작업을
-          했으며, 미니멜츠 초코 소다 - Google 검색 에 접속한 사실이 있습니다.
-        </div>
-      </Popover>
-      </div>
     </div>
   );
 };

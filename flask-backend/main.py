@@ -696,6 +696,68 @@ def isCheckedUpdate():
         id=collection.insert_one(insert_data)
         return id
 
+@app.route('/ArtifactAnalysis',methods=['GET','POST'])
+def ArtifactAnalysis():
+    conn=pymongo.MongoClient(config.mongodb)
+    db=conn.jb_db
+    collection=db.stt
+    data=request.get_json()
+    checkedTrue=[]
+    _id=data["_id"]
+    type=data["type"]
+    for i in data["isCheckedUpdate"]:
+        if(i["isChecked"]=="true"):
+            checkedTrue.append(i)
+    
+    programList=[]
+    documentList=[]
+    webList=[]
+
+    for i in checkedTrue:
+        if(i["Type"]=="프리패치"):
+            programList.append(i["Name"])
+        elif(i["Desc"]=="문서 열람" or i["Desc"]=="파일 열람"):
+            documentList.append(i["Name"])
+        elif(i["Type"]=="웹 히스토리"):
+            webList.append(i["Name"])
+    try:
+        attackerStr=",".join(data["attacker"])
+    except:
+        attackerStr=""
+    try:
+        programListStr=",".join(programList)
+    except:
+        programListStr=""
+    try:
+        documentListStr=",".join(documentList)
+    except:
+        documentListStr=""
+    try:
+        webListStr=",".join(webList)
+    except:
+        webListStr=""
+
+    if(type=="초과근무"):
+        artifactAnalysis=attackerStr+"에게 야근(주말) 출근을 강요당했습니다.\n"+"저의 정규 근무시간은 "+data["work_startTime"]+" ~ "+data["work_endTime"]+"이지만, "+checkedTrue[-1]["Timestamp"].split("T")[-1]+"까지 초과근무를 하였습니다.\n"+"초과근무 당시, "+programListStr+" 프로그램을 사용했습니다.\n"+documentListStr+" 작업을 했으며, "+webListStr+" 에 접속한 사실이 있습니다."
+    
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"artifactAnalysis":artifactAnalysis}})
+    return "success"
+
+@app.route('/EditArtifactReport',methods=['GET','POST'])
+def EditArtifactReport():
+    conn=pymongo.MongoClient(config.mongodb)
+    db=conn.jb_db
+    collection=db.stt
+    data=request.get_json()
+
+    _id=data["_id"]["$oid"]
+    desc=data["desc"]
+
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"desc":desc}})
+    print(data)
+
+    return "success"
+
 @app.route('/Receive',methods=['POST'])
 def receive():
     import time
