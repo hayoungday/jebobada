@@ -848,6 +848,7 @@ def casepage():
         insert_data['index']=collection.find({'User':data['user']}).count()+1
         print(insert_data['index'])
 
+        insert_data['requirement']={"seperate":False,"personnel":False,"agree":False,"paidleave":False,"etc":False,"etcstr":""}
         collection.insert_one(insert_data)
     else:
         print("no data")
