@@ -361,6 +361,7 @@ def upload():
         url='./test'
 
         if(fileExt in audio):
+            insert_data['choosedOnReport']=False
             insert_data['filetype']='녹음 파일'    
             insert_data['state']='변환중'
             insert_data['text']=''
@@ -690,6 +691,10 @@ def isCheckedUpdate():
         insert_data["filetype"]=data["filetype"]
         insert_data["filename"]=data["filename"]+"_"+data["type"]
         insert_data["state"]="등록완료"
+        insert_data["workStartTime"]=data["work_startTime"]
+        insert_data["holiday_date"]=data["holiday_date"]
+        insert_data["parental_date"]=data["parental_date"]
+        insert_data["workEndTime"]=data["work_endTime"]
         insert_data['index']=collection.find({'user_id':data["user"]}).count()+1
 
         # if(_id):
@@ -739,11 +744,37 @@ def ArtifactAnalysis():
         webListStr=",".join(webList)
     except:
         webListStr=""
+    
+    logged_in=""
+    for i in checkedTrue:
+        if(i["Desc"]=="컴퓨터 로그인 성공"):
+            logged_in=i["Timestamp"].replace("T"," ")
+        
 
     if(type=="초과근무"):
         artifactAnalysis=attackerStr+"에게 야근(주말) 출근을 강요당했습니다.\n"+"저의 정규 근무시간은 "+data["work_startTime"]+" ~ "+data["work_endTime"]+"이지만, "+checkedTrue[-1]["Timestamp"].split("T")[-1]+"까지 초과근무를 하였습니다.\n"+"초과근무 당시, "+programListStr+" 프로그램을 사용했습니다.\n"+documentListStr+" 작업을 했으며, "+webListStr+" 에 접속한 사실이 있습니다."
     elif(type=="사적지시"):
-        artifactAnalysis=attackerStr+"가 사적인 일을 지시하여 업무와 무관한 일을 하게 되었습니다.\n"+"사적 지시로 인해, 업무와 관련 없는"+programListStr+"프로그램을 사용하게 되었습니다.\n"+"또한, "+documentListStr+"작업을 했으며, "
+        artifactAnalysis=attackerStr+"가 사적인 일을 지시하여 업무와 무관한 일을 하게 되었습니다.\n"+"사적 지시로 인해, 업무와 관련 없는"+programListStr+"프로그램을 사용하게 되었습니다.\n"+"또한, "+documentListStr+"작업을 했으며,"+webListStr+" 에 접속한 사실이 있습니다."
+    elif(type=="전가"):
+        artifactAnalysis=attackerStr+"가 본인의 업무를 저에게 반복적으로 전가하였습니다. 저는 총 "+len(documentList)+"개의 업무를"+attackerStr+"대신 하게 되었습니다.\n"+"업무 전가로 인해, "+programListStr+" 프로그램을 사용하게 되었습니다.\n"+"또한,"+documentListStr+" 작업을 했으며,"+webListStr+" 에 접속한 사실이 있습니다."
+    elif(type=="SNS"):
+        artifactAnalysis=attackerStr+"가 전화 및 온라인으로 근무 시간 외에 업무를 지시하였습니다.\n"+"저의 정규 근무시간은 "+data["work_startTime"]+" ~ "+data["work_endTime"]+"이지만, "+checkedTrue[-1]["Timestamp"].split("T")[-1]+"까지 초과근무를 하였습니다.\n"+"초과근무 당시, "+programListStr+" 프로그램을 사용했습니다.\n"+documentListStr+" 작업을 했으며, "+webListStr+" 에 접속한 사실이 있습니다."
+    elif(type=="건의"):
+        artifactAnalysis=attackerStr+"가 저의 건의 사항과 의견을 일방적으로 무시하였습니다.\n"+documentListStr+" 문서를 작성하여 "+attackerStr+" 에게 건의했지만, 건의사항이 무시당했습니다.\n"+webListStr+" 에 건의사항을 작성한 사실이 있습니다"
+    elif(type=="행사"):
+        artifactAnalysis=attackerStr+" 에 의해 체육대회(단합대회)의 비업무적인 행사에 참여하도록 강요당했습니다.\n"+"행위자는 행사 참여를 강요하도록"+webListStr+" 링크와 "+documentListStr+" 를 저에게 전달하여 행사 참여를 강요한 사실이 있습니다."
+    elif(type=="장기자랑"):
+        artifactAnalysis=attackerStr+" 에 의해 장기자랑에 참여하도록 강요당했습니다.\n"+attackerStr+" 는 장기자랑 참여를 강요하도록 "+webListStr+" 링크와 "+documentListStr+" 를 저에게 전달하여 장기자랑 참여를 강요한 사실이 있습니다."
+    elif(type=="후원"):
+        artifactAnalysis=attackerStr+" 에 의해 후원을 강요당했습니다.\n"+attackerStr+" 는"+webListStr+" 링크와 "+documentListStr+" 를 저에게 전달하여 후원을 강요한 사실이 있습니다."
+    elif(type=="모임"):
+        artifactAnalysis=attackerStr+" 에 의해 동호회나 모임 가입을 강요당했습니다."+attackerStr+" 는 "+webListStr+" 링크와 "+documentListStr+" 를 저에게 전달하여 모임을 강요한 사실이 있습니다."
+    elif(type=="휴가"):
+        artifactAnalysis=attackerStr+" 가 휴가,병가,복지 혜택을 사용하지 못하게 했습니다.\n"+"실제로 저는 "+data["holiday_date"]+" 에 휴가를 냈음에도, "+logged_in+" 부터 "+programListStr+" 를 사용하고 "+documentListStr+" 문서를 작성한 사실이 있습니다."
+    elif(type=="육아휴직"):
+        artifactAnalysis=attackerStr+" 가 육아휴직을 사용하지 못하게 했습니다.\n"+data["parental_date"]+" 에 육아 휴직계를 냈음에도 "+logged_in+" 부터 "+programListStr+" 를 사용하고 "+documentListStr+" 문서를 작성한 사실이 있습니다."
+    elif(type=="성희롱"):
+        artifactAnalysis=attackerStr+" 가 성적 수치심을 주며 정신적 피해를 입혔습니다.\n"+documentListStr+" 의 성적 수치심을 주는 사진을 전달하거나 "+webListStr+" 의 링크를 전달한 사실이 있습니다."
     
     collection.update_one({'_id':ObjectId(_id)},{"$set":{"artifactAnalysis":artifactAnalysis}})
     return "success"
@@ -778,6 +809,7 @@ def receive():
     tmp['stt']=o_segments[0]['text']
     segments.append(tmp)
     t=0
+    segments[0]['isChecked']=False
     for i in range(len(o_segments)-1):
         if(o_segments[i]['speaker']['name']==o_segments[i+1]['speaker']['name']):
             segments[t]['stt']+=o_segments[i+1]['text']        
@@ -786,6 +818,7 @@ def receive():
             speaker_data={}
             speaker_data['speaker']=o_segments[i+1]['speaker']['name']
             speaker_data['stt']=o_segments[i+1]['text']
+            speaker_data['isChecked']=False
             segments.append(speaker_data)    
     collection.update(o_query,{"$set":{'segments':segments}})
     collection.update(o_query,{"$set":{'text':data['text']}})
@@ -1232,7 +1265,7 @@ def ismainpic():
         return json.dumps(aud_main,default=json_util.default)
     elif data['type'] == "all":
         return json.dumps(mainevdi,default=json_util.default)
-    else:
+    else:   
         return render_template("index.html")
     
 @app.route("/csvevdi",methods=['GET','POST'])
@@ -1391,9 +1424,16 @@ def updateCaseRequirement():
     collection = db.case
     data=request.get_json()
     print(data)
-    requirement=data["requirement"]
-    _id=data["case_id"]
-    collection.update_one({'_id':ObjectId(_id)},{"$set":{"requirement":requirement}})
+    if(data["mode"]=="checked"):
+        print("mode_checked")
+        requirement=data["requirement"]
+        _id=data["case_id"]
+        collection.update_one({'_id':ObjectId(_id)},{"$set":{"requirement":requirement}})
+
+    elif(data["mode"]=="etcstr"):
+        print("mode_etcstr")
+        _id=data["case_id"]
+        collection.update_one({'_id':ObjectId(_id)},{"$set":{"requirement.etcstr":data["etcstr"]}})
 
     return "success"
 
@@ -1412,7 +1452,19 @@ def editEvidenceDetail():
 
     return "success"
 
+@app.route("/editSTTReport",methods=['GET','POST'])
+def editSTTReport():
+    conn=pymongo.MongoClient(config.mongodb)
+    db=conn.jb_db
+    collection=db.stt
+    data=request.get_json()
+    print(data)
+    _id=data["_id"]
+    segments=data["segments"]
 
+    collection.update_one({'_id':ObjectId(_id)},{"$set":{"segments":segments,"choosedOnReport":True}})
+    print(data)
+    return "success"
 
 if __name__=='__main__':
  app.run(host='0.0.0.0', port=5000, debug=True)

@@ -9,6 +9,7 @@ import Dialog from '@mui/material/Dialog';
 import EvidenceDetailsEdit from './EvidenceDetailsEdit';
 import axios from 'axios';
 import EvidenceDetailsArtifact from './EvidenceDetailsArtifact';
+import EvidenceDetailsSTT from './EvidenceDetailsSTT';
 
 
 const EvidenceDetailsPostView = (props) => {
@@ -131,6 +132,8 @@ const EvidenceDetailsPostView = (props) => {
           <label>행위자: {attacker}</label>
           <br />
           {/* <label>상세 설명: {desc}</label><br/><br/><br/> */}
+          <labe>상세 설명</labe>
+          <br></br>
           <div>
             {editMode === false ? (
               <div
@@ -194,6 +197,97 @@ const EvidenceDetailsPostView = (props) => {
         </>
       );
     }
+    const aud_data = () => {
+      return (
+        <>
+          <label>파일 이름 : {filename}</label>
+          <br />
+          <label>파일 형식 : {meta.filetype}</label>
+          <br />
+          <label>파일 크기 : {meta.filesize}</label>
+          <br />
+          <label>녹음 시각 : {meta.audioCtime}</label>
+          <br />
+          <label>녹음 장소 : {meta.title}</label>
+          <br />
+          <label>녹음 길이 : {meta.duration}</label>
+          <br />
+
+          <br />
+          <label>일시: {date}</label>
+          <br />
+          <label>발생 장소: {location}</label>
+          <br />
+          <label>행위자: {attacker}</label>
+          <br />
+          <label>상세 설명</label>
+          <br />
+          <br />
+          <br />
+          <br></br>
+          <div>
+            {editMode === false ? (
+              <div
+                style={{
+                  border: "3px solid #E7E6E6",
+                  wordBreak: "break-all",
+                  display: "inline-block",
+                  padding: "2%",
+                  width: "70%",
+                }}
+              >
+                {desc}
+              </div>
+            ) : (
+              <div style={{ width: "70%" }}>
+                <TextField
+                  fullWidth
+                  defaultValue={desc}
+                  multiline
+                  onChange={(e) => setDescTmp(e.target.value)}
+                />
+              </div>
+            )}
+          </div>
+          <div>
+            {editMode === false ? (
+              <div>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setEditMode(true);
+                  }}
+                >
+                  수정하기
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setEditMode(false);
+                    handleSubmit();
+                    alert("수정되었습니다");
+                  }}
+                >
+                  확인
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    editFalse();
+                    alert("수정을 취소하였습니다");
+                  }}
+                >
+                  취소
+                </Button>
+              </div>
+            )}
+          </div>
+        </>
+      );
+    };
 
 
     if (props.filetype === "사진 파일"){
@@ -234,26 +328,14 @@ const EvidenceDetailsPostView = (props) => {
         </div>
       )
     } else if (props.filetype === "녹음 파일"){
-      const src="data:audio/ogg;base64,"+binary
+      
       return(
         <div>
           <h1>증거자료{props.idx+1} | {props.filename} </h1>
-          <div class='image_contents_design'>
-          {binary===""?(<CircularProgress variant="indeterminate" value="변환중"/>):<audio controls src={src}/>}
-          </div>
+          <EvidenceDetailsSTT props={props}/>
           <br/>
-          <label>파일 이름 : {filename}</label><br/>
-          <label>파일 형식 : {meta.filetype}</label><br/>
-          <label>파일 크기 : {meta.filesize}</label><br/>
-          <label>녹음 시각 : {meta.audioCtime}</label><br/>
-          <label>녹음 장소 : {meta.title}</label><br/>
-          <label>녹음 길이 : {meta.duration}</label><br/>
+          {aud_data()}
           
-          <br/>
-          <label>일시: {date}</label><br/>
-          <label>발생 장소: {location}</label><br/>
-          <label>행위자: {attacker}</label><br/>
-          <label>상세 설명: {desc}</label><br/><br/><br/>
         </div>
       )
     } else{

@@ -98,7 +98,7 @@ const BullyingTimeline = (props) => {
 
         <br />
         <label>
-          피해기간 {startDate}~{endDate}
+          피해기간 {startDate.substring(0,10)}~{endDate.substring(0,10)}
           {"  "}
         </label>
         <br/>

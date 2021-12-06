@@ -10,14 +10,40 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import HelpIcon from "@mui/icons-material/Help";
 import Tooltip from "@mui/material/Tooltip";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
 
 const EvidenceDetailsArtifact = (props) => {
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = snackbar;
+
   const [editMode, setEditMode] = useState(false);
   const [desc, setDesc] = useState(props.desc);
   const [descTmp, setDescTmp] = useState(props.desc);
   const [artifactAnalysis, setArtifactAnalysis] = useState(
     props.artifactAnalysis
   );
+
+  const doCopy = (text) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사하기가 지원되지 않는 브라우저입니다.");
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = "fixed";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  };
 
   const editDescTmp = (e) => {
     setDescTmp(e.target.value);
@@ -39,6 +65,15 @@ const EvidenceDetailsArtifact = (props) => {
 
   const editFalse = () => {
     setEditMode(false);
+  };
+
+  const snackbarClick = (newState) => () => {
+    setSnackbar({ open: true, ...newState });
+    doCopy(artifactAnalysis);
+  };
+
+  const snackbarClose = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   return (
@@ -123,14 +158,31 @@ const EvidenceDetailsArtifact = (props) => {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>예시</Typography>
               <Tooltip
-                title="컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!"
                 placement="right"
+                title={<Typography fontSize={15}>컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!</Typography>}
               >
                 <HelpIcon />
               </Tooltip>
             </AccordionSummary>
             <AccordionDetails>
+              <IconButton
+                onClick={snackbarClick({
+                  vertical: "bottom",
+                  horizontal: "center",
+                })}
+              >
+                <ContentCopyIcon />
+              </IconButton>
               <Typography>{artifactAnalysis}</Typography>
+
+              <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={snackbarClose}
+                message="복사가 완료되었습니다!"
+                key={vertical + horizontal}
+                autoHideDuration={1500}
+              />
             </AccordionDetails>
           </Accordion>
         </div>

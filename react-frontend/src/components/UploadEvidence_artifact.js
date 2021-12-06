@@ -294,7 +294,7 @@ class Upload extends Component {
   getType(type) {
     console.log(type);
     this.setState({ type: type });
-    if (type === "초과근무") {
+    if (type === "초과근무"||type==="SNS") {
       this.setState({ isModalOpen: true });
     } else if (type === "휴가") {
       this.holidayOpen();
