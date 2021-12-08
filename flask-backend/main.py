@@ -1401,9 +1401,13 @@ def attackertimeline():
         df33 = df3.groupby(['date'])
         df33 = df33.size().reset_index(name='y')
         df333 = pd.DataFrame(df33)
-        df333.rename(columns = {'date' : 'x'}, inplace = True)        
-        js2 = df333.to_json(orient='records')
+        df333.rename(columns = {'date' : 'x'}, inplace = True)
+        # df333['x']=str(df333['x']).split("~")
+        # if (df333['x'] in "~"):
+        df333.loc[df333['x'].str.contains('~'),'x']=str(df333['x']).replace(' ',"~").replace("\nName","~").split("~")[4]
         
+        js2 = df333.to_json(orient='records')
+        print(data['type'],js2)
         return js2
         
     return json.dumps(evid,default=json_util.default)

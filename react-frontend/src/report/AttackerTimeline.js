@@ -99,7 +99,7 @@ const AttackerTimeline = (props) => {
 
     const res2 = await axios.post('/attackertimeline',body2)
     SetAttackerevdi2(res2.data)
-    console.log(Attackerevdi2)
+    console.log(props.type,Attackerevdi2)
 
   }
 
