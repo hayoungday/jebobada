@@ -5,6 +5,7 @@ import TableHead from "@mui/material/TableHead";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./reportHeader.css";
+import "./Overview.css"
 import ReportHeader from "./ReportHeader";
 import OverviewTimeline from "./OverviewTimeline";
 import Timeline from "@mui/lab/Timeline";
@@ -22,6 +23,7 @@ import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import { TextField } from "@material-ui/core";
+import Box from '@mui/material/Box';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -36,7 +38,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  backgroundColor: "#F0F0F4",
+  backgroundColor: "white",
   zIndex: 2,
   color: "#4B64D4",
   width: 100,
@@ -94,7 +96,7 @@ function returnType(props) {
 
 const barGraph = ["#869DE6", "#8FAADC", "#B3C5E5", "#DEE5F8", "#DEEBF7"];
 
-const Overview = (props) => {
+const Overview = React.forwardRef((props,ref) => {
   const [isEtcEdit,setIsEtcEdit]=useState()
   const [evidence, Setevidence] = useState([]);
   const [startDate, SetStartDate] = useState("");
@@ -177,7 +179,7 @@ const Overview = (props) => {
       //console.log(res.data[0]['date'].substr(0,10))
       //console.log(res.data[res.data.length-1]['date'])
       SetStartDate(res.data[0]["date"].substr(0, 10));
-      SetEndDate(res.data[res.data.length - 1]["date"]);
+      SetEndDate(res.data[res.data.length - 1]["date"].substr(0,10));
       res.data.map((c) => {
         SetAttackers((attackers) => [...attackers, c.attacker]);
         c.type.map((t) => {
@@ -205,35 +207,54 @@ const Overview = (props) => {
   for (const [key, value] of Object.entries(tmp)) {
     console.log(`${key}:${value}`);
   }
+  
   return (
     <div className="flex-container">
       <div className="nav-item">
         <ReportHeader case_id={case_id} />
       </div>
-      <div className="comp-item">
-        <h1>사건 개요</h1>
+      <div className="yoon_overview-container" ref = {ref}>
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <span className="yoon_overview-title">사건 개요</span>
+          <br />
+          <span className="yoon_overview-tilte-desc">
+            직장 내 괴롭힘 사건에 대한 개요입니다.
+            <br />
+            괴롭힘 유형별 건수와 사건을 요약하여 나타냅니다.
+          </span>
+        </Stack>
         <br />
-        <h5>직장 내 괴롭힘 사건에 대한 개요입니다.</h5>
-        <h5>괴롭힘 유형별 건수와 사건을 요약하여 나타냅니다.</h5>
-        <br />
-        <label>
-          피해기간 {startDate}~{endDate}
-          {"  "}
-        </label>
-        <br></br>
-        <label>행위자</label>
-        <br></br>
-        {attackers.join(", ")}
-        <br />
-        <br />
-        <h3>괴롭힘 유형별 건수</h3>
-        전체 증거물들에 대한 괴롭힘 유형별 건수입니다.
-        <br />
-        <br />
-        괴롭힘 증거 자료 {evidence.length}건 중<br />
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <span className="yoon_overview-info">피해기간</span>
+            <span className="yoon_overview-info-desc">
+              {startDate} ~ {endDate}
+            </span>
+            <br />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <span className="yoon_overview-info">행위자</span>
+            <span className="yoon_overview-info-desc">
+              {attackers.join(", ")}
+            </span>
+          </Stack>
+        </Stack>
         <br />
         <br />
-        <div style={{ width: "80%" }}>
+        <br />
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <span className="yoon_overview-subtitle">괴롭힘 유형별 건수</span>
+          <span className="yoon_overview-subtitle-desc">
+            전체 증거물들에 대한 괴롭힘 유형별 건수입니다.
+          </span>
+        </Stack>
+        <br />
+        <span className="yoon_overview-count-title">
+          괴롭힘 증거 자료 {evidence.length}건 중
+        </span>
+        <br />
+        <br />
+        <div>
           <Table
             style={{
               tableLayout: "fixed",
@@ -254,23 +275,25 @@ const Overview = (props) => {
             <TableHead style={{ height: 10 }}>
               {Object.entries(tmp).map(([key, value]) => (
                 <TableCell align="center">
-                  <Typography variant="body1" style={{ fontWeight: "bolder" }}>
-                    {key}
-                  </Typography>
-                  <Typography variant="subtitle2">{value}건</Typography>
+                  <span className="yoon_overview-count-type">{key}</span>
+                  <br />
+                  <span className="yoon_overview-count-text">{value}건</span>
                 </TableCell>
               ))}
             </TableHead>
           </Table>
         </div>
         <br></br>
-        <h3>괴롭힘 사건 요약</h3>
-        괴롭힘 증거자료를 시간순으로 나타낸 결과입니다.
+        <br/>
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <span className="yoon_overview-subtitle">괴롭힘 사건 요약</span>
+          <span className="yoon_overview-subtitle-desc">
+            괴롭힘 증거자료를 시간순으로 나타낸 결과입니다.
+          </span>
+        </Stack>
         <br />
         <br />
-        <div
-          style={{ border: "3px solid #5C7BDE", padding: "30px", width: "80%" }}
-        >
+        <div style={{ border: "3px solid #5C7BDE", padding: "30px" }}>
           <Stepper
             alternativeLabel
             activeStep={100}
@@ -278,7 +301,7 @@ const Overview = (props) => {
           >
             {evidence.map((label) => (
               <Step style={{ textAlign: "center" }} key={label.date}>
-                {label.date.substr(0, 10)}
+                <span className="yoon_overview-timeline-date">{label.date.substr(0, 10)}</span>
                 <br></br>
                 {label.attacker}
                 <StepLabel
@@ -305,8 +328,9 @@ const Overview = (props) => {
         </div>
         <br></br>
         <br></br>
-        <h1>요구사항</h1>
-        <h5>신고기관에 바라는 요구 사항을 선택하세요.</h5>
+        <Stack direction="row" alignItems="center" spacing={6}>
+        <span className="yoon_overview-title">요구사항</span>
+        <span className="yoon_overview-tilte-desc">신고기관에 바라는 요구 사항을 선택하세요.</span></Stack>
         <br />
         <div>{console.log(requirement["seperate"])}</div>
         <div>{console.log(typeof requirement["seperate"])}</div>
@@ -383,6 +407,7 @@ const Overview = (props) => {
               label={<span style={{ fontSize: "22px" }}>유급휴가</span>}
             />
           </Stack>
+          <Stack direction="row" spacing={1}>
           <FormControlLabel
             control={
               <Checkbox
@@ -393,27 +418,31 @@ const Overview = (props) => {
                 checked={requirement["etc"] == true ? true : false}
                 onChange={(e) => {
                   requirementUpdate(e);
-                  setIsEtcEdit(e.currentTarget.checked)
+                  setIsEtcEdit(e.currentTarget.checked);
                 }}
               />
             }
             label={<span style={{ fontSize: "22px" }}>기타</span>}
           />
-          
+          <TextField
+          style={{width:"30%"}}
+          variant="outlined"
+          disabled={requirement["etc"] === false ? true : false}
+          defaultValue={requirement["etcstr"]}
+          onChange={(e) => etcUpdate(e)}
+          onBlur={updateCaseRequirement_etcstr()}
+          value={requirement["etc"] === false ? "" : requirement["etcstr"]}
+          fullWidth
+        />
+        </Stack>
         </FormGroup>
-        <TextField
-            variant="outlined"
-            disabled={requirement["etc"]===false?true:false}
-            defaultValue={requirement["etcstr"]}
-            onChange={(e)=>etcUpdate(e)}
-            onBlur={updateCaseRequirement_etcstr()}
-            value={requirement["etc"]===false?"":requirement["etcstr"]}
-          />
+        
+        
         <br></br>
         <br></br>
       </div>
     </div>
   );
-};
+});
 
 export default Overview;

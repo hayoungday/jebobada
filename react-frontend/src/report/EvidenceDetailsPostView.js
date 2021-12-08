@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link, RouteComponentProps } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import './reportHeader.css'
+import './EvidenceDetails.css'
 import ViewArtifact from './ViewArtifact'
 import Button from "@mui/material/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,7 +11,14 @@ import EvidenceDetailsEdit from './EvidenceDetailsEdit';
 import axios from 'axios';
 import EvidenceDetailsArtifact from './EvidenceDetailsArtifact';
 import EvidenceDetailsSTT from './EvidenceDetailsSTT';
-
+import CheckIcon from '@mui/icons-material/Check';
+import Stack from "@mui/material/Stack";
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import { Table } from '@mui/material';
+import { makeStyles } from "@material-ui/core/styles";
+import { fontFamily, style } from '@mui/material/node_modules/@mui/system';
 
 const EvidenceDetailsPostView = (props) => {
   const [binary,setBianry]=useState("")
@@ -56,6 +64,7 @@ const EvidenceDetailsPostView = (props) => {
 
     const url = "https://craftguy.s3.ap-northeast-2.amazonaws.com/"+ props.filehash
 
+    
     const editTrue = () => {
       setEditMode(true)
     }
@@ -109,97 +118,240 @@ const EvidenceDetailsPostView = (props) => {
           {console.log(typeof meta.fileType)}
 
           {console.log(meta.fileType)}
-          {props.data.ismain==="yes"?<div>핵심증거입니다.</div>:null}
-          <label>파일 이름 : {filename}</label>
+
+          <Stack direction="row" justifyContent="space-around" spacing={4}>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">일시</span>
+                <span className="yoon_evidenceDetail-infodesc">{date}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">행위자</span>
+                <span className="yoon_evidenceDetail-infodesc">{attacker}</span>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">발생 장소</span>
+                <span className="yoon_evidenceDetail-infodesc">{location}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">괴롭힘 유형</span>
+                <span className="yoon_evidenceDetail-infodesc">
+                  {props.data.type.join(", ")}
+                </span>
+              </Stack>
+          </Stack>
           <br />
-          <label>파일 형식 : {meta.filetype}</label>
           <br />
-          <label>파일 크기 : {meta.fileSize}</label>
-          <br />
-          <label>촬영 시각 : {meta.imageCtime}</label>
-          <br />
-          <label>촬영 장소 : {meta.gpsPosition}</label>
-          <br />
-          <label>촬영 기기 : {meta.deviceModel}</label>
-          <br />
-          <label>촬영 기기 소프트웨어 버전 : {meta.software}</label>
-          <br />
-          <br />
-          <label>일시: {date}</label>
-          <br />
-          <label>발생 장소: {location}</label>
-          <br />
-          <label>행위자: {attacker}</label>
-          <br />
+
+          <Stack direction="row" justifyContent="center" spacing={4}>
+            <div className="yoon_evidenceDetail-image">
+              {binary === "" ? (
+                <CircularProgress variant="indeterminate" value="변환중" />
+              ) : (
+                <img src={`data:image/png;base64,${binary}`} />
+              )}
+            </div>
+
+            <div>
+              <TableBody>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 이름
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {filename}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 형식
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.filetype}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 크기
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.fileSize}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    촬영 시각
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.imageCtime}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    촬영 장소
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.gpsPosition}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    촬영 기기
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.deviceModel}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    촬영 기기 소프트웨어 버전
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.software}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </div>
+          </Stack>
+
           {/* <label>상세 설명: {desc}</label><br/><br/><br/> */}
-          <labe>상세 설명</labe>
-          <br></br>
+          <br />
+          <Stack direction="row" spacing={2} alignItems="center">
+          <span className="yoon_evidenceDetail-desc">상세 설명</span>
           <div>
             {editMode === false ? (
-              <div
-                style={{
-                  border: "3px solid #E7E6E6",
-                  wordBreak: "break-all",
-                  display: "inline-block",
-                  padding: "2%",
-                  width: "70%",
-                }}
-              >
+              <div>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setEditMode(true);
+                  }}
+                >
+                  수정하기
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Stack direction="row" spacing={1}>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    editFalse();
+                    alert("수정을 취소하였습니다");
+                  }}
+                >
+                  취소
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setEditMode(false);
+                    handleSubmit();
+                    alert("수정되었습니다");
+                  }}
+                >
+                  확인
+                </Button>
+                </Stack>
+              </div>
+            )}
+          </div>
+          </Stack>
+          <div>
+            {editMode === false ? (
+              <div className="yoon_evidenceDetail-desc-textbox">
                 {desc}
               </div>
             ) : (
-              <div style={{ width: "70%" }}>
+              <div className="yoon_evidenceDetail-desc-edittextbox">
                 <TextField
                   fullWidth
                   defaultValue={desc}
                   multiline
                   onChange={(e) => setDescTmp(e.target.value)}
+                  InputProps={{style:{fontFamily:"NotoSansKR-Light",fontSize:"21px",padding:"2%"}}}
                 />
               </div>
             )}
           </div>
-          <div>
-          {editMode === false ? (
-            <div>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  setEditMode(true);
-                }}
-              >
-                수정하기
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  setEditMode(false);
-                  handleSubmit();
-                  alert("수정되었습니다");
-                }}
-              >
-                확인
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  editFalse();
-                  alert("수정을 취소하였습니다");
-                }}
-              >
-                취소
-              </Button>
-            </div>
-          )}
-          </div>
+          <br />
+          
+          <br />
+          <br />
         </>
       );
     }
     const aud_data = () => {
       return (
         <>
+        <Stack direction="row" justifyContent="space-around" spacing={4}>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">일시</span>
+                <span className="yoon_evidenceDetail-infodesc">{date}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">행위자</span>
+                <span className="yoon_evidenceDetail-infodesc">{attacker}</span>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">발생 장소</span>
+                <span className="yoon_evidenceDetail-infodesc">{location}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">괴롭힘 유형</span>
+                <span className="yoon_evidenceDetail-infodesc">
+                  {props.data.type.join(", ")}
+                </span>
+              </Stack>
+          </Stack>
+
+          <EvidenceDetailsSTT props={props}/>
+        
           <label>파일 이름 : {filename}</label>
           <br />
           <label>파일 형식 : {meta.filetype}</label>
@@ -212,19 +364,6 @@ const EvidenceDetailsPostView = (props) => {
           <br />
           <label>녹음 길이 : {meta.duration}</label>
           <br />
-
-          <br />
-          <label>일시: {date}</label>
-          <br />
-          <label>발생 장소: {location}</label>
-          <br />
-          <label>행위자: {attacker}</label>
-          <br />
-          <label>상세 설명</label>
-          <br />
-          <br />
-          <br />
-          <br></br>
           <div>
             {editMode === false ? (
               <div
@@ -293,8 +432,13 @@ const EvidenceDetailsPostView = (props) => {
     if (props.filetype === "사진 파일"){
       return(
         <div>
-          <h1>증거자료{props.idx+1} | {filename} </h1>
-          {binary===""?(<CircularProgress variant="indeterminate" value="변환중" />):<img class='image_contents_design' src={`data:image/png;base64,${binary}`} />}
+          <Stack direction="row" alignItems="center" spacing={3}>
+          
+          <span className="yoon_evidenceDetail-filename-background"> {props.idx+1}) {filename} </span>
+          
+          {props.data.ismain==="yes"?<span className="yoon_evidenceDetail-filename-ismain"><CheckIcon/> 핵심증거입니다.</span>:null}
+          </Stack>
+          <br/>
           <br/>
           {pic_data()}
           {/* <Dialog open={open} onClose={handleClose}>
@@ -331,10 +475,18 @@ const EvidenceDetailsPostView = (props) => {
       
       return(
         <div>
-          <h1>증거자료{props.idx+1} | {props.filename} </h1>
-          <EvidenceDetailsSTT props={props}/>
+          <Stack direction="row" alignItems="center" spacing={3}>
+          
+          <span className="yoon_evidenceDetail-filename-background"> {props.idx+1}) {filename} </span>
+          
+          {props.data.ismain==="yes"?<span className="yoon_evidenceDetail-filename-ismain"><CheckIcon/> 핵심증거입니다.</span>:null}
+          </Stack>
+          
+          <br/>
           <br/>
           {aud_data()}
+          <br/>
+          
           
         </div>
       )

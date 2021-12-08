@@ -4,8 +4,11 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import AllEvidenceTable from './allEvidenceTable';
 import './reportHeader.css'
+import './EvidenceDetails.css'
 import ReportHeader from './ReportHeader';
 import EvidenceDetailsPostView from './EvidenceDetailsPostView';
+import Stack from "@mui/material/Stack";
+
 
 
 
@@ -45,46 +48,51 @@ const EvidenceDetails = (props) => {
     },[])
 
 
-    return(
-        <div className="flex-container">
-          <div className="nav-item">
-            <ReportHeader case_id={props.location.state.case_id}/>
-          </div>
-          <div className="comp-item">
-          
-          {evidence.map((c,index)=>              
-                <EvidenceDetailsPostView
-                  filename = {c.filename}
-                  meta = {c.metadata}
-                  filetype = {c.fileType}
-                  // filesize = {c.meta.filesize}
-                  // imageCtime = {c.meta.imageCtime}
-                  // gpsPosition = {c.meta.gpsPosition}
-                  // deviceModel = {c.meta.deviceModel}
-                  // software = {c.meta.software}
-                  // audioCtime = {c.meta.audioCtime}
-                  // title = {c.meta.title}
-                  // duration = {c.meta.duration}
-                  
-                  date = {c.date}
-                  location = {c.location}
-                  attacker = {c.attacker}
-                  filetype = {c.filetype}
-                  desc = {c.desc}
-                  filehash = {c.hashed_filename}
-                  idx = {index}
-                  _id = {c._id}
-                  data = {c}
-                  bulltype = {c.type}
-                />
-              )}
-
-            {evidence.map((c)=>(  
-                console.log(c)
-              ))}
-          </div>
+    return (
+      <div className="flex-container">
+        <div className="nav-item">
+          <ReportHeader case_id={props.location.state.case_id} />
         </div>
-    )
+        <div className="yoon_evidenceDetail-container">
+          <Stack direction="row" alignItems="center" spacing={6}>
+            <span className="yoon_evidenceDetail-title">증거 자료</span>
+            <span className="yoon_overview-tilte-desc">
+              증거 자료에 대한 상세 정보입니다
+              <br />각 증거 자료에 대한 상세 설명을 확인할 수 있습니다.
+            </span>
+          </Stack>
+          <br/><br/>
+          {evidence.map((c, index) => (
+            <EvidenceDetailsPostView
+              filename={c.filename}
+              meta={c.metadata}
+              filetype={c.fileType}
+              // filesize = {c.meta.filesize}
+              // imageCtime = {c.meta.imageCtime}
+              // gpsPosition = {c.meta.gpsPosition}
+              // deviceModel = {c.meta.deviceModel}
+              // software = {c.meta.software}
+              // audioCtime = {c.meta.audioCtime}
+              // title = {c.meta.title}
+              // duration = {c.meta.duration}
+
+              date={c.date}
+              location={c.location}
+              attacker={c.attacker}
+              filetype={c.filetype}
+              desc={c.desc}
+              filehash={c.hashed_filename}
+              idx={index}
+              _id={c._id}
+              data={c}
+              bulltype={c.type}
+            />
+          ))}
+
+          {evidence.map((c) => console.log(c))}
+        </div>
+      </div>
+    );
 }
 
 export default EvidenceDetails;

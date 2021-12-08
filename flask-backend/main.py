@@ -1462,7 +1462,6 @@ def editSTTReport():
     db=conn.jb_db
     collection=db.stt
     data=request.get_json()
-    print(data)
     _id=data["_id"]
     segments=data["segments"]
 

@@ -17,8 +17,9 @@ const ReportHeader = (props) => {
     const [_id,setCase_id]=useState(props.case_id)
     console.log(_id)
     return (
-
+            
         <>
+        
         {/* 아이콘 컬러 전체 변경 기능 */}
         <IconContext.Provider value={{ color: '#fff' }}>
             {/* 네비게이션 토글 코드*/}
@@ -28,6 +29,7 @@ const ReportHeader = (props) => {
             </Link>
             </div> */}
             <nav className='nav-menu active'>
+                
                 <ul className="nav-menu-items">
                     {/* SidebarData를 순서대로 담기*/}
                     {SidebarData.map((item, index) => {

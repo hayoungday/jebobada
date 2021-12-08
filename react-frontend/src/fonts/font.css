@@ -15,6 +15,22 @@
 }
 
 @font-face {
+    font-family: "NanumSquare-ExtraBold";
+    font-display: fallback;
+    src:url("./NanumSquareOTF_acEB.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: "NanumSquare-Bold";
+    font-display: fallback;
+    src:url("./NanumSquareOTF_acB.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
     font-family: "NanumSquare-Regular";
     font-display: fallback;
     src: url("./NanumSquareOTF_acR.otf") format("opentype");

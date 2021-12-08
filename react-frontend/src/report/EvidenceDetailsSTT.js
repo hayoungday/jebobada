@@ -147,7 +147,7 @@ const EvidenceDetailsSTT = (props) => {
                 defaultChecked={allCheck==true?true:false}
               />
             }
-            label="전체 선택"
+            label="전체ㅋ 선택"
           /> */}
           <br />
 
@@ -187,12 +187,13 @@ const EvidenceDetailsSTT = (props) => {
             direction="row"
             spacing={3}
           >
-            <Button variant="contained" onClick={() => submitHandler()}>
-              확인
-            </Button>
             <Button variant="outlined" onClick={() => handleClose()}>
               취소
             </Button>
+            <Button variant="contained" onClick={() => submitHandler()}>
+              확인
+            </Button>
+            
           </Stack>
         </Box>
       </Modal>

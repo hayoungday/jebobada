@@ -1,0 +1,63 @@
+.yoon_overview-container{
+    background-color: white;
+    width:75%;
+    display: inline-block;
+    padding:3%;
+    margin-left: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.yoon_overview-title{
+    font-family: NanumSquare-ExtraBold;
+    font-size:52px;
+    color: #294379;
+}
+
+.yoon_overview-tilte-desc{
+    font-family: NotoSansKR-Light;
+    font-size :22px;
+    font-weight: bolder;
+}
+
+.yoon_overview-info{
+    font-family: NotoSansKR-Regular;
+    font-size: 25px;
+    color: #294379;
+}
+
+.yoon_overview-info-desc{
+    font-family: NotoSansKR-Regular;
+    font-size: 25px;
+}
+
+.yoon_overview-subtitle{
+    font-family: NanumSquare-ExtraBold;
+    font-size: 32px;
+    color: #294379;
+}
+
+.yoon_overview-subtitle-desc{
+    font-family: NotoSansKR-Light;
+    font-size :22px;
+    font-weight: bolder;
+}
+
+.yoon_overview-count-title{
+    font-family: NotoSansKR-Light;
+    font-size:19px;
+    font-weight: bolder;
+}
+.yoon_overview-count-type{
+    font-family:NanumSquare-Bold;
+    font-size:20px;
+}
+.yoon_overview-count-text{
+    font-family: NotoSansKR-Bold;
+    font-size:18px
+}
+
+.yoon_overview-timeline-date{
+    font-family: NanumSquare-Regular;
+    font-size:18px
+}
