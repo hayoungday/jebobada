@@ -22,7 +22,7 @@ export default function ViewArtifact(props) {
   };
 
   return (
-    <div className="table_style">
+    <div className="table_style_report">
       <Table
         style={{
           tableLayout: "fixed",

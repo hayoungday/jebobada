@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const EvidenceDetailsArtifact = (props) => {
   const [snackbar, setSnackbar] = useState({
@@ -78,46 +79,31 @@ const EvidenceDetailsArtifact = (props) => {
 
   return (
     <div>
-      <Stack direction="row" marginLeft="5%" marginRight="5%" spacing={8}>
-        <div>일시 {props.date}</div>
-        <div>행위자 {props.attacker.join(",")}</div>
-        <div>괴롭힘 유형 {props.type}</div>
-      </Stack>
+      <Stack direction="row" justifyContent="space-around" spacing={4}>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">일시</span>
+                <span className="yoon_evidenceDetail-infodesc">{props.date}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">행위자</span>
+                <span className="yoon_evidenceDetail-infodesc">{props.attacker.join(",")}</span>
+              </Stack>
+              
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <span className="yoon_evidenceDetail-info">괴롭힘 유형</span>
+                <span className="yoon_evidenceDetail-infodesc">
+                  {props.type}
+                </span>
+              </Stack>
+          </Stack>
+          <br />
+          <br />
+      
+
       <br />
-      <br />
-      <Stack
-        spacing={1}
-        justifyContent="center"
-        marginLeft="5%"
-        marginRight="5%"
-        maxwidth="70%"
-      >
-        <br />
-        상세 설명
-        <div>
-          {editMode === false ? (
-            <div
-              style={{
-                border: "3px solid #E7E6E6",
-                wordBreak: "break-all",
-                display: "inline-block",
-                padding: "2%",
-                width: "70%",
-              }}
-            >
-              {desc}
-            </div>
-          ) : (
-            <div style={{ width: "70%" }}>
-              <TextField
-                fullWidth
-                defaultValue={desc}
-                multiline
-                onChange={(e) => editDescTmp(e)}
-              />
-            </div>
-          )}
-        </div>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <span className="yoon_evidenceDetail-desc">상세 설명</span>
         <div>
           {editMode === false ? (
             <div>
@@ -132,61 +118,90 @@ const EvidenceDetailsArtifact = (props) => {
             </div>
           ) : (
             <div>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  editFalse();
-                  editDesc();
-                  alert("수정되었습니다");
-                }}
-              >
-                확인
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  editFalse();
-                  alert("수정을 취소하였습니다");
-                }}
-              >
-                취소
-              </Button>
+              <Stack direction="row" spacing={1}>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    editFalse();
+                    alert("수정을 취소하였습니다");
+                  }}
+                >
+                  취소
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setEditMode(false);
+                    editDesc();
+                    alert("수정되었습니다");
+                  }}
+                >
+                  확인
+                </Button>
+              </Stack>
             </div>
           )}
-          <br />
-          <Accordion style={{ width: "85%" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>예시</Typography>
-              <Tooltip
-                placement="right"
-                title={<Typography fontSize={15}>컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!</Typography>}
-              >
-                <HelpIcon />
-              </Tooltip>
-            </AccordionSummary>
-            <AccordionDetails>
-              <IconButton
-                onClick={snackbarClick({
-                  vertical: "bottom",
-                  horizontal: "center",
-                })}
-              >
-                <ContentCopyIcon />
-              </IconButton>
-              <Typography>{artifactAnalysis}</Typography>
-
-              <Snackbar
-                anchorOrigin={{ vertical, horizontal }}
-                open={open}
-                onClose={snackbarClose}
-                message="복사가 완료되었습니다!"
-                key={vertical + horizontal}
-                autoHideDuration={1500}
-              />
-            </AccordionDetails>
-          </Accordion>
         </div>
       </Stack>
+      <div>
+        {editMode === false ? (
+          <div className="yoon_evidenceDetail-desc-textbox">{desc}</div>
+        ) : (
+          <div className="yoon_evidenceDetail-desc-edittextbox">
+            <TextField
+              fullWidth
+              defaultValue={desc}
+              multiline
+              onChange={(e) => editDescTmp(e)}
+              InputProps={{
+                style: {
+                  fontFamily: "NotoSansKR-Light",
+                  fontSize: "21px",
+                  padding: "2%",
+                },
+              }}
+            />
+          </div>
+        )}
+      </div>
+      <br />
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Stack direction="row" spacing={1} alignItems="center">
+          <span className="yoon_evidenceDetail-tooltiptext">예시</span>
+          <Tooltip
+            placement="right"
+            title={
+              <Typography fontSize={15}>
+                컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!
+              </Typography>
+            }
+          >
+            <HelpIcon />
+          </Tooltip>
+          </Stack>
+        </AccordionSummary>
+        <AccordionDetails>
+          <IconButton
+            onClick={snackbarClick({
+              vertical: "bottom",
+              horizontal: "center",
+            })}
+          >
+            <ContentCopyIcon />
+          </IconButton>
+          <span className="yoon_evidenceDetail-artifactanalysizetext">{artifactAnalysis}</span>
+
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={snackbarClose}
+            message="복사가 완료되었습니다!"
+            key={vertical + horizontal}
+            autoHideDuration={1500}
+          />
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };

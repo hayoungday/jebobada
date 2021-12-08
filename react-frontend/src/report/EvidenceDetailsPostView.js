@@ -349,10 +349,10 @@ const EvidenceDetailsPostView = (props) => {
                 </span>
               </Stack>
           </Stack>
-
+          <br/>
           <EvidenceDetailsSTT props={props}/>
         
-          <label>파일 이름 : {filename}</label>
+          {/* <label>파일 이름 : {filename}</label>
           <br />
           <label>파일 형식 : {meta.filetype}</label>
           <br />
@@ -362,32 +362,10 @@ const EvidenceDetailsPostView = (props) => {
           <br />
           <label>녹음 장소 : {meta.title}</label>
           <br />
-          <label>녹음 길이 : {meta.duration}</label>
+          <label>녹음 길이 : {meta.duration}</label> */}
           <br />
-          <div>
-            {editMode === false ? (
-              <div
-                style={{
-                  border: "3px solid #E7E6E6",
-                  wordBreak: "break-all",
-                  display: "inline-block",
-                  padding: "2%",
-                  width: "70%",
-                }}
-              >
-                {desc}
-              </div>
-            ) : (
-              <div style={{ width: "70%" }}>
-                <TextField
-                  fullWidth
-                  defaultValue={desc}
-                  multiline
-                  onChange={(e) => setDescTmp(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
+          <Stack direction="row" spacing={2} alignItems="center">
+          <span className="yoon_evidenceDetail-desc">상세 설명</span>
           <div>
             {editMode === false ? (
               <div>
@@ -402,16 +380,7 @@ const EvidenceDetailsPostView = (props) => {
               </div>
             ) : (
               <div>
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    setEditMode(false);
-                    handleSubmit();
-                    alert("수정되었습니다");
-                  }}
-                >
-                  확인
-                </Button>
+                <Stack direction="row" spacing={1}>
                 <Button
                   variant="outlined"
                   onClick={() => {
@@ -421,6 +390,35 @@ const EvidenceDetailsPostView = (props) => {
                 >
                   취소
                 </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setEditMode(false);
+                    handleSubmit();
+                    alert("수정되었습니다");
+                  }}
+                >
+                  확인
+                </Button>
+                </Stack>
+              </div>
+            )}
+          </div>
+          </Stack>
+          <div>
+            {editMode === false ? (
+              <div className="yoon_evidenceDetail-desc-textbox">
+                {desc}
+              </div>
+            ) : (
+              <div className="yoon_evidenceDetail-desc-edittextbox">
+                <TextField
+                  fullWidth
+                  defaultValue={desc}
+                  multiline
+                  onChange={(e) => setDescTmp(e.target.value)}
+                  InputProps={{style:{fontFamily:"NotoSansKR-Light",fontSize:"21px",padding:"2%"}}}
+                />
               </div>
             )}
           </div>
@@ -495,7 +493,7 @@ const EvidenceDetailsPostView = (props) => {
         <div>
           {console.log(props.data)}
 
-          <h1>증거자료{props.idx+1} | {props.filename} </h1>
+          <span className="yoon_evidenceDetail-filename-background"> {props.idx+1}) {filename} </span>
           <br/>
           
           

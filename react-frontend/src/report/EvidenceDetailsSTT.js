@@ -8,7 +8,7 @@ import { TextField } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from '@mui/material/Stack';
-
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Checkbox, Tab, TableRow } from "@mui/material";
 
 const style = {
@@ -17,7 +17,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 900,
-  height: 900,
+  height: 800,
   overflowY: "scroll",
   borderRadius: "10px",
   bgcolor: "background.paper",
@@ -88,9 +88,10 @@ const EvidenceDetailsSTT = (props) => {
         {segmentsRes.map((c, i) => {
           return c.isChecked == true ? (
             <div>
-              {c.speaker}
+              <span className="yoon_evidenceDetail-sttspeaker">
+              {c.speaker}</span>
               <br />
-              {c.stt}
+              <span className="yoon_evidenceDetail-sttsentence">{c.stt}</span>
             </div>
           ) : null;
         })}
@@ -106,25 +107,17 @@ const EvidenceDetailsSTT = (props) => {
   // console.log(props.props._id.$oid)
   return (
     <div>
-      <div
-        style={{
-          border: "1px solid",
-          display: "flex",
-          justifyContent: "center",
-          height: "400px",
-          alignItems: "center",
-        }}
-      >
+      <div className="yoon_evidenceDetail-checked-stt-container">
         {choosedOnReport == false ? (
-          <Button onClick={handleOpen} variant="outlined">
+          <button className="yoon_evidenceDetail-check-message-button" onClick={handleOpen}>
             선택하기
-          </Button>
+          </button>
         ) : (
           <div>
             {viewCheckedSentences()}
             <br/>
             <Button onClick={handleOpen} variant="outlined">
-              선택하기
+              <ArrowDropUpIcon/>선택 / 수정하기
             </Button>
           </div>
         )}
@@ -132,10 +125,8 @@ const EvidenceDetailsSTT = (props) => {
 
       <Modal open={editMode} onClose={handleClose}>
         <Box sx={style}>
-          <Typography variant="h6">선택하기</Typography>
-          <Typography sx={{ mt: 2 }}>
-            증거로 활용할 문장을 선택해주세요
-          </Typography>
+          <span className="yoon_evidenceDetail-sttmodal-title">증거로 활용할 문장을 선택해주세요</span>
+          
           <br />
 
           {/* <FormControlLabel

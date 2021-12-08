@@ -214,7 +214,7 @@ const Overview = React.forwardRef((props,ref) => {
         <ReportHeader case_id={case_id} />
       </div>
       <div className="yoon_overview-container" ref = {ref}>
-        <Stack direction="row" alignItems="center" spacing={6}>
+        <Stack direction="row" alignItems="center" spacing={3}>
           <span className="yoon_overview-title">사건 개요</span>
           <br />
           <span className="yoon_overview-tilte-desc">
@@ -328,7 +328,7 @@ const Overview = React.forwardRef((props,ref) => {
         </div>
         <br></br>
         <br></br>
-        <Stack direction="row" alignItems="center" spacing={6}>
+        <Stack direction="row" alignItems="center" spacing={3}>
         <span className="yoon_overview-title">요구사항</span>
         <span className="yoon_overview-tilte-desc">신고기관에 바라는 요구 사항을 선택하세요.</span></Stack>
         <br />

@@ -29,7 +29,8 @@
     font-family: NanumSquare-ExtraBold;
     font-size: 28px;
     background-color:#DAE3F3;
-    padding:0.6%;
+    border-radius: 10px;
+    padding:1%;
 }
 
 .yoon_evidenceDetail-filename-ismain{
@@ -81,4 +82,75 @@
 }
 .yoon_evidenceDetail-desc-edittextbox{
     margin-top:1%;    
+}
+
+.yoon_evidenceDetail-checked-stt-container{
+    border:1px solid;
+    display: flex;
+    align-items: center;
+    padding:3%;
+    min-height: 400px;
+}
+
+.yoon_evidenceDetail-check-message-button{
+    border:2px dashed;
+    width:35%;
+    font-family: NotoSansKR-Regular;
+    border-color: #A5A5A5;
+    color:#A5A5A5;
+    margin: auto;
+    font-size:  25px;
+    padding:1.5%;
+    border-radius: 15px;
+    transition: background-color 0.2s ease-in-out,color 0.2s ease-in-out
+}
+
+.yoon_evidenceDetail-check-message-button:hover{
+    border:2px dashed;
+    width:35%;
+    font-family: NotoSansKR-Regular;
+    border-color: #A5A5A5;
+    background-color: #A5A5A5;
+    color:white;
+    margin: auto;
+    font-size:  25px;
+    padding:1.5%;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out,color 0.3s ease-in-out
+}
+
+.yoon_evidenceDetail-stt{
+    margin: 20px;
+}
+
+.yoon_evidenceDetail-sttspeaker{
+    font-family: NanumSquare-Regular;
+    font-size:20px;
+    font-weight: bolder;
+}
+
+.yoon_evidenceDetail-sttsentence{
+    font-family: NotoSansKR-Light;
+    font-size:20px;
+    font-weight: bolder;
+}
+
+.yoon_evidenceDetail-sttmodal-title{
+    font-family: NanumSquare-Bold;
+    font-size: 37px;
+    color: #294379;
+}
+
+.yoon_evidenceDetail-tooltiptext{
+    font-family: NanumSquare-Bold;
+    font-size:21px;
+}
+
+.yoon_evidenceDetail-tooltipicon{
+    margin-left:"10%"
+}
+
+.yoon_evidenceDetail-artifactanalysizetext{
+    font-family: NotoSansKR-Light;
+    font-size: 18px;
 }
