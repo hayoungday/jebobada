@@ -8,11 +8,17 @@ import axios from 'axios';
 const MainBullyingDetail =(props)=>{
 
     return (
-        <div>
-            {props.idx+1}) {props.date}에 {props.attacker.join(", ")}에게 {props.location}에서 {props.bullying.join(", ")}을 당했습니다.<p/>
-            {props.desc}
-            <br/><br/>
-        </div>
+        <span className="mainbullying_contents">
+            {props.idx+1}) 
+            <span className="highlight">{props.date}</span>에 <span className="highlight">{props.attacker.join(", ")}</span>에게 
+            <span className="highlight">{props.location}</span>에서 
+            <span className="highlight">{props.bullying.join(", ")}</span>을 당했습니다.<p/>
+            
+            <div className="mainbullying_desc">
+                {props.desc}
+            </div>
+            <br/>
+        </span>
         
     )
 }

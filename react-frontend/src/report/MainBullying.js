@@ -5,7 +5,8 @@ import axios from 'axios';
 import './reportHeader.css'
 import ReportHeader from './ReportHeader'
 import MainBullyingDetail from './MainBullyingDetail';
-
+import Stack from "@mui/material/Stack";
+import './report.css'
 
 
 const MainBullying = (props) => {
@@ -57,23 +58,29 @@ useEffect(() => {
       <div className="nav-item">
         <ReportHeader case_id={props.location.state.case_id}/>
       </div>
-      <div className="comp-item">
-        <h1>핵심 피해 기록</h1>
-        <h5>피해 기록 중 핵심 피해 사실에 대한 기록을 요약한 내용입니다.</h5>
+      <div className="yoon_overview-container">
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <span className="yoon_overview-title">핵심 피해 기록</span>
+          <br/>
+          <span className="yoon_overview-tilte-desc">
+          피해 기록 중 핵심 피해 사실에 대한 기록을 요약한 내용입니다. 
+          </span>
+        </Stack>
+        <br/>
 
       <button>수정</button>
       <button>확인</button>
-      <p/>
-
-      제가 괴롭힘 피해를 당한 기간은 <span style={{backgroundColor: "#F6BB42"}}>{startDate} ~ {endDate}</span> 입니다.<p/>
+      <br/><br/>
+    <div className="mainbullying">
+      제가 괴롭힘 피해를 당한 기간은 <span className="highlight">{startDate} ~ {endDate}</span> 입니다.<p/>
             
-      위의 기간동안 <span style={{backgroundColor: "#F6BB42"}}>{Array.from(new Set(attackers)).join(", ")}</span> 에게 괴롭힘 피해를 당했습니다.<p/>
+      위의 기간동안 <span className="highlight">{Array.from(new Set(attackers)).join(", ")}</span> 에게 괴롭힘 피해를 당했습니다.<p/>
       
-      피해 당한 괴롭힘 유형은  <span style={{backgroundColor: "#F6BB42"}}>{Array.from(new Set(bullying)).join(", ")}</span> 입니다.
-      <br/><br/><br/>
+      피해 당한 괴롭힘 유형은  <span className="highlight">{Array.from(new Set(bullying)).join(", ")}</span> 입니다.
+      <br/><br/>
 
-      다음은 핵심 증거에 대한 피해 사실을 기록한 내용입니다.<br/><br/>
-
+      다음은 핵심 증거에 대한 피해 사실을 기록한 내용입니다.<br/>
+    </div>
       {evidence.map((c,index)=>{
         return(
           <MainBullyingDetail
