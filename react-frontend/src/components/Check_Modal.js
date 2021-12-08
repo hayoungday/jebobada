@@ -2,6 +2,8 @@ import React, { Component, useState, List } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
+import Stack from '@mui/material/Stack';
+
 
 const physics = ["폭행"]
 const lang = ["폭언","모욕","협박","비하"]
@@ -213,7 +215,7 @@ function Check_Modal({ className, visible, type, children, getSetValue, closeMod
           </div>
           <div className="type-chkbox">
             {outwork.map((issue, index)=>(
-              <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
+                <Issue key = {index} name = {issue} type = {type} checkedItemHandler={checkedItemHandler}/>
             ))}
           </div>
           
@@ -337,13 +339,13 @@ function Check_Modal({ className, visible, type, children, getSetValue, closeMod
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 50px;
-    width: 800px;
-    height: 600px;
+    border-radius: 8px;
+    width: 490px;
+    height: 377px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 40px;
   `
 
 export default Check_Modal;

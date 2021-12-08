@@ -81,20 +81,34 @@ function Signup_Modal({ className, visible, children, closeModal }) {
         <form onSubmit={onSubmitHandler}>
         
         <div className="flex-container-signup">
-            <input type="text" className="signup_id" id="userid" value={userid} placeholder="아이디를 입력하세요." onChange={onIdHandler}/>
+          <div className="signup_id">
+            <div className="id_icon_login"/>
+            <input type="text" className="login_input_css" id="userid" value={userid} placeholder="아이디를 입력하세요." onChange={onIdHandler}/>
+          </div>
             <button className="signup_chkid_box" onClick={onButtonClick}>
                 중복체크
             </button>
         </div>
         
-        <input type="password" className="signup_pw" id="password" value={userpassword} placeholder="비밀번호를 입력하세요." onChange={onPasswordHandler}/>
+        <div className="signup_pw">
+          <div className="pw_icon_login"/>
+          <input type="password" className="login_input_css" id="password" value={userpassword} placeholder="비밀번호를 입력하세요." onChange={onPasswordHandler}/>
+        </div>
         
-        <input type="password" className="signup_chkpw" id="re_password" value={userpassword2} placeholder="비밀번호를 확인해주세요." onChange={onPasswordCheckHandler} />
+        <div className="signup_pw">
+          <div className="pw_icon_login"/>
+          <input type="password" className="login_input_css" id="re_password" value={userpassword2} placeholder="비밀번호를 확인해주세요." onChange={onPasswordCheckHandler} />
+        </div>
 
         <button className="signup_button_box_a">
             회원가입
         </button>
         </form>
+
+        <span className="login_jebobada_text">
+          JeBoBADA
+        </span>
+
     </div>
   );
 }
@@ -149,12 +163,11 @@ function Signup_Modal({ className, visible, children, closeModal }) {
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 40px;
 
-  width: 820px;
-  height: 550px;
-  padding: 33px 47.4px 66px 48px;
-  border-radius: 20px;
+  width: 489px;
+  height: 473px;
+  border-radius: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 1px #707070;
   background-color: #fff;

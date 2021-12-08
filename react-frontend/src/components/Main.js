@@ -58,12 +58,11 @@ const Main = () => {
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsModalOpen(true)}>Login</div>
                                     </li>
-                                    <Login_Modal visible={isModalOpen} closeModal = {closeModal} openModal = {openModal}/>
-
+                                   
                                     <li class="">
                                         <div role="button" tabindex="0" class="focus:no-underline focus:outline-none active" onClick={()=>setIsSignupModalOpen(true)}>Sign up</div>
                                     </li>
-                                    <Signup_Modal visible={isSignupModalOpen} closeModal={closeSignupModal}/>
+                                    
                                 </ul>
                             </nav>
                         </div>
@@ -90,6 +89,8 @@ const Main = () => {
                         </div>
                     </div>
                 </div>
+                <Login_Modal visible={isModalOpen} closeModal = {closeModal} openModal = {openModal}/>
+                <Signup_Modal visible={isSignupModalOpen} closeModal={closeSignupModal}/>
             </div>
         </div>
         

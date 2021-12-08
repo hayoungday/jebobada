@@ -12,7 +12,7 @@ class reportTable extends React.Component {
 
         this.state = {
             isModalOpen: false,
-            createtime: "-",
+            createtime: "",
             isCreated: false,
         }
 
@@ -29,7 +29,7 @@ class reportTable extends React.Component {
     CreateButton=()=>{
         return(
             <button onClick = {this.CreateButtonClicked} style={{border:'none'}}>
-                 <img src='./static/react/create_report.png' style={{ width: '80px' }}/>
+                 <img src='./static/react/group94.png' style={{ width: '80px' }}/>
             </button>
         )
     }
@@ -38,7 +38,7 @@ class reportTable extends React.Component {
         return(
             <Link to={{pathname:'/mainbullying',state:{case_id:this.props._id}}} style={{textDecoration:'none'}}>
                 <button style={{border:'none'}}>
-                     <img src='./static/react/show_report.png' style={{ width: '80px' }}/>
+                     <img src='./static/react/group100.png' style={{ width: '80px' }}/>
                 </button>
             </Link>
         )
@@ -67,13 +67,24 @@ class reportTable extends React.Component {
 
         return (
             
-            <TableRow>
-                <TableCell style={{ textAlign: "center" }}>{this.props.id}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{this.props.name}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{this.state.createtime}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{report_button}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{update_button}</TableCell>
-            </TableRow>
+            <div className="casepage_test_case_box">
+                {/* <Link
+                    to={{
+                        pathname: "/upload/" + c.index,
+                        state: { casename: c.CaseName },
+                    }}
+                    > */}
+                <div className="casepage_test_case_box_title">
+                    {this.props.name}
+                </div>
+                {/* </Link> */}
+                
+                <span className="casepage_test_case_box_desc">{this.props.description}</span>
+                <div className="jb-case-item-flex-container">
+                    <div className="jb-rp-items1">{this.state.createtime}</div>
+                    <div className="jb-rp-items2">{report_button}</div>
+                </div>
+            </div>
         )
     }
 }

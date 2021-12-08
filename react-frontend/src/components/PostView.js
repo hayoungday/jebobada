@@ -86,9 +86,10 @@ class PostView extends Component {
           <div>
             <Header />
             <div className="wrap">
-              <div className="flex-container-postview">
-                <div className="flex-column-postview-container">
-                  <span className="postview-h1-2">원본 파일</span>
+              <div className="jb-postview-frame-flex-column-container">
+              <div className="jb-postview-flex-container">
+                <div className="jb-postview-flex-column-container">
+                  <span className="jb-postview-text1">원본 파일</span>
 
                   {this.state.data ? (
                     this.state.data.map((c, i) => {
@@ -97,7 +98,7 @@ class PostView extends Component {
                         (c.filetype == "녹음 파일")
                       ) {
                         return (
-                          <div className="postview-container-1">
+                          <div className="jb-postview-contents1">
                             <ViewFile
                               text={c.segments}
                               name={c.filename}
@@ -112,7 +113,7 @@ class PostView extends Component {
                         (c.filetype == "사진 파일")
                       ) {
                         return (
-                          <div className="postview-container-1">
+                          <div className="jb-postview-contents1">
                             <ViewOCR hashed_filename={c.hashed_filename} />
                           </div>
                         );
@@ -121,7 +122,7 @@ class PostView extends Component {
                         (c.filetype == "컴퓨터 증거")
                       ) {
                         return (
-                        <div className="postview-container-1">                          
+                        <div className="jb-postview-contents1">                          
                             <ViewArtifact data={this.state.data} object_id={c._id}/>
                         </div>
                         );
@@ -132,69 +133,68 @@ class PostView extends Component {
                     <h1></h1>
                   )}
                 </div>
-                <div className="flex-column-postview-container2">
-                  <span className="postview-h1-1">상세 정보</span>
-                  <div className="postview-container-2">
+                <div className="jb-postview-flex-column-container">
+                  <span className="jb-postview-text2">상세 정보</span>
+                  <div className="jb-postview-contents2">
 
-                    <div className="flex-container-postview-contents">
-                      <span className="date_title">일시</span>
-                      <span className="date_content">
-                        {this.props.location.state.datetime}
-                      </span>
-                    </div>
-                    
-                    <div className="flex-container-postview-contents">
-                      <span className="date_title">발생 장소</span>
-                      <span className="date_content">
-                        {this.props.location.state.location}
-                      </span>
-                    </div>
-
-                    <div className="flex-container-postview-contents">
-                      <span className="date_title">행위자</span>
-                      <span className="date_content">
-                        {this.props.location.state.attacker}
-                      </span>
-                    </div>
-
-                    <div className="flex-container-postview-contents">
-                      <span className="date_title">괴롭힘 유형</span>
-                      <span className="date_content">
-                        {this.props.location.state.bullying}
-                      </span>
-                    </div>
-
-                  </div>
-                </div>
-                </div>
-
-                <div className="flex-container-postview-contents2">
-                    <button
-                      className="file_info_container"
-                      onClick={this.openMetaModal}
-                    >
-                      파일 정보
-                    </button>
-                    <button
-                      className="is_edit_container"
-                      onClick={this.openChangedModal}
-                    >
-                      편집 정보
-                    </button>
-                  </div>
-                  
-
-                  <div className="flex-column-postview-container3">
-                    <span className="postview-h1-3">상세설명</span>
-                      <div className="postview-container-3">
-                        <br />
-                        <span className="desc_content">
-                          {this.props.location.state.desc}
+                    <div className="jb-postview-detail-flex-container">
+                      <div className="jb-postview-detail-flex-column-container">
+                        <span className="jb-postview-contents2-title">일시</span>
+                        <span className="jb-postview-contents2-detail">
+                          {this.props.location.state.datetime}
                         </span>
                       </div>
+                      
+                      <div className="jb-postview-detail-flex-column-container">
+                        <span className="jb-postview-contents2-title">발생 장소</span>
+                        <span className="jb-postview-contents2-detail">
+                          {this.props.location.state.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="jb-postview-detail-flex-container">
+                      <div className="jb-postview-detail-flex-column-container">
+                        <span className="jb-postview-contents2-title">행위자</span>
+                        <span className="jb-postview-contents2-detail">
+                          {this.props.location.state.attacker}
+                        </span>
+                      </div>
+
+                      <div className="jb-postview-detail-flex-column-container">
+                        <span className="jb-postview-contents2-title">괴롭힘 유형</span>
+                        <span className="jb-postview-contents2-detail">
+                          {this.props.location.state.bullying}
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  
+                  <div className="jb-postview-contents3">
+                    <div className="jb-postview-details-flex-column-container">
+                      <span className="jb-postview-contents2-title">상세설명</span>
+                      <span className="jb-postview-contents3-detail">
+                        {this.props.location.state.desc}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                <div className="jb-postview-button-flex-container">
+                  <button
+                    className="jb-postview-button"
+                    onClick={this.openMetaModal}
+                  >
+                    파일 정보
+                  </button>
+                  <button
+                    className="jb-postview-button"
+                    onClick={this.openChangedModal}
+                  >
+                    편집 정보
+                  </button>
+                </div>
 
                 {this.state.data ? (
                   this.state.data.map((c, i) => {
@@ -254,7 +254,7 @@ class PostView extends Component {
                   <h1></h1>
                 )}
               </div>
-              
+              </div>
             </div>
           
         );

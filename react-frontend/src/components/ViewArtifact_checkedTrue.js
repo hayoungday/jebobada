@@ -10,6 +10,7 @@ import { IconButton } from "@material-ui/core";
 import Typography from '@mui/material/Typography';
 
 import Checkbox from "@mui/material/Checkbox";
+import { borderRadius } from "@mui/material/node_modules/@mui/system";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 let image_src="./static/react/artifact_icons/"
 export default function ViewArtifact_checkedTrue(props) {
@@ -29,7 +30,7 @@ export default function ViewArtifact_checkedTrue(props) {
   };
   //   console.log(props.type);
   const header_Typo={
-    color:"#4B64D4",
+    color:"white",
     fontFamily: "NanumSquare-Regular"
   }
 
@@ -39,9 +40,13 @@ export default function ViewArtifact_checkedTrue(props) {
     fontWeight:"bolder"
   }
 
+  const header_Back={
+    background:"linear-gradient(to bottom, #04116a, #0a437d 91%)",    
+  }
+
   return (
-    <div style={{ transition: "all.5s ease" }}>
-      <Table style={{ tableLayout: "fixed", wordBreak: "break-all",wordWrap:"break-word" }}>
+    <div style={{backgroundColor:"white"}}>
+      <Table style={{ transition: "all.5s ease", tableLayout: "fixed", wordBreak: "break-all",wordWrap:"break-word" }}>
         <colgroup>
           <col style={{ width: "5%" }} />
           <col style={{ width: "5%" }} />
@@ -50,19 +55,19 @@ export default function ViewArtifact_checkedTrue(props) {
           <col style={{ width: "35%" }}/>
           
         </colgroup>
-        <TableHead>
+        <TableHead style={{borderTopLeftRadius: "8px", borderTopRightRadius:"8px"}}>
         <TableRow>
-            <TableCell></TableCell>
-            <TableCell >
+            <TableCell style={header_Back}></TableCell>
+            <TableCell style={header_Back}>
               <Typography variant="h6"></Typography>
             </TableCell>
-            <TableCell >
+            <TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>설명 / 시간</Typography>
             </TableCell>
-            <TableCell >
+            <TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>작업명</Typography>
             </TableCell >
-           <TableCell>
+           <TableCell style={header_Back}>
               <Typography variant="h6" style={header_Typo}>파일 경로</Typography>
             </TableCell>
             

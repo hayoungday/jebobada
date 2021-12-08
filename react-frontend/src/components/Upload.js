@@ -206,7 +206,7 @@ class Upload extends Component {
           <div>
             <Header />
             <div className="wrap">
-            <div className="jb_banner">
+            <div className="jb_banner_upload">
               <div className="jb-case-flex-container">
                 <div className="jb-case-flex-column-container">
                   <span className="jb_case_banner_title">
@@ -245,11 +245,11 @@ class Upload extends Component {
                       this.setState({ isSelectModalOpen: false });
                     }}
                   />
-                  <div className="flex-column-container-agree">
+                  <div className="jb-md-select-flex-column-container">
                     <span className="select-type-title">
                       등록할 증거 유형을 선택해주세요
                     </span>
-                    <div className="flex-container-column-meta">
+                    <div className="jb-md-select-meta-flex-column-container">
                       <div className="flex-container-select-type">
                         <Link
                           to={{

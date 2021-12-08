@@ -1,5 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from "react";
 import Header from "./Header";
+import Footer from './Footer';
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import Box from "@material-ui/core/Box";
@@ -36,7 +37,7 @@ const modal_style = {
   bgcolor: "background.paper",
   textAlign: "center",
   boxShadow: 10,
-  borderRadius: "18px",
+  borderRadius: "8px",
   p: 4,
 };
 
@@ -46,7 +47,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 let keyword = "";
 
-class Upload extends Component {
+class UploadEvidence_artifact extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -305,87 +306,88 @@ class Upload extends Component {
   UserChooserOpen() {
     if (this.state.isListOpen && this.state.fileVerify) {
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ flex: "2", textAlign: "center" }}>
-            <div>
-              <Typography
-                variant="h6"
-                style={{ fontFamily: "NanumSquare-Regular", color: "#4B64D4" }}
-              >
-                전체 보기
-              </Typography>
-            </div>
-            <div>
-              <Switch
-                checked={this.state.isDetail}
-                onChange={this.handleSwitchClick}
-              />
-            </div>
-          </div>
-          <div style={{ flex: "6" }}>
-            <TypeChooser getType={this.getType} />
-          </div>
-          <div style={{ flex: "1" }}>
-            <TextField
-              id="datetime-local"
-              label="start time"
-              type="datetime-local"
-              defaultValue=""
-              sx={{ width: 250 }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(event) => this.getStartTime(event)}
-            />
-          </div>
+        <div className="jb-upload-com-flex-column-container">
+          
+          
+          <TypeChooser getType={this.getType} />
+          
+
+          <TextField
+            className="jb-upload-select-date"
+            id="datetime-local"
+            label="start time"
+            type="datetime-local"
+            defaultValue=""
+            // sx={{ width: 250 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(event) => this.getStartTime(event)}
+          />
+          
           <div style={{ marginLeft: "0.5%", marginRight: "0.5%" }}>
             <Typography variant="h5" style={{ color: "#4B64D4" }}>
               ~
             </Typography>
           </div>
-          <div style={{ flex: "1", marginRight: "1%" }}>
-            <TextField
-              id="datetime-local"
-              label="end time"
-              type="datetime-local"
-              sx={{ width: 250 }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(event) => this.getEndTime(event)}
-            />
-          </div>
-          <div style={{ flex: "4" }}>
-            <TextField
-              fullWidth
-              id="filled-search"
-              label="검색"
+          
+          <TextField
+            className="jb-upload-select-date"
+            id="datetime-local"
+            label="end time"
+            type="datetime-local"
+            // sx={{ width: 250 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(event) => this.getEndTime(event)}
+          />
+
+          <div className="jb-upload-search-box">
+            <input
+              className="search-text-box"
               type="search"
-              variant="filled"
+              placeholder="    검색어를 입력하세요"
               onChange={this.setKeyword}
-              size="large"
-            />
+              />
+            <button className="search_button"  onClick={() => {this.setState({
+                startTime_input: this.state.startTime,
+                endTime_input: this.state.endTime,
+                keyword_input: this.state.keyword,
+              });
+            }}/>
           </div>
-          <div style={{ flex: "0.5", textAlign: "center" }}>
+
+          {/* <div
+            className="jb-upload-search-box"
+            // fullWidth
+            id="filled-search"
+            label="검색"
+            type="search"
+            // variant="filled"
+            onChange={this.setKeyword}
+            // size="large"
+          >
             <Button
-              onClick={() => {
-                this.setState({
-                  startTime_input: this.state.startTime,
-                  endTime_input: this.state.endTime,
-                  keyword_input: this.state.keyword,
-                });
-              }}
-            >
-              <SearchIcon color="primary" fontSize="large"></SearchIcon>
-            </Button>
-          </div>
-          <br></br>
+            onClick={() => {
+              this.setState({
+                startTime_input: this.state.startTime,
+                endTime_input: this.state.endTime,
+                keyword_input: this.state.keyword,
+              });
+            }}
+          >
+            <SearchIcon color="primary" fontSize="large"></SearchIcon>
+          </Button>
+        </div> */}
+          
+        <span className="jb-upload-see-all-text">
+          전체 보기
+        </span>
+        <Switch
+          checked={this.state.isDetail}
+          onChange={this.handleSwitchClick}
+        />
           <br></br>
         </div>
       );
@@ -622,29 +624,27 @@ class Upload extends Component {
   userInputOpen() {
     if (this.state.isListOpen && this.state.fileVerify) {
       return (
-        <div>
+        <>
           <br></br>
           <Box
             component="form"
             sx={{
               "& > :not(style)": { m: 1 },
               width: "70%",
-              marginLeft: "3%",
             }}
             noValidate
             autoComplete="off"
           >
-            <Typography
-              variant="h6"
-              gutterBottom
-              component="div"
-              style={{
-                color: "#4B64D4",
-                fontFamily: "NanumSquare-Regular",
-                fontWeight: "bolder",
-                marginLeft: "1.5%",
-              }}
-            >
+          <Typography
+            variant="h6"
+            gutterBottom
+            component="div"
+            style={{
+              color: "#04116a",
+              fontFamily: "NanumSquare-Regular",
+              fontWeight: "bolder",
+            }}
+          >
               행위자*
             </Typography>
             <ReactTagInput
@@ -655,6 +655,10 @@ class Upload extends Component {
               readOnly={false}
               removeOnBackspace={true}
               onChange={(newTags) => this.setState({ attacker: newTags })}
+              style={{
+                backgroundColor: "white",
+                border: "1.5px solid #afafaf",
+              }}
             />
           </Box>
 
@@ -664,8 +668,7 @@ class Upload extends Component {
             component="form"
             sx={{
               "& > :not(style)": { m: 1 },
-              width: "92%",
-              marginLeft: "3%",
+              width: "100%",
             }}
             noValidate
             autoComplete="off"
@@ -675,24 +678,31 @@ class Upload extends Component {
               gutterBottom
               component="div"
               style={{
-                color: "#4B64D4",
+                color: "#04116a",
                 fontFamily: "NanumSquare-Regular",
                 fontWeight: "bolder",
-                marginLeft: "1%",
               }}
             >
               상세설명
             </Typography>
-            <TextField
+
+            <textarea type="text" className="upload-com-input-desc-box" name="description" placeholder="구체적인 피해사실을 적어주세요" onChange={this.setDescription}/>
+
+            {/* <TextField
               fullWidth
               multiline
               rows={8}
-              variant="outlined"
+              // variant="outlined"
               onChange={this.setDescription}
-            />
+              style={{
+                backgroundColor: "white",
+                border: "1px solid #afafaf",
+                borderRadius: "8px",
+              }}
+            /> */}
           </Box>
           <br></br>
-        </div>
+        </>
       );
     }
   }
@@ -784,53 +794,34 @@ class Upload extends Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: "#F0F0F4" }}>
+      <div>
         <Header />
-        <br></br>
-        <br></br>
-        <br></br>
-        <div style={{ width: "80%", margin: "0 auto", marginTop: "3%" }}>
-          <Typography
-            variant="h3"
-            gutterBottom
-            component="div"
-            style={{
-              color: "#3F3F3F",
-              fontFamily: "NanumSquare-Regular",
-              fontWeight: "bolder",
-              marginLeft: "2%",
-            }}
-          >
-            컴퓨터 사용 기록
-          </Typography>
-          <Typography
-            variant="h5"
-            gutterBottom
-            component="div"
-            style={{
-              color: "#3F3F3F",
-              fontFamily: "NotoSansKR-Light",
-              marginLeft: "1%",
-            }}
-          >
-            <span style={{ color: "#4B64D4" }}>JB Extractor</span>에서 추출한
-            컴퓨터 사용 기록 파일을 업로드해주세요.
-          </Typography>
-        </div>
+        <div className="wrap">
+            <div className="jb_banner_uploadevidence">
+              <div className="jb-case-flex-container">
+                  <div className="jb-upload-flex-column-container">
+                    <span className="jb_case_banner_title">
+                      컴퓨터 사용 기록
+                    </span>
+                    <span className="jb_case_banner_subtitle">
+                      JB Extractor에서 추출한 컴퓨터 사용 기록 파일을 업로드해주세요<br/>
+                    </span>
+                  </div>
+                </div>
+            </div>
+        
         <div style={{ width: "80%", margin: "0 auto" }}>
           <div>
             <br></br>
-            <form onSubmit={this.handleFormSubmit}>
-              <Stack direction="row" spacing={1}>
-                <form onSubmit={this.handleFormSubmit}>
-                  <input
-                    type="file"
-                    name="file"
-                    id="input-file"
-                    onChange={this.handleFileChange}
-                  />
-                </form>
-                <button
+            <form onSubmit={this.handleFormSubmit} className="jb-upload-evidence-flex-container">
+                <input
+                  type="file"
+                  name="file"
+                  id="input-file"
+                  onChange={this.handleFileChange}
+                />
+                
+                <button className="upload-com-file-button-container"
                   onClick={() => {
                     this.setState({
                       isListOpen: true,
@@ -839,19 +830,18 @@ class Upload extends Component {
                 >
                   등록
                 </button>
-              </Stack>
             </form>
             <br></br>
           </div>
           <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "18px",
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+            // style={{
+            //   backgroundColor: "white",
+            //   borderRadius: "18px",
+            //   boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
               // display: "flex",
               // flexDirection: "column",
               // textAlign: "center",
-            }}
+            // }}
           >
             {this.state.isListOpen ? <br></br> : null}
             {this.UserChooserOpen()}
@@ -863,36 +853,36 @@ class Upload extends Component {
               height: "auto",
               maxHeight: "800px",
               overflowY: "auto",
-              // overflowX: "hidden",
               overflowX: "auto",
               boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-              borderRadius: "18px",
+              borderRadius: "8px",
             }}
           >
             {this.listOpen()}
           </div>
+          
           <br></br>
           <br></br>
+
           {this.state.isListOpen ? (
-            <Typography
-              variant="h4"
-              gutterBottom
-              component="div"
-              style={{
-                color: "#3F3F3F",
-                fontFamily: "NanumSquare-Regular",
-                fontWeight: "bolder",
-                marginLeft: "2%",
-              }}
-            >
+            <div className="upload-com-icon"/>
+          ): null}
+          
+          <br></br>
+
+          {this.state.isListOpen ? (
+            <span className="jb-upload-com-text">
               선택한 항목을 아래에서 확인할 수 있습니다
-            </Typography>
+            </span>
           ) : null}
+          <br></br>
+          <br></br>
+
           {this.state.isListOpen ? (
             <div
               style={{
                 backgroundColor: "white",
-                borderRadius: "18px",
+                borderRadius: "8px",
                 boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
                 display: "flex",
                 flexDirection: "column",
@@ -905,19 +895,19 @@ class Upload extends Component {
 
           <br></br>
           <br></br>
-          <div
+          {/* <div
             style={{
               backgroundColor: "white",
-              borderRadius: "18px",
+              borderRadius: "8px",
               boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
             }}
-          >
-            {this.userInputOpen()}
-          </div>
+          > */}
+          {this.userInputOpen()}
+          {/* </div> */}
           {this.state.isListOpen ? (
             <div>
               <br></br>
-              <Button
+              {/* <Button
                 onClick={() => {
                   this.submitButton();
                 }}
@@ -926,7 +916,22 @@ class Upload extends Component {
                 <Typography variant="h6" display="block" gutterBottom>
                   확인
                 </Typography>
-              </Button>
+              </Button> */}
+              
+            <div className="jb-upload-com-evidence-button-flex-container">
+              <button className="upload-com-cancel-button-container" onClick={() => {
+                  this.go();
+                }}>
+                취소
+              </button>
+              
+              <button className="upload-com-button-container" onClick={() => {
+                  this.submitButton();
+                }}>
+                확인
+              </button>
+            </div>
+
               <Snackbar
                 open={this.state.isSnackbarOpen}
                 autoHideDuration={6000}
@@ -945,7 +950,9 @@ class Upload extends Component {
                 </Alert>
               </Snackbar>
 
-              <Button
+              
+
+              {/* <Button
                 variant="text"
                 style={{ float: "right" }}
                 onClick={() => {
@@ -955,15 +962,17 @@ class Upload extends Component {
                 <Typography variant="h6" display="block" gutterBottom>
                   &lt; 되돌아가기
                 </Typography>
-              </Button>
+              </Button> */}
               <br></br>
               <br></br>
             </div>
           ) : null}
         </div>
+        </div>
+        <Footer/>
       </div>
     );
   }
 }
 
-export default Upload;
+export default UploadEvidence_artifact;

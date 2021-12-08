@@ -49,10 +49,10 @@ function Modal({ className, visible, children }) {
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 20px;
-    width: 600px;
+    border-radius: 8px;
+    width: 490px;
     max-width: 800px;
-    height: 400px;
+    height: 390px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

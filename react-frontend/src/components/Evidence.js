@@ -4,16 +4,50 @@ import TableCell from '@material-ui/core/TableCell';
 import {Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios'
+import Popover from '@mui/material/Popover';
+
 
 // import CustomerDelete from './CustomerDelete';
 
 class Evidence extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      anchorEl: null,
+      open: false,
+      id: undefined
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+
     callApi = async() => {
         const response = await fetch('/getuser')
         const body = await response.json();
         console.log(body)
         return body
     }
+
+
+    handleClick(event) {
+      this.setState({
+        anchorEl: event.currentTarget,
+        open: Boolean(event.currentTarget),
+        id: "simple-popover"
+      });
+    }
+  
+    handleClose(event) {
+      this.setState({
+        anchorEl: event.currentTarget,
+        open: false,
+        id: undefined
+      });
+    }
+
     render() {
 
         const handleDeleteButton=()=>{
@@ -33,8 +67,8 @@ class Evidence extends React.Component {
             }
             
         }
-       
 
+      
 
         return (
           <TableRow style={{ textAlign: "center" }}>
@@ -80,7 +114,7 @@ class Evidence extends React.Component {
             </TableCell>
 
             <TableCell style={{ textAlign: "center" }}>
-              {this.props.bullying}
+              {this.props.bullying.join(", ")}
             </TableCell>
 
             <TableCell style={{ textAlign: "center" }}>
@@ -102,7 +136,72 @@ class Evidence extends React.Component {
             </TableCell>
 
             <TableCell style={{ textAlign: "center" }}>
-              <div className="flex-container-evidence">
+              <button className="jb-evidence_upload_button" variant="contained" onClick={this.handleClick} aria-describedly={this.id}></button>
+              
+              <Popover
+                id={this.id}
+                open={this.state.open}
+                anchorEl={this.state.anchorEl}
+                onClose={this.handleClose}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left"
+                }}
+                style={{margin:"5px"}}
+              >
+                {/* <Typography className={this.classes.typography}> */}
+                {this.props.type == "컴퓨터 증거" ? (
+                  <Link
+                    to={{
+                      pathname: "/editevidence_artifact",
+                      state: {
+                        artifact_checked_list: this.props.data,
+                        object_id: this.props.object_id,
+                        attacker: this.props.attacker,
+                        bullying: this.props.bullying,
+                        desc: this.props.desc,
+                        filename:this.props.name
+                      },
+                    }}
+                    style={{ textDecoration: "none" }}
+                    className="jb-evidence-upload-flex-container"
+                  >
+                    <button className="button_text">수정</button>
+                  </Link>
+                ) : (
+                  <Link
+                    to={{
+                      pathname: "/editevidence",
+                      state: {
+                        casenum: this.props.casenum,
+                        user: this.props.user_id,
+                        filename: this.props.filename,
+                        desc: this.props.desc,
+                        bullying: this.props.bullying,
+                        datetime: this.props.date,
+                        attacker: this.props.attacker,
+                        location: this.props.location,
+                        index: this.props.idx,
+                      },
+                    }}
+                    style={{ textDecoration: "none" }}
+                    className="jb-evidence-upload-flex-container"
+                  >
+                    <div className="jb_evidence_edit_button"/>
+                    <span className="jb_evidence_text_button">수정</span>
+                  </Link>
+                )}
+                <button className="jb-evidence-upload-flex-container" onClick={handleDeleteButton} >
+                  <div className="jb_evidence_del_button"/>
+                  <span className="jb_evidence_text_button">삭제</span>
+                </button>
+                {/* </Typography> */}
+              </Popover>
+              {/* <div className="flex-container-evidence">
                 {this.props.type == "컴퓨터 증거" ? (
                   <Link
                     to={{
@@ -148,7 +247,7 @@ class Evidence extends React.Component {
                     삭제
                   </button>
                 </div>
-              </div>
+              </div> */}
             </TableCell>
           </TableRow>
         );

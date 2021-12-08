@@ -16,6 +16,7 @@ import Modal from "./Modal";
 import Typography from "@mui/material/Typography";
 import FadeIn from 'react-fade-in';
 import CaseEditModal from './CaseEdit_Modal'
+import './modal.css'
 
 import "./Agree.css";
 
@@ -149,7 +150,7 @@ class CasePage extends Component {
       <div>
         <Header />
         <div className="wrap">
-          <div className="jb_banner">
+          <div className="jb_banner_case">
             <div className="jb-case-flex-container">
               <div className="jb-case-flex-column-container">
                 <span className="jb_case_banner_title">
@@ -178,33 +179,34 @@ class CasePage extends Component {
                 src="./static/react/close_icon.png"
               />
             </button>
-            <div className="flex-column-container-case">
-              <span className="modal_title">폴더 생성</span>
+            <div className="jb-md-case-flex-column-container">
+              <span className="jb-md-case-title">폴더 생성</span>
               <form onSubmit={this.handleFormSubmit}>
-                <div className="flex-container-first-box">
-                  <span className="case_name"> 폴더명: </span>
-                  <input
-                    className="case_name_input"
-                    type="text"
-                    name="case_name"
-                    placeholder="폴더명"
-                    value={this.state.case_name}
-                    onChange={this.handleValueChange}
-                  />
-                </div>
-                <div className="flex-container-first-box">
-                  <span className="case_description"> 설명: </span>
-                  <input
-                    className="case_description_input"
-                    type="text"
-                    name="description"
-                    placeholder="설명"
-                    value={this.state.description}
-                    onChange={this.handleValueChange}
-                  />
-                </div>
+                <span className="jb-md-case-subtitle"> 폴더명: </span>
+                <br/>
+                <input
+                  className="jb-md-case-textbox"
+                  type="text"
+                  name="case_name"
+                  placeholder="폴더명"
+                  value={this.state.case_name}
+                  onChange={this.handleValueChange}
+                />
+                <br/>
+
+                <span className="jb-md-case-subtitle"> 설명: </span>
+                <br/>
+                <input
+                  className="jb-md-case-desc-textbox"
+                  type="text"
+                  name="description"
+                  placeholder="설명"
+                  value={this.state.description}
+                  onChange={this.handleValueChange}
+                />
+                <br/><br/>
                 <button
-                  className="case_button"
+                  className="jb-md-case-button"
                   onClick={() => {
                     this.setState({
                       isModalOpen: false,

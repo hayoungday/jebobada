@@ -13,7 +13,20 @@ const Home = () => {
     return (
         <div className="wrap">
             <FadeIn>
-            <div className="jb_banner"/>
+            <div className="jb_banner_home">
+                <div className="jb-case-flex-container">
+                    <div className="jb-upload-flex-column-container">
+                    <span className="jb_case_banner_title">
+                        직장 내 괴롭힘, <p/> 당신의 잘못이 아닙니다
+                    </span>
+                    <br/><br/>
+
+                    <span className="jb_case_banner_subtitle">
+                        증거 자료 관리부터 보고서 작성까지
+                    </span>
+                    </div>
+                </div>
+            </div>
             <div className="jb-main-flex-container">
                 <div className="jb_main_card">
                     <div className="jb-main-flex-column-container">
@@ -30,7 +43,7 @@ const Home = () => {
                         </span>
                         <Link to="/casepage" style={{textDecoration:'none'}}>
                             <button className="jb_main_card_button">
-                                <div className="jb_main_card_button_icon"/>
+                                <div className="main_button_1"/>
                                 <span className="jb_main_card_button_text">
                                     내 보관함
                                 </span>
@@ -52,7 +65,7 @@ const Home = () => {
                         </span>
                         <Link to="/makereport" style={{textDecoration:'none'}}>
                             <button className="jb_main_card_button">
-                                <div className="jb_main_card_button_icon"/>
+                                <div className="main_button_2"/>
                                 <span className="jb_main_card_button_text">
                                     작성하기
                                 </span>
@@ -74,7 +87,7 @@ const Home = () => {
                     </div>
                     <a href="https://craftguy.s3.ap-northeast-2.amazonaws.com/JB+Extractor.exe" style={{textDecoration:'none'}}>
                         <button className="jb_extractor_button">
-                            <div className="jb_extractor_button_icon"/>
+                            <div className="main_button_3"/>
                             <span className="jb_extractor_button_text">
                                 다운로드
                             </span>

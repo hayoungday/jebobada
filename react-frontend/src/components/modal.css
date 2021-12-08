@@ -1,0 +1,519 @@
+/*닫기 버튼*/
+.close_button{
+    width: 20px;
+    height: 20px;
+    float: right;
+    background-image: url('../assets/img/close_icon.png');
+    background-size: 20px 20px;
+    border: 0;
+  }
+
+  .close_button_img{
+    width: 20px;
+    height: 20px;
+  }
+
+/*폴더 생성*/
+.jb-md-case-title{
+    width:100%;
+    height: 35px;
+    margin-bottom: 10px;
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+}
+
+.jb-md-case-subtitle{
+    width:100%;
+    height: 24px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+}
+
+.jb-md-case-textbox{
+    width:100%;
+    height: 48px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+}
+
+.jb-md-case-desc-textbox{
+    width:100%;
+    height: 66px;
+    border-radius: 8px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+}
+
+.jb-md-case-button{
+    width: 118px;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #04116a, #0a437d);
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+.jb-md-case-edit-utton{
+    width: 118px;
+    height: 50px;
+    margin: 30px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #04116a, #0a437d);
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+/*개인정보수집및이용동의*/
+.agree-title {
+    width: 100%;
+    height: 54px;
+    font-family: NanumSquare-Regular;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+  
+  .agreement {
+    width: 576px;
+    height: 296px;
+    padding: 20px 28px 20px 23px;
+    border-radius: 8px;
+    border: solid 1px #c3c3c3;
+    background-color: #fff;
+  }
+  
+  .agreement-title {
+    width: 100%;
+    height: 27px;
+    text-align: left;
+    margin: 0;
+    float: left;
+    /* margin: 0 518px 6px 0; */
+    font-family: NanumSquare-Regular;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 27px;
+    letter-spacing: normal;
+    color: #000;
+  }
+  
+  .agreement-contents {
+    width: 100%;
+    height: 60px;
+    margin: 4px 16px 44px 1px;
+    font-family: NotoSansKR;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #666;
+  }
+  
+  .agree-button-container {
+    width: 118px;
+    height: 50px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to bottom, #04116a, #0a437d);
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
+
+ /*증거유형선택모달*/
+ .select-type-title {
+    width: 70%;
+    height: 35px;
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .self-upload-container {
+    width: 310px;
+    height: 140px;
+    margin-right: 20px;
+    border-radius: 8px;
+    border: solid 1.5px #bfbfbf;
+    background-color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .self-upload-container::after{
+    content: '»';
+    font-size: 35px;
+    color:#4B64D4;
+    position: absolute;
+    opacity: 0;  
+    top: 14px;
+    right: -20px;
+    transition: 0.5s;
+    margin-top: 23px;
+  }
+
+  .self-upload-container:hover{
+    padding-right: 24px;
+    padding-left:8px;
+  }
+
+  .self-upload-container:hover::after{
+    opacity: 1;
+    right: 10px;
+  }
+
+  .self-upload-title {
+    width: 180px;
+    height: 33px;
+    margin: 25px auto 5px auto;
+    display: flex;
+    align-items: center;
+    font-family: "NanumSquare-Regular";
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .self-upload-title2 {
+    width: 130.5px;
+    height: 33px;
+    margin: 25px auto 5px auto;
+    display: flex;
+    align-items: center;
+    font-family: "NanumSquare-Regular";
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+  }
+
+  .self-upload-text {
+    width: 186px;
+    height: 54px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    font-family: "NotoSansKR-Regular";
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3F3F3F;
+  }
+ 
+/*meta modal*/
+.modal_meta_postview{
+  font-family: NotoSansKR;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #252525;
+  }
+
+  .modal_meta_label{
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal_meta_text{
+  width: 30%;
+  height: 24px;
+  font-family: NotoSansKR;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  color: #252525;
+  }
+
+/*조작의심*/
+.info_modify {
+    height: 35px;
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+    margin-bottom: 3px;
+  }
+
+  .info_modify_text {
+    width: 100%;
+    height: 24px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+    margin-bottom: 5px;
+  }
+
+  .info_modify_container {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .info_modify_cont_text{
+    width: 100%;
+    height: 24px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ff6868;
+  }
+
+  .info_modify_container2 {
+    width: 100%;
+    height: 107px;
+    display:flex;
+    align-items: center;
+    border-radius: 8px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+  }
+
+  .info_modify_cont_text2{
+    width: 331px;
+    height: 52px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .help_text {
+    height: 48px;
+    /* padding: 8px 11px 14px 262px; */
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+ /*괴롭힘 유형 모달*/ 
+ .type-modal-title {
+    width: 100%;
+    height: 35px;
+    /* margin: 0 6px 11px 0; */
+    font-family: NotoSansKR;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .type-modal-subtitle {
+    width: auto;
+    height: 24px;
+    /* margin: 18px 6px 13px 0; */
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .qna-icon {
+    width: 20px;
+    height: 20px;
+    margin: auto 10px;
+  }
+
+  .type-chkbox {
+    width: 423px;
+    height: 173px;
+    /* margin: 13px 18px 16px 0; */
+    padding: 20px;
+    border-radius: 8px;
+    border: solid 1px #c3c3c3;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .type-modal-confirm-button {
+    width: 94px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #04116a, #0a437d);
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
+
+
+/*가로*/
+.jb-md-meta-flex-container{
+    display:flex;
+    height: auto;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/*세로*/
+.jb-md-case-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    width:100%;
+  }
+
+  .jb-md-select-flex-column-container{
+    display:flex;
+    margin-left: 25px;
+    flex-direction: column;
+    height: auto;
+    z-index: 1;
+  }
+
+  .jb-md-select-meta-flex-column-container{
+    display:flex;
+    height: auto;
+    width: auto;
+    flex-direction: column;
+}

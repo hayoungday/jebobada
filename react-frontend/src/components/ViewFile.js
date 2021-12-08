@@ -54,7 +54,7 @@ class ViewFile extends Component {
   };
   render() {
     const listdata = this.state.origin_text.map((d) => (
-      <p class="audio_contents_design" key={d.speaker}>
+      <p class="audio_contents_design_title" key={d.speaker}>
         <h5>화자{d.speaker}</h5>
         <Highlighter
           highlightStyle={{ backgroundColor: "yellow" }}
@@ -107,10 +107,12 @@ class ViewFile extends Component {
           </button>
         </Edit_text_modal>
         <br></br>
-        <h1 class="audio_contents_design">{this.props.name}</h1>
+        <h1 class="audio_contents_design_title">{this.props.name}</h1>
         <br></br>
         {/* {console.log(this.state.origin_text)} */}
+        <div className="audio_contents_design">
         {listdata}
+        </div>
         {/* <audio controlsList="nodownload" controls>
           <source src={url} type="audio/mpeg" />
         </audio> */}

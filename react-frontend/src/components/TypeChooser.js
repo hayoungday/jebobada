@@ -14,10 +14,10 @@ export default function TypeChooser(props) {
   };
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 1, minWidth: 120 }} className="jb-upload-select-type">
         <InputLabel htmlFor="grouped-native-select">괴롭힘 유형 선택</InputLabel>
         <Select
-          autoWidth
+          // autoWidth
           native
           defaultValue={props.defaultType}
           id="grouped-native-select"

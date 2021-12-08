@@ -5,14 +5,268 @@
     background-color: black;
 }
 
+.jb_banner_home{
+  width: 100%;
+  height: 255px;
+  margin: 87px 0 10px;
+  background-color: black;
+  background-image: url("../assets/img/banner.png");
+}
+
+.jb_banner_case{
+  width: 100%;
+  height: 255px;
+  margin: 87px 0 10px;
+  background-color: black;
+  background-image: url("../assets/img/group141.png");
+}
+
+.jb_banner_upload{
+  width: 100%;
+  height: 255px;
+  margin: 87px 0 10px;
+  background-color: black;
+  background-image: url("../assets/img/evidence_banner.png");
+}
+
+.jb_banner_uploadevidence{
+  width: 100%;
+  height: 255px;
+  margin: 87px 0 10px;
+  background-color: black;
+  background-image: url("../assets/img/upload_banner.png");
+}
+
+.jb_banner_report{
+  width: 100%;
+  height: 255px;
+  margin: 87px 0 10px;
+  background-color: black;
+  background-image: url("../assets/img/report_banner.png");
+}
+
+
+
 .jb_footer {
     width: 100%;
     height: 108px;
     bottom: 0px;
     padding: 40px;
-    background-color: #c2c2c2;
+    background-color: #fff;
 }
 
+/*login*/
+.login_text {
+  width: 66px;
+  height: 35px;
+  font-family: NotoSansKR;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #252525;
+}
+
+.login_jebobada_text{
+  width: 103px;
+  height: 29px;
+  display: flex;
+  margin: 20px auto;
+  font-family: NotoSansKR;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-align: left;
+  color: #252525;
+}
+
+.id_icon_login {
+  width: 22px;
+  height: 20px;
+  float: left;
+  margin: auto 6px;
+  background-image: url('../assets/img/Icon awesome-user-alt.png');
+  background-size: 20px 20px;
+}
+
+.pw_icon_login {
+  width: 21px;
+  height: 20px;
+  float: left;
+  margin: auto 6px;
+  background-image: url('../assets/img/Icon feather-lock.png');
+  background-size: 20px 20px;
+}
+
+.login_input_css{
+  width: 100%;
+  height: auto;
+  background-color:transparent;
+}
+
+.login_input_css:focus {
+  outline: none;
+}
+
+.form_id {
+  width: auto;
+  height: 60px;
+  margin: 10px auto;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  display: flex;
+}
+
+.login_button_box {
+  width: 389.9px;
+  height: 60px;
+  margin: 10px auto;
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #04116a, #0a437d);
+  color: white;
+  font-family: NotoSansKR;
+}
+
+
+.signup_button_box {
+  width: 100%;
+  height: 20px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  font-family: NotoSansKR;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #737373;
+}
+
+.signup_button_box .signup_text_login{
+  font-weight: 800;
+  color: #4b64d4; 
+}
+
+.kakao_login_medium_wide {
+  width: 389.9px;
+  height: 60px; 
+  margin: auto;
+  background-image: url('../assets/img/kakao_login_medium_wide.png');
+  background-size: 389.9px 60px;
+}
+
+.login_divider {
+  width: 500px;
+  height: 0;
+  margin: 20px 1px 0;
+  border: solid 1px #707070;
+}
+
+
+.close_icon_login {
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin: auto;
+  background-image: url('../assets/img/close_icon.png');
+  background-size: 20px 20px;
+}
+
+.close_icon_signup {
+  width: 27.1px;
+  height: 30px;
+  margin: 0 0 67px 194.4px;
+  opacity: 0.3;
+  background-image: url('../assets/img/close_icon.png');
+  background-size: 27.1px 30px;
+}
+
+.signup_text {
+  width: 88px;
+  height: 35px;
+  font-family: NotoSansKR;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #252525;
+}
+
+.signup_id {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  margin: 10px auto;
+  border-radius: 8px;
+  background-color: #f6f6f6
+}
+
+.signup_chkid_box {
+  width: 33%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  border-radius: 8px;
+  border: solid 1.5px #04116a;
+  font-family: NotoSansKR;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  text-align: left;
+  color: #04116a;
+}
+
+.signup_pw {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+}
+
+
+
+.signup_button_box_a{
+  width: 100%;
+  height: 60px;
+  margin: 10px auto 35px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #04116a, #0a437d);
+  font-family: NotoSansKR;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+
+
+
+/*main*/
 .jb_main_card {
     width: 36.9%;
     height: 25.7%;
@@ -20,7 +274,7 @@
     padding: 32px 36px 28px 40px;
     border-radius: 16px;
     box-shadow: 0 3px 10px 0 rgba(102, 102, 102, 0.16);
-    background-color: #c2c2c2;
+    background-color: #fff;
   }
 
   .jb_main_card_title{
@@ -103,6 +357,33 @@
     color: #04116a;
   }
 
+  .main_button_1{
+    width: 20px;
+    height: 23px;
+    margin: 3px 12px 3px 0;
+    background-image: url('../assets/img/files_icon.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
+  .main_button_2{
+    width: 20px;
+    height: 23px;
+    margin: 3px 12px 3px 0;
+    background-image: url('../assets/img/Icon\ awesome-pen-colored.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
+  .main_button_3{
+    width: 20px;
+    height: 22px;
+    margin: 3px 12px 3px 0;
+    background-image: url('../assets/img/Icon\ feather-download.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
   .jb_extractor{
     width: 74.5%;
     height: 200px;
@@ -111,6 +392,7 @@
     border-radius: 16px;
     background-color: #000;
     z-index: -1;
+    background-image: url('../assets/img/jbextractor.png');
   }
 
   .jb_extractor_title{
@@ -283,8 +565,6 @@
   background-image: url('../assets/img/Icon\ feather-trash-2.png');
   background-size: 20px 23px;
   margin-right: 3%;
-
-
 }
 
 .case_edit_button{
@@ -314,9 +594,9 @@
   }
 
   .search-text-box{
-    width: 82%;
-    height: 46px;
-    margin: 5px 10px;
+    width: 88%;
+    height: 100%;
+    margin: 0px 2px;
   }
   .search-text-box:focus { 
     outline: none; 
@@ -325,7 +605,7 @@
   .search_button{
     width: 30px;
     height: 30px;
-    margin: 0px 0 5px 10px;
+    margin: auto;
     background-image: url('../assets/img/search.png');
     background-size: 30px 30px;
     border: 0;
@@ -336,8 +616,9 @@
   .table_style{
     height: auto;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    border-radius: 18px;
+    border-radius: 8px;
     background-color: white;
+    margin-bottom: 30%;
   }
 
   .table{
@@ -350,13 +631,13 @@
   .table_cell_left{
     text-align: center;
     background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
-    border-top-left-radius: 18px;
+    border-top-left-radius: 8px;
   }
 
   .table_cell_right{
     text-align: center;
     background:  linear-gradient(to bottom, #04116a, #0a437d 91%);
-    border-top-right-radius: 18px;
+    border-top-right-radius: 8px;
 
   }
 
@@ -372,9 +653,9 @@
     text-align: center;
     font-weight: bolder;
   }
-
+/*증거 업로드 부분~*/
   .upload_box  {
-    width: 1140px;
+    width: 80%;
     height: 539px;
     margin: auto;
     padding: 33px 44px;
@@ -386,18 +667,19 @@
   }
 
   .upload-button-container {
-    width: 100px;
+    width: 90px;
     height: 50px;
     /* margin: 40px auto 200px auto; */
-    margin-top: 0.7%;
-    margin-right: 11%;
+    margin-top: 25px;
+    margin-bottom: 5%;
+    margin-left: 1%;
     display: flex;
+    float: right;
     align-items: center;
     border-radius: 10px;
-    border: solid 1px #0753e9;
-    background-color: #0753e9;
+    background: linear-gradient(to bottom, #04116a, #0a437d);;
     font-family: "NotoSansKR-Regular";
-    font-size: 25px;
+    font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -407,8 +689,434 @@
     color: #fff;
   }
 
+  .upload-cancel-button-container {
+    width: 90px;
+    height: 50px;
+    /* margin: 40px auto 200px auto; */
+    margin-top: 25px;
+    margin-bottom: 5%;
+    margin-left: 1%;
+    display: flex;
+    float: right;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    justify-content: center;
+    border: solid 1px #04116a;
+    color: #04116a;
+  }
+
+  .upload-input-text {
+    width: auto;
+    height: 22px;
+    margin: 13px 0;
+    font-family: "NotoSansKR-Regular";
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3f3f;
+  }
+
+  .upload-input-box {
+    width: 98%;
+    height: 55px;
+    /* margin: 10px 19px 35px 4px; */
+    padding: 10px 10px 10px 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: solid 1px #afafaf;
+    background-color: #fff;
+  }
+
+  .upload-input-desc-box {
+    width: 99%;
+    height: 136px;
+    padding: 10px 10px 10px 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: solid 1px #afafaf;
+    background-color: #fff; 
+  }
+
+  .upload-file {
+    width: 98%;
+    height: 55px;
+    /* margin: 10px 19px 35px 4px; */
+    margin: top 10px bottom 10px;
+    font-size: 15px;
+  }
+
+  .upload-ismain {
+    width: 5%;
+    font-size: 15px;
+    font-family: "NotoSansKR-Regular";
+  }
+
+  .upload-modal-button {
+    width: 15.5%;
+    float: left;
+    height: 55px;
+    margin:auto;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #04116a, #0a437d);;
+    font-family: "NotoSansKR-Regular";
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 40px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+  }
+
+  /*컴퓨터 증거 업로드*/
+  .jb-upload-select-type{
+    width: 233px;
+    height: 48px;
+    margin: 34px 28px 24px 2px;
+    padding: 12px 14px 12px 20px;
+    border-radius: 8px;
+    border: solid 1.5px #afafaf;
+    background-color: #fff;
+  }
+
+  .jb-upload-select-date{
+    width: 220px;
+    height: 48px;
+    border-radius: 8px;
+    border: solid 1.5px #afafaf;
+    background-color: #fff;
+  }
+
+  .jb-upload-search-box{
+    width: 459px;
+    height: 55px;
+    border-radius: 8px;
+    border: solid 1.5px #afafaf;
+    background-color: #fff;
+    margin-top: 8px;
+  }
+
+  .jb-upload-see-all-text{
+    width: auto;
+    height: 26px;
+    font-family: NotoSansKR;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: center;
+    color: #252525;
+  }
+
+  .jb-upload-see-all{
+    width: 54px;
+    height: 23px;
+    margin: 46px 8px 37px 11px;
+    padding: 0 0 0 31px;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom, #04116a, #0a437d);
+  }
+
+  .upload-com-file-button-container {
+    width: 80px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #04116a, #0a437d);;
+    font-family: "NotoSansKR-Regular";
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .search_button{
+    width: 30px;
+    height: 30px;
+    margin: 0px 0 5px 10px;
+    background-image: url('../assets/img/search.png');
+    background-size: 30px 30px;
+    border: 0;
+    vertical-align: middle;
+
+  }
+
+  .jb-upload-com-text{
+    width: 307px;
+    height: 26px;
+    margin: 18.1px 41px 16px 2px;
+    font-family: NotoSansKR;
+    font-size: 18px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: left;
+    color: #04116a;
+  }
+
+  .upload-com-input-desc-box {
+    width: 100%;
+    height: 136px;
+    padding: 10px 10px 10px 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: solid 1px #afafaf;
+    background-color: #fff; 
+    font-family: "NotoSansKR-Regular";
+  }
+
+  .upload-com-button-container {
+    width: 90px;
+    height: 50px;
+    /* margin: 40px auto 200px auto; */
+    margin-left: 1%;
+    display: flex;
+    float: right;
+    align-items: center;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #04116a, #0a437d);;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .upload-com-cancel-button-container {
+    width: 90px;
+    height: 50px;
+    /* margin: 40px auto 200px auto; */
+    margin-left: 1%;
+    display: flex;
+    float: right;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: normal;
+    justify-content: center;
+    border: solid 1px #04116a;
+    color: #04116a;
+  }
+
+  .upload-com-icon{
+    width: 20px;
+    height: 23px;
+    background-image: url('../assets/img/Icon\ feather-chevrons-down.png');
+    background-size: 20px 23px;
+    margin: auto;
+  }
+
+  /*상세페이지*/
+  .jb-postview-text1{
+    width: 100%;
+    height: 40px;
+    font-family: NotoSansKR;
+    font-size: 28px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb-postview-contents1{
+    width: 707px;
+    height: 551px;
+    overflow-y: auto;
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 3px 10px 0 rgba(102, 102, 102, 0.16);
+  }
+
+  .jb-postview-text2{
+    width: 100%;
+    height: 40px;
+    margin-left: 25px;
+    font-family: NotoSansKR;
+    font-size: 28px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb-postview-contents2{
+    width: 707px;
+    height: 234px;
+    margin-top: 25px;
+    margin-left: 25px;
+    padding: 40px 50px;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px 0 rgba(102, 102, 102, 0.16);
+    background-color: #fff;
+  }
+
+  .jb-postview-contents3{
+    width: 707px;
+    height: 289px;
+    margin-top: 25px;
+    margin-left: 25px;
+    padding: 40px 50px;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px 0 rgba(102, 102, 102, 0.16);
+    background-color: #fff;
+  }
+
+  .jb-postview-contents2-title{
+    width: 321px;
+    height: 26px;
+    font-family: NotoSansKR;
+    font-size: 18px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: left;
+    color: #04116a;
+  }
+
+  .jb-postview-contents2-detail{
+    width: 100%;
+    height: 29px;
+    font-family: NotoSansKR;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb-postview-contents3-detail{
+    width: 610px;
+    height: 88px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #252525;
+  }
+
+  .jb-postview-button{
+    width: 100px;
+    height: 52px;
+    margin-left: 2%;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #04116a, #0a437d);
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  /*보고서*/
+
+  .jb-rp-items1{
+    width:100%;
+    display: flex;
+    margin-left: 15%;
+    align-items: center;
+  }
+  .jb-rp-items2{
+    width:7%;
+  }
+
+  .jb-evidence_upload_button{
+    width: 4px;
+    height: 23px;
+    background-image: url('../assets/img/group27.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
+  .jb_evidence_edit_button{
+    width: 30px;
+    height: 23px;
+    background-image: url('../assets/img/Icon awesome-pen.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
+  .jb_evidence_del_button{
+    width: 30px;
+    height: 23px;
+    background-image: url('../assets/img/Icon feather-trash-2.png');
+    background-size: 20px 23px;
+    margin-right: 3%;
+  }
+
+  .jb_evidence_text_button{
+    width: 100%;
+    height: 24px;
+    font-family: NotoSansKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #666;
+  }
+
   /**********************************************/
   /*가로*/
+  .jb-evidence-upload-flex-container{
+    display: flex;
+    height: auto;
+    margin: auto;
+    padding: 6px;
+  }
+
   .jb-main-flex-container{
     display: flex;
     height: auto;
@@ -450,6 +1158,58 @@
     margin-top: 2%;
   }
 
+  .jb-upload-evidence-flex-container{
+    display: flex;
+    height: auto;
+    width: 100%;
+    /* margin-top: 2%; */
+  }
+
+  .flex-container-modal-button {
+    display: flex;
+    height: auto;
+    width: 98.6%;
+    /* margin:200px 200px 200px 200px; */
+    /* justify-content: center; */
+  }
+
+  .jb-upload-evidence-button-flex-container{
+    display: flex;
+    height: auto;
+    justify-content: right;
+    width: 90%;
+    /* margin-top: 2%; */
+  }
+
+  .jb-upload-com-evidence-button-flex-container{
+    display: flex;
+    height: auto;
+    justify-content: right;
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-flex-container{
+    display: flex;
+    height: auto;
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-detail-flex-container{
+    display: flex;
+    height: auto;
+    margin-bottom: 40px;
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-button-flex-container{
+    display: flex;
+    height: auto;
+    float: right;
+    margin-top: 1%;
+  }
+
+
+  /**********************************************/
   /*세로*/
   .jb-main-flex-column-container{
     display: flex;
@@ -475,5 +1235,49 @@
     display: flex;
     height: auto;
     flex-direction: column;
-    margin : 3% auto 0;
+    margin : 1.5% auto 0;
+  }
+
+  .jb-upload-evidence-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    width: 100%;
+    /* margin-top: 2%; */
+  }
+
+  .jb-upload-com-flex-column-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .jb-postview-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    margin-top: 200px
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-detail-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-details-flex-column-container{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    /* margin-top: 2%; */
+  }
+
+  .jb-postview-frame-flex-column-container{
+    /* display: flex; */
+    height: auto;
+    flex-direction: column;
+    margin-left:200px;
+    margin-right:200px;
   }

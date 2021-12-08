@@ -893,6 +893,10 @@ def attackertypepage():
 def pictureevidence():
     return render_template('index.html')
 
+@app.route("/uploadevidence_artifact")
+def uploadevidence_artifact():
+    return render_template('index.html')
+
 @app.route('/getallevidence', methods=['GET','POST'])
 def getallevidence():
     conn=pymongo.MongoClient(config.mongodb)

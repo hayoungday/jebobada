@@ -33,8 +33,7 @@ export default function ViewArtifact_checkedFalse(props) {
   }
 
   const header_Back={
-    backgroundColor:"#576DD4",
-    
+    background:"linear-gradient(to bottom, #04116a, #0a437d 91%)",    
   }
 
   const desc_Typo={
@@ -69,7 +68,7 @@ export default function ViewArtifact_checkedFalse(props) {
           
         </colgroup>
         <TableHead>
-          <TableRow >
+          <TableRow>
             <TableCell style={header_Back}></TableCell>
             <TableCell style={header_Back}>
               <Typography variant="h6"></Typography>

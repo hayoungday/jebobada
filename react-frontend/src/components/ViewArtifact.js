@@ -22,12 +22,15 @@ export default function ViewArtifact(props) {
   };
 
   return (
-    <div className="table_style">
+    <div style={{backgroundColor:"#fff"}}>
       <Table
         style={{
           tableLayout: "fixed",
           wordBreak: "break-all",
           wordWrap: "break-word",
+          maxHeight: "800px",
+          overflowY: "auto",
+          overflowX: "auto",
         }}
       >
         <colgroup>

@@ -37,27 +37,33 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
         }
 
         return(
-          <div>
+          <>
             <button className="close_icon_login" onClick={closeModal}/>
-            <div className="flex-column-container-case">
-              <span className="modal_title">폴더 수정</span>
+            <div className="jb-md-case-flex-column-container">
+              <div className="jb-md-case-title">폴더 수정</div>
               <form onSubmit={handleFormSubmit}>
-                <div className="flex-container-first-box">
-                  <span className="case_name"> 폴더명:{" "}</span>
-                  <label className="case_name_fixed">{case_name}</label>
-                </div>
+
+                <div className="jb-md-case-subtitle"> 폴더명</div><br/>
+                <input className="jb-md-case-textbox"
+                  type="text"
+                  name="title"
+                  placeholder={case_name}
+                  onChange={onDescHandler}
+                />
                 
-                <div className="flex-container-first-box">
-                  <span className="case_description"> 설명:{" "}</span>
-                  <input className="case_description_input"
-                    type="text"
-                    name="description"
-                    placeholder={desc}
-                    onChange={onDescHandler}
-                  />
-                </div>
+                <div className="jb-md-case-subtitle"> 설명</div><br/>
+                <input className="jb-md-case-desc-textbox"
+                  type="text"
+                  name="description"
+                  placeholder={desc}
+                  onChange={onDescHandler}
+                />
+                <br/><br/>
 
-
+                <button className="jb-md-case-edit-utton">
+                  수정
+                </button>
+              </form>
 
                 {/* <div className="flex-container-first-box">
                     <span className="case_name">
@@ -82,12 +88,9 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
                     });
                 }} */}
 
-                <button className="case_button">
-                  수정
-                </button>
-              </form>
+                
             </div>
-          </div>
+          </>
         )
 
     }
@@ -142,10 +145,10 @@ function CaseEdit_Modal({ className, visible, case_name, user, closeModal, child
   position: relative;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
-  border-radius: 20px;
-  width: 600px;
+  border-radius: 8px;
+  width: 490px;
   max-width: 800px;
-  height: 400px;
+  height: 390px;
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;

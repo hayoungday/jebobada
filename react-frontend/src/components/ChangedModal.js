@@ -66,22 +66,19 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
                     <div className="flex-container-column-meta">
                       <span className="info_modify">편집 정보</span>
                       <span className="help_text">
-                        편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여
+                        편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여 녹음 파일이 가공되었는지 확인합니다.
                       </span>
-                      <span className="help_text">
-                        녹음 파일이 가공되었는지 확인합니다.
-                      </span>
-                      <br/>
-                      <div className="flex-container-meta">
+
+                      <div className="jb-md-meta-flex-container">
                         <span className="info_modify_text">편집 여부</span>
                         <div className="info_modify_container">
                           <span className="info_modify_cont_text">{aud_edited()}</span>
                         </div>
                       </div>
-                      <div className="flex-container-meta">
+                      <div className="jb-md-meta-flex-container">
                         <span className="info_modify_text">판단 이유</span>
-                        <div className="info_modify_container">
-                          <span className="info_modify_cont_text">{aud_cause()}</span>
+                        <div className="info_modify_container2">
+                          <span className="info_modify_cont_text2">{aud_cause()}</span>
                         </div>
                       </div>
                     </div>      
@@ -94,25 +91,20 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
               <div className="flex-container-column-meta">
                 <span className="info_modify">편집 정보</span>
                 <span className="help_text">
-                  편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여
+                  편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여 녹음 파일이 가공되었는지 확인합니다.
                 </span>
-                <span className="help_text">
-                  녹음 파일이 가공되었는지 확인합니다.
-                </span>
-                <br/>
-                <div className="flex-container-meta">
-                  <span className="info_modify_text">편집 여부</span>
-                  <div className="info_modify_container">
-                    <span className="info_modify_cont_text">{pic_edited()}</span>
-                    {console.log(aud_edited())}
-                  </div>
+
+                <span className="info_modify_text">편집 여부</span>
+                <div className="info_modify_container">
+                  <span className="info_modify_cont_text">{pic_edited()}</span>
+                  {console.log(aud_edited())}
                 </div>
-                <div className="flex-container-meta">
-                  <span className="info_modify_text">판단 이유</span>
-                  <div className="info_modify_container">
-                    <span className="info_modify_cont_text">{pic_cause()}</span>
-                  </div>
+
+                <span className="info_modify_text">판단 이유</span>
+                <div className="info_modify_container2">
+                  <span className="info_modify_cont_text2">{pic_cause()}</span>
                 </div>
+
               </div>      
           </>
             )
@@ -173,13 +165,13 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 20px;
-    width: 820px;
-    height: 520px;
+    border-radius: 8px;
+    width: 490px;
+    height: 446px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px;
   `
 
 export default ChangedModal;

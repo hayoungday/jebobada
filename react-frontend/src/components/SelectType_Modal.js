@@ -49,9 +49,9 @@ function SelectType_Modal({ className, visible, children }) {
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 20px;
-    width: 800px;
-    height: 300px;
+    border-radius: 8px;
+    width: 730px;
+    height: 270px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

@@ -79,9 +79,9 @@ function Agree_Modal({ className, visible, children, agreeButton }) {
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 20px;
-    width: 1000px;
-    height: 600px;
+    border-radius: 8px;
+    width: 640px;
+    height: 476px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;

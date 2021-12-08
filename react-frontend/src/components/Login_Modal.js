@@ -66,8 +66,14 @@ function Login_Modal({ className, visible, children, closeModal, openModal }) {
         <button className="close_icon_login" onClick={closeModal}/>
         <span className="login_text">로그인</span>
         <form onSubmit={onSubmitHandler}>
-            <input type="text" className="form_id" placeholder="아이디를 입력하세요" onChange={onIdHandler}/>
-            <input type="password" className="form_password" placeholder="비밀번호를 입력하세요." onChange={onPasswordHandler} />
+          <div className="form_id">
+            <div className="id_icon_login"/>
+            <input type="text" className="login_input_css" placeholder="아이디를 입력하세요" onChange={onIdHandler}/>
+          </div>
+          <div className="form_id">
+            <div className="pw_icon_login"/>
+            <input type="password" className="login_input_css" placeholder="비밀번호를 입력하세요." onChange={onPasswordHandler} />
+          </div>
             <button className="login_button_box">
                 로그인
             </button>
@@ -75,10 +81,16 @@ function Login_Modal({ className, visible, children, closeModal, openModal }) {
         <a href = {KAKAO_AUTH_URL}>
             <div className="kakao_login_medium_wide"/>
         </a>
-        <div className="login_divider"/>
-          <button className="signup_button_box" onClick={()=>{closeModal();openModal();}}>
-              회원가입
-          </button>
+
+        <span className="signup_button_box">
+          아직 회원이 아니신가요?
+          <button className="signup_text_login" onClick={()=>{closeModal();openModal();}}>회원가입</button>
+        </span>
+
+        <span className="login_jebobada_text">
+          JeBoBADA
+        </span>
+
      </div>
   );
     }
@@ -136,10 +148,10 @@ function Login_Modal({ className, visible, children, closeModal, openModal }) {
     margin: 0 auto;
     padding: 40px 20px;
 
-    width: 600px;
-    height: 720px;
+    width: 490px;
+    height: 500px;
     padding: 48px 49px 53px;
-    border-radius: 20px;
+    border-radius: 8px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px #707070;
     background-color: #fff;

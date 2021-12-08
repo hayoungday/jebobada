@@ -4,13 +4,13 @@ import './Analysis.css';
 
 const Analysis = React.forwardRef((props,ref) => {
     return (
-        <div ref = {ref}>
+        <div>
             <Header/>
             <br></br>
             <br></br>
             <h3 className="analysis-picture">분석결과</h3>
 
-            <div class="section">
+            <div class="section" ref = {ref}>
 
                 <input type="radio" name="slide" id="slide01" checked="checked"></input>
                 <input type="radio" name="slide" id="slide02" checked="checked"></input>

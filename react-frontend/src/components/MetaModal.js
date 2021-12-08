@@ -12,29 +12,29 @@ function MetaModal({ className, visible, children, type, arr, closeModal,filenam
                 <div className="flex-container-column-meta">
                     <span className="modal_meta_postview">파일 정보</span>
                     <br/>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 이름: </span>
                       <label className="modal_meta_label">
                         {filename}
                       </label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 형식: </span>
                       <label className="modal_meta_label">{arr.fileType}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 크기: </span>
                       <label className="modal_meta_label">{arr.fileSize}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">녹음 시각: </span>
                       <label className="modal_meta_label">{arr.audioCtime}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">녹음 길이: </span>
                       <label className="modal_meta_label">{arr.duration}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">녹음 장소: </span>
                       <label className="modal_meta_label">{arr.title}</label>
                     </div>
@@ -54,27 +54,27 @@ function MetaModal({ className, visible, children, type, arr, closeModal,filenam
                 <div className="flex-container-column-meta">
                     <span className="modal_meta_postview">파일 정보</span>
                     <br/>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 이름: </span>
                       <label className="modal_meta_label">{filename}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 형식: </span>
                       <label className="modal_meta_label">{arr.fileType}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">파일 크기: </span>
                       <label className="modal_meta_label">{arr.fileSize}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">촬영 시각: </span>
                       <label className="modal_meta_label">{arr.imageCtime}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">촬영 기기: </span>
                       <label className="modal_meta_label">{arr.cameraModelName}</label>
                     </div>
-                    <div className="flex-container-meta">
+                    <div className="jb-md-meta-flex-container">
                       <span className="modal_meta_text">촬영 장소: </span>
                       <label className="modal_meta_label">{arr.gpsPosition}</label>
                     </div>
@@ -134,13 +134,13 @@ function MetaModal({ className, visible, children, type, arr, closeModal,filenam
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #fff;
-    border-radius: 20px;
-    width: 780px;
-    height: 640px;
+    border-radius: 8px;
+    width: 490px;
+    height: 523px;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 40px;
   `
 
 export default MetaModal;
