@@ -143,26 +143,26 @@ const EvidenceDetailsPostView = (props) => {
           </Stack>
           <br />
           <br />
-
-          <Stack direction="row" justifyContent="center" spacing={4}>
+          <div className="yoon-flex-container-with-hy">
+          {/* <Stack direction="row" justifyContent="center" spacing={4}> */}
             <div className="yoon_evidenceDetail-image">
               {binary === "" ? (
                 <CircularProgress variant="indeterminate" value="변환중" />
               ) : (
-                <img src={`data:image/png;base64,${binary}`} />
+                <img src={`data:image/png;base64,${binary}`} style={{height:"375px"}}/>
               )}
             </div>
 
-            <div>
+            <div className="yoon-table-style-with-hy">
               <TableBody>
                 <TableRow>
-                  <TableCell
+                  <TableCell style={{width:"150px"}}
                     className="yoon_evidenceDetail-tablecell"
                     align="center"
                   >
                     파일 이름
                   </TableCell>
-                  <TableCell
+                  <TableCell style={{width:"300px"}}
                     className="yoon_evidenceDetail-tablecell"
                     align="center"
                   >
@@ -255,7 +255,8 @@ const EvidenceDetailsPostView = (props) => {
                 </TableRow>
               </TableBody>
             </div>
-          </Stack>
+          </div>
+          {/* </Stack> */}
 
           {/* <label>상세 설명: {desc}</label><br/><br/><br/> */}
           <br />

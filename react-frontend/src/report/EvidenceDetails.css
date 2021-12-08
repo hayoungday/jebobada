@@ -53,11 +53,14 @@
 }
 
 .yoon_evidenceDetail-image{
-    /* border: 3px solid #294379;
-    margin:auto;
-    height:800px;
-    max-width: auto;
-    justify-content: center; */
+    border: 3px solid #294379;
+    /* margin:auto; */
+    width: 50%;
+    height:398px;
+    display:flex;
+    /* max-width: 569px; */
+    justify-content: center;
+    align-items: center;
 }
 
 .yoon_evidenceDetail-tablecell{
@@ -153,4 +156,18 @@
 .yoon_evidenceDetail-artifactanalysizetext{
     font-family: NotoSansKR-Light;
     font-size: 18px;
+}
+
+.yoon-flex-container-with-hy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.yoon-table-style-with-hy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 }
