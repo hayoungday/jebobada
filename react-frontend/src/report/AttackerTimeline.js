@@ -50,6 +50,8 @@ const AttackerTimeline = (props) => {
     const [startDate, SetStartDate] = useState("");
     const [endDate, SetEndDate] = useState("");
     const [freqItem, SetFreqItem] = useState("");
+    const [date, SetDate] = useState("");
+
 
     const onComboHandle = (item) => {
       SetFreqItem(item)
@@ -75,6 +77,26 @@ const AttackerTimeline = (props) => {
       type: props.type,
       scatter: "yes",
     }
+
+    if (res.data[0].filetype =="컴퓨터 증거"){
+      // SetStartDate(res.data[0]['date'].substr(0,10))
+      // SetEndDate(res.data[res.data.length-1]['date'].split("~")[1])
+      if (res.data[res.data.length-1].filetype=="컴퓨터 증거"){
+        SetDate(res.data[0]['date'].substr(0,10)+"~"+res.data[res.data.length-1]['date'].split("~")[1])
+      } else{
+        SetDate(res.data[0]['date'].substr(0,10)+"~"+res.data[res.data.length-1]['date'])
+      }
+      
+    } else{
+      // SetStartDate(res.data[0]['date'].substr(0,10))
+      // SetEndDate(res.data[res.data.length-1]['date'].split("~")[1])
+      if(res.data[res.data.length-1].filetype=="컴퓨터 증거"){
+        SetDate(res.data[0]['date']+"~"+res.data[res.data.length-1]['date'].split("~")[1])
+      }else{
+        SetDate(res.data[0]['date']+"~"+res.data[res.data.length-1]['date'])
+      }
+    }
+
     const res2 = await axios.post('/attackertimeline',body2)
     SetAttackerevdi2(res2.data)
     console.log(Attackerevdi2)
@@ -99,7 +121,7 @@ const AttackerTimeline = (props) => {
         <Stack direction="row" alignItems="center" spacing={6}>
           <div className="title_name_box">{props.type}</div>
           <span className="title_attack_date">
-            피해기간 <span className="num">{" "}{startDate.substr(0,10)}~{endDate.split("~")[1]}</span>
+            피해기간 <span className="num">{date}</span>
           </span>
         </Stack>
         <br/>
@@ -114,11 +136,13 @@ const AttackerTimeline = (props) => {
       <Stepper alternativeLabel activeStep={100} connector={<ColorlibConnector/>}>
         {Attackerevdi.map((c) => (
           <Step style={{ textAlign: "center" }}>
-            {c.date}
-            <br></br>
-            {c.filename}
+            <div style={{ marginBottom: "1%" }}>
+              {c.date}
+              <br></br>
+              {c.filename}
+            </div>
             <StepLabel icon={<ColorlibStepIconRoot><SettingsIcon/></ColorlibStepIconRoot>}>
-              <div style={{ marginTop: "-2%" }}>
+              <div style={{ marginTop: "1%" }}>
                 {c.attacker.join(", ")}
               </div>
             </StepLabel>

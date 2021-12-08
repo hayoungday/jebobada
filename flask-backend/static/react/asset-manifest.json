@@ -1,49 +1,25 @@
 {
   "files": {
-<<<<<<< Updated upstream
-    "main.css": "/static/react//css/main.97fdf6a6.chunk.css",
-    "main.js": "/static/react/js/fad3c429.main.js",
-    "main.js.map": "/static/react/js/fad3c429.main.js.map",
-    "runtime-main.js": "/static/react/js/fad3c429.runtime-main.js",
-    "runtime-main.js.map": "/static/react/js/fad3c429.runtime-main.js.map",
-    "/css/2.ebf1ae29.chunk.css": "/static/react//css/2.ebf1ae29.chunk.css",
-    "js/fad3c429.2.js": "/static/react/js/fad3c429.2.js",
-    "js/fad3c429.2.js.map": "/static/react/js/fad3c429.2.js.map",
-    "../../templates/index.html": "/static/react/../../templates/index.html",
-    "/css/2.ebf1ae29.chunk.css.map": "/static/react//css/2.ebf1ae29.chunk.css.map",
-    "/css/main.97fdf6a6.chunk.css.map": "/static/react//css/main.97fdf6a6.chunk.css.map",
-    "/media/font.css": "/static/react//media/NotoSansKR-Medium.72ba4555.otf",
-    "/media/mainpage.css": "/static/react//media/upload_banner.99d38106.png",
-    "js/fad3c429.2.js.LICENSE.txt": "/static/react/js/fad3c429.2.js.LICENSE.txt"
-  },
-  "entrypoints": [
-    "js/fad3c429.runtime-main.js",
-    "/css/2.ebf1ae29.chunk.css",
-    "js/fad3c429.2.js",
-    "/css/main.97fdf6a6.chunk.css",
-    "js/fad3c429.main.js"
-=======
-    "main.css": "/static/react//css/main.c167b2e7.chunk.css",
-    "main.js": "/static/react/js/87e4b77e.main.js",
-    "main.js.map": "/static/react/js/87e4b77e.main.js.map",
-    "runtime-main.js": "/static/react/js/87e4b77e.runtime-main.js",
-    "runtime-main.js.map": "/static/react/js/87e4b77e.runtime-main.js.map",
+    "main.css": "/static/react//css/main.9f5990d1.chunk.css",
+    "main.js": "/static/react/js/988ce505.main.js",
+    "main.js.map": "/static/react/js/988ce505.main.js.map",
+    "runtime-main.js": "/static/react/js/988ce505.runtime-main.js",
+    "runtime-main.js.map": "/static/react/js/988ce505.runtime-main.js.map",
     "/css/2.ab1ae1c4.chunk.css": "/static/react//css/2.ab1ae1c4.chunk.css",
-    "js/87e4b77e.2.js": "/static/react/js/87e4b77e.2.js",
-    "js/87e4b77e.2.js.map": "/static/react/js/87e4b77e.2.js.map",
+    "js/988ce505.2.js": "/static/react/js/988ce505.2.js",
+    "js/988ce505.2.js.map": "/static/react/js/988ce505.2.js.map",
     "../../templates/index.html": "/static/react/../../templates/index.html",
     "/css/2.ab1ae1c4.chunk.css.map": "/static/react//css/2.ab1ae1c4.chunk.css.map",
-    "/css/main.c167b2e7.chunk.css.map": "/static/react//css/main.c167b2e7.chunk.css.map",
+    "/css/main.9f5990d1.chunk.css.map": "/static/react//css/main.9f5990d1.chunk.css.map",
     "/media/font.css": "/static/react//media/NotoSansKR-Medium.72ba4555.otf",
     "/media/mainpage.css": "/static/react//media/upload_banner.99d38106.png",
-    "js/87e4b77e.2.js.LICENSE.txt": "/static/react/js/87e4b77e.2.js.LICENSE.txt"
+    "js/988ce505.2.js.LICENSE.txt": "/static/react/js/988ce505.2.js.LICENSE.txt"
   },
   "entrypoints": [
-    "js/87e4b77e.runtime-main.js",
+    "js/988ce505.runtime-main.js",
     "/css/2.ab1ae1c4.chunk.css",
-    "js/87e4b77e.2.js",
-    "/css/main.c167b2e7.chunk.css",
-    "js/87e4b77e.main.js"
->>>>>>> Stashed changes
+    "js/988ce505.2.js",
+    "/css/main.9f5990d1.chunk.css",
+    "js/988ce505.main.js"
   ]
 }
