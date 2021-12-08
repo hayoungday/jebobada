@@ -7,6 +7,7 @@ import BullyingTimeline from './BullyingTimeline';
 import BullyingScatterPlot from './BullyingScatterPlot';
 import './reportHeader.css'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+import Stack from "@mui/material/Stack";
 
 
 
@@ -49,14 +50,18 @@ const BullyingTypePage = (props) => {
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
           </div>
-          <div className="comp-item">
-
-            <h1>괴롭힘 유형 분류</h1>
-            <p>괴롭힘 유형별로 증거 자료를 나타냅니다. 증거 자료에 대한 속성 값과 피해사실을 기록할 수 있습니다.</p>
+          <div className="yoon_overview-container">
             
-            <br/><br/><br/>
-            {console.log(user)}
-            
+            <Stack direction="row" alignItems="center" spacing={6}>
+              <span className="yoon_overview-title">괴롭힘 유형 분류</span>
+              <br/>
+              <span className="yoon_overview-tilte-desc">
+              괴롭힘 유형별로 증거 자료를 나타냅니다.
+              <br/>
+              증거 자료에 대한 속성 값과 피해사실을 기록할 수 있습니다.
+              </span>
+            </Stack>
+            <br/>
               
               {bulltypes.map((c)=>(
                 // console.log(typeof c)

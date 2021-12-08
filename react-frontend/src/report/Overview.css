@@ -9,6 +9,7 @@
 }
 
 .yoon_overview-title{
+    width: 40%;
     font-family: NanumSquare-ExtraBold;
     font-size:52px;
     color: #294379;
@@ -41,6 +42,20 @@
     font-family: NotoSansKR-Light;
     font-size :22px;
     font-weight: bolder;
+}
+
+.yoon_overview-subtitle-desc-center{
+    font-family: NotoSansKR-Light;
+    font-size :22px;
+    font-weight: bolder;
+    text-align: center;
+    display: flex;
+    line-height: 50%;
+    justify-content: center;
+}
+
+.yoon_overview-subtitle-desc-center .red{
+    color: #D24A4A;
 }
 
 .yoon_overview-count-title{

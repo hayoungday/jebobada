@@ -12,7 +12,7 @@ const BullyingScatterPlot = (props) => {
     // const primaryyAxis = { title: 'Sales Amount in millions(USD)' }
 
     return(
-    <div style={{height:"500px"}}>
+    <div style={{height:"auto"}}>
         {console.log(props.data)}
        <ChartComponent
           primaryXAxis={{ valueType: 'DateTime', title: 'Sales Across Years',labelFormat:"yyMMMdd" }}

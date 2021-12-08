@@ -46,7 +46,7 @@ class reportTable extends React.Component {
 
     Updatebutton=()=>{
         return(
-            <button style={{border:'none'}}>
+            <button style={{border:'none'}} >
                  <img src='./static/react/update.png' style={{ width: '20px'}}/>
             </button>
         )

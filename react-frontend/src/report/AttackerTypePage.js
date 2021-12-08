@@ -7,6 +7,8 @@ import AttackerTimeline from './AttackerTimeline';
 import AttackerScatterPlot from './AttackerScatterPlot';
 import './reportHeader.css'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+import Stack from "@mui/material/Stack";
+
 
 
 
@@ -46,28 +48,31 @@ const AttackerTypePage = (props) => {
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
           </div>
-          <div className="comp-item">
+          <div className="yoon_overview-container">
+          <Stack direction="row" alignItems="center" spacing={6}>
+          <span className="yoon_overview-title">행위자별 괴롭힘 행위</span>
+          <br/>
+          <span className="yoon_overview-tilte-desc">
+          행위자별 괴롭힘 피해 행위를 통해 특정 행위자
+          <br/>
+          에게서 어떠한 괴롭힘을 당했는지 알 수 있습니다.
+          </span>
+          </Stack>
+          <br/>
 
-            <h1>행위자별 괴롭힘 행위</h1>
-            <p>행위자별 괴롭힘 피해 행위를 통해 특정 행위자에게서 어떠한 괴롭힘을 당했는지 알 수 있습니다.</p>
-            
-            <br/><br/><br/>
-            {console.log(user)}
-            
-              
-              {attackertypes.map((c)=>(
-                // console.log(typeof c)
-                // gettimelineEvdi(user,c)
-                // return console.log()     
-                <AttackerTimeline
-                  type = {c}
-                  user = {user}
-                />
-              ))}
+            {attackertypes.map((c)=>(
+              // console.log(typeof c)
+              // gettimelineEvdi(user,c)
+              // return console.log()     
+              <AttackerTimeline
+                type = {c}
+                user = {user}
+              />
+            ))}
 
-              {attackertypes.map((c)=>(
-                console.log(c)
-              ))}            
+            {attackertypes.map((c)=>(
+              console.log(c)
+            ))}            
 
           </div>
 

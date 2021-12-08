@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import AttackerScatterPlot from './AttackerScatterPlot';
 import axios from 'axios'
 // import { ResponsiveScatterPlot } from '@nivo/scatterplot'
-
+import Stack from "@mui/material/Stack";
 import { styled } from '@mui/material/styles';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -14,6 +14,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { Autocomplete } from '@mui/material';
 import { TextField } from '@material-ui/core';
+import './report.css'
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -84,7 +85,7 @@ const AttackerTimeline = (props) => {
     {label:"매일"},
     {label:"주 1회 이상"},
     {label:"월 1회 이상"},
-    {label:"드물게 겪음"},
+    {label:"드물게"},
   ]
 
   useEffect(()=>{
@@ -94,21 +95,23 @@ const AttackerTimeline = (props) => {
     {console.log(props)}
     return(
       <div>
-        <h1>{props.type}</h1>
-        
-        <h3>괴롭힘 사건 요약</h3>
-        괴롭힘 증거자료를 시간순으로 나타낸 결과입니다.<br/>
-        <br />
-        <label>
-          피해기간 {startDate}~{endDate}
-          {"  "}
-        </label>
         <br/>
-
-        <div
-          style={{ border: "3px solid #5C7BDE", padding: "30px", width: "80%" }}
-        >
-      <Stepper alternativeLabel activeStep={100} connector={<ColorlibConnector />}>
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <div className="title_name_box">{props.type}</div>
+          <span className="title_attack_date">
+            피해기간 <span className="num">{" "}{startDate.substr(0,10)}~{endDate.split("~")[1]}</span>
+          </span>
+        </Stack>
+        <br/>
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <sapn className="yoon_overview-subtitle">괴롭힘 사건 요약</sapn>
+          <span className="yoon_overview-subtitle-desc">
+            괴롭힘 증거자료를 시간순으로 나타낸 결과입니다.
+          </span>
+        </Stack>
+        <br/>
+        <div style={{ border: "3px solid #5C7BDE", padding: "30px", width: "100%" }}>
+      <Stepper alternativeLabel activeStep={100} connector={<ColorlibConnector/>}>
         {Attackerevdi.map((c) => (
           <Step style={{ textAlign: "center" }}>
             {c.date}
@@ -125,27 +128,17 @@ const AttackerTimeline = (props) => {
         ))}
       </Stepper>
       </div>
-
-        {/* <Timeline className={classes.timeline} align="alternate">
-        {Attackerevdi.map((c)=>(
-                // console.log(typeof c)
-                // gettimelineEvdi(user,c)
-                // return console.log()
-          <AttackerTimelineItem
-            date = {c.date}
-            filename = {c.filename}
-            attacker = {c.attacker}
-            type = {c.type}
-          />
-        ))}
-        </Timeline> */}
-        <br/>
-        <h3>괴롭힘 빈도 요약</h3>
-        증거 자료의 빈도수를 계산하여 반복성과 지속성을 나타냅니다.<br/>
-        <AttackerScatterPlot
-          data = {Attackerevdi2}
-        />
         <br/><br/>
+        <Stack direction="row" alignItems="center" spacing={6}>
+          <sapn className="yoon_overview-subtitle">괴롭힘 빈도 요약</sapn>
+          <span className="yoon_overview-subtitle-desc">
+          증거 자료의 빈도수를 계산하여 반복성과 지속성을 나타냅니다.
+          </span>
+        </Stack>
+        <br/>
+
+        <AttackerScatterPlot data = {Attackerevdi2}/>
+        
         <Autocomplete
           disablePortal
           options={freq}
@@ -153,12 +146,17 @@ const AttackerTimeline = (props) => {
           renderInput={(params) => <TextField {...params} label="괴롭힘 빈도" />}
           onInputChange={(e,newInputValue)=>onComboHandle(newInputValue)}
         /> 
-        <br/><br/>
-        {freqItem} {props.type}과(와) 관련된 괴롭힘을 당했습니다.
-        
-        <br/><br/>
-        *빈도 : 매일 / 주 1회 이상 / 월 1회 이상 / 드물게 겪음
-        <br/><br/>
+        <br/>
+        <span className="contents_box">
+          {props.type}에게 <div className="term_contents_box">*{freqItem}</div> 주기적으로 괴롭힘을 당했습니다.
+        </span>
+
+        <br/>
+        <span className="term_contents_desc">
+          *빈도 : 매일 / 주 1회 이상 / 월 1회 이상 / 드물게 겪음<br/>
+          (직장 내 괴롭힘은 주로 반복적이고 지속적인 행위를 바탕으로 인정됩니다.)
+        </span>
+        <br/><br/><br/><br/>
       </div>
     )
 }

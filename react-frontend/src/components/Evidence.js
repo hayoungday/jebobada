@@ -170,7 +170,8 @@ class Evidence extends React.Component {
                     style={{ textDecoration: "none" }}
                     className="jb-evidence-upload-flex-container"
                   >
-                    <button className="button_text">수정</button>
+                    <div className="jb_evidence_edit_button"/>
+                    <span className="jb_evidence_text_button">수정</span>
                   </Link>
                 ) : (
                   <Link

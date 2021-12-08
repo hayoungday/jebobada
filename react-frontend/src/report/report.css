@@ -1,0 +1,125 @@
+.title_name_box{
+    width: 200px;
+    height: 70px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1.5px #000;
+    font-family: "NotoSansKR-Regular";
+    font-size: 40px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.title_attack_date{
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font-family: "NotoSansKR-Regular";
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #294379;
+}
+
+.title_attack_date .num{
+    color: #000;
+    margin-left: 30px;
+}
+
+.contents_box{
+    width: 100%;
+    height: 70px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1.5px #000;
+    font-family: "NotoSansKR-Regular";
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.term_contents_box{
+    width: 250px;
+    height: 45px;
+    margin: auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1.5px #294379;
+    font-family: "NotoSansKR-Regular";
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.term_contents_desc{
+    width: 100%;
+    height: 70px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.reason_contents_desc{
+    width: 100%;
+    height: 70px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+
+.reason_contents_desc .bold{
+    font-weight: bold;
+}
+
+.reason_evidence_name{
+    width: 100%;
+    height: 70px;
+    font-family: "NotoSansKR-Regular";
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}

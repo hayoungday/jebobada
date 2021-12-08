@@ -9,9 +9,12 @@ const RecordEvidenceDetail =(props)=>{
 
     return (
         <div>
-            <h2>{props.idx+1}) {props.filename}</h2>
-            <br/>
-            ① 다음의 파일 정보(메타 데이터) 조합이 분석되어 편집되지 않은 원본인 것으로 추정됩니다.
+          <sapn className="reason_evidence_name">{props.idx+1}) {props.filename}</sapn>
+            
+          <br/>
+          <span className="reason_contents_desc">
+               ① 다음의 파일 정보(메타 데이터) 조합이 분석되어 편집되지 않은 원본인 것으로 추정됩니다.
+          </span>
           <br/>
             <TableRow/>
             <TableRow>
@@ -63,7 +66,9 @@ const RecordEvidenceDetail =(props)=>{
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <br/><br/>
-           ② 인공지능 모델 CNN(STFT)을 사용하여 분석한 결과, 해당 녹음 파일은 조작되지 않은 것으로 추정됩니다.
+           <span className="reason_contents_desc">
+               ② 인공지능 모델 CNN(STFT)을 사용하여 분석한 결과, 해당 녹음 파일은 조작되지 않은 것으로 추정됩니다.
+           </span>
            <br/><br/><br/>
         </div>
         

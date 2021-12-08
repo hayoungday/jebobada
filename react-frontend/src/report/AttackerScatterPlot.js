@@ -6,7 +6,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Col
 const AttackerScatterPlot = (props) => {
 
     return(
-        <div style={{height:"500px"}}>
+        <div style={{height:"auto"}}>
         {console.log(props.data)}
        <ChartComponent
           primaryXAxis={{ valueType: 'DateTime', title: 'Sales Across Years',labelFormat:"yyMMMdd" }}
