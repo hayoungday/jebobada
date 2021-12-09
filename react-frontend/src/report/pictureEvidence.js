@@ -73,12 +73,12 @@ const [evidence, Setevidence] = useState([])
 
             
             <Table>
-            <TableHead>
+            <TableHead className="yoon_recordEvidence-table-header">
               <TableRow>
-                <TableCell style={{ textAlign: "center" }}>No</TableCell>
-                <TableCell style={{ textAlign: "center" }}>이름</TableCell>
-                <TableCell style={{ textAlign: "center" }}>*편집 및 조작</TableCell>
-                <TableCell style={{ textAlign: "center" }}>해시값</TableCell>
+                <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-header-text">No</span></TableCell>
+                <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-header-text">이름</span></TableCell>
+                <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-header-text">*편집 및 조작</span></TableCell>
+                <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-header-text">해시값</span></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -99,6 +99,7 @@ const [evidence, Setevidence] = useState([])
           </Table>
 
           <span className="term_contents_desc">
+          <br/>
             *편집 : 해당 녹음 파일이 편집 프로그램으로 생성한 파일인지 알려줍니다.<p/>
             *조작 : 음성 파일에 편집된 흔적이 있는지에 대한 정보입니다.
           </span>

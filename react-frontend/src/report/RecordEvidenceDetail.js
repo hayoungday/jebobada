@@ -6,7 +6,7 @@ import axios from 'axios';
 // import CustomerDelete from './CustomerDelete';
 
 const RecordEvidenceDetail =(props)=>{
-
+     console.log(props)
     return (
         <div>
           <sapn className="reason_evidence_name">{props.idx+1}) {props.filename}</sapn>
@@ -24,45 +24,45 @@ const RecordEvidenceDetail =(props)=>{
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Warning</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-           </TableRow>
-           <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
+                <TableCell style={{ textAlign: "center" }}>File Size</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
+                <TableCell style={{ textAlign: "center" }}>File Modification Date/Time</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-           </TableRow>
-           <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
+                <TableCell style={{ textAlign: "center" }}>File Access Date/Time</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
+                <TableCell style={{ textAlign: "center" }}>File Creation Date/Time</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-           </TableRow>
-           <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Create Date</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <TableRow>
-                <TableCell style={{ textAlign: "center" }}>File Name</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Modify Date</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>Directory</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Time Scale</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+           </TableRow>
+           <TableRow>
+                <TableCell style={{ textAlign: "center" }}>Duration</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Media Time Scale</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+           </TableRow>
+           <TableRow>
+                <TableCell style={{ textAlign: "center" }}>Media Duration</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Handler Type</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+           </TableRow>
+           <TableRow>
+                <TableCell style={{ textAlign: "center" }}>Handler Description</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>Audio Format</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{props.filename}</TableCell>
            </TableRow>
            <br/><br/>

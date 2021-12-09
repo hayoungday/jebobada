@@ -13,7 +13,6 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const EvidenceDetailsArtifact = (props) => {
   const [snackbar, setSnackbar] = useState({
@@ -79,28 +78,27 @@ const EvidenceDetailsArtifact = (props) => {
 
   return (
     <div>
+      <br/>
+      <br/>
       <Stack direction="row" justifyContent="space-around" spacing={4}>
-              <Stack direction="row" justifyContent="flex-start" spacing={2}>
-                <span className="yoon_evidenceDetail-info">일시</span>
-                <span className="yoon_evidenceDetail-infodesc">{props.date}</span>
-              </Stack>
-              
-              <Stack direction="row" justifyContent="flex-start" spacing={2}>
-                <span className="yoon_evidenceDetail-info">행위자</span>
-                <span className="yoon_evidenceDetail-infodesc">{props.attacker.join(",")}</span>
-              </Stack>
-              
-              <Stack direction="row" justifyContent="flex-start" spacing={2}>
-                <span className="yoon_evidenceDetail-info">괴롭힘 유형</span>
-                <span className="yoon_evidenceDetail-infodesc">
-                  {props.type}
-                </span>
-              </Stack>
-          </Stack>
-          <br />
-          <br />
-      
+        <Stack direction="row" justifyContent="flex-start" spacing={2}>
+          <span className="yoon_evidenceDetail-info">일시</span>
+          <span className="yoon_evidenceDetail-infodesc">{props.date}</span>
+        </Stack>
 
+        <Stack direction="row" justifyContent="flex-start" spacing={2}>
+          <span className="yoon_evidenceDetail-info">행위자</span>
+          <span className="yoon_evidenceDetail-infodesc">
+            {props.attacker.join(",")}
+          </span>
+        </Stack>
+
+        <Stack direction="row" justifyContent="flex-start" spacing={2}>
+          <span className="yoon_evidenceDetail-info">괴롭힘 유형</span>
+          <span className="yoon_evidenceDetail-infodesc">{props.type}</span>
+        </Stack>
+      </Stack>
+      <br />
       <br />
       <Stack direction="row" spacing={2} alignItems="center">
         <span className="yoon_evidenceDetail-desc">상세 설명</span>
@@ -168,17 +166,17 @@ const EvidenceDetailsArtifact = (props) => {
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack direction="row" spacing={1} alignItems="center">
-          <span className="yoon_evidenceDetail-tooltiptext">예시</span>
-          <Tooltip
-            placement="right"
-            title={
-              <Typography fontSize={15}>
-                컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!
-              </Typography>
-            }
-          >
-            <HelpIcon />
-          </Tooltip>
+            <span className="yoon_evidenceDetail-tooltiptext">예시</span>
+            <Tooltip
+              placement="right"
+              title={
+                <Typography fontSize={15}>
+                  컴퓨터 사용 기록 예시입니다. 피해 사실 기록에 활용해보세요!
+                </Typography>
+              }
+            >
+              <HelpIcon />
+            </Tooltip>
           </Stack>
         </AccordionSummary>
         <AccordionDetails>
@@ -190,7 +188,9 @@ const EvidenceDetailsArtifact = (props) => {
           >
             <ContentCopyIcon />
           </IconButton>
-          <span className="yoon_evidenceDetail-artifactanalysizetext">{artifactAnalysis}</span>
+          <span className="yoon_evidenceDetail-artifactanalysizetext">
+            {artifactAnalysis}
+          </span>
 
           <Snackbar
             anchorOrigin={{ vertical, horizontal }}

@@ -87,9 +87,9 @@ const EvidenceDetailsSTT = (props) => {
       <div>
         {segmentsRes.map((c, i) => {
           return c.isChecked == true ? (
-            <div>
+            <div className="yoon_evidenceDetail-stt">
               <span className="yoon_evidenceDetail-sttspeaker">
-              {c.speaker}</span>
+              화자{c.speaker}</span>
               <br />
               <span className="yoon_evidenceDetail-sttsentence">{c.stt}</span>
             </div>

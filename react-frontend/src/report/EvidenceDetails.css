@@ -52,6 +52,10 @@
     font-weight: bolder;
 }
 
+/* .yoon_evidenceDetail-imageMetacontainer{
+    display: flex;    
+} */
+
 .yoon_evidenceDetail-image{
     border: 3px solid #294379;
     /* margin:auto; */
@@ -63,10 +67,33 @@
     align-items: center;
 }
 
+.yoon-flex-container-with-hy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.yoon-table-style-with-hy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.yoon_evidenceDetail-meta{
+    height: auto;
+}
+
+.yoon_evidenceDetail-tbody{
+    width: 130%;
+}
+
 .yoon_evidenceDetail-tablecell{
     border: 1px solid #B3B3B3;
     font-family: NotoSansKR-Regular;
     font-size: 20px;
+    padding: 3%;
 }
 
 .yoon_evidenceDetail-desc{
@@ -156,18 +183,4 @@
 .yoon_evidenceDetail-artifactanalysizetext{
     font-family: NotoSansKR-Light;
     font-size: 18px;
-}
-
-.yoon-flex-container-with-hy{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.yoon-table-style-with-hy{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
 }

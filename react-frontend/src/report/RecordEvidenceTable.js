@@ -9,11 +9,10 @@ const RecordEvidenceTable =(props)=>{
 
     return (
         <TableRow>
-            <TableCell style={{ textAlign: "center" }}>{props.index}</TableCell>
-            <TableCell style={{ textAlign: "center" }}>{props.name}</TableCell>
-            <TableCell style={{ textAlign: "center" }}>X</TableCell>
-            <TableCell style={{ textAlign: "center" }}>{props.type}</TableCell>
-            <TableCell style={{ textAlign: "center" }}>{props.filehash}</TableCell>
+            <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-body-text">{props.index}</span></TableCell>
+            <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-body-text">{props.name}</span></TableCell>
+            <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-body-text">X</span></TableCell>
+            <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-body-text">{props.filehash}</span></TableCell>
         </TableRow>
     )
 }
