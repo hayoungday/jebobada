@@ -93,6 +93,7 @@ const BullyingTimeline = (props) => {
   
     const res2 = await axios.post('/bullyingtimeline',body2)
     Setbullyingevdi2(res2.data)
+    console.log(res2.data)
   }
 
   const freq = [

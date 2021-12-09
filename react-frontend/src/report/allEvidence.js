@@ -53,12 +53,18 @@ const AllEvidence = (props) => {
           <br /><br />
 
             <Table>
-            <TableHead>
+            <TableHead className="yoon_recordEvidence-table-header">
               <TableRow>
-                <TableCell style={{ textAlign: "center" }}>No</TableCell>
-                <TableCell style={{ textAlign: "center" }}>이름</TableCell>
-                <TableCell style={{ textAlign: "center" }}>분류</TableCell>
-                <TableCell style={{ textAlign: "center" }}>*해시값</TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <span className="yoon_recordEvidence-table-header-text">No</span>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <span className="yoon_recordEvidence-table-header-text">이름</span>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  <span className="yoon_recordEvidence-table-header-text">분류</span>
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}><span className="yoon_recordEvidence-table-header-text">*해시값</span></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

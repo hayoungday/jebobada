@@ -67,15 +67,6 @@ const EvidenceDetails = (props) => {
               filename={c.filename}
               meta={c.metadata}
               filetype={c.fileType}
-              // filesize = {c.meta.filesize}
-              // imageCtime = {c.meta.imageCtime}
-              // gpsPosition = {c.meta.gpsPosition}
-              // deviceModel = {c.meta.deviceModel}
-              // software = {c.meta.software}
-              // audioCtime = {c.meta.audioCtime}
-              // title = {c.meta.title}
-              // duration = {c.meta.duration}
-
               date={c.date}
               location={c.location}
               attacker={c.attacker}
