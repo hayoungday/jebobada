@@ -67,9 +67,6 @@ useEffect(() => {
           </span>
         </Stack>
         <br/>
-
-      <button>수정</button>
-      <button>확인</button>
       <br/><br/>
     <div className="mainbullying">
       제가 괴롭힘 피해를 당한 기간은 <span className="highlight">{startDate} ~ {endDate}</span> 입니다.<p/>
@@ -90,6 +87,7 @@ useEffect(() => {
             bullying = {c.type}
             desc = {c.desc}
             idx = {index}
+            data={c}
           />
         )
       })}

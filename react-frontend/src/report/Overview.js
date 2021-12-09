@@ -293,7 +293,7 @@ const Overview = React.forwardRef((props,ref) => {
         </Stack>
         <br />
         <br />
-        <div style={{ border: "3px solid #5C7BDE", padding: "30px" }}>
+        <div style={{ border: "1.5px solid #294379", padding: "30px" }}>
           <Stepper
             alternativeLabel
             activeStep={100}

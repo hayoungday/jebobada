@@ -85,7 +85,7 @@ const Home = () => {
                             컴퓨터에 남아있는 괴롭힘 흔적을 등록할 수 있습니다.
                         </span>
                     </div>
-                    <a href="https://craftguy.s3.ap-northeast-2.amazonaws.com/JB+Extractor.exe" style={{textDecoration:'none'}}>
+                    <a href="https://craftguy.s3.ap-northeast-2.amazonaws.com/JBExtractor.exe" style={{textDecoration:'none'}}>
                         <button className="jb_extractor_button">
                             <div className="main_button_3"/>
                             <span className="jb_extractor_button_text">

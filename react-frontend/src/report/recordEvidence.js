@@ -119,6 +119,7 @@ const RecordEvidence = (props) => {
                   filename = {c.filename}
                   meta = {c.metadata}
                   idx = {index}
+                  fullmeta={c.fullmetadata}
                 />
               )
             })}

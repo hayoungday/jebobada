@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 const PictureEvidence = (props) => {
 
 const [evidence, Setevidence] = useState([])
+console.log(evidence)
     const [no, Setno] = useState(1)
 
     const getUser = async () => {
@@ -127,6 +128,7 @@ const [evidence, Setevidence] = useState([])
                 filename = {c.filename}
                 meta = {c.metadata}
                 idx = {index}
+                fullmeta={c.fullmetadata}
               />
             )
           })}

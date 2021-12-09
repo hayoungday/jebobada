@@ -12,3 +12,28 @@
     font-family: NotoSansKR-Regular;
     font-size:20px;
 }
+
+.yoon_recordEvidence-res-table{
+    width:100%
+}
+
+.yoon_recordEvidence-res-table-header{
+    background-color: #294379;
+    width: 15%;
+}
+
+.yoon_recordEvidence-res-table-header-text{
+    color:white;
+    font-family: NanumSquare-Regular;
+    font-size:15px;
+}
+
+.yoon_recordEvidence-res-table-body{
+    max-width:1px;
+}
+
+.yoon_recordEvidence-res-table-body-text{
+    font-family: NotoSansKR-Regular;
+    font-size:18px;
+    word-break: break-all;
+}

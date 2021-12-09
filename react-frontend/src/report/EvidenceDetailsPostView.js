@@ -239,20 +239,7 @@ const EvidenceDetailsPostView = (props) => {
                     {meta.deviceModel}
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell
-                    className="yoon_evidenceDetail-tablecell"
-                    align="center"
-                  >
-                    촬영 기기 소프트웨어 버전
-                  </TableCell>
-                  <TableCell
-                    className="yoon_evidenceDetail-tablecell"
-                    align="center"
-                  >
-                    {meta.software}
-                  </TableCell>
-                </TableRow>
+                
               </TableBody>
             </div>
           </div>
@@ -468,6 +455,8 @@ const EvidenceDetailsPostView = (props) => {
               setDesc = {setDescTmp}
             />
           </Dialog> */}
+          {/* <div className="yoon_evidenceDetail-divider"></div> */}
+          <br/><br/><br/>
         </div>
       )
     } else if (props.filetype === "녹음 파일"){
@@ -484,9 +473,8 @@ const EvidenceDetailsPostView = (props) => {
           <br/>
           <br/>
           {aud_data()}
-          <br/>
-          
-          
+          {/* <div className="yoon_evidenceDetail-divider"></div>     */}
+          <br/><br/><br/>
         </div>
       )
     } else{
@@ -510,7 +498,8 @@ const EvidenceDetailsPostView = (props) => {
           <h3>컴퓨터 사용 기록 해석</h3>
           <br></br>
           {props.data.artifactAnalysis} */}
-          <br></br>       
+          {/* <div className="yoon_evidenceDetail-divider"></div>    */}
+          <br/><br/><br/>
         </div>
       )
     }

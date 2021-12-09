@@ -57,7 +57,7 @@
 } */
 
 .yoon_evidenceDetail-image{
-    border: 3px solid #294379;
+    border: 1.5px solid #294379;
     /* margin:auto; */
     width: 50%;
     height:398px;
@@ -72,6 +72,12 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.yoon_evidenceDetail-divider{
+    height: 0;
+    margin: 50px 1px 50px;
+    border: solid 1px #707070;
 }
 
 .yoon-table-style-with-hy{

@@ -110,7 +110,7 @@ const EvidenceDetailsSTT = (props) => {
       <div className="yoon_evidenceDetail-checked-stt-container">
         {choosedOnReport == false ? (
           <button className="yoon_evidenceDetail-check-message-button" onClick={handleOpen}>
-            선택하기
+            증거로 활용할 문장을 선택하세요
           </button>
         ) : (
           <div>

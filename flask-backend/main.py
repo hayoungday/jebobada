@@ -413,8 +413,11 @@ def upload():
             clovaspeechAPI.ClovaSpeechClient().req_url(file=url, completion='async')
             
             returnDict = meta.getAudioTags(url)
+            returnFullDict=meta.getFullTags(url)
+            returnFullDict["File Name"]=filename
             o_query={'user_id':cur_user,'hashed_filename':hashed_filename}
             insert_data['metadata']=returnDict
+            insert_data["fullmetadata"]=returnFullDict
             
             ###편집여부 backend###
             
@@ -525,9 +528,11 @@ def upload():
             
 
             returnDict = meta.getImageTags(url)
-
-            insert_data['metadata'] = returnDict
+            returnFullDict=meta.getFullTags(url)
+            returnFullDict["File Name"]=filename
             
+            insert_data['metadata'] = returnDict
+            insert_data['fullmetadata']=returnFullDict
             
             # ===카톡조작===
             kfdModule = kakaoForgeryDetect.kakaoForgeryDetect(url)
