@@ -16,6 +16,55 @@ import { Autocomplete } from '@mui/material';
 import { TextField } from '@material-ui/core';
 import './report.css'
 
+function returnType(props) {
+  const bullyingType_language = ["폭언", "모욕", "협박", "비하"];
+  const bullyingType_work = [
+    "무시",
+    "정보차단",
+    "차단",
+    "배제",
+    "사적지시",
+    "전가",
+    "업무제외",
+    "SNS",
+    "초과근무",
+    "건의",
+    "감시",
+    "사직종용",
+    "제출강요",
+    "차별",
+    "사비",
+  ];
+  const bullyingType_nonwork = [
+    "행사",
+    "장기자랑 강요",
+    "강요",
+    "후원강요",
+    "휴가",
+    "육아휴직",
+    "모임",
+    "실업급여",
+  ];
+  const bullyingType_group = ["따돌림", "소문", "비밀", "태움"];
+  const bullyingType_sexual = ["성희롱"];
+  const bullyinType_physics=["폭행"]
+
+  if (bullyingType_language.includes(props)) {
+    return "bullyingType_language";
+  } else if (bullyingType_work.includes(props)) {
+    return "bullyingType_work";
+  } else if (bullyingType_nonwork.includes(props)) {
+    return "bullyingType_nonwork";
+  } else if (bullyingType_group.includes(props)) {
+    return "bullyingType_group";
+  } else if (bullyingType_sexual.includes(props)) {
+    return "bullyingType_sexual";
+  }
+  else if(bullyinType_physics.includes(props)){
+    return "bullyingType_physics";
+  }
+}
+
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 69,
@@ -29,16 +78,15 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  backgroundColor:"#F0F0F4",
+  backgroundColor: "white",
   zIndex: 2,
   color: "#4B64D4",
-  width: 50,
+  width: 100,
   height: 50,
-  borderRadius:50,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  padding:"20%"
+  padding: "20%",
 }));
 
 
@@ -132,21 +180,28 @@ const AttackerTimeline = (props) => {
           </span>
         </Stack>
         <br/>
-        <div style={{ border: "3px solid #5C7BDE", padding: "30px", width: "100%" }}>
+        <div style={{ border: "1.5px solid #294379", padding: "30px", width: "100%" }}>
       <Stepper alternativeLabel activeStep={100} connector={<ColorlibConnector/>}>
         {Attackerevdi.map((c) => (
-          <Step style={{ textAlign: "center" }}>
-            <div style={{ marginBottom: "1%" }}>
-              {c.date}
+          <Step style={{ textAlign: "center" }} key={c.date}>
+            <span className="yoon_overview-timeline-date">
+              {c.date.substr(0,10)}
+            </span>
               <br></br>
-              {c.filename}
-            </div>
-            <StepLabel icon={<ColorlibStepIconRoot><SettingsIcon/></ColorlibStepIconRoot>}>
-              <div style={{ marginTop: "1%" }}>
-                {c.attacker.join(", ")}
-              </div>
+              {c.attacker}
+            
+            <StepLabel icon={<ColorlibStepIconRoot><div>
+                        <img
+                          src={
+                            "./static/react/type_icons/" +
+                            returnType(c.type[0]) +
+                            ".png"
+                          }
+                        />
+                      </div></ColorlibStepIconRoot>}>
+                      <div>{c.filename}</div>
             </StepLabel>
-            {c.type.join(", ")}
+            <span className='yoon_overview-timeline-type'>{c.type.join(", ")}</span>
             {/* <br></br> */}
           </Step>
         ))}

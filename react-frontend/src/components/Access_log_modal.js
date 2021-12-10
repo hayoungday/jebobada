@@ -15,7 +15,7 @@ function Access_log_modal({ className, visible, children, closeModal, accessLog 
     return (
       <div>
           <button className="close_icon_login" onClick={closeModal}/>
-          <h1>로그인 기록</h1>
+          <h1>보안 이벤트</h1>
             <h3>로그인 기록을 확인할 수 있습니다.</h3>
             <Table>
               <TableHead>

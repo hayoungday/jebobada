@@ -299,10 +299,6 @@ const EvidenceDetailsPostView = (props) => {
               </div>
             )}
           </div>
-          <br />
-          
-          <br />
-          <br />
         </>
       );
     }
@@ -450,7 +446,7 @@ const EvidenceDetailsPostView = (props) => {
             />
           </Dialog> */}
           {/* <div className="yoon_evidenceDetail-divider"></div> */}
-          <br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
       )
     } else if (props.filetype === "녹음 파일"){
@@ -468,7 +464,7 @@ const EvidenceDetailsPostView = (props) => {
           <br/>
           {aud_data()}
           {/* <div className="yoon_evidenceDetail-divider"></div>     */}
-          <br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
       )
     } else{
@@ -493,7 +489,7 @@ const EvidenceDetailsPostView = (props) => {
           <br></br>
           {props.data.artifactAnalysis} */}
           {/* <div className="yoon_evidenceDetail-divider"></div>    */}
-          <br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
       )
     }

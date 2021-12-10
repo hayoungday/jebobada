@@ -82,6 +82,7 @@ function returnType(props) {
   ];
   const bullyingType_group = ["따돌림", "소문", "비밀", "태움"];
   const bullyingType_sexual = ["성희롱"];
+  const bullyinType_physics=["폭행"]
 
   if (bullyingType_language.includes(props)) {
     return "bullyingType_language";
@@ -93,6 +94,9 @@ function returnType(props) {
     return "bullyingType_group";
   } else if (bullyingType_sexual.includes(props)) {
     return "bullyingType_sexual";
+  }
+  else if(bullyinType_physics.includes(props)){
+    return "bullyingType_physics";
   }
 }
 
@@ -218,7 +222,7 @@ const Overview = React.forwardRef((props,ref) => {
         <ReportHeader case_id={case_id} />
       </div>
       <div className="yoon_overview-container" ref = {ref}>
-        <Stack direction="row" alignItems="center" spacing={3}>
+        <Stack direction="row" alignItems="center" spacing={6}>
           <span className="yoon_overview-title">사건 개요</span>
           <br />
           <span className="yoon_overview-tilte-desc">
@@ -325,7 +329,7 @@ const Overview = React.forwardRef((props,ref) => {
                 >
                   <div>{label.filename}</div>
                 </StepLabel>
-                {label.type.join(", ")}
+                <span className='yoon_overview-timeline-type'>{label.type.join(", ")}</span>
               </Step>
             ))}
           </Stepper>

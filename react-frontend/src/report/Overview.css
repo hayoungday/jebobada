@@ -70,7 +70,12 @@
 }
 
 .yoon_overview-timeline-date{
-    font-family: NanumSquare-Regular;
+    font-family: NanumSquare-Bold;
+    font-size:18px
+}
+
+.yoon_overview-timeline-type{
+    font-family:NanumSquare-Bold;
     font-size:18px
 }
 

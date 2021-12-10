@@ -32,18 +32,41 @@ const MainBullyingDetail =(props)=>{
     },[])
 
     return (
-        <div>
+      <div>
         <span className="mainbullying_contents">
-            {props.idx+1}) 
-            <span className="highlight">{props.date}</span>에 <span className="highlight">{props.attacker.join(", ")}</span>에게 
-            <span className="highlight">{props.location}</span>에서 
-            <span className="highlight">{props.bullying.join(", ")}</span>을 당했습니다.<p/>
-            <br/>
-            </span>
-            {/* <div className="mainbullying_desc">
+          {props.idx + 1})<span className="highlight">{props.date}</span>에{" "}
+          <span className="highlight">{props.attacker.join(", ")}</span>에게
+          <span className="highlight">{props.location}</span>에서
+          <span className="highlight">{props.bullying.join(", ")}</span>을
+          당했습니다.
+          <p />
+        </span>
+        {/* <div className="mainbullying_desc">
                 {props.desc}
             </div>             */}
-            <Stack direction="row" spacing={2} alignItems="center">
+
+        <div>
+          {editMode === false ? (
+            <div className="yoon_evidenceDetail-desc-textbox">{desc}</div>
+          ) : (
+            <div className="yoon_evidenceDetail-desc-edittextbox">
+              <TextField
+                fullWidth
+                defaultValue={desc}
+                multiline
+                onChange={(e) => setDescTmp(e.target.value)}
+                InputProps={{
+                  style: {
+                    fontFamily: "NotoSansKR-Light",
+                    fontSize: "21px",
+                    padding: "2%",
+                  },
+                }}
+              />
+            </div>
+          )}
+        </div>
+        <Stack direction="row" spacing={2} alignItems="center">
           <div>
             {editMode === false ? (
               <div>
@@ -59,54 +82,33 @@ const MainBullyingDetail =(props)=>{
             ) : (
               <div>
                 <Stack direction="row" spacing={1}>
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    editFalse();
-                    alert("수정을 취소하였습니다");
-                  }}
-                >
-                  취소
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setEditMode(false);
-                    handleSubmit();
-                    alert("수정되었습니다");
-                  }}
-                >
-                  확인
-                </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      editFalse();
+                      alert("수정을 취소하였습니다");
+                    }}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setEditMode(false);
+                      handleSubmit();
+                      alert("수정되었습니다");
+                    }}
+                  >
+                    확인
+                  </Button>
                 </Stack>
               </div>
             )}
           </div>
-          </Stack>
-          <div>
-            {editMode === false ? (
-              <div className="yoon_evidenceDetail-desc-textbox">
-                {desc}
-              </div>
-            ) : (
-              <div className="yoon_evidenceDetail-desc-edittextbox">
-                <TextField
-                  fullWidth
-                  defaultValue={desc}
-                  multiline
-                  onChange={(e) => setDescTmp(e.target.value)}
-                  InputProps={{style:{fontFamily:"NotoSansKR-Light",fontSize:"21px",padding:"2%"}}}
-                />
-              </div>
-            )}
-          </div>
-          <br/>
-            
-        
-        </div>
-        
-        
-    )
+        </Stack>
+        <br />
+      </div>
+    );
 }
 
 export default MainBullyingDetail;

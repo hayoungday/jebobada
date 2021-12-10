@@ -302,9 +302,9 @@ class kakaoForgeryDetect :
         ratio = self.__smileSharpRatio()
         # if ratio < underBound or upperBound < ratio :
         if upperBound < ratio :
-            return True 
+            return True, ratio
         else : 
-            return False    
+            return False, ratio   
 
     def isKakaoTalkLinedUpHorizontal(self):
         # chatbox 시작점이 같은 x값을 갖는지 
@@ -328,16 +328,22 @@ class kakaoForgeryDetect :
     def getOverallResult(self) : 
         # 결과를 dict 자료구조로 반환
         retDict = {} 
-        retDict['isFake'] = False
-        retDict['reason'] = 'normal'
-
+        
         if self.isKakaoImage() : 
-            if self.isFakeKakaoApp() : 
+            isFakeApp, ratio = self.isFakeKakaoApp()
+            if isFakeApp : 
                 retDict['isFake'] = True
                 retDict['reason'] = 'fakeApp'
+                retDict['ratio'] = ratio
             elif self.isKakaoTalkLinedUpHorizontal() == False : 
                 retDict['isFake'] = True
                 retDict['reason'] = 'notLinedUp'
+                retDict['ratio'] = ratio
+            else:
+                retDict['isFake'] = False
+                retDict['reason'] = 'normal'
+                retDict['ratio'] = ratio
+
         else : 
             retDict['isFake'] = False
             retDict['reason'] = 'notKakaoTalk'

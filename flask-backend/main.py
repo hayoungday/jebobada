@@ -559,6 +559,7 @@ def upload():
                 print("근거 : 편집 프로그램을 사용하거나 이미지를 조작한 흔적을 찾을 수 없습니다")
                 insert_data['edited'] = "false"
                 insert_data['reason'] = "none"
+                insert_data['ratio']=round(overallResult["ratio"],2)
 
             elif useImageEditor  : 
                 print("결과 : 편집흔적 발견")
