@@ -52,7 +52,7 @@ const AttackerTypePage = (props) => {
             <ReportHeader case_id={props.location.state.case_id}/>
           </div>
           <div className="yoon_overview-container">
-          <Stack direction="row" alignItems="center" spacing={6}>
+          <Stack direction="row" alignItems="center" spacing={12}>
           <span className="yoon_overview-title">행위자별 괴롭힘 행위</span>
           <br/>
           <span className="yoon_overview-tilte-desc">

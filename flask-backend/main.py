@@ -1340,7 +1340,7 @@ def bullyingtimeline():
         df = pd.DataFrame(evid)
         df2 = df[['date']]
         df2.rename(columns = {'date' : 'x'}, inplace = True)
-        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\nName","~").split("~")[4]
+        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\n","~").split("~")[4]
         
         df2['y'] = df2.count(axis = 1)
         
@@ -1430,11 +1430,13 @@ def attackertimeline():
         df = pd.DataFrame(evid)
         df2 = df[['date']]
         df2.rename(columns = {'date' : 'x'}, inplace = True)
-        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\nName","~").split("~")[4]
+        
+        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\n","~").split("~")[4]
         
         df2['y'] = df2.count(axis = 1)
-        
+
         maxs = date(int(df2['x'].max().split('-')[0]),int(df2['x'].max().split('-')[1]),int(df2['x'].max().split('-')[2]))+timedelta(days=3)
+        
         mins = date(int(df2['x'].min().split('-')[0]),int(df2['x'].min().split('-')[1]),int(df2['x'].min().split('-')[2]))-timedelta(days=3)
         
         delta = maxs-mins

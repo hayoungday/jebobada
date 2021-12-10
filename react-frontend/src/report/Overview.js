@@ -187,7 +187,11 @@ const Overview = React.forwardRef((props,ref) => {
       SetStartDate(res.data[0]["date"].substr(0, 10));
       SetEndDate(res.data[res.data.length - 1]["date"].substr(0,10));
       res.data.map((c) => {
-        SetAttackers((attackers) => [...attackers, c.attacker]);
+
+        c.attacker.map((a)=>{
+          SetAttackers(attackers => [...attackers, a]);
+        })
+        
         c.type.map((t) => {
           SetBullying((bullying) => [...bullying, t]);
         });
@@ -243,7 +247,8 @@ const Overview = React.forwardRef((props,ref) => {
           <Stack direction="row" alignItems="center" spacing={2}>
             <span className="yoon_overview-info">행위자</span>
             <span className="yoon_overview-info-desc">
-              {attackers.join(", ")}
+            {Array.from(new Set(attackers)).join(", ")}
+            {console.log(Array.from(new Set(attackers)).join(", "))}
             </span>
           </Stack>
         </Stack>

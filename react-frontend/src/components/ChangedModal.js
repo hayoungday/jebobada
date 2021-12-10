@@ -69,17 +69,14 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
                         편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여 녹음 파일이 가공되었는지 확인합니다.
                       </span>
 
-                      <div className="jb-md-meta-flex-container">
-                        <span className="info_modify_text">편집 여부</span>
-                        <div className="info_modify_container">
-                          <span className="info_modify_cont_text">{aud_edited()}</span>
-                        </div>
+                      <span className="info_modify_text">편집 여부</span>
+                      <div className="info_modify_container">
+                        <span className="info_modify_cont_text">{aud_edited()}</span>
                       </div>
-                      <div className="jb-md-meta-flex-container">
-                        <span className="info_modify_text">판단 이유</span>
-                        <div className="info_modify_container2">
-                          <span className="info_modify_cont_text2">{aud_cause()}</span>
-                        </div>
+
+                      <span className="info_modify_text">판단 이유</span>
+                      <div className="info_modify_container2">
+                        <span className="info_modify_cont_text2">{aud_cause()}</span>
                       </div>
                     </div>      
                 </>

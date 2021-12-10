@@ -1213,7 +1213,7 @@
     height: auto;
     float: right;
     margin-top: 1%;
-    margin-right: 6%;
+    
   }
 
 
@@ -1229,7 +1229,7 @@
     display: flex;
     height: auto;
     flex-direction: column;
-    margin : auto;
+    margin : auto 300px;
   }
 
   .jb-upload-flex-column-container{
