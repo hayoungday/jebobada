@@ -8,6 +8,7 @@ import AttackerScatterPlot from './AttackerScatterPlot';
 import './reportHeader.css'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import Stack from "@mui/material/Stack";
+import Header from '../components/Header';
 
 
 
@@ -44,6 +45,8 @@ const AttackerTypePage = (props) => {
 
 
     return(
+      <div>
+        <Header />
         <div className="flex-container">
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
@@ -53,9 +56,9 @@ const AttackerTypePage = (props) => {
           <span className="yoon_overview-title">행위자별 괴롭힘 행위</span>
           <br/>
           <span className="yoon_overview-tilte-desc">
-          행위자별 괴롭힘 피해 행위를 통해 특정 행위자
+          행위자별 괴롭힘 피해 행위를 통해 특정 행위자에게서
           <br/>
-          에게서 어떠한 괴롭힘을 당했는지 알 수 있습니다.
+          어떠한 괴롭힘을 당했는지 알 수 있습니다.
           </span>
           </Stack>
           <br/>
@@ -76,6 +79,7 @@ const AttackerTypePage = (props) => {
 
           </div>
 
+        </div>
         </div>
     )
 }

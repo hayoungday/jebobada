@@ -24,6 +24,8 @@ import StepConnector, {
 } from "@mui/material/StepConnector";
 import { TextField } from "@material-ui/core";
 import Box from '@mui/material/Box';
+import Header from '../components/Header';
+
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -209,6 +211,8 @@ const Overview = React.forwardRef((props,ref) => {
   }
   
   return (
+    <div>
+        <Header />
     <div className="flex-container">
       <div className="nav-item">
         <ReportHeader case_id={case_id} />
@@ -441,6 +445,7 @@ const Overview = React.forwardRef((props,ref) => {
         <br></br>
         <br></br>
       </div>
+    </div>
     </div>
   );
 });

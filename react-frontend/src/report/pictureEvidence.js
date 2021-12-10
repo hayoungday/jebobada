@@ -7,6 +7,7 @@ import ReportHeader from './ReportHeader'
 import PictureEvidenceTable from './PictureEvidenceTable'
 import PictureEvidenceDetail from './PictureEvidenceDetail';
 import Stack from "@mui/material/Stack";
+import Header from '../components/Header';
 
 
 const PictureEvidence = (props) => {
@@ -45,6 +46,8 @@ console.log(evidence)
     },[])
 
     return(
+      <div>
+        <Header />
       <div className="flex-container">
         <div className="nav-item">
           <ReportHeader case_id={props.location.state.case_id}/>
@@ -134,6 +137,7 @@ console.log(evidence)
           })}
 
         </div>
+      </div>
       </div>
     )
 }

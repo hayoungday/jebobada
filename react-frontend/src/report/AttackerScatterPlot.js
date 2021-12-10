@@ -9,9 +9,9 @@ const AttackerScatterPlot = (props) => {
         <div style={{height:"auto"}}>
         {console.log(props.data)}
        <ChartComponent
-          primaryXAxis={{ valueType: 'DateTime', title: 'Sales Across Years',labelFormat:"yyMMMdd" }}
-          primaryYAxis={{ title: 'Sales Amount in millions(USD)' }}
-          title="Average Sales Comparison"
+          primaryXAxis={{ valueType: 'DateTime',title:'사건발생 년/월',labelFormat:"yyMMMdd" }}
+          primaryYAxis={{ title: '빈도 수' }}
+          palettes ={["#294379"]}
         >
           <Inject
             services={[

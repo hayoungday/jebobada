@@ -113,12 +113,6 @@ const EvidenceDetailsPostView = (props) => {
     const pic_data = () => {
       return (
         <>
-          {console.log(meta)}
-          {console.log(typeof meta)}
-          {console.log(typeof meta.fileType)}
-
-          {console.log(meta.fileType)}
-
           <Stack direction="row" justifyContent="space-around" spacing={4}>
               <Stack direction="row" justifyContent="flex-start" spacing={2}>
                 <span className="yoon_evidenceDetail-info">일시</span>

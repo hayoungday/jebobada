@@ -8,6 +8,7 @@ import BullyingScatterPlot from './BullyingScatterPlot';
 import './reportHeader.css'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import Stack from "@mui/material/Stack";
+import Header from '../components/Header';
 
 
 
@@ -46,6 +47,8 @@ const BullyingTypePage = (props) => {
 
 
     return(
+      <div>
+        <Header />
         <div className="flex-container">
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
@@ -80,6 +83,7 @@ const BullyingTypePage = (props) => {
           </div>
 
         </div>
+      </div>
     )
 }
 

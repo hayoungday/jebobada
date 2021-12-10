@@ -8,6 +8,7 @@ import './EvidenceDetails.css'
 import ReportHeader from './ReportHeader';
 import EvidenceDetailsPostView from './EvidenceDetailsPostView';
 import Stack from "@mui/material/Stack";
+import Header from '../components/Header';
 
 
 
@@ -49,6 +50,8 @@ const EvidenceDetails = (props) => {
 
 
     return (
+      <div>
+        <Header />
       <div className="flex-container">
         <div className="nav-item">
           <ReportHeader case_id={props.location.state.case_id} />
@@ -82,6 +85,7 @@ const EvidenceDetails = (props) => {
 
           {evidence.map((c) => console.log(c))}
         </div>
+      </div>
       </div>
     );
 }

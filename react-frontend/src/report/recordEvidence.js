@@ -7,6 +7,8 @@ import RecordEvidenceTable from './RecordEvidenceTable';
 import RecordEvidenceDetail from './RecordEvidenceDetail';
 import Stack from "@mui/material/Stack";
 import "./recordEvidence.css"
+import Header from '../components/Header';
+
 
 const RecordEvidence = (props) => {
     const [evidence, Setevidence] = useState([])
@@ -40,6 +42,8 @@ const RecordEvidence = (props) => {
     },[])
 
     return(
+      <div>
+        <Header />
         <div className="flex-container">
         <div className="nav-item">
           <ReportHeader case_id={props.location.state.case_id}/>
@@ -124,6 +128,7 @@ const RecordEvidence = (props) => {
               )
             })}
         </div>
+      </div>
       </div>
     )
 }

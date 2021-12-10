@@ -6,6 +6,8 @@ import AllEvidenceTable from './allEvidenceTable';
 import './reportHeader.css'
 import ReportHeader from './ReportHeader';
 import Stack from "@mui/material/Stack";
+import Header from '../components/Header';
+
 
 const AllEvidence = (props) => {
 
@@ -36,6 +38,8 @@ const AllEvidence = (props) => {
 
 
     return(
+      <div>
+        <Header />
         <div className="flex-container">
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
@@ -86,6 +90,7 @@ const AllEvidence = (props) => {
             *해시값 : 디지털 증거의 원본성을 입증하기 위해 파일 특성을 축약한 암호같은 수치
           </span>
       </div>
+    </div>
     </div>
     )
 }

@@ -74,16 +74,18 @@ class reportTable extends React.Component {
                         state: { casename: c.CaseName },
                     }}
                     > */}
-                <div className="casepage_test_case_box_title">
-                    {this.props.name}
-                </div>
+                <Link to={{pathname:'/mainbullying',state:{case_id:this.props._id}}} style={{textDecoration:'none'}}>
+                    <div className="casepage_test_case_box_title">
+                        {this.props.name}
+                    </div>
+                </Link>
                 {/* </Link> */}
                 
                 <span className="casepage_test_case_box_desc">{this.props.description}</span>
-                <div className="jb-case-item-flex-container">
+                {/* <div className="jb-case-item-flex-container">
                     <div className="jb-rp-items1">{this.state.createtime}</div>
                     <div className="jb-rp-items2">{report_button}</div>
-                </div>
+                </div> */}
             </div>
         )
     }

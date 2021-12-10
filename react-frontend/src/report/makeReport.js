@@ -168,11 +168,11 @@ class makeReport extends Component {
             <div className="jb-case-flex-container">
               <div className="jb-case-flex-column-container">
                 <span className="jb_case_banner_title">
-                  보고서를 생성할 사건 폴더를 선택하세요
+                사건 폴더를 눌러 보고서를 확인하세요
                 </span>
                 <span className="jb_case_banner_subtitle">
-                보고서 생성 버튼을 누르면 사건 폴더에 모은 증거자료와 관련된 보고서가 생성됩니다.<br/>
-                보고서를 재생성하고 싶다면 업데이트 아이콘을 클릭하세요. 업데이트를 누르면 변경된 증거자료가 새로 반영 됩니다.<br/>
+                사건 폴더를 누르면 폴더 별로 모은 증거 자료와 관련된 보고서가 생성됩니다.<br/>
+                보고서를 다운로드하여 신고 시 활용하세요.<br/>
                 </span>
               </div>
             </div>

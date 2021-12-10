@@ -187,6 +187,7 @@ class Evidence extends React.Component {
                         attacker: this.props.attacker,
                         location: this.props.location,
                         index: this.props.idx,
+                        ismain: this.props.ismain,
                       },
                     }}
                     style={{ textDecoration: "none" }}

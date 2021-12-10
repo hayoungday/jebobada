@@ -52,7 +52,6 @@ function Login_Modal({ className, visible, children, closeModal, openModal }) {
 
     axios.post("/login", body).then((res) => {
       if (cookies.get("logined")) {
-        alert("hi");
         window.location.replace("/");
       } else {
         alert("아이디 및 비밀번호를 다시 확인해주세요");

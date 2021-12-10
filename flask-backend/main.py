@@ -1409,7 +1409,8 @@ def attackertype():
 def attackertimeline():
     import pandas as pd
     import numpy as np
-    
+    from datetime import date, timedelta
+
     conn=pymongo.MongoClient(config.mongodb)
     db = conn.jb_db
     collection = db.stt
@@ -1426,18 +1427,47 @@ def attackertimeline():
     
     if data['scatter'] == 'yes':
         df = pd.DataFrame(evid)
+        df2 = df[['date']]
+        df2.rename(columns = {'date' : 'x'}, inplace = True)
+        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\nName","~").split("~")[4]
         
-        df3 = df[['date']]
-        df33 = df3.groupby(['date'])
-        df33 = df33.size().reset_index(name='y')
-        df333 = pd.DataFrame(df33)
-        df333.rename(columns = {'date' : 'x'}, inplace = True)
-        # df333['x']=str(df333['x']).split("~")
-        # if (df333['x'] in "~"):
-        df333.loc[df333['x'].str.contains('~'),'x']=str(df333['x']).replace(' ',"~").replace("\nName","~").split("~")[4]
+        df2['y'] = df2.count(axis = 1)
         
-        js2 = df333.to_json(orient='records')
-        print(data['type'],js2)
+        maxs = date(int(df2['x'].max().split('-')[0]),int(df2['x'].max().split('-')[1]),int(df2['x'].max().split('-')[2]))+timedelta(days=3)
+        mins = date(int(df2['x'].min().split('-')[0]),int(df2['x'].min().split('-')[1]),int(df2['x'].min().split('-')[2]))-timedelta(days=3)
+        
+        delta = maxs-mins
+        exist_dt = df2['x'].tolist()
+        
+        cnt = 0
+                
+        for i in range(delta.days + 1):
+            tmp_dt = mins+timedelta(days=i)
+            if cnt >=40:
+                break
+            elif tmp_dt.strftime("%Y-%m-%d") in exist_dt:
+                pass
+            else:
+               df2 = df2.append(pd.DataFrame([[tmp_dt.strftime("%Y-%m-%d"),0]],columns=['x','y']),ignore_index=True)
+               cnt+=1
+        
+    
+        if len(exist_dt) == 1:
+            maxs2 = date(int(df2['x'].max().split('-')[0]),int(df2['x'].max().split('-')[1]),int(df2['x'].max().split('-')[2]))+timedelta(days=30)
+            mins2 = date(int(df2['x'].min().split('-')[0]),int(df2['x'].min().split('-')[1]),int(df2['x'].min().split('-')[2]))-timedelta(days=30)
+            delta = maxs2-mins2
+            for i in range(delta.days + 1):
+                tmp_dt2 = mins2+timedelta(days=i)
+
+                if tmp_dt2.strftime("%Y-%m-%d") in exist_dt:
+                    pass
+                else:
+                    df2 = df2.append(pd.DataFrame([[tmp_dt2.strftime("%Y-%m-%d"),0]],columns=['x','y']),ignore_index=True) 
+        else:
+            print("there is no data~~~")
+            
+            
+        js2 = df2.to_json(orient='records')
         return js2
         
     return json.dumps(evid,default=json_util.default)

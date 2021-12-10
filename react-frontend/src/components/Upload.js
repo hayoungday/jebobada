@@ -386,6 +386,7 @@ class Upload extends Component {
                               bullying={c.type}
                               attacker={c.attacker}
                               location={c.location}
+                              ismain = {c.ismain}
                             />
                           );
                         })

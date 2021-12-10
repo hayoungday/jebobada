@@ -7,6 +7,7 @@ import ReportHeader from './ReportHeader'
 import MainBullyingDetail from './MainBullyingDetail';
 import Stack from "@mui/material/Stack";
 import './report.css'
+import Header from '../components/Header';
 
 
 const MainBullying = (props) => {
@@ -54,6 +55,8 @@ useEffect(() => {
 },[]);
 
   return(
+    <div>
+        <Header />
       <div className="flex-container">
       <div className="nav-item">
         <ReportHeader case_id={props.location.state.case_id}/>
@@ -69,7 +72,7 @@ useEffect(() => {
         <br/>
       <br/><br/>
     <div className="mainbullying">
-      제가 괴롭힘 피해를 당한 기간은 <span className="highlight">{startDate} ~ {endDate}</span> 입니다.<p/>
+      주로 괴롭힘 피해를 당한 기간은 <span className="highlight">{startDate} ~ {endDate}</span> 입니다.<p/>
             
       위의 기간동안 <span className="highlight">{Array.from(new Set(attackers)).join(", ")}</span> 에게 괴롭힘 피해를 당했습니다.<p/>
       
@@ -93,6 +96,7 @@ useEffect(() => {
       })}
   
       </div>
+    </div>
     </div>
   )
 }
