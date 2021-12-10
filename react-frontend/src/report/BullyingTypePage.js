@@ -59,9 +59,9 @@ const BullyingTypePage = (props) => {
               <span className="yoon_overview-title">괴롭힘 유형 분류</span>
               <br/>
               <span className="yoon_overview-tilte-desc">
-              괴롭힘 유형별로 증거 자료를 나타냅니다.
+              괴롭힘 유형별로 사건을 분류하여.
               <br/>
-              증거 자료에 대한 속성 값과 피해사실을 기록할 수 있습니다.
+              유형별로 어떠한 괴롭힘을 당했는지 알 수 있습니다.
               </span>
             </Stack>
             <br/>

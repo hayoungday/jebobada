@@ -60,14 +60,14 @@ function ChangedModal({ className, visible, children, relatedMetadata, programNa
 
     const modal_contents = (type) => {
         if(type=="녹음 파일"){
-            return(
-                <>
-                    <button className="close_icon_postview" onClick={closeModal}/>                  
-                    <div className="flex-container-column-meta">
-                      <span className="info_modify">편집 정보</span>
-                      <span className="help_text">
-                        편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여 녹음 파일이 가공되었는지 확인합니다.
-                      </span>
+          return(
+            <>
+                <button className="close_icon_postview" onClick={closeModal}/>                  
+                <div className="flex-container-column-meta">
+                  <span className="info_modify">편집 정보</span>
+                  <span className="help_text">
+                    편집 프로그램 사용 및 내용 짜깁기 등을 탐지하여 녹음 파일이 가공되었는지 확인합니다.
+                  </span>
 
                       <span className="info_modify_text">편집 여부</span>
                       <div className="info_modify_container">
