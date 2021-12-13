@@ -92,7 +92,7 @@ class DecompressWin10(object):
             if ntstatus:
                 sys.exit('Decompression failed, err: {}'.format(
                     self.tohex(ntstatus, 32)))
-                    #hex(ntstatus, 32)))
+
 
             if ntFinalUncompressedSize.value != decompressed_size:
                 sys.exit('Decompressed with a different size than original!')

@@ -1,5 +1,6 @@
 import os
 import logging
+import re
 
 from winactivities.activities import ActivitiesDb
 from winactivities.helpers import CustomStringFormatter
@@ -16,15 +17,28 @@ def set_debug_level(debug_level):
     else:
         raise (Exception("{} is not a valid debug level.".format(debug_level)))
 
+def search(dirname):
+    filenames = os.listdir(dirname)
+    for filename in filenames:
+        if "L." in filename or len(filename) == 16:     
+            full_filename = os.path.join(dirname, filename)
+            if os.path.isfile(full_filename):
+                pass
+            else:
+                print(full_filename)
+                return full_filename
+
 
 def activitiesParse():
     list = []
-
-    abs_path = "C:\\Users\\{}\\".format(os.getlogin())
-    source = abs_path + "AppData\\Local\\ConnectedDevicesPlatform\\L.{}\\ActivitiesCache.db".format(os.getlogin())
-    output_template = "{LastModifiedTime} - {AppId[0][application]}"
-
+ 
+    output_template = "{LastModifiedTime} - {AppId[0][application]} - {AppActivityId}"
     formatter = CustomStringFormatter()
+
+    abs_path = "C:\\Users\\{}\\AppData\\Local\\ConnectedDevicesPlatform\\".format(os.getlogin())
+    source_path = search(abs_path)
+
+    source = source_path + r"\ActivitiesCache.db".format(os.getlogin())
     activities_db = ActivitiesDb(source)
 
     for record in activities_db.iter_activities(0):
@@ -34,6 +48,3 @@ def activitiesParse():
         list.append(output)
     
     return list
-
-
-

@@ -15,8 +15,6 @@
 # Contact: <accidentalassist@gmail.com>
 
 
-import os
-import ntpath
 import struct
 import tempfile
 from datetime import datetime,timedelta
@@ -28,6 +26,7 @@ class Prefetch(object):
         self.pFileName = infile
 
         with open(infile, "rb") as f:
+            
             if f.read(3).decode("ASCII") == "MAM":
                 f.close()
                 d = DecompressWin10()
@@ -327,39 +326,6 @@ class Prefetch(object):
         entryNumber = int.from_bytes(buf[0:6], byteorder="little")
         return sequenceNumber, entryNumber
 
-
-    def prettyPrint(self):
-        # Prints important Prefetch data in a structured format
-        banner = "=" * (len(ntpath.basename(self.pFileName)) + 2)
-        print("\n{0}\n{1}\n{0}\n".format(banner, ntpath.basename(self.pFileName)))
-        print("Executable Name: {}\n".format(self.executableName))
-        print("Run count: {}\n".format(self.runCount))
-
-        if len(self.timestamps) > 1:
-            print("Last Executed:")
-            for timestamp in self.timestamps:
-                print("    " + timestamp)
-        else:
-            print("Last Executed: {}".format(self.timestamps[0]))
-        
-        print("\nVolume Information:")
-        for i in self.volumesInformationArray:
-            print("   Volume Name: " + i["Volume Name"].decode("UTF-16", errors="backslashreplace"))
-            print("   Creation Date: " + i["Creation Date"])
-            print("   Serial Number: " + i["Serial Number"])
-            print()
-
-        print("Directory Strings:")
-        for volume in self.directoryStringsArray:
-            for dirstring in enumerate(volume):
-                print("{:>4}: {}".format(dirstring[0], dirstring[1]))
-        print()
-
-        print("Resources Loaded:")
-        for resource in enumerate(self.resources):
-            print("{:>4}: {}".format(resource[0], resource[1]))
-        print()
-    
 
 def convertTimestamp(timestamp):
         # Timestamp is a Win32 FILETIME value

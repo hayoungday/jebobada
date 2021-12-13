@@ -38,7 +38,6 @@ def snt(file):
     final_df = pd.DataFrame(data = data_df , columns = column_df)
     print("StickyParser: Saving the csv file")
    
-    #final_df.to_csv(args.d+ 'stickynoteresultsnt-'+ now + '.csv', index=False)
     print(final_df)
     print("StickyParser: File saved.")
 
@@ -50,9 +49,7 @@ def plum(db):
         RemoteId, ChangeKey, LastServerVersion, RemoteSchemaVersion, IsRemoteDataInvalid, PendingInsightsScan, Type, Id, ParentId, \
         strftime('%Y-%m-%d %H:%M:%S', CreatedAt/10000000 - 62135596800,'unixepoch') AS CreatedAtUTC, strftime('%Y-%m-%d %H:%M:%S', DeletedAt/10000000 - 62135596800,'unixepoch') AS DeletedAtUTC,\
         strftime('%Y-%m-%d %H:%M:%S', UpdatedAt/10000000 - 62135596800,'unixepoch') AS UpdatedAtUTC FROM Note", conn)
-    #print("StickyParser: Saving the csv file")
-       
-    #db_df.to_csv(args.d+ 'stickynoteresultplum-'+ now + '.csv', index=False)    
+         
     result = []
 
     for r in range(len(db_df)):
@@ -63,20 +60,16 @@ def plum(db):
             for k in range(len(texts)):
                 textList.append(texts[k].split(' ')[1])
             dataList.append(textList)
-            #dataList.append(db_df.iloc[r]['CreatedAtUTC'])
             dataList.append(db_df.iloc[r]['UpdatedAtUTC'])
             updateTime = datetime.datetime.strptime(db_df.iloc[r]['UpdatedAtUTC'], '%Y-%m-%d %H:%M:%S').timestamp()
             dataList.append(updateTime)
             result.append(dataList)
         else:
             dataList.append(["None"])
-            #dataList.append(db_df.iloc[r]['CreatedAtUTC'])
             dataList.append(db_df.iloc[r]['UpdatedAtUTC'])
             updateTime = datetime.datetime.strptime(db_df.iloc[r]['UpdatedAtUTC'], '%Y-%m-%d %H:%M:%S').timestamp()
             dataList.append(updateTime)
             result.append(dataList)
-
-    #print("StickyParser: File saved.")
 
     return result
 
@@ -117,8 +110,6 @@ def asciidump(src, length=80):
     digits = 4 if isinstance(src, str) else 2
     for i in range(0, len(src), length):
        s = src[i:i+length]
-       #print(type(s))
-       #s = bytes(s, 'utf-8')
        text = ''
        text = text.encode()
        for x in s:
@@ -129,7 +120,6 @@ def asciidump(src, length=80):
            text += x.to_bytes(1,'big')
        result.append( b"%s" % (text) )
        
-       #result = result.decode('utf-8','ignore')
        x = b'\n'.join(result)
        x.decode('utf-8',errors='ignore')
        
@@ -261,33 +251,12 @@ def pagedump(pages):
             print(hexdump(freestr), file = file)
 
 
-if __name__ == "__main__":
-
-    #parser = argparse.ArgumentParser(description="""StickyParser: Parses sticky note files in legacy snt formats or latest sqlite formats.It can also be used to recover deleted content inside sqlite. 
-    #                                            For latest version of StickyNote, please copy everything under the %LOCALAPPDATA%\\Packages\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbw\\LocalStatealState Folder. Run StickyPraser against the copied folder. Make sure the other files apart from the plum.sqlite are all in the same folder.
-    #                                             Once run, WAL/SHM files will be merged into .sqlite file.""")
-    #parser.add_argument('-s', nargs='?',metavar="snt file", help='Sticky note .snt file. Example: StickyParser.exe -s C:\\Users\\User\\AppData\\Roaming\\Sticky Notes\\StickyNotes.snt. Choose either -s or -p only. ', type=argparse.FileType('r'))
-    # snt file
-    #parser.add_argument('-p', nargs='?',metavar="sqlite file", help='Sticky note plum.sqlite file. Example: StickyParse -s  <Path>\\plum.sqlite. Choose either -s or -p', type=argparse.FileType('r'))
-    # parse
-    #parser.add_argument('-d' ,nargs='?',metavar="File Directory", help='Specify the directory where the output should write to. Example: StickyParser -p <path> -d C:\\Users\\User\\Desktop\\')
-    # destination
-    #parser.add_argument('-r', nargs='?',metavar="sqlite file", help = 'To recover deleted content from sqlite.') 
-    # recover
-    #args = parser.parse_args()
-
-    """ if args.d is not None:
-        if args.d[-1] != '\\':
-            args.d = args.d + '\\' """
-           
+if __name__ == "__main__":    
     sntFile = "C:\\Users\\{}\\AppData\\Roaming\\Sticky Notes\\StickyNotes.snt".format(os.getlogin())
 
     if os.path.isfile(sntFile):
-        #print('StickyPraser: Parsing the SNT File...')
         snt(sntFile)
     else:
-        #print('StickyPraser: Parsing the sqlite file ....')
-        # %LOCALAPPDATA%\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState\plum.sqlite
         plumFile = "C:\\Users\\{}\\AppData\\Local\\Packages\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\\LocalState\\plum.sqlite".format(os.getlogin())
         plum(plumFile)
     

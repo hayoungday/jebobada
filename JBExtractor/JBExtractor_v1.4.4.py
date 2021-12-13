@@ -3,6 +3,7 @@ import sys
 import datetime
 import webbrowser
 import hashlib
+import re
 
 from PyQt5 import uic
 from PyQt5 import QtCore
@@ -550,6 +551,7 @@ class MainWindow(QMainWindow, form_mainWindow):
     
     def func_activitiesCache(self):
         activitiesCache_list = winactivities2json.activitiesParse()
+
         label = "사적지시/전가/SNS/초과근무/감시/휴가/육아휴직"
 
         basic_program = ["APPLICATIONFRAMEHOST.EXE",            # Windows 10 스토어 플랫폼 앱
@@ -673,21 +675,28 @@ class MainWindow(QMainWindow, form_mainWindow):
             flag = 0
 
             # artifact_timestamp (Epoch Time)
-            artifact_timestamp, artifact_item_path = activitiesCache_list[r].split(' - ')
-            # UTC+9
-            artifact_timestamp = datetime.datetime.strptime(artifact_timestamp, '%Y-%m-%d %H:%M:%S').timestamp()
-            artifact_timestamp += 32400
-            artifact_date_item = datetime.datetime.fromtimestamp(artifact_timestamp).strftime('%Y-%m-%d/%H:%M:%S')
-            artifact_item = artifact_item_path.split('\\')[-1]
+            artifact_timestamp, artifact_item_path, artifact_appName = activitiesCache_list[r].split(' - ')
+            artifact_appName = artifact_appName.split('\\')[-1]
+            print(artifact_appName)
 
-            for k in range(len(self.dateList)):
-                if artifact_timestamp >= self.dateList[k][0] and artifact_timestamp <= self.dateList[k][1]:
-                    flag += 1
+            p = re.compile("\w{8}[-]\w{4}[-]\w{4}[-]\w{4}[-]\w{12}")
+            if p.match(artifact_appName) or artifact_appName == "ECB32AF3-1440-4086-94E3-5311F97F89C4" or "default$windows.data" in artifact_appName:
+                pass
+            else:
+                # UTC+9
+                artifact_timestamp = datetime.datetime.strptime(artifact_timestamp, '%Y-%m-%d %H:%M:%S').timestamp()
+                artifact_timestamp += 32400
+                artifact_date_item = datetime.datetime.fromtimestamp(artifact_timestamp).strftime('%Y-%m-%d/%H:%M:%S')
+                artifact_item = artifact_item_path.split('\\')[-1]
 
-            if flag > 0 and artifact_item not in basic_program:
-                self.exe_cnt += 1
-                self.result.append("윈도우 타임라인" + "," + artifact_date_item + "," + artifact_item + "," + "프로그램 실행" + "," + "icon_exec" + "," + label + "," + artifact_item_path)
-            
+                for k in range(len(self.dateList)):
+                    if artifact_timestamp >= self.dateList[k][0] and artifact_timestamp <= self.dateList[k][1]:
+                        flag += 1
+
+                if flag > 0 and artifact_item not in basic_program:
+                    self.exe_cnt += 1
+                    self.result.append("윈도우 타임라인" + "," + artifact_date_item + "," + artifact_appName + " (" + artifact_item + ")" + "," + "프로그램 실행" + "," + "icon_exec" + "," + label + "," + artifact_item_path)
+                
         self.label_exe_step3.setText(str(self.exe_cnt) + " 건")
         self.completeCnt += 10
         print("Progressing...(" + str(self.completeCnt) + "%) ==> ActivitiesCache completed")
@@ -771,13 +780,13 @@ class MainWindow(QMainWindow, form_mainWindow):
             self.dateList[r].append(endTime)
 
 
-        self.func_prefetch()
-        self.func_jumplist()
-        self.func_recycleBin()
-        self.func_history()
+        #self.func_prefetch()
+        #self.func_jumplist()
+        #self.func_recycleBin()
+        #self.func_history()
         self.func_activitiesCache()
-        self.func_eventLog()
-        self.func_usb()
+        #self.func_eventLog()
+        #self.func_usb()
 
         self.nextBtnClick()
 

@@ -22,9 +22,34 @@ def get_history():
             browser_output_object = browser_object.fetch_history()
             output_object.histories.extend(browser_output_object.histories)
         except AssertionError:
-            utils.logger.info("%s browser is not supported", browser_class.name)
+            pass
+            #utils.logger.info("%s browser is not supported", browser_class.name)
     output_object.histories.sort()
     return output_object
+
+
+def get_download():
+    """This method is used to obtain browser histories of all available and
+    supported browsers for the system platform.
+
+    :return: Object of class :py:class:`browser_history.generic.Outputs` with
+        the data member histories set to
+        list(tuple(:py:class:`datetime.datetime`, str))
+
+    :rtype: :py:class:`browser_history.generic.Outputs`
+    """
+    output_object = generic.Outputs(fetch_type="history")
+    browser_classes = utils.get_browsers()
+    for browser_class in browser_classes:
+        try:
+            browser_object = browser_class()
+            browser_output_object = browser_object.fetch_download()
+            output_object.histories.extend(browser_output_object.histories)
+        except AssertionError:
+            pass
+            #utils.logger.info("%s browser is not supported", browser_class.name)
+    return output_object
+
 
 
 def get_bookmarks():

@@ -21,9 +21,8 @@ from urllib.parse import urlparse
 
 import browser_history.utils as utils
 
-HistoryVar = List[Tuple[datetime.datetime, str]]
+HistoryVar = List[Tuple[datetime.datetime, str, str]]
 BookmarkVar = List[Tuple[datetime.datetime, str, str, str]]
-
 
 class Browser(abc.ABC):
     """A generic class to support all major browsers with minimal
@@ -121,6 +120,17 @@ class Browser(abc.ABC):
 
             .. _datetime: https://www.sqlitetutorial.net/sqlite-date-functions/sqlite-datetime-function/
         """  # pylint: disable=line-too-long # noqa: E501
+    
+    @property
+    @abc.abstractmethod
+    def download_SQL(self) -> str:
+        """SQL query required to extract history from the ``history_file``.
+        The query must return two columns: ``visit_time`` and ``url``.
+        The ``visit_time`` must be processed using the `datetime`_
+        function with the modifier ``localtime``.
+
+            .. _datetime: https://www.sqlitetutorial.net/sqlite-date-functions/sqlite-datetime-function/
+        """  # pylint: disable=line-too-long # noqa: E501
 
     def __init__(self, plat: typing.Optional[utils.Platform] = None):
         self.profile_dir_prefixes = []
@@ -164,11 +174,14 @@ class Browser(abc.ABC):
         """
 
         if not os.path.exists(self.history_dir):
-            utils.logger.info("%s browser is not installed", self.name)
+            #utils.logger.info("%s browser is not installed", self.name)
             return []
+
         if not self.profile_support:
             return ["."]
+
         profile_dirs = []
+
         for files in os.walk(str(self.history_dir)):
             for item in files[2]:
                 if os.path.split(os.path.join(files[0], item))[-1] == profile_file:
@@ -178,6 +191,7 @@ class Browser(abc.ABC):
                     if path.endswith(os.sep):
                         path = path[:-1]
                     profile_dirs.append(path)
+        
         return profile_dirs
 
     def history_path_profile(self, profile_dir: Path) -> typing.Optional[Path]:
@@ -235,6 +249,40 @@ class Browser(abc.ABC):
             self.history_path_profile(profile_dir) for profile_dir in profile_dirs
         ]
         return self.fetch_history(history_paths)
+    
+
+
+    
+    def fetch_download(self, history_paths=None, sort=True, desc=False):
+
+
+        output_object = Outputs(fetch_type="history")
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            for history_path in history_paths:
+                copied_history_path = shutil.copy2(history_path.absolute(), tmpdirname)
+                conn = sqlite3.connect(
+                    f"file:{copied_history_path}?mode=ro&immutable=1&nolock=1", uri=True
+                )
+                cursor = conn.cursor()
+                cursor.execute(self.download_SQL)
+                date_histories = [
+                    (
+                        datetime.datetime.strptime(d, "%Y-%m-%d %H:%M:%S").replace(
+                            tzinfo=self._local_tz
+                        ),
+                        path,
+                        url,
+                        ids,
+                    )
+                    for d, path, url, ids in cursor.fetchall()
+                ]
+                output_object.histories.extend(date_histories)
+                if sort:
+                    output_object.histories.sort(reverse=desc)
+                conn.close()
+        return output_object
+
+
 
     def fetch_history(self, history_paths=None, sort=True, desc=False):
         """Returns history of all available profiles stored in SQL.
@@ -261,8 +309,17 @@ class Browser(abc.ABC):
             If the browser is not installed, this object will be empty.
         :rtype: :py:class:`browser_history.generic.Outputs`
         """
+        
+        browser_list = ['chromium', 'chrome', 'firefox', 'safari', 'edge', 'opera', 'operagx', 'brave', 'vivaldi']
+        browser_type = "None"
+
         if history_paths is None:
             history_paths = self.paths(profile_file=self.history_file)
+            for r in range(len(browser_list)):
+                val = str(history_paths).lower().find(browser_list[r])
+                if val > -1:
+                    browser_type = browser_list[r]
+
         output_object = Outputs(fetch_type="history")
         with tempfile.TemporaryDirectory() as tmpdirname:
             for history_path in history_paths:
@@ -277,9 +334,11 @@ class Browser(abc.ABC):
                         datetime.datetime.strptime(d, "%Y-%m-%d %H:%M:%S").replace(
                             tzinfo=self._local_tz
                         ),
+                        title,
                         url,
+                        browser_type,
                     )
-                    for d, url in cursor.fetchall()
+                    for d, url, title in cursor.fetchall()
                 ]
                 output_object.histories.extend(date_histories)
                 if sort:
@@ -357,7 +416,7 @@ class Outputs:
 
     # type hint for histories and bookmarks have to be manually written for
     # docs instead of using HistoryVar and BookmarkVar respectively
-    histories: List[Tuple[datetime.datetime, str]]  #: List of tuples of Timestamp & URL
+    histories: List[Tuple[datetime.datetime, str, str]]  #: List of tuples of Timestamp & URL
     bookmarks: List[Tuple[datetime.datetime, str, str, str]]
     """List of tuples of Timestamp, URL, Title, Folder."""
 
@@ -373,11 +432,8 @@ class Outputs:
         self.histories = []
         self.bookmarks = []
         self.field_map = {
-            "history": {"var": self.histories, "fields": ("Timestamp", "URL")},
-            "bookmarks": {
-                "var": self.bookmarks,
-                "fields": ("Timestamp", "URL", "Title", "Folder"),
-            },
+            "history": {"var": self.histories, "fields": ("Timestamp", "Title", "URL")},
+            "bookmarks": {"var": self.bookmarks, "fields": ("Timestamp", "URL", "Title", "Folder")},
         }
         self.format_map = {
             "csv": self.to_csv,
@@ -575,7 +631,6 @@ class ChromiumBasedBrowser(Browser, abc.ABC):
     """A generic class to support the increasing number of Chromium based
     browsers.
     """
-
     profile_dir_prefixes = ["Default*", "Profile*"]
 
     history_file = "History"
@@ -586,6 +641,7 @@ class ChromiumBasedBrowser(Browser, abc.ABC):
                 datetime(
                     visits.visit_time/1000000-11644473600, 'unixepoch', 'localtime'
                 ) as 'visit_time',
+                urls.title,
                 urls.url
             FROM
                 visits INNER JOIN urls ON visits.url = urls.id
@@ -593,6 +649,20 @@ class ChromiumBasedBrowser(Browser, abc.ABC):
                 visits.visit_duration > 0
             ORDER BY
                 visit_time DESC
+        """
+
+    download_SQL = """
+            SELECT
+                datetime(
+                    downloads.start_time/1000000-11644473600, 'unixepoch', 'localtime'
+                ) as 'visit_time',
+                downloads.currnet_path,
+                downloads.tab_url,
+                downloads.id
+            FROM
+                downloads
+            WHERE
+                downloads.opended > 0
         """
 
     def bookmarks_parser(self, bookmark_path):

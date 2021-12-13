@@ -1,34 +1,7 @@
-#!/usr/bin/python3
-
-#MIT License
-
-#Copyright (c) 2019 Jhoevine Capicio
-
-#Permission is hereby granted, free of charge, to any person obtaining a copy
-#of this software and associated documentation files (the "Software"), to deal
-#in the Software without restriction, including without limitation the rights
-#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#copies of the Software, and to permit persons to whom the Software is
-#furnished to do so, subject to the following conditions:
-
-#The above copyright notice and this permission notice shall be included in all
-#copies or substantial portions of the Software.
-
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#SOFTWARE.
-
-
 import os
 import struct
 import datetime
-import sys
 import time
-import argparse
 
 class deleted_file():
     def __init__(self):
@@ -50,9 +23,6 @@ def to_seconds(date):
 
 
 def Recycle():
-
-    full_display = 1
-
     deleted_files = []
     RecycleBin = "C:\\$Recycle.Bin"
 
@@ -79,6 +49,7 @@ def Recycle():
                         elif os.path.isfile(del_file.Rfile):
                             del_file.type = "file"
                         deleted_files.append(del_file)
+
     elif os.path.isfile(RecycleBin.strip()):
         if os.path.basename(RecycleBin)[0:2] == '$I':
             with open(RecycleBin, "rb") as f:
@@ -100,29 +71,21 @@ def Recycle():
                     del_file.type = "file"
                     print(del_file.Ifile)
                 deleted_files.append(del_file)
-
+                
     result = []
     extlist = ['docx', 'xlsx', 'xls', 'ppt', 'pdf', 'txt', 'hwp', 'csv']
-    label = "업무제외/제출강요"
+    label = "배제/사적지시/전가/업무제외/SNS/초과근무/건의/사직종용/제출강요/행사/장기자랑강요/후원강요/휴가/육아휴직/모임/실업급여/성희롱"
 
     for del_file in deleted_files:
         if del_file.type == "dir":
-            result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "폴더 삭제" + "," + "icon_folder_del" + "," + label)
-
-            #print ('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, del_file.type, del_file.size, del_file.filepath.strip(), del_file.filename.strip(), os.path.basename(del_file.Ifile), os.path.basename(del_file.Rfile)))
-            """ if full_display:
-                for root, dir, files in os.walk(del_file.Rfile):
-                    for file in files:
-                        result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + os.path.join(del_file.filepath, file).replace("/", "\\") + "," + "파일 또는 폴더 삭제") """
-                        #print('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, "dir content", os.path.getsize(os.path.join(root, file)), os.path.join(del_file.filepath, file).replace("/", "\\"), file, "", ""))
-        #elif del_file.type == "file":
+            result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "폴더 삭제" + "," + "icon_folder_del" + "," + label + "," + os.path.join(del_file.filepath, file).replace("/", "\\"))
+            
         else:
             extention = del_file.filename.strip().split('.')
             if len(extention) > 1:
                 if extention[-1].split(' ')[0].lower() in extlist: 
-                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "문서 삭제" + "," + "icon_doc_del" + "," + label)
+                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "문서 삭제" + "," + "icon_" + extention[-1].split(' ')[0].lower() + "_del" + "," + label + "," + os.path.join(del_file.filepath, file).replace("/", "\\"))
                 else:
-                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "파일 삭제" + "," + "icon_file_del" + "," + label)
-            #print('%s,%s,%s,%s,%s,%s,%s' % (del_file.date, del_file.type, del_file.size, del_file.filepath.strip(), del_file.filename.strip(), os.path.basename(del_file.Ifile), os.path.basename(del_file.Rfile)))
+                    result.append("휴지통" + "," + str(del_file.date).replace(' ', '/') + "," + del_file.filename.strip() + "," + "파일 삭제" + "," + "icon_file_del" + "," + label + "," + os.path.join(del_file.filepath, file).replace("/", "\\"))
 
     return result

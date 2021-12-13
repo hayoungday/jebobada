@@ -1,36 +1,16 @@
-import json
 import struct
 import uuid
 import datetime
 import os
-import re
-import argparse
 import olefile
 
-"""
-references: 
-https://cyberforensicator.com/wp-content/uploads/2017/01/1-s2.0-S1742287616300202-main.2-14.pdf
-https://github.com/libyal/liblnk/blob/master/documentation/Windows%20Shortcut%20File%20(LNK)%20format.asciidoc
-https://community.malforensics.com/t/list-of-jump-list-ids/158
-"""
-
-#appid_path = os.path.dirname(os.path.abspath(__file__)) + '/JLParser_AppID.csv'
-
-class JL:
+class JumpList:
+    
     codecs = ["ascii","cp949"]
-    def __init__(self , jumplist_path):
-    #def __init__(self , jumplist_path , appid_path):
-        self.pretty = True
-        self.delimiter = ','
 
-        # set the AppIDs 
-        #appid_path = os.path.abspath(appid_path)
-        #if os.path.exists(appid_path):
-            
-        #    AppIDs = self.read_AppId(appid_path)
-        #else:
-            #print("[-] Error: File " + appid_path + " not found")
-        #    return None
+    def __init__(self , jumplist_path):
+
+        self.delimiter = ','
 
         # get the list of files to be parsed
         files = []
@@ -53,7 +33,7 @@ class JL:
                 #print("[-] Error: Path " + str(file) + " is not file or not found")
                 return None
 
-        # handle all the output results
+        # handle all the output in results
         self.result = self.handle_output(output)
 
     def __str__(self):
@@ -65,18 +45,6 @@ class JL:
             for f in filenames:
                 files.append( os.path.join(dirpath , f)  )
         return files
-
-    # this will read the AppID file and return json of all appids 
-    def read_AppId(self, path):
-        with open(path, 'r', encoding='UTF8') as f:
-            lines = f.readlines()
-            appid = {}
-            for l in lines:
-                fields = l.rstrip().split(',')
-                appid[fields[1]] = (fields[0] , fields[2])
-
-            return appid
-        return {}
 
     # File attribute flags
     def get_network_provider_types(self, provider_bytes):
@@ -528,19 +496,12 @@ class JL:
         return lnk_details
 
     def automaticDest(self, path):
-    #def automaticDest(self, path , AppIDs):
-
 
         # check file to get the AppID 
         filename = os.path.basename(path)
         AppID     = "Unknown"
         AppType = "Unknown"
         AppDesc = "Unknown"
-        #if re.search(r'[0-9A-F]{16}.(AUTOMATICDESTINATIONS-MS|AUTOMATICDESTINATIONS-MS)', filename.upper(), flags = 0):
-        #    AppID = filename.split('.')[0]
-        #    if AppID in AppIDs.keys():
-        #        AppType = AppIDs[AppID][0]
-        #        AppDesc = AppIDs[AppID][1]
 
         clean_entry = {
                     'LNK_Class_ID'             : '',
@@ -657,6 +618,3 @@ class JL:
 
         # print the output if output file not specified, otherwise write the output to the output file
         return output_text
-        
-
-
