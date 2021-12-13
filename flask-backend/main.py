@@ -1340,7 +1340,11 @@ def bullyingtimeline():
         df = pd.DataFrame(evid)
         df2 = df[['date']]
         df2.rename(columns = {'date' : 'x'}, inplace = True)
-        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\n","~").split("~")[4]
+        
+
+        # df2.loc[df2['x'].str.contains('~'),'x']=list(filter(None,(str(df2['x']).replace(' ',"~").replace("\n","~").split("~"))))[3]
+        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).split("~")[0][-11:-1]
+
         
         df2['y'] = df2.count(axis = 1)
         
@@ -1431,8 +1435,21 @@ def attackertimeline():
         df2 = df[['date']]
         df2.rename(columns = {'date' : 'x'}, inplace = True)
         
-        df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).replace(' ',"~").replace("\n","~").split("~")[4]
+        # tmp = list(np.array(df2['x'].tolist()))
+        # print(tmp)
         
+        # for i, t in enumerate(tmp):
+        #     print(type(t))
+        #     t[i] = t.str.split(" ~ ")[0]
+        
+        # print(tmp)
+                        
+        # df2.loc[df2['x'].str.contains('~'),'x']=list(filter(None,(str(df2['x']).replace(' ',"~").replace("\n","~").split("~"))))[3]
+        
+        # df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).split("~")[0][-11:-1]
+        
+        df2['x'] = df2['x'].apply(lambda x: x.split(" ~ ")[0])
+                
         df2['y'] = df2.count(axis = 1)
 
         maxs = date(int(df2['x'].max().split('-')[0]),int(df2['x'].max().split('-')[1]),int(df2['x'].max().split('-')[2]))+timedelta(days=3)

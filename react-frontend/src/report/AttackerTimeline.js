@@ -130,7 +130,13 @@ const AttackerTimeline = (props) => {
       // SetStartDate(res.data[0]['date'].substr(0,10))
       // SetEndDate(res.data[res.data.length-1]['date'].split("~")[1])
       if (res.data[res.data.length-1].filetype=="컴퓨터 증거"){
-        SetDate(res.data[0]['date'].substr(0,10)+"~"+res.data[res.data.length-1]['date'].split("~")[1])
+        
+        if (res.data.length == 1){
+          SetDate(res.data[0]['date'].substr(0,10))
+        } else{
+          SetDate(res.data[0]['date'].substr(0,10)+"~"+res.data[res.data.length-1]['date'].split("~")[1])  
+        }
+        
       } else{
         SetDate(res.data[0]['date'].substr(0,10)+"~"+res.data[res.data.length-1]['date'])
       }
