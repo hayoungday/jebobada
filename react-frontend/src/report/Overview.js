@@ -114,6 +114,8 @@ const Overview = React.forwardRef((props,ref) => {
 
   console.log(requirement);
   console.log(typeof requirement["seperate"]);
+  const attackersSet=new Set(attackers)
+  const attackerSetArray=[...attackersSet]
 
   const etcUpdate=(e)=>{
     SetRequirement({
@@ -187,7 +189,6 @@ const Overview = React.forwardRef((props,ref) => {
       SetStartDate(res.data[0]["date"].substr(0, 10));
       SetEndDate(res.data[res.data.length - 1]["date"].substr(0,10));
       res.data.map((c) => {
-
         c.attacker.map((a)=>{
           SetAttackers(attackers => [...attackers, a]);
         })
