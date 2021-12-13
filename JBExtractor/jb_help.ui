@@ -1388,7 +1388,7 @@ QPushButton::hover
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>설정된 기간(1시간, 1일, 3일 등)을 선택할 수 있습니다. </string>
+      <string>설정된 기간(3시간, 1일, 3일 등)을 선택할 수 있습니다. </string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

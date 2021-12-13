@@ -108,12 +108,12 @@ border: 2px solid #E2E2E2;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>90</x>
      <y>160</y>
-     <width>310</width>
+     <width>230</width>
      <height>20</height>
     </rect>
    </property>
@@ -124,7 +124,7 @@ border: 2px solid #E2E2E2;</string>
     </font>
    </property>
    <property name="text">
-    <string>최소 하나 이상의 기간을 설정해주세요.</string>
+    <string>파일이 저장되지 않았습니다.</string>
    </property>
   </widget>
  </widget>

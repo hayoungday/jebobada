@@ -111,9 +111,9 @@ border: 2px solid #E2E2E2;</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>160</y>
-     <width>310</width>
+     <x>30</x>
+     <y>140</y>
+     <width>340</width>
      <height>20</height>
     </rect>
    </property>
@@ -124,7 +124,26 @@ border: 2px solid #E2E2E2;</string>
     </font>
    </property>
    <property name="text">
-    <string>최소 하나 이상의 기간을 설정해주세요.</string>
+    <string>다운로드 받을 수 있는 추출 결과가 없습니다.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>180</y>
+     <width>300</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔스퀘어</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>컴퓨터 사용기록을 먼저 추출해주세요.</string>
    </property>
   </widget>
  </widget>

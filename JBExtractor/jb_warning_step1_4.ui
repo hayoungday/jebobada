@@ -111,9 +111,9 @@ border: 2px solid #E2E2E2;</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>160</y>
-     <width>310</width>
+     <x>110</x>
+     <y>140</y>
+     <width>190</width>
      <height>20</height>
     </rect>
    </property>
@@ -124,7 +124,26 @@ border: 2px solid #E2E2E2;</string>
     </font>
    </property>
    <property name="text">
-    <string>최소 하나 이상의 기간을 설정해주세요.</string>
+    <string>이미 등록된 기간입니다.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>180</y>
+     <width>260</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔스퀘어</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>기간은 중복 설정할 수 없습니다.</string>
    </property>
   </widget>
  </widget>

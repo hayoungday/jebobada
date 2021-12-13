@@ -83,7 +83,7 @@ border-top-left-radius: 20px;
 border: 2px solid #E2E2E2;</string>
    </property>
    <property name="text">
-    <string>   경고</string>
+    <string>   알림</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -102,7 +102,7 @@ border: 2px solid #E2E2E2;</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>icons/warning_sign.png</pixmap>
+    <pixmap>icons/complete.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -111,9 +111,9 @@ border: 2px solid #E2E2E2;</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>65</x>
      <y>160</y>
-     <width>310</width>
+     <width>270</width>
      <height>20</height>
     </rect>
    </property>
@@ -124,7 +124,7 @@ border: 2px solid #E2E2E2;</string>
     </font>
    </property>
    <property name="text">
-    <string>최소 하나 이상의 기간을 설정해주세요.</string>
+    <string>파일이 정상적으로 저장되었습니다.</string>
    </property>
   </widget>
  </widget>
