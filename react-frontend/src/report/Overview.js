@@ -25,6 +25,40 @@ import StepConnector, {
 import { TextField } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import Header from '../components/Header';
+import html2canvas from "html2canvas"
+import jsPDF from "jspdf";
+import Button from "@mui/material/Button";
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
+
+
+  const onCapture = () => {
+    console.log("onCapture");
+    html2canvas(document.getElementById("print")).then((canvas) => { 
+      var doc=new jsPDF('p','mm','a2')
+      var imgData=canvas.toDataURL('image/png');
+      doc.addImage(imgData,'PNG',0,0)
+      doc.save('sample.pdf')
+
+      // onSaveAs(canvas.toDataURL("image/png"), "image-download.png");
+    });
+  };
+  function content_print_test1(){
+     
+    var initBody = document.body.innerHTML;
+    window.onbeforeprint = function(){
+        document.body.innerHTML = document.getElementById('print').innerHTML;
+    }
+    window.onafterprint = function(){
+        document.body.innerHTML = initBody;
+    }
+    window.print();    
+}
+
+function content_print_test2(){
+  var doc = new jsPDF();
+  doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+  doc.save("myDocument.pdf");
+}
 
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -36,11 +70,12 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     border: 0,
     backgroundColor: "#8FAADC",
     borderRadius: 1,
+    marginLeft:"10%",
+    marginRight:"10%"
   },
 }));
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  backgroundColor: "white",
   zIndex: 2,
   color: "#4B64D4",
   width: 100,
@@ -220,14 +255,22 @@ const Overview = React.forwardRef((props,ref) => {
   }
   
   return (
+    
     <div>
         <Header />
+        {/* <Button variant="contained" style={{backgroundColor:"#294379",marginTop:"5%",marginLeft:"88%"}} onClick={()=>content_print_test1()}>Print {<LocalPrintshopIcon/>}</Button> */}
     <div className="flex-container">
+    
+    
       <div className="nav-item">
         <ReportHeader case_id={case_id} />
       </div>
-      <div className="yoon_overview-container" ref = {ref}>
-        <Stack direction="row" alignItems="center" spacing={6}>
+      
+      
+      
+      <div className="yoon_overview-container" id="print">
+      
+        <Stack direction="row" alignItems="center" spacing={6} >
           <span className="yoon_overview-title">사건 개요</span>
           <br />
           <span className="yoon_overview-tilte-desc">
@@ -235,6 +278,7 @@ const Overview = React.forwardRef((props,ref) => {
             <br />
             괴롭힘 유형별 건수와 사건을 요약하여 나타냅니다.
           </span>
+          
         </Stack>
         <br />
         <Stack direction="row" alignItems="center" spacing={6}>

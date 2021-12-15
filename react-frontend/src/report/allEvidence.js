@@ -44,7 +44,7 @@ const AllEvidence = (props) => {
           <div className="nav-item">
             <ReportHeader case_id={props.location.state.case_id}/>
           </div>
-          <div className="yoon_overview-container">
+          <div className="yoon_overview-container"z>
           <Stack direction="row" alignItems="center" spacing={6}>
             <span className="yoon_overview-title">전체 자료 목록</span>
             <br />

@@ -15,7 +15,7 @@ const PrintReport = () => {
         trigger={() => <button>Print this out!!</button>}
         content={() => componentRef.current}
         />
-        <Overview ref={componentRef} />
+        
     </div>
     );
     

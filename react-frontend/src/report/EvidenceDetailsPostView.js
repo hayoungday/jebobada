@@ -329,18 +329,97 @@ const EvidenceDetailsPostView = (props) => {
           </Stack>
           <br/>
           <EvidenceDetailsSTT props={props}/>
-        
-          {/* <label>파일 이름 : {filename}</label>
-          <br />
-          <label>파일 형식 : {meta.filetype}</label>
-          <br />
-          <label>파일 크기 : {meta.filesize}</label>
-          <br />
-          <label>녹음 시각 : {meta.audioCtime}</label>
-          <br />
-          <label>녹음 장소 : {meta.title}</label>
-          <br />
-          <label>녹음 길이 : {meta.duration}</label> */}
+          <br/>
+          <Table>
+            <colgroup>
+            <col style={{width:"25%"}}/>
+            <col style={{width:"25%"}}/>
+            <col style={{width:"25%"}}/>
+            <col style={{width:"25%"}}/>
+            </colgroup>
+          <TableBody>
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 이름
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {filename}
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 형식
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.filetype}
+                  </TableCell>
+                </TableRow>
+                
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    파일 크기
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.fileSize}
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    녹음 시각
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.audioCtime}
+                  </TableCell>
+                </TableRow>
+                
+                <TableRow>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    녹음 장소
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.gpsPosition}
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    녹음 기기
+                  </TableCell>
+                  <TableCell
+                    className="yoon_evidenceDetail-tablecell"
+                    align="center"
+                  >
+                    {meta.majorBrand}
+                  </TableCell>
+                </TableRow>                
+              </TableBody>
+              </Table>
           <br />
           <Stack direction="row" spacing={2} alignItems="center">
           <span className="yoon_evidenceDetail-desc">상세 설명</span>

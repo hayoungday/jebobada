@@ -48,7 +48,7 @@ export const SidebarData = [
     path: '/pictureevidence',
     icon: <BsIcons.BsFillInfoCircleFill />,
     cName: 'nav-text'
-  },
+  }
   
   
 ];
