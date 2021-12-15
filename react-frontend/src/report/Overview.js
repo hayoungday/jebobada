@@ -31,34 +31,34 @@ import Button from "@mui/material/Button";
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 
 
-  const onCapture = () => {
-    console.log("onCapture");
-    html2canvas(document.getElementById("print")).then((canvas) => { 
-      var doc=new jsPDF('p','mm','a2')
-      var imgData=canvas.toDataURL('image/png');
-      doc.addImage(imgData,'PNG',0,0)
-      doc.save('sample.pdf')
+//   const onCapture = () => {
+//     console.log("onCapture");
+//     html2canvas(document.getElementById("print")).then((canvas) => { 
+//       var doc=new jsPDF('p','mm','a2')
+//       var imgData=canvas.toDataURL('image/png');
+//       doc.addImage(imgData,'PNG',0,0)
+//       doc.save('sample.pdf')
 
-      // onSaveAs(canvas.toDataURL("image/png"), "image-download.png");
-    });
-  };
-  function content_print_test1(){
+//       // onSaveAs(canvas.toDataURL("image/png"), "image-download.png");
+//     });
+//   };
+//   function content_print_test1(){
      
-    var initBody = document.body.innerHTML;
-    window.onbeforeprint = function(){
-        document.body.innerHTML = document.getElementById('print').innerHTML;
-    }
-    window.onafterprint = function(){
-        document.body.innerHTML = initBody;
-    }
-    window.print();    
-}
+//     var initBody = document.body.innerHTML;
+//     window.onbeforeprint = function(){
+//         document.body.innerHTML = document.getElementById('print').innerHTML;
+//     }
+//     window.onafterprint = function(){
+//         document.body.innerHTML = initBody;
+//     }
+//     window.print();    
+// }
 
-function content_print_test2(){
-  var doc = new jsPDF();
-  doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-  doc.save("myDocument.pdf");
-}
+// function content_print_test2(){
+//   var doc = new jsPDF();
+//   doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+//   doc.save("myDocument.pdf");
+// }
 
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({

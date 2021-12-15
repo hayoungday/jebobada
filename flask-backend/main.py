@@ -287,39 +287,10 @@ def upload():
         types = request.form['type'].split(",")
         mainevdi = request.form['mainevdi']
         
-        print("\n\n\n\n\n\ntype is",type(attacker))
-
-        # try:
-        #     date = request.form['date']
-        # except:
-        #     pass
-        # try:
-        #     location = request.form['location']
-        # except:
-        #     pass
-        # try:
-        #     attacker = request.form['attacker']
-        # except:
-        #     pass
-        # try:
-        #     desc = request.form['desc']
-        # except:
-        #     pass
-        # try:
-        #     types = request.form['type']
-        # except:
-        #     pass
-
-        print(str(case_num), str(user))
-        print(request.files)
-        print(len(request.files))
-        print(request.form)
         f=request.files['file']
         # f=request.form['file']
         
-        file_hash_data=hashlib.md5(f.read()).hexdigest()
-        print("case_num 타입",type(case_num))
-        print("file_hash_data 타입",type(file_hash_data))          
+        file_hash_data=hashlib.md5(f.read()).hexdigest()        
         
         #<------------------ 해시 일치하는 파일 찾기 ------------------->#
         hash_cnt=0                
@@ -590,10 +561,6 @@ def loadArtifactFile():
     data=f.stream.read()
     stream=io.StringIO(data.decode("cp949"),newline=None)
     field=['Type','Timestamp','Name','Desc','Icon','Labeling','path','isChecked']
-    # if(check_csv.check_csv(stream)=="verified fail"):
-    #     return_data['res']="verified fail"
-    #     return_data['data']=[]
-    #     return json.dumps(return_data,default=json_util.default)
 
     f.seek(0)
     data=f.stream.read()
@@ -614,36 +581,6 @@ def loadArtifactFile():
         idx=idx+1
     return_data['data']=data_list
     return json.dumps(return_data,default=json_util.default)
-
-# @app.route('/uplaodArtifact',methods=['GET','POST'])
-# def uploadArtifact():
-#     import hashlib
-#     import time
-#     import os
-#     from werkzeug.datastructures import FileStorage
-#     conn =pymongo.MongoClient(config.mongodb)
-#     db = conn.jb_db
-#     now=time.localtime()
-#     collection = db.stt
-
-#     data=request.form["data"]
-#     case_num=request.form["case_num"]
-#     user=request.form["user"]
-
-
-#     insert_data={}
-#     insert_data['state']='변환완료'              
-#     insert_data['filetype']='컴퓨터 증거'
-#     insert_data['casenum']=case_num
-#     insert_data['filename']=filename
-#     insert_data['hashed_filename']=hashed_filename
-#     insert_data['user_id']=user
-#     insert_data['data']=data
-#     insert_data['index']=collection.find({'user_id':user}).count()+1
-#     time="%04d-%02d-%02d %02d:%02d:%02d"% (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-#     insert_data['uploaded_time']=str(time)
-
-    
     
 @app.route('/textEdit',methods=['GET','POST'])
 def textEdit():
@@ -1438,19 +1375,6 @@ def attackertimeline():
         df2 = df[['date']]
         df2.rename(columns = {'date' : 'x'}, inplace = True)
         
-        # tmp = list(np.array(df2['x'].tolist()))
-        # print(tmp)
-        
-        # for i, t in enumerate(tmp):
-        #     print(type(t))
-        #     t[i] = t.str.split(" ~ ")[0]
-        
-        # print(tmp)
-                        
-        # df2.loc[df2['x'].str.contains('~'),'x']=list(filter(None,(str(df2['x']).replace(' ',"~").replace("\n","~").split("~"))))[3]
-        
-        # df2.loc[df2['x'].str.contains('~'),'x']=str(df2['x']).split("~")[0][-11:-1]
-        
         df2['x'] = df2['x'].apply(lambda x: x.split(" ~ ")[0])
                 
         df2['y'] = df2.count(axis = 1)
@@ -1556,8 +1480,8 @@ def editSTTReport():
     print(data)
     return "success"
 
-if __name__=='__main__':
- app.run(host='0.0.0.0', port=5000, debug=True)
+# if __name__=='__main__':
+#  app.run(host='0.0.0.0', port=5000, debug=True)
 
 # if __name__=='__main__':
 #  app.run(host='0.0.0.0', port=80, debug=True)

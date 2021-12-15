@@ -11,7 +11,7 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.1.0",
     "@mui/lab": "^5.0.0-alpha.54",
-    "@mui/material": "^5.1.0",
+    "@mui/material": "^5.2.4",
     "@nivo/core": "^0.74.0",
     "@nivo/scatterplot": "^0.74.0",
     "@pathofdev/react-tag-input": "^1.0.7",
